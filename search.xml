@@ -195,155 +195,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>JavaScript</title>
-    <url>/2022/07/08/JavaScript/</url>
-    <content><![CDATA[<p><img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fwww.debug8.com%2Fstatics%2Fuploads%2F2020%2F08%2F15%2F1597460167384632.jpeg&refer=http%3A%2F%2Fwww.debug8.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1659869298&t=98ffecf7bc2187582206328f237905ec" alt="img"></p>
-<span id="more"></span>
-
-<h1 id="JavaScript对象"><a href="#JavaScript对象" class="headerlink" title="JavaScript对象"></a>JavaScript对象</h1><h2 id="什么是对象"><a href="#什么是对象" class="headerlink" title="什么是对象"></a>什么是对象</h2><ul>
-<li><p>对象是一种复合值，它汇聚多个值（原始值或者是其它对象），并且允许我们按照<br>名称存储和获取这些值。</p>
-</li>
-<li><p>对象是一个属性无序的集合，每个属性都有自己的名字和值，只有在对象中，其使<br>用起来与顺序无关，只需要打点即可调用。</p>
-</li>
-<li><p>在JavaScript中对象可以从其它对象继承属性</p>
-</li>
-<li><p>JavaScript对象是动态的，即可以动态的添加和删除对象属性</p>
-<br/></li>
-</ul>
-<h2 id="认识对象"><a href="#认识对象" class="headerlink" title="认识对象"></a>认识对象</h2><ul>
-<li><p>创建自定义对象我们可以通过创建Object实例来实现，然后再给他添加属性和方法<br>（函数）</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="keyword">let</span> person = <span class="keyword">new</span> <span class="title class_">Object</span>();</span><br><span class="line">    person.<span class="property">name</span> = <span class="string">&quot;zhangsan&quot;</span>;</span><br><span class="line">    person.<span class="property">age</span> = <span class="number">18</span>;</span><br><span class="line">    person.<span class="property">job</span> = <span class="string">&quot;Teacher&quot;</span>; </span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">name</span>+<span class="string">&quot;，年龄&quot;</span>+<span class="variable language_">this</span>.<span class="property">age</span>+<span class="string">&quot;岁，他的工作是：&quot;</span>+<span class="variable language_">this</span>.<span class="property">job</span>);</span><br><span class="line">    person.<span class="property">work</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">   <span class="keyword">let</span> person = &#123;</span><br><span class="line">    name = <span class="string">&quot;zhangsan&quot;</span>,</span><br><span class="line">    age = <span class="number">18</span>,</span><br><span class="line">    job = <span class="string">&quot;Teacher&quot;</span>,</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">name</span>+<span class="string">&quot;，年龄&quot;</span>+<span class="variable language_">this</span>.<span class="property">age</span>+<span class="string">&quot;岁，他的工作</span></span><br><span class="line"><span class="string">是：&quot;</span>+<span class="variable language_">this</span>.<span class="property">job</span>);</span><br><span class="line">    <span class="title function_">work</span>(<span class="params"></span>)&#123;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="属性的类型"><a href="#属性的类型" class="headerlink" title="属性的类型"></a>属性的类型</h2><ul>
-<li>JavaScript使用了一些内部特性来描述属性的特征，这些特性由JavaScript实现引<br>擎的规范定义的，所以开发者不能直接在JavaScript中访问这些访问。</li>
-</ul>
-<h3 id="属性的特性分两种"><a href="#属性的特性分两种" class="headerlink" title="属性的特性分两种"></a>属性的特性分两种</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">**数据属性**</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>【Configurable】：表示属性是否可以通过delete删除并重新定义，</p>
-<p>是否可以修改它的特性，以及是否可以把它改为访问器属性。其默认情况下为true</p>
-</li>
-<li><p>【Enumerable】：表示属性是否可以通过for-in循环返回，默认情况</p>
-<p>也为true</p>
-</li>
-<li><p>【Writable】：表示属性的值是否可以被修改，其默认值为true</p>
-</li>
-<li><p>【Value】：包含属性的实际值，其默认值为undefined</p>
-</li>
-</ul>
-<br/>
-
-<ul>
-<li><p>这些属性特性我们在定义对象时并不需要显式的添加前三个，而Value特性<br>也会被我们定义，如：name:”zhangsan</p>
-</li>
-<li><p>如果想要修改这些默认特性，就必须使用Object.defineProperty()方<br>法，这个方法在使用时接收三个参数：要给其添加属性的对象，属性的名<br>称，以及一个描述特性的对象及其参数</p>
-</li>
-<li><p>示例</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="keyword">let</span> person = &#123;&#125;;</span><br><span class="line">    <span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(person,<span class="string">&quot;name&quot;</span>,&#123;</span><br><span class="line">    <span class="attr">writable</span>:<span class="literal">false</span>,</span><br><span class="line">    <span class="attr">value</span>:<span class="string">&quot;王麻子&quot;</span></span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(person.<span class="property">name</span>);</span><br><span class="line">    person.<span class="property">name</span> = <span class="string">&quot;张金条&quot;</span>;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(person.<span class="property">name</span>);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="keyword">let</span> person = &#123;&#125;;</span><br><span class="line">    <span class="keyword">let</span> person = &#123;&#125;;</span><br><span class="line">    <span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(person,<span class="string">&quot;name&quot;</span>,&#123;</span><br><span class="line">    <span class="comment">// configurable:true,</span></span><br><span class="line">    <span class="attr">configurable</span>:<span class="literal">false</span>,</span><br><span class="line">    <span class="attr">value</span>:<span class="string">&quot;王麻子&quot;</span></span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(person.<span class="property">name</span>);</span><br><span class="line">    <span class="keyword">delete</span> person.<span class="property">name</span>;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(person.<span class="property">name</span>);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="访问器属性"><a href="#访问器属性" class="headerlink" title="访问器属性"></a>访问器属性</h3><ul>
-<li><p>访问器属性不包含数据值，它包含一个获取（getter）函数以及一个设置<br>（setter）函数，不过这两个函数并非必须函数。</p>
-</li>
-<li><p>在读取访问器属性时，程序会自个调用获取函数，也就是说获取函数的主<br>要任务就是返回一个有效的值</p>
-</li>
-<li><p>访问器属性也有4个特性用了描述它们的行为</p>
-<p>【Configurable】，默认值为true，表示能否通过delete删除属性从而<br>重新定义属性，能否修改属性的特性，能否把属性修改为访问器属性<br>【Enumerable】，默认值为true，能否通过for-in循环返回属性<br>【get】读取这个属性时调用的函数 getter函数<br>【set】在为这个属性赋值时调用的函数 setter函数</p>
-</li>
-<li><p>以上这些属性也是不能直接定义的，必须通过Object-defineProperty()</p>
-</li>
-<li><p>示例</p>
-</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">     <span class="keyword">let</span> book = &#123;</span><br><span class="line">       <span class="attr">name</span>:<span class="string">&quot;七侠五义&quot;</span>,</span><br><span class="line">       <span class="attr">price</span>:<span class="number">1</span></span><br><span class="line">     &#125;;</span><br><span class="line">  </span><br><span class="line">     book.<span class="property">name</span> = <span class="string">&quot;斗破苍穹&quot;</span>;</span><br><span class="line">     <span class="variable language_">console</span>.<span class="title function_">log</span>(book.<span class="property">name</span>);</span><br><span class="line">     <span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(book,<span class="string">&quot;name&quot;</span>,&#123;</span><br><span class="line">     <span class="title function_">get</span>(<span class="params"></span>)&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">name</span>;</span><br><span class="line">     &#125;,</span><br><span class="line">     <span class="title function_">set</span>(<span class="params">newValue</span>)&#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">name</span> = newValue;</span><br><span class="line">     &#125;</span><br><span class="line">     &#125;);</span><br><span class="line"> &lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<h2 id="对象合并"><a href="#对象合并" class="headerlink" title="对象合并"></a>对象合并</h2><ul>
-<li><p>在开发JavaScript时我们会把多个对象合并使用</p>
-</li>
-<li><p>具体来说就是把一个对象的所有属性复制到了目标对象上，这种方式也被称之为混<br>入，通过对象的合并我们可以增强对象功能</p>
-</li>
-<li><p>JavaScript专门为合并对象提供了一个Object.assign()方法，这个方法接收一个目<br>标对象和一个或多个其它对象（源对象），然后将每个源对象中自有属性复制到目<br>标对象</p>
-</li>
-<li><p>示例</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="comment">//目标对象</span></span><br><span class="line">    <span class="title class_">Obj1</span> = &#123;<span class="attr">name</span>:<span class="string">&quot;老八&quot;</span>&#125;;</span><br><span class="line">    <span class="comment">//源对象</span></span><br><span class="line">    <span class="title class_">Obj2</span> = &#123;<span class="attr">name</span>:<span class="string">&quot;老八&quot;</span>&#125;;</span><br><span class="line">    <span class="comment">//把2复制到目标对象中</span></span><br><span class="line">    result = <span class="title class_">Object</span>.<span class="title function_">assign</span>(<span class="title class_">Obj1</span>,<span class="title class_">Obj2</span>);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Obj1</span> === result)</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Obj2</span> === result)</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(result)</span><br><span class="line">   </span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(result)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="增强的对象语法"><a href="#增强的对象语法" class="headerlink" title="增强的对象语法"></a>增强的对象语法</h2><ul>
-<li><p>ES6位对象定义了很多定义对象及其操作对象的语法特性，这些特性可以极大程度<br>提高对象处理的方便程度</p>
-</li>
-<li><p>属性值得简写</p>
-<p>在给对象添加值时我们可以引用变量</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line"> <span class="keyword">let</span> username= <span class="string">&quot;sanlvzi&quot;</span>;</span><br><span class="line"> <span class="keyword">let</span> person = &#123;</span><br><span class="line"> <span class="attr">username</span>:username</span><br><span class="line"> &#125;;</span><br><span class="line"> <span class="variable language_">console</span>.<span class="title function_">log</span>(person)</span><br><span class="line"> &lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">还能简写（以下这种情况必须时变量名域对象的属性名相同才可以这么写）</span><br></pre></td></tr></table></figure></li>
-</ul>
-<br/>
-
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">   <span class="keyword">let</span> username= <span class="string">&quot;sanlvzi&quot;</span>;</span><br><span class="line">   username</span><br><span class="line">   &#125;;</span><br><span class="line">   <span class="keyword">let</span> person = &#123;</span><br><span class="line">   <span class="variable language_">console</span>.<span class="title function_">log</span>(person)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<h2 id="对象解构"><a href="#对象解构" class="headerlink" title="对象解构"></a>对象解构</h2><h3 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h3><ul>
-<li><p>对象解构是从对象中检索属性键的值。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="attr">name</span>:<span class="string">&quot;张麻子&quot;</span>,</span><br><span class="line"><span class="attr">age</span>:<span class="number">18</span></span><br><span class="line"><span class="keyword">let</span> user = &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>传统取值来说，我们可以使用打点表示法或者是下标法来从对象中检索值</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> username = user.<span class="property">name</span>;</span><br><span class="line"><span class="keyword">let</span> age = user[<span class="string">&#x27;age&#x27;</span>]</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>以上这种方法是没有任何问题的，但是就当属性较多时，我们的代码中会产生<br>较多的重复代码，然后ES6就搞出来了一个技术叫做对象解构</p>
-</li>
-<li><p>对象解构也叫解构赋值，可以快速的获取值</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> &#123;name,age&#125; = user;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(name)</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="使用解构从嵌套的对象中获取值"><a href="#使用解构从嵌套的对象中获取值" class="headerlink" title="使用解构从嵌套的对象中获取值"></a>使用解构从嵌套的对象中获取值</h3><ul>
-<li><p>嵌套即一个对象中还有对象</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="title class_">Person</span> = &#123;</span><br><span class="line">   <span class="attr">name</span>:<span class="string">&quot;Marry&quot;</span>,</span><br><span class="line">   <span class="attr">age</span>:<span class="number">27</span>,</span><br><span class="line">   <span class="attr">friend</span>:&#123;</span><br><span class="line">   <span class="attr">friend_1_Phone</span>:<span class="number">110</span>,</span><br><span class="line">   <span class="attr">address</span>:<span class="string">&quot;文景路凤城四路...&quot;</span></span><br><span class="line">   &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>使用传统方式获取朋友对象的值</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> p1 = <span class="title class_">Person</span>.<span class="property">friend</span>.<span class="property">friend_1_Phone</span>;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>换成解构赋值，如下：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="title class_">Person</span> = &#123;</span><br><span class="line">   <span class="title class_">Pname</span>:<span class="string">&quot;Marry&quot;</span>,</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">let</span> <span class="title class_">User</span> = &#123;</span><br><span class="line">   <span class="title class_">Uname</span>:<span class="string">&quot;Jack&quot;</span>,</span><br><span class="line">   <span class="title class_">Uage</span>:<span class="string">&#x27;&#x27;</span></span><br><span class="line">   &#125;</span><br><span class="line">   <span class="comment">//在解构时可以加上其它属性值</span></span><br><span class="line">   <span class="keyword">let</span> &#123;<span class="title class_">Pname</span>,<span class="title class_">Page</span> = <span class="number">18</span>&#125; = <span class="title class_">Person</span>;</span><br><span class="line">   <span class="keyword">let</span> &#123;<span class="title class_">Uname</span>,<span class="title class_">Uage</span> = <span class="number">18</span>&#125; = <span class="title class_">User</span>;</span><br><span class="line">   <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Pname</span>)</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="还可以给JavaScript解构对象创建别名"><a href="#还可以给JavaScript解构对象创建别名" class="headerlink" title="还可以给JavaScript解构对象创建别名"></a>还可以给JavaScript解构对象创建别名</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="title class_">User</span> = &#123;</span><br><span class="line"> <span class="attr">name</span>:<span class="string">&quot;Jack&quot;</span>,</span><br><span class="line"> <span class="attr">age</span>:<span class="number">18</span></span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">let</span>&#123;<span class="attr">age</span>:userAge&#125; =<span class="title class_">User</span>;</span><br><span class="line"> <span class="variable language_">console</span>.<span class="title function_">log</span>(userAge) </span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="还可以使用对象解构处理动态名称属性"><a href="#还可以使用对象解构处理动态名称属性" class="headerlink" title="还可以使用对象解构处理动态名称属性"></a>还可以使用对象解构处理动态名称属性</h3><ul>
-<li><p>我们在开发时经常会将API的一些响应数据作为Javascript对象处理，这些对象</p>
-<p>可能包含一些动态数据，我们在客户端使用这些数据时可能连属性键时啥都不<br> 知道</p>
-</li>
-<li><p>我们可以将键当成时参数据传递，也就是说我们可以编写一个返回User对象属<br>性值得函数，然后我们可以接收参数，让JS从对象中去检索</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="title class_">User</span> = &#123;</span><br><span class="line">   <span class="attr">name</span>:<span class="string">&quot;Jack&quot;</span>,</span><br><span class="line">   <span class="attr">age</span>:<span class="string">&#x27;&#x27;</span></span><br><span class="line"> &#125;</span><br><span class="line">   <span class="keyword">function</span> <span class="title function_">getProperty</span>(<span class="params">key</span>) &#123;</span><br><span class="line">   <span class="keyword">let</span> &#123;[key]:returnValue&#125; = <span class="title class_">User</span>;</span><br><span class="line">      <span class="keyword">return</span> returnValue;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">let</span> address = <span class="title function_">getProperty</span>(<span class="string">&#x27;address&#x27;</span>);</span><br><span class="line">   <span class="keyword">let</span> name = <span class="title function_">getProperty</span>(<span class="string">&#x27;name&#x27;</span>);</span><br><span class="line">   <span class="variable language_">console</span>.<span class="title function_">log</span>(address,name);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="在函数参数和返回值中解构对象"><a href="#在函数参数和返回值中解构对象" class="headerlink" title="在函数参数和返回值中解构对象"></a>在函数参数和返回值中解构对象</h3>  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">解构赋值传参</span><br></pre></td></tr></table></figure>
-
-  <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="title class_">User</span> = &#123;</span><br><span class="line">   <span class="attr">name</span>:<span class="string">&quot;Jack&quot;</span>,</span><br><span class="line">   <span class="attr">age</span>:<span class="number">18</span></span><br><span class="line"> &#125;</span><br><span class="line">   <span class="keyword">function</span> <span class="title function_">fun</span>(<span class="params">&#123;name,age&#125;</span>) &#123;</span><br><span class="line">   <span class="variable language_">console</span>.<span class="title function_">log</span>(name,age)</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="title function_">fun</span>(<span class="title class_">User</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>  解构函数对象返回值</p>
-  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">如果一个函数的返回值是一个对象，我们可以直接解构对象为变量</span><br></pre></td></tr></table></figure>
-
-  <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="title class_">User</span> = &#123;</span><br><span class="line">   <span class="attr">name</span>:<span class="string">&quot;Jack&quot;</span>, <span class="keyword">function</span> <span class="title function_">fun</span>(<span class="params"></span>)&#123;</span><br><span class="line">   <span class="attr">name</span>:<span class="string">&quot;Jack&quot;</span>,</span><br><span class="line">   <span class="attr">age</span>:<span class="number">18</span></span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="keyword">function</span> <span class="title function_">fun</span>(<span class="params"></span>) &#123;</span><br><span class="line">   <span class="keyword">return</span> <span class="title class_">User</span>;</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   <span class="keyword">let</span>&#123;age&#125; = <span class="title function_">fun</span>();</span><br><span class="line">   <span class="variable language_">console</span>.<span class="title function_">log</span>(age)</span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">fun</span>(<span class="params"></span>)&#123;</span><br><span class="line">   <span class="keyword">return</span>&#123;</span><br><span class="line">   <span class="attr">name</span>:<span class="string">&quot;Jack&quot;</span>,</span><br><span class="line">   <span class="attr">age</span>:<span class="number">18</span></span><br><span class="line">   &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">let</span>&#123;age&#125; = <span class="title function_">fun</span>();</span><br><span class="line">   <span class="variable language_">console</span>.<span class="title function_">log</span>(age)</span><br></pre></td></tr></table></figure>
-
-<p>  在循环中使用对象解构</p>
-  <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="title class_">User</span> = [</span><br><span class="line">   &#123;</span><br><span class="line">     <span class="string">&#x27;name&#x27;</span>:<span class="string">&quot;张三&quot;</span> ,</span><br><span class="line">     <span class="string">&#x27;age&#x27;</span>:<span class="number">18</span></span><br><span class="line">   &#125;,</span><br><span class="line">   &#123;</span><br><span class="line">     <span class="string">&quot;name&quot;</span>:<span class="string">&quot;李四&quot;</span>,</span><br><span class="line">     <span class="string">&quot;age&quot;</span>:<span class="number">19</span></span><br><span class="line">   &#125;,</span><br><span class="line">   &#123;</span><br><span class="line">     <span class="string">&quot;name&quot;</span>:<span class="string">&quot;王五&quot;</span>,</span><br><span class="line">     <span class="string">&quot;age&quot;</span>:<span class="number">20</span></span><br><span class="line">   &#125;</span><br><span class="line">   ];</span><br><span class="line">     <span class="keyword">for</span>(<span class="keyword">let</span>&#123;name,age&#125; <span class="keyword">of</span> <span class="title class_">User</span>)&#123;</span><br><span class="line">     <span class="variable language_">console</span>.<span class="title function_">log</span>(name,age)</span><br><span class="line">   &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="使用其它方式创建对象"><a href="#使用其它方式创建对象" class="headerlink" title="使用其它方式创建对象"></a>使用其它方式创建对象</h2><h3 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h3><ul>
-<li><p>工厂模式是程序中应用较为普遍的一种设计模式</p>
-</li>
-<li><p>在这里用于抽象对象创建的过程，按照特定的接口创建方式创建对象</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//定义一个方法，该方法用来规定创建对象的基本属性及行为</span></span><br><span class="line"> <span class="comment">//属性我们以方法的参数形式传递进来，让方法内部对这些属性进行处理</span></span><br><span class="line"> <span class="keyword">function</span> <span class="title function_">createPerson</span>(<span class="params">name,age,job</span>) &#123;</span><br><span class="line"> <span class="comment">//创建一个Object对象</span></span><br><span class="line"> <span class="keyword">let</span> obj = <span class="keyword">new</span> <span class="title class_">Object</span>();</span><br><span class="line"> <span class="keyword">let</span> obj = <span class="keyword">new</span> <span class="title class_">Object</span>();</span><br><span class="line"> <span class="comment">//给obj对象开始赋值</span></span><br><span class="line"> obj.<span class="property">name</span> = name;</span><br><span class="line"> obj.<span class="property">age</span> = age;</span><br><span class="line"> obj.<span class="property">job</span> = job;</span><br><span class="line"> obj.<span class="property">eat</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line"> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">name</span>+<span class="string">&quot;，吃饭时DuangDuang的&quot;</span>);</span><br><span class="line"> &#125;</span><br><span class="line">  <span class="keyword">return</span> obj;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">let</span> person_1 = <span class="title function_">createPerson</span>(<span class="string">&quot;张金条&quot;</span>,<span class="number">99</span>,<span class="string">&quot;修空调&quot;</span>);</span><br><span class="line"> <span class="keyword">let</span> person_2 = <span class="title function_">createPerson</span>(<span class="string">&quot;张银条&quot;</span>,<span class="number">98</span>,<span class="string">&quot;挖坑&quot;</span>);</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="构造函数方式"><a href="#构造函数方式" class="headerlink" title="构造函数方式"></a>构造函数方式</h3><ul>
-<li><p>以函数的形式为自己的对象定义属性和方法</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line"> <span class="keyword">function</span> <span class="title function_">Person</span>(<span class="params">name,age,job</span>) &#123;</span><br><span class="line">   <span class="variable language_">this</span>.<span class="property">name</span> = name;</span><br><span class="line">   <span class="variable language_">this</span>.<span class="property">age</span> = age;</span><br><span class="line">   <span class="variable language_">this</span>.<span class="property">job</span> = job;</span><br><span class="line">   <span class="variable language_">this</span>.<span class="property">eat</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">   <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;干饭&quot;</span>);</span><br><span class="line">   &#125;;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="comment">//要创建对象就得new，也就是说通过new关键字调用Person方法来创建Person对象</span></span><br><span class="line">   <span class="keyword">let</span> person_1 = <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;张铜条&quot;</span>,<span class="number">88</span>,<span class="string">&quot;摆烂&quot;</span>);</span><br><span class="line">   <span class="keyword">let</span> person_2 = <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;张铁条&quot;</span>,<span class="number">90</span>,<span class="string">&quot;技师&quot;</span>);</span><br><span class="line">   person_1.<span class="title function_">eat</span>();</span><br><span class="line">   person_2.<span class="title function_">eat</span>();</span><br><span class="line"> &lt;/script&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>解析</p>
-<p>在内存中创建一个新对象，每new一次就会创建一个新的对象</p>
-<p>这个对象在方法内部只是为将要形成的对象属性指定了属性值和行为</p>
-</li>
-</ul>
-]]></content>
-  </entry>
-  <entry>
     <title>Jquery基础知识点</title>
     <url>/2022/07/08/Jquery%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%82%B9/</url>
     <content><![CDATA[<p><img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.taodabai.com%2Fupload%2Fb6%2F47%2Fb647ba5763db7cdb66603673771da718.jpg&refer=http%3A%2F%2Fimg.taodabai.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1659875204&t=eb5f718fab6f53be30c47dd30429dfac" alt="img"></p>
@@ -397,6 +248,8 @@
     <title>html基础（一）</title>
     <url>/2022/07/08/html%E5%9F%BA%E7%A1%80%EF%BC%88%E4%B8%80%EF%BC%89/</url>
     <content><![CDATA[<p><img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.iisp.com%2Fimage%2F20161011%2F20161011180825_78244.jpg&refer=http%3A%2F%2Fimg.iisp.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1659877024&t=24bae5fadeb346539de3c527885be3df" alt="img"></p>
+<span id="more"></span>
+
 <h1 id="第一章-HTML基础"><a href="#第一章-HTML基础" class="headerlink" title="第一章 HTML基础"></a>第一章 HTML基础</h1><h2 id="1-1HTML简介"><a href="#1-1HTML简介" class="headerlink" title="1.1HTML简介"></a>1.1HTML简介</h2><p>​     HTML的英文全称是 Hyper Text Markup Language，即超文本标记语言。HTML是由Web的发明者 Tim Berners-Lee和同事 Daniel W. Connolly于1990年创立的一种标记语言，它是标准通用化标记语言SGML的应用。用HTML编写的超文本文档称为HTML文档，它能独立于各种操作系统平台(如UNIX， Windows等)。使用HTML，将所需要表达的信息按某种规则写成HTML文件，通过专用的浏览器来识别，并将这些HTML文件“翻译”成可以识别的信息，即现在所见到的网页。<br>     自1990年以来，HTML就一直被用作万维网的信息表示语言，使用HTML描述的文件需要通过web浏览器显示出效果。HTML是一种建立网页文件的语言，通过标记式的指令(Tag)，将影像、声音、图片、文字动画、影视等内容显示出来。事实上，每一个HTML文档都是一种静态的网页文件，这个文件里面包含了HTML指令代码，这些指令代码并不是一种程序语言，只是一种排版网页中资料显示位置的标记结构语言，易学易懂，非常简单。HTML的普遍应用就是带来了超文本的技术―通过单击鼠标从一个主题跳转到另一个主题，从一个页面跳转到另一个页面，与世界各地主机的文件链接超文本传输协议规定了浏览器在运行HTML文档时所遵循的规则和进行的操作。HTTP的制定使浏览器在运行超文本时有了统一的规则和标准。<br>      <a href="https://baike.baidu.com/item/%E4%B8%87%E7%BB%B4%E7%BD%91"> 万维网</a>（world wide web，简称www）上的一个<a href="https://baike.baidu.com/item/%E8%B6%85%E5%AA%92%E4%BD%93/1750647">超媒体</a>文档称之为一个<a href="https://baike.baidu.com/item/%E9%A1%B5%E9%9D%A2">页面</a>（<a href="https://baike.baidu.com/item/%E5%A4%96%E8%AF%AD">外语</a>：page）。作为一个组织或者个人在<a href="https://baike.baidu.com/item/%E4%B8%87%E7%BB%B4%E7%BD%91/215515">万维网</a>上放置开始点的页面称为<a href="https://baike.baidu.com/item/%E4%B8%BB%E9%A1%B5">主页</a>（外语：Homepage）或首页，主页中通常包括有指向其他相关页面或其他节点的<a href="https://baike.baidu.com/item/%E6%8C%87%E9%92%88">指针</a>（<a href="https://baike.baidu.com/item/%E8%B6%85%E7%BA%A7%E9%93%BE%E6%8E%A5">超级链接</a>），所谓超级链接，就是一种<a href="https://baike.baidu.com/item/%E7%BB%9F%E4%B8%80%E8%B5%84%E6%BA%90%E5%AE%9A%E4%BD%8D%E5%99%A8">统一资源定位器</a>（Uniform Resource Locator，<a href="https://baike.baidu.com/item/%E5%A4%96%E8%AF%AD">外语</a><a href="https://baike.baidu.com/item/%E7%BC%A9%E5%86%99">缩写</a>：<a href="https://baike.baidu.com/item/URL">URL</a>）指针，通过激活（点击）它，可使<a href="https://baike.baidu.com/item/%E6%B5%8F%E8%A7%88%E5%99%A8">浏览器</a>方便地获取新的网页。这也是HTML获得广泛应用的最重要的原因之一。在逻辑上将视为一个整体的一系列<a href="https://baike.baidu.com/item/%E9%A1%B5%E9%9D%A2">页面</a>的有机集合称为<a href="https://baike.baidu.com/item/%E7%BD%91%E7%AB%99">网站</a>（<a href="https://baike.baidu.com/item/Website">Website</a>或<a href="https://baike.baidu.com/item/Site/10831143">Site</a>）。超文本标记语言（英文缩写：HTML）是为“<a href="https://baike.baidu.com/item/%E7%BD%91%E9%A1%B5">网页</a>创建和其它可在<a href="https://baike.baidu.com/item/%E7%BD%91%E9%A1%B5%E6%B5%8F%E8%A7%88%E5%99%A8">网页浏览器</a>中看到的信息”设计的一种<a href="https://baike.baidu.com/item/%E6%A0%87%E8%AE%B0%E8%AF%AD%E8%A8%80">标记语言</a>。<br>     网页的本质就是超文本<a href="https://baike.baidu.com/item/%E6%A0%87%E8%AE%B0%E8%AF%AD%E8%A8%80/5964436">标记语言</a>，通过结合使用其他的<a href="https://baike.baidu.com/item/Web%E6%8A%80%E6%9C%AF">Web技术</a>（如：<a href="https://baike.baidu.com/item/%E8%84%9A%E6%9C%AC%E8%AF%AD%E8%A8%80">脚本语言</a>、<a href="https://baike.baidu.com/item/%E5%85%AC%E5%85%B1%E7%BD%91%E5%85%B3%E6%8E%A5%E5%8F%A3">公共网关接口</a>、<a href="https://baike.baidu.com/item/%E7%BB%84%E4%BB%B6">组件</a>等），可以创造出功能强大的网页。因而，超文本标记语言是万维网（<a href="https://baike.baidu.com/item/Web">Web</a>）编程的基础，也就是说万维网是建立在超文本基础之上的。超文本标记语言之所以称为超文本标记语言，是因为文本中包含了所谓“超级链接”点。</p>
 <h2 id="1-2-HTML版本"><a href="#1-2-HTML版本" class="headerlink" title="1.2 HTML版本"></a>1.2 HTML版本</h2><p>​        HTML是用来标记Web信息如何展示以及其他特性的一种语法规则，它最初于1989年由CERN的Tim Berners-Lee发明。HTML基于更古老一些的语言SGML定义，并简化了其中的语言元素。这些元素用于告诉浏览器如何在用户的屏幕上展示数据，所以很早就得到各个Web浏览器厂商的支持。 [5]<br>HTML历史上有如下版本： [5]<br>①HTML 1.0：在1993年6月作为互联网工程工作小组(IETF)工作草案发布。<br>②HTML 2.0：1995年1 1月作为RFC 1866发布，于2000年6月发布之后被宣布已经过时。<br>③HTML 3.2：1997年1月14日，W3C推荐标准。<br>④HTML 4.0：1997年12月18日，W3C推荐标准。<br>⑤HTML 4.01（微小改进）：1999年12月24日，W3C推荐标准。<br>⑥<a href="https://baike.baidu.com/item/HTML%205/8762673">HTML 5</a>：HTML5是公认的下一代Web语言，极大地提升了Web在富媒体、富内容和富应用等方面的能力，被喻为终将改变移动互联网的重要推手。Internet Explorer 8及以前的版本不支持。</p>
 <h2 id="1-3-迎接新的Web时代"><a href="#1-3-迎接新的Web时代" class="headerlink" title="1.3 迎接新的Web时代"></a>1.3 迎接新的Web时代</h2><p>​        HTML5并不是革命性的改变，而只是发展性的。而且对于之前HTML4的很多标准都是兼容的，所有通过最新HTML5标准制作的Web应用也可以轻松的在老版本的浏览器上运行。HTML5标准中的确是集成了很多实用的功能比如：音视频、本地存储、Socket通信、动画等都是之前应用开发中确实感觉到Web端的鸡肋才得到重视和升级的。<br>       HTML5的目标是：它通过一些新标签，新功能为开发更加简、独立、标准的通用Web应用提供了标准。新的标准解决了三大问题：浏览器兼容问题，解决了文档结构不明确的问题，解决了Web应用程序功能受限等问题。<br>号称“CSS之父”的Hakon Wium Lie认为，HTML5与CSS3将是全球互联网发展的未来趋势。<br>自从2010年HTML5正式推出以来，它就以一种惊人的速度被迅速推广使用，微软也因此在IE上做了关于HTML5的标准改进，使其能够支持HTML5，google Chrome，Safari，Opera，Mozilla等主要Web浏览器也针对HTML5制定了相应的支持措施。<br>     目前主流的浏览器厂商也纷纷在研发HTML5相关产品，从目前这些浏览器对HTML5的支持来看，Web的未来属于HTML5</p>
@@ -844,6 +697,1062 @@
 <p>代码：</p>
 <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">HTML</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">b</span>&gt;</span>定义粗体文本<span class="tag">&lt;/<span class="name">b</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">em</span>&gt;</span>定义着重文字<span class="tag">&lt;/<span class="name">em</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">i</span>&gt;</span>定义斜体文字<span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">small</span>&gt;</span>定义小号文字<span class="tag">&lt;/<span class="name">small</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">strong</span>&gt;</span>定义加重语气<span class="tag">&lt;/<span class="name">strong</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">    定义下标字 <span class="tag">&lt;<span class="name">sub</span>&gt;</span>aa<span class="tag">&lt;/<span class="name">sub</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">    定义上标字 <span class="tag">&lt;<span class="name">sup</span>&gt;</span>aa<span class="tag">&lt;/<span class="name">sup</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ins</span>&gt;</span>定义插入字(加了下划线)<span class="tag">&lt;/<span class="name">ins</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">del</span>&gt;</span>定义删除字(加了删除线)<span class="tag">&lt;/<span class="name">del</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
+]]></content>
+  </entry>
+  <entry>
+    <title>JavaScript基础</title>
+    <url>/2022/07/08/JavaScript%E5%9F%BA%E7%A1%80/</url>
+    <content><![CDATA[<p><img src="https://img2.baidu.com/it/u=3364251630,2616048261&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=281" alt="img"></p>
+<span id="more"></span>
+
+<h1 id="第一章-JavaScript-基础"><a href="#第一章-JavaScript-基础" class="headerlink" title="第一章 JavaScript 基础"></a>第一章 JavaScript 基础</h1><h2 id="1-1-概述"><a href="#1-1-概述" class="headerlink" title="1.1 概述"></a>1.1 概述</h2><p>JavaScript是一种属于网络的脚本语言,已经被广泛用于Web应用开发,常用来为网页添加各式各样的动态功能,为用户提供更流畅美观的浏览效果。通常JavaScript脚本是通过嵌入在HTML中来实现自身的功能的。<br>●是一种解释性脚本语言（代码不进行预编译）。<br>●主要用来向HTML（标准通用标记语言下的一个应用）页面添加交互行为。<br>●可以直接嵌入HTML页面，但写成单独的js文件有利于结构和行为的分离。<br>●跨平台特性，在绝大多数浏览器的支持下，可以在多种平台下运行（如Windows、Linux、Mac、Android、iOS等）。<br>Javascript脚本语言同其他语言一样，有它自身的基本数据类型，表达式和算术运算符及程序的基本程序框架。Javascript提供了四种基本的数据类型和两种特殊数据类型用来处理数据和文字。而变量提供存放信息的地方，表达式则可以完成较复杂的信息处理。</p>
+<h2 id="1-2-JavaScript能做什么"><a href="#1-2-JavaScript能做什么" class="headerlink" title="1.2 JavaScript能做什么"></a>1.2 JavaScript能做什么</h2><p>●使网页具有交互性，例如响应用户点击，给用户提供更好的体验<br>●可以处理表单，检验用户的输入，并提供及时反馈节省用户时间。例如，表单中要你输入电子邮箱而你却输入一个手机号，那么应该给你一个提醒。<br>●还可以根据用户的操作，动态的创建页面。例如，发邮件时，添加附件操作。<br>●设置cookie，cookie是存储在浏览器上的一些临时信息，例如你浏览过的网站地址，使用过的用户名<br>●JavaScript 是有规律地重复的HTML元素简化，减少下载时间。<br>●浏览器与服务器进行数据通讯，比如现在最流行的Ajax异步传输；</p>
+<h2 id="1-3-JavaScript构成"><a href="#1-3-JavaScript构成" class="headerlink" title="1.3 JavaScript构成"></a>1.3 JavaScript构成</h2><p>●JavaScript由以下三部分组成：<br>○ECMAScript，它用来描述语法和基本对象<br>○文档对象模型Doucment Object       Model（DOM），用来处理网页内容</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/22038106/1630651195487-efff79bc-a3b0-45b8-9a7a-faf1c6d7abda.png?x-oss-process=image/watermark,type_d3F5LW1pY3JvaGVp,size_13,text_Qnl0ZeWtpumZog==,color_FFFFFF,shadow_50,t_80,g_se,x_10,y_10" alt="image.png"><br>○浏览器对象模型Borwser Object Model（BOM），用来处理浏览器交互<br><img src="https://cdn.nlark.com/yuque/0/2021/png/22038106/1630651202360-0b177732-6264-4def-9a1b-fdda98bbc257.png?x-oss-process=image/watermark,type_d3F5LW1pY3JvaGVp,size_13,text_Qnl0ZeWtpumZog==,color_FFFFFF,shadow_50,t_80,g_se,x_10,y_10" alt="image.png"></p>
+<h2 id="1-4-JavaScript的开发环境与运行环境"><a href="#1-4-JavaScript的开发环境与运行环境" class="headerlink" title="1.4 JavaScript的开发环境与运行环境"></a>1.4 JavaScript的开发环境与运行环境</h2><p>●JavaScript为轻型脚本语言，可在任意文本编辑器中编辑<br>●由于JavaScript是内嵌在HTML中执行，所以其运行环境即浏览器<br>10.5 JavaScript的使用<br>●JavaScript需在HTML中内嵌运行，其内嵌方式有两种：<br>○在网页中创建&lt;script&gt;&lt;&#x2F;script&gt;,在标签之间写JavaScript代码<br>JavaScript复制代码`<code>1﻿</code>&lt;script&gt;<code>2﻿</code>    alert(“hello world”)<code>3﻿</code>&lt;script&gt;&#96;</p>
+<h2 id="1-5-JavaScript的使用"><a href="#1-5-JavaScript的使用" class="headerlink" title="1.5 JavaScript的使用"></a>1.5 JavaScript的使用</h2><ul>
+<li><p>JavaScript需在HTML中内嵌运行，其内嵌方式有两种：</p>
+</li>
+<li><ul>
+<li>在网页中创建<script></script>,在标签之间写JavaScript代码</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  	<span class="title function_">alert</span>(<span class="string">&quot;hello world&quot;</span>)</span><br><span class="line">&lt;script&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><ul>
+<li>在外部创建“.js”文件，通过<script src="文件路径">引入到HTML文件中执行</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;head&gt;</span><br><span class="line">	<span class="language-xml"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;xxx/xxx.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line">&lt;/head&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-6-JavaScript基础"><a href="#1-6-JavaScript基础" class="headerlink" title="1.6 JavaScript基础"></a>1.6 JavaScript基础</h2><ul>
+<li><p>值</p>
+</li>
+<li><ul>
+<li>数字类型的值（数字）</li>
+<li>算术值（加减乘除等运算，需要两个或两个以上的数字）</li>
+<li>特殊数字</li>
+</ul>
+</li>
+<li><ul>
+<li><ul>
+<li>在JavaScript中有三个特殊数值，他们被视为数字，但其行为不像普通数字那样</li>
+<li>Infinity和-Infinity表示正无穷大和负无穷大</li>
+<li>NaN代表不是数字，就是不当的算数运算得到不当的值（比如：0/0或者Infinity-Infinity都会得到这样的值）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><ul>
+<li>字符串（用于表示文本，使用引号引起来即可）</li>
+</ul>
+</li>
+<li><ul>
+<li><ul>
+<li>在字符串中还需要注意</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><ul>
+<li><ul>
+<li><ul>
+<li>在引号中添加特殊字符时比较难加，但是只需要添加反引号”`“就可解决这个问题</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>转义符（\）</p>
+</li>
+<li><ul>
+<li>出现在引用文本中，表示后面有特殊字符</li>
+<li>换行符（\n）</li>
+<li>制表符（\t）</li>
+<li>如果希望字符串中的斜杠只是斜杠，可以使用两个斜杠</li>
+</ul>
+</li>
+<li><p>运算符</p>
+</li>
+<li><ul>
+<li>一元运算符</li>
+</ul>
+</li>
+<li><ul>
+<li><ul>
+<li>在JavaScript中并非所有的运算符都是由符号构成的，还有由单词构成的符号，如：typeof运算符用来生成一个字符串，表示你输入数据的类型</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>布尔值</p>
+</li>
+<li><ul>
+<li>比较运算符（>,<,<=,<=……）</li>
+</ul>
+</li>
+<li><ul>
+<li><ul>
+<li>比较运算符属于二元运算符</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>字符串也是可以比较的</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>console.log(a>b)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>字符串在比较时大致时按照字母的顺序比较，而小写字母的大于大写字母，在字符串比较是JavaScript从左道右遍历字符按照字母的unicode编码进行比较</td>
+</tr>
+<tr>
+<td>注意：在JavaScript中只有一个值不等于它自己，他就是NaN（不是数字）console.log(NaN==NaN)返回false</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>逻辑运算符（与，或，非）</p>
+</li>
+<li><ul>
+<li>&&:表示逻辑与，表示结果为真才为真</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>console.log(true&&false)</th>
+<th>false</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>console.log(true&&true)</td>
+<td>true</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<ul>
+<li><ul>
+<li>||：表示逻辑或，表示一个为真，则为真</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>console.log(true||false)</th>
+<th>true</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>console.log(false||false)</td>
+<td>false</td>
+</tr>
+</tbody></table>
+<ul>
+<li><ul>
+<li>!：表示逻辑非，表示取反</li>
+<li>在上边两种运算符混合使用时需要注意他们的优先级，一般情况下是,||具有最低优先级，然后时&&，然后是比较运算符，再然后时其他运算符</li>
+<li>三元运算符，由问号和冒号写成</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>console.log(true?1:2)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>console.log(false?1:2)</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>空值</p>
+</li>
+<li><ul>
+<li>再JavaScript中使用null和undefined表示空值</li>
+</ul>
+</li>
+<li><p>自动类型转换</p>
+</li>
+<li><ul>
+<li>JavaScript的包容性时相当高的，几乎可以接受你给他的任何程序</li>
+<li>当运算符应用不同类型的值时，JavaScript会使用一组规则自动将值转换成所需要的类型供你使用（强制类型转换）</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>console.log(8*null)-->0</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>console.log("3"-1)-->2</td>
+</tr>
+<tr>
+<td>console.log("3"+1)-->31</td>
+</tr>
+<tr>
+<td>console.log("six"*1)-->NaN</td>
+</tr>
+<tr>
+<td>console.log(false==0)-->true</td>
+</tr>
+<tr>
+<td>console.log(null==undefined)-->true</td>
+</tr>
+<tr>
+<td>console.log(null==0)-->false</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>表达式</p>
+</li>
+<li><ul>
+<li>生成值得代码片段称之为表达式</li>
+</ul>
+</li>
+<li><p>绑定（变量）</p>
+</li>
+<li><ul>
+<li>·JavaScript为了让程序中得数据保持提供了一个称为绑定（binding）或变量（variable）得东西</li>
+</ul>
+</li>
+<li><ul>
+<li><ul>
+<li>let属于JavaScript关键字表示将定义一个绑定，它得后面是绑定名称，如果我们想给它一个值，则由"="运算符和表达式来完成</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>let a =   1*2</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>let num =   10;  console.log(num*num);</td>
+</tr>
+</tbody></table>
+<ul>
+<li><ul>
+<li><ul>
+<li>当绑定值指向一个值时并部意味着它永远时该值，"="运算符随时可以更新绑定赋予绑定新值</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><ul>
+<li><ul>
+<li>在JavaScript中不单单可以使用let去做绑定,var和const两个也可以用于绑定</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>var   name="hello";console.log(name);</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>const demo   = "world";console.log(demo);</td>
+</tr>
+<tr>
+<td>console.log(name+demo);</td>
+</tr>
+<tr>
+<td>注：1.var全称(variable)表示变量，多用于以前得JavaScript中声明绑定2.const全称（constant），表示定义一个常量绑定，只要它存在，它就一直指向相同得值</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>JavaScript语句</p>
+</li>
+<li><ul>
+<li>JavaScript语句是发给浏览器的命令</li>
+<li>这些命令的作用是告诉浏览器要做的事情</li>
+<li>比如</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><img src="https://cdn.nlark.com/yuque/0/2021/png/22038106/1630652275534-6e34e0ea-ce7f-4cb2-b9f5-a303441fbb5b.png?x-oss-process=image/watermark,type_d3F5LW1pY3JvaGVp,size_18,text_Qnl0ZeWtpumZog==,color_FFFFFF,shadow_50,t_80,g_se,x_10,y_10" alt="img"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="https://cdn.nlark.com/yuque/0/2021/png/22038106/1630652282839-d8f3b6f0-bb99-4311-af61-9ec9d1d592a7.png?x-oss-process=image/watermark,type_d3F5LW1pY3JvaGVp,size_13,text_Qnl0ZeWtpumZog==,color_FFFFFF,shadow_50,t_80,g_se,x_10,y_10" alt="img"></td>
+</tr>
+<tr>
+<td>解析：点击hello world后，触发JavaScript点击事件（onclick点击事件，点击后innerHTML替换标签里的内容，即把”hello world“替换成“世界  你好”）</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>分号</p>
+</li>
+<li><ul>
+<li>分号用于分隔JavaScript语句</li>
+<li>通常我们在每条可执行的语句结尾添加分号，代表作一句JavaScript语句的结束</li>
+<li>使用分号的另一个好处就是。。。。能在一行多写点代码嘛</li>
+</ul>
+</li>
+<li><p>JavaScript代码</p>
+</li>
+<li><ul>
+<li>JavaScript代码是JavaScript语句的序列</li>
+<li>浏览器按照编写顺序依次执行每条语句</li>
+</ul>
+</li>
+<li><p>JavaScript代码块</p>
+</li>
+<li><ul>
+<li>JavaScript可以分批地组合起来</li>
+<li>代码块以左花括号开始，以右花括号结束</li>
+<li>代码块的作用是一并执行语句序列</li>
+</ul>
+</li>
+<li><p>示例</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><img src="https://cdn.nlark.com/yuque/0/2021/png/22038106/1630652313702-584a551d-bd15-4e8c-873f-304b09194343.png?x-oss-process=image/watermark,type_d3F5LW1pY3JvaGVp,size_18,text_Qnl0ZeWtpumZog==,color_FFFFFF,shadow_50,t_80,g_se,x_10,y_10" alt="img"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="https://cdn.nlark.com/yuque/0/2021/png/22038106/1630652326450-8100dccd-e3b6-4e7d-afbc-1246a23c2fc5.png?x-oss-process=image/watermark,type_d3F5LW1pY3JvaGVp,size_12,text_Qnl0ZeWtpumZog==,color_FFFFFF,shadow_50,t_80,g_se,x_10,y_10" alt="img"></td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>JavaScript语句标识符</p>
+</li>
+<li><ul>
+<li>JavaScript语句通常以一个语句标识符为开始，并执行该语句。</li>
+<li>语句标识符是保留关键字不能作为变量名使用</li>
+<li>JavaScript语句标识符（关键字）</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>语句</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>break</td>
+<td>用于跳出循环</td>
+</tr>
+<tr>
+<td>catch</td>
+<td>语句块，在try语句块执行出错时执行catch语句块</td>
+</tr>
+<tr>
+<td>continue</td>
+<td>跳过循环的一个迭代</td>
+</tr>
+<tr>
+<td>do...while</td>
+<td>执行一个语句块，在条件语句为true时继续执行该语句块</td>
+</tr>
+<tr>
+<td>for</td>
+<td>在条件语句为true时，可以将代码块执行指定的次数</td>
+</tr>
+<tr>
+<td>for...in</td>
+<td>用于遍历数组或对象的属性（对数组或者对象的属性进行循环操作）</td>
+</tr>
+<tr>
+<td>function</td>
+<td>定义一个函数</td>
+</tr>
+<tr>
+<td>if...else</td>
+<td>用于基于不同的条件来执行不同的动作</td>
+</tr>
+<tr>
+<td>return</td>
+<td>退出函数</td>
+</tr>
+<tr>
+<td>switch</td>
+<td>用于基于不同条件来执行不同的动作</td>
+</tr>
+<tr>
+<td>throw</td>
+<td>抛出错误</td>
+</tr>
+<tr>
+<td>try</td>
+<td>实现错误处理，与catch一同使用</td>
+</tr>
+<tr>
+<td>var</td>
+<td>声明一个变量</td>
+</tr>
+<tr>
+<td>while</td>
+<td>当条件语句为true时，执行语句块</td>
+</tr>
+</tbody></table>
+<ul>
+<li>代码折行</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>document.write("hello   \ world")；</th>
+<th>但是不能这么折行document.write("hello  world")；</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="1-7-JavaScript数据类型"><a href="#1-7-JavaScript数据类型" class="headerlink" title="1.7 JavaScript数据类型"></a>1.7 JavaScript数据类型</h2><ul>
+<li>javascript属于弱语言，它的变量没有明确的数据类型，它的数据类型是由它存储的值自己推断出来的</li>
+<li>常见数据类型</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong>数据类型</strong></th>
+<th><strong>具体描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>number</td>
+<td>能存储整数和小数类型</td>
+</tr>
+<tr>
+<td>string</td>
+<td>用单引号或双引号来声明的字符串</td>
+</tr>
+<tr>
+<td>boolean</td>
+<td>只能是两个值选择：true、false</td>
+</tr>
+<tr>
+<td>undefined</td>
+<td>变量被声明后，但未被赋值</td>
+</tr>
+<tr>
+<td>object</td>
+<td>javascript中的对象、数组和null</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>在JavaScript中可以使用typeof()函数来检查变量的返回值类型</p>
+</li>
+<li><p>JavaScript拥有动态类型，这意味着相同的变量可用作不同的类型</p>
+</li>
+<li><p>JavaScript字符串</p>
+</li>
+<li><ul>
+<li>字符串是存储字符的变量</li>
+<li>字符串可以是引号中的任意文本。可以使用单引号或者双引号</li>
+</ul>
+</li>
+<li><p>也可以在字符串中使用引号，只要不匹配包围字符串的引号即可</p>
+</li>
+<li><p>JavaScript数字</p>
+</li>
+<li><ul>
+<li>JavaScript只有一种数字类型。数字可以带小数点。</li>
+</ul>
+</li>
+<li><p>极大或极小的数字可以通过科学计数来书写</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>var a =   123e5;//12300000</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>var b =   123e-5;//0.00123</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>JavaScript布尔</p>
+</li>
+<li><ul>
+<li>布尔（逻辑）只能有两个值：true或false</li>
+</ul>
+</li>
+<li><p>布尔常用在条件测试中。这个我们将在之后详解</p>
+</li>
+<li><p>JavaScript数组</p>
+</li>
+<li><ul>
+<li>详见10.8节</li>
+</ul>
+</li>
+<li><p>JavaScript对象</p>
+</li>
+<li><ul>
+<li>详见10.9节</li>
+<li>对象由花括号分隔。在扩号内部，对象的属性以名称和值对的形式（键值对 name：value）来定义，属性由逗号分隔</li>
+<li>对象有两种寻址方式：</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><img src="https://cdn.nlark.com/yuque/0/2021/png/22038106/1630655910721-0a48b0a7-993c-45ca-a851-9d8a9f0216b6.png?x-oss-process=image/watermark,type_d3F5LW1pY3JvaGVp,size_17,text_Qnl0ZeWtpumZog==,color_FFFFFF,shadow_50,t_80,g_se,x_10,y_10" alt="img"></th>
+<th><img src="https://cdn.nlark.com/yuque/0/2021/png/22038106/1630655916757-28032444-e669-4911-8a08-0adc9bd721a0.png?x-oss-process=image/watermark,type_d3F5LW1pY3JvaGVp,size_11,text_Qnl0ZeWtpumZog==,color_FFFFFF,shadow_50,t_80,g_se,x_10,y_10" alt="img"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>Undefined和Null</p>
+</li>
+<li><ul>
+<li>Undefined表示变量不含值</li>
+<li>Null可以通过将变量的值设置为Null来清空变量</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><img src="https://cdn.nlark.com/yuque/0/2021/png/22038106/1630655925751-c01fd5d4-f3f1-4a93-b80f-4aff98f02075.png?x-oss-process=image/watermark,type_d3F5LW1pY3JvaGVp,size_13,text_Qnl0ZeWtpumZog==,color_FFFFFF,shadow_50,t_80,g_se,x_10,y_10" alt="img"></th>
+<th><img src="https://cdn.nlark.com/yuque/0/2021/png/22038106/1630655944042-42c54dea-cfb9-4ae5-b05b-700a4977857f.png?x-oss-process=image/watermark,type_d3F5LW1pY3JvaGVp,size_12,text_Qnl0ZeWtpumZog==,color_FFFFFF,shadow_50,t_80,g_se,x_10,y_10" alt="img"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>声明变量类型</p>
+</li>
+<li><ul>
+<li>当声明新变量时，可以使用关键词“new”来声明其类型</li>
+</ul>
+</li>
+</ul>
+<h2 id="1-8-数组"><a href="#1-8-数组" class="headerlink" title="1.8 数组"></a>1.8 数组</h2><ul>
+<li><p>什么是数组</p>
+</li>
+<li><ul>
+<li>数组对象是使用单独的变量名来存储一系列相同类型的值</li>
+<li>数字可以用一个变量名存储所有的值，并且可以用变量名访问任何一个值</li>
+<li>数组中的每个元素都有自己的ID，以便它可以很容易地被访问到</li>
+</ul>
+</li>
+<li><p>创建数组，有几种不同的方式</p>
+</li>
+<li><ul>
+<li>常规方式</li>
+</ul>
+</li>
+<li><ul>
+<li>简洁方式</li>
+</ul>
+</li>
+<li><ul>
+<li>字面方式</li>
+</ul>
+</li>
+<li><p>访问数组</p>
+</li>
+<li><ul>
+<li>通过上边的几个例子，大家应该能看出来数组是怎么访问的</li>
+<li>语法：数组名[下标]</li>
+</ul>
+</li>
+<li><ul>
+<li>在数组中[0]代表数组的第一个元素，[1]则代表的是第二个元素</li>
+</ul>
+</li>
+<li><p>来个数组式循环弹窗看看</p>
+</li>
+<li><p>在一个数组中可以有不同的对象</p>
+</li>
+<li><ul>
+<li>所有的JavaScript变量都是对象，数组元素是对象，函数也是对象</li>
+<li>因此，我们可以在数组中有不同的变量类型</li>
+<li>我们可以在一个数组中包含对象元素，函数，数组</li>
+</ul>
+</li>
+<li><p>数组方法和属性</p>
+</li>
+<li><ul>
+<li>使用数组对象预定义属性和方法</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>var    a = 数组名.length       //length元素的数量</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>var    b = 数组名.indexOf("需要索引的字段")    //括号里面为索引值</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>更多的实例</p>
+</li>
+<li><ul>
+<li>合并两个数组-concat()</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><img src="https://cdn.nlark.com/yuque/0/2021/png/22038106/1630656639810-73054345-0af6-4c4c-9ba2-fc7620a200bc.png?x-oss-process=image/watermark,type_d3F5LW1pY3JvaGVp,size_14,text_Qnl0ZeWtpumZog==,color_FFFFFF,shadow_50,t_80,g_se,x_10,y_10" alt="img"></th>
+<th><img src="https://cdn.nlark.com/yuque/0/2021/png/22038106/1630656647809-524de2d0-01a1-475f-8190-1ae2329987a5.png?x-oss-process=image/watermark,type_d3F5LW1pY3JvaGVp,size_12,text_Qnl0ZeWtpumZog==,color_FFFFFF,shadow_50,t_80,g_se,x_10,y_10" alt="img"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<ul>
+<li><ul>
+<li>合并三个数组-concat()</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><img src="https://cdn.nlark.com/yuque/0/2021/png/22038106/1630656677924-8ac387d8-aeda-4de2-bb7f-a6e719d44605.png?x-oss-process=image/watermark,type_d3F5LW1pY3JvaGVp,size_12,text_Qnl0ZeWtpumZog==,color_FFFFFF,shadow_50,t_80,g_se,x_10,y_10" alt="img"></th>
+<th><img src="https://cdn.nlark.com/yuque/0/2021/png/22038106/1630656681979-9220fb0b-ae48-4483-b788-aa30761ed63e.png?x-oss-process=image/watermark,type_d3F5LW1pY3JvaGVp,size_12,text_Qnl0ZeWtpumZog==,color_FFFFFF,shadow_50,t_80,g_se,x_10,y_10" alt="img"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>用数组的元素组合字符串-join()</p>
+</li>
+<li><ul>
+<li>join()方法用于把数组中的所有元素放入一个字符串</li>
+<li>元素是同过指定的分隔符分隔的</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>arrayObject.join(separator)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>separator：指定要使用的分隔符，如果省略改参数，则使用逗号作为分隔符</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th><img src="https://cdn.nlark.com/yuque/0/2021/png/22038106/1630656712682-e75f5712-761e-4ad0-9d2e-e3d46917c3ac.png?x-oss-process=image/watermark,type_d3F5LW1pY3JvaGVp,size_19,text_Qnl0ZeWtpumZog==,color_FFFFFF,shadow_50,t_80,g_se,x_10,y_10" alt="img"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>点击前<img src="https://cdn.nlark.com/yuque/0/2021/png/22038106/1630656792868-b57e6395-7e1b-4fe0-bfbf-3097f9045020.png?x-oss-process=image/watermark,type_d3F5LW1pY3JvaGVp,size_13,text_Qnl0ZeWtpumZog==,color_FFFFFF,shadow_50,t_80,g_se,x_10,y_10" alt="img">点击后<img src="https://cdn.nlark.com/yuque/0/2021/png/22038106/1630656804077-1e9c4969-4c6a-4c0c-95b2-aece511e9d18.png?x-oss-process=image/watermark,type_d3F5LW1pY3JvaGVp,size_11,text_Qnl0ZeWtpumZog==,color_FFFFFF,shadow_50,t_80,g_se,x_10,y_10" alt="img"></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th><img src="https://cdn.nlark.com/yuque/0/2021/png/22038106/1630656829884-022208bc-cf0a-4e17-bc1d-9e3fe8f751f4.png?x-oss-process=image/watermark,type_d3F5LW1pY3JvaGVp,size_22,text_Qnl0ZeWtpumZog==,color_FFFFFF,shadow_50,t_80,g_se,x_10,y_10" alt="img"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="https://cdn.nlark.com/yuque/0/2021/png/22038106/1630656840313-375d5f2a-6526-4cdd-b076-4817ed5fabc0.png?x-oss-process=image/watermark,type_d3F5LW1pY3JvaGVp,size_13,text_Qnl0ZeWtpumZog==,color_FFFFFF,shadow_50,t_80,g_se,x_10,y_10" alt="img"></td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>删除数组的最后一个元素-pop()</p>
+</li>
+<li><p>数组的末尾添加新的元素-push()</p>
+</li>
+<li><p>将一个数组中的元素的顺序反转排序-reverse()</p>
+</li>
+<li><p>删除数组的第一个元素-shift()</p>
+</li>
+<li><p>从一个数组中选择元素-slice()</p>
+</li>
+<li><ul>
+<li>slice()方法可提取字符串的某个部分，并以新的字符串返回被提取的部分</li>
+<li>语法</li>
+</ul>
+</li>
+<li><ul>
+<li>返回值</li>
+</ul>
+</li>
+<li><ul>
+<li><ul>
+<li>一个新的字符串，包括字符串stratObject从strat开始（包括strat）到end结束（不包括end）为止的所有字符串</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><ul>
+<li>数组排序（按字母顺序升序）-sort()</li>
+</ul>
+</li>
+<li><ul>
+<li>数字排序（按数字顺序升序）-sort()</li>
+</ul>
+</li>
+<li><ul>
+<li>数字排序（按数字顺序降序）-sort()</li>
+</ul>
+</li>
+<li><ul>
+<li>在数组的第二位置添加一个元素 -splice()</li>
+</ul>
+</li>
+<li><ul>
+<li><ul>
+<li>splice()方法用于插入，删除，或者替换数组的元素</li>
+<li>语法</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>index</td>
+<td>必需。规定从何处添加/删除元素。该参数是开始插入和(或)删除的数组元素的下标，必需是数字哦</td>
+</tr>
+<tr>
+<td>howmant</td>
+<td>必需。规定应该删除多少元素。必须是数字，但可以是（0）。如果未规定此参数，则删除从index开始到原数组结尾的所有元素</td>
+</tr>
+<tr>
+<td>element1</td>
+<td>可选。规定要添加到数组的新元素。从index所指的下标处开始插入</td>
+</tr>
+<tr>
+<td>elementN</td>
+<td>可选。可向数组添加若干元素。</td>
+</tr>
+</tbody></table>
+<ul>
+<li><ul>
+<li>返回值</li>
+</ul>
+</li>
+<li><ul>
+<li><ul>
+<li>如果从arrayObject中删除了元素，则返回的是含有被删除的元素的数组</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>注意：splice()方法和slice()方法的作用是不同的，splice()方法会直接对数组,行修改。</p>
+</li>
+<li><p>下边的这个例子就是替换了下标“1”至“3”里面的内容，包含1和3下标的内容，也就是说我把数组里的“33，22，66”替换成了“88,44”。</p>
+</li>
+<li><p>转换数组到字符串 -toString()</p>
+</li>
+<li><p>在数组的开头添加新元素 -unshift()</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><img src="https://cdn.nlark.com/yuque/0/2021/png/22038106/1630657101064-7db40d88-68aa-4bed-98ba-96f27ed56b9b.png?x-oss-process=image/watermark,type_d3F5LW1pY3JvaGVp,size_17,text_Qnl0ZeWtpumZog==,color_FFFFFF,shadow_50,t_80,g_se,x_10,y_10" alt="img"></th>
+<th><img src="https://cdn.nlark.com/yuque/0/2021/png/22038106/1630657111628-83befa05-ad97-4553-952f-75f9d40b5144.png?x-oss-process=image/watermark,type_d3F5LW1pY3JvaGVp,size_13,text_Qnl0ZeWtpumZog==,color_FFFFFF,shadow_50,t_80,g_se,x_10,y_10" alt="img"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="1-9-对象"><a href="#1-9-对象" class="headerlink" title="1.9 对象"></a>1.9 对象</h2><ul>
+<li><p>JavaScript对象</p>
+</li>
+<li><ul>
+<li>在JavaScript中，对象是拥有属性和方法的数据。</li>
+</ul>
+</li>
+<li><ul>
+<li><ul>
+<li>属性是与对象相关的值</li>
+<li>方法是能够在对象上执行的动作</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><ul>
+<li>对象也是一个变量，但对象可以包含多个值（多个变量）</li>
+</ul>
+</li>
+<li><ul>
+<li>上边这个例子中，三个值（**"Lamborghini",999999,"black"**）赋予变量car</li>
+<li>三个变量（"neme",price,color）赋予变量car</li>
+<li>JavaScript对象是变量的容器</li>
+<li>定义JavaScript对象是可以跨越多行，空格跟换行不是必须的</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><img src="https://cdn.nlark.com/yuque/0/2021/png/22038106/1630657337152-f7388e63-dcdc-4916-929a-f6f523d3b3a7.png?x-oss-process=image/watermark,type_d3F5LW1pY3JvaGVp,size_41,text_Qnl0ZeWtpumZog==,color_FFFFFF,shadow_50,t_80,g_se,x_10,y_10" alt="img"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="https://cdn.nlark.com/yuque/0/2021/png/22038106/1630657359063-4ae2da29-2812-4f6d-9e8f-0f85361ab3d6.png?x-oss-process=image/watermark,type_d3F5LW1pY3JvaGVp,size_12,text_Qnl0ZeWtpumZog==,color_FFFFFF,shadow_50,t_80,g_se,x_10,y_10" alt="img"></td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>对象属性</p>
+</li>
+<li><ul>
+<li>JavaScript对象是变量的容器</li>
+<li>JavaScript对象是键值对的容器</li>
+<li>键值对的基本写法为name:value（上边的例子就是喽）</li>
+<li>键值对在JavaScript对象中统称为对象属性。</li>
+<li>访问对象属性</li>
+</ul>
+</li>
+<li><ul>
+<li><ul>
+<li>可以用对象名点属性（如：person.one）</li>
+<li>也可以用对象名["属性"]（如：person["one"]）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><img src="https://cdn.nlark.com/yuque/0/2021/png/22038106/1630657371647-620ad6cf-4996-4ec9-b676-c8aadde3a394.png?x-oss-process=image/watermark,type_d3F5LW1pY3JvaGVp,size_17,text_Qnl0ZeWtpumZog==,color_FFFFFF,shadow_50,t_80,g_se,x_10,y_10" alt="img"></th>
+<th><img src="https://cdn.nlark.com/yuque/0/2021/png/22038106/1630657376463-7a710ad9-a526-457b-a68d-f3972c9f4bc4.png?x-oss-process=image/watermark,type_d3F5LW1pY3JvaGVp,size_11,text_Qnl0ZeWtpumZog==,color_FFFFFF,shadow_50,t_80,g_se,x_10,y_10" alt="img"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>对象方法</p>
+</li>
+<li><ul>
+<li>对象的方法定义了一个函数，并作为对象的属性存储</li>
+<li>对象方法通过添加()调用（当成函数调用）</li>
+<li>下边的这个例子访问了person对象的all()方法（如果直接访问person对象的all属性，它将作为定义一个函数的字符串返回，也就是说把后边的代码直接返回，并且打印出来）</li>
+</ul>
+</li>
+<li><ul>
+<li><ul>
+<li>访问方法（例：person.all()）</li>
+<li>访问属性（例：person.all）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><img src="https://cdn.nlark.com/yuque/0/2021/png/22038106/1630657385116-a1644ef8-b213-44b0-b3d2-49c8b53e0b04.png?x-oss-process=image/watermark,type_d3F5LW1pY3JvaGVp,size_41,text_Qnl0ZeWtpumZog==,color_FFFFFF,shadow_50,t_80,g_se,x_10,y_10" alt="img"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>运行结果，访问all()方法<img src="https://cdn.nlark.com/yuque/0/2021/png/22038106/1630657444170-9e6ec390-c3ab-4eac-8561-b0e67e70d8dd.png?x-oss-process=image/watermark,type_d3F5LW1pY3JvaGVp,size_13,text_Qnl0ZeWtpumZog==,color_FFFFFF,shadow_50,t_80,g_se,x_10,y_10" alt="img">运行结果，访问all属性<img src="https://cdn.nlark.com/yuque/0/2021/png/22038106/1630657457807-ea820af0-412d-46dc-b261-5463960e244c.png?x-oss-process=image/watermark,type_d3F5LW1pY3JvaGVp,size_13,text_Qnl0ZeWtpumZog==,color_FFFFFF,shadow_50,t_80,g_se,x_10,y_10" alt="img"></td>
+</tr>
+</tbody></table>
+]]></content>
+  </entry>
+  <entry>
+    <title>JavaScript对象</title>
+    <url>/2022/07/08/JavaScript%E5%AF%B9%E8%B1%A1/</url>
+    <content><![CDATA[<p><img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fwww.debug8.com%2Fstatics%2Fuploads%2F2020%2F08%2F15%2F1597460167384632.jpeg&refer=http%3A%2F%2Fwww.debug8.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1659869298&t=98ffecf7bc2187582206328f237905ec" alt="img"></p>
+<span id="more"></span>
+
+<h1 id="JavaScript对象"><a href="#JavaScript对象" class="headerlink" title="JavaScript对象"></a>JavaScript对象</h1><h2 id="什么是对象"><a href="#什么是对象" class="headerlink" title="什么是对象"></a>什么是对象</h2><ul>
+<li><p>对象是一种复合值，它汇聚多个值（原始值或者是其它对象），并且允许我们按照<br>名称存储和获取这些值。</p>
+</li>
+<li><p>对象是一个属性无序的集合，每个属性都有自己的名字和值，只有在对象中，其使<br>用起来与顺序无关，只需要打点即可调用。</p>
+</li>
+<li><p>在JavaScript中对象可以从其它对象继承属性</p>
+</li>
+<li><p>JavaScript对象是动态的，即可以动态的添加和删除对象属性</p>
+<br/></li>
+</ul>
+<h2 id="认识对象"><a href="#认识对象" class="headerlink" title="认识对象"></a>认识对象</h2><ul>
+<li><p>创建自定义对象我们可以通过创建Object实例来实现，然后再给他添加属性和方法<br>（函数）</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="keyword">let</span> person = <span class="keyword">new</span> <span class="title class_">Object</span>();</span><br><span class="line">    person.<span class="property">name</span> = <span class="string">&quot;zhangsan&quot;</span>;</span><br><span class="line">    person.<span class="property">age</span> = <span class="number">18</span>;</span><br><span class="line">    person.<span class="property">job</span> = <span class="string">&quot;Teacher&quot;</span>; </span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">name</span>+<span class="string">&quot;，年龄&quot;</span>+<span class="variable language_">this</span>.<span class="property">age</span>+<span class="string">&quot;岁，他的工作是：&quot;</span>+<span class="variable language_">this</span>.<span class="property">job</span>);</span><br><span class="line">    person.<span class="property">work</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">   <span class="keyword">let</span> person = &#123;</span><br><span class="line">    name = <span class="string">&quot;zhangsan&quot;</span>,</span><br><span class="line">    age = <span class="number">18</span>,</span><br><span class="line">    job = <span class="string">&quot;Teacher&quot;</span>,</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">name</span>+<span class="string">&quot;，年龄&quot;</span>+<span class="variable language_">this</span>.<span class="property">age</span>+<span class="string">&quot;岁，他的工作</span></span><br><span class="line"><span class="string">是：&quot;</span>+<span class="variable language_">this</span>.<span class="property">job</span>);</span><br><span class="line">    <span class="title function_">work</span>(<span class="params"></span>)&#123;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="属性的类型"><a href="#属性的类型" class="headerlink" title="属性的类型"></a>属性的类型</h2><ul>
+<li>JavaScript使用了一些内部特性来描述属性的特征，这些特性由JavaScript实现引<br>擎的规范定义的，所以开发者不能直接在JavaScript中访问这些访问。</li>
+</ul>
+<h3 id="属性的特性分两种"><a href="#属性的特性分两种" class="headerlink" title="属性的特性分两种"></a>属性的特性分两种</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">**数据属性**</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>【Configurable】：表示属性是否可以通过delete删除并重新定义，</p>
+<p>是否可以修改它的特性，以及是否可以把它改为访问器属性。其默认情况下为true</p>
+</li>
+<li><p>【Enumerable】：表示属性是否可以通过for-in循环返回，默认情况</p>
+<p>也为true</p>
+</li>
+<li><p>【Writable】：表示属性的值是否可以被修改，其默认值为true</p>
+</li>
+<li><p>【Value】：包含属性的实际值，其默认值为undefined</p>
+</li>
+</ul>
+<br/>
+
+<ul>
+<li><p>这些属性特性我们在定义对象时并不需要显式的添加前三个，而Value特性<br>也会被我们定义，如：name:”zhangsan</p>
+</li>
+<li><p>如果想要修改这些默认特性，就必须使用Object.defineProperty()方<br>法，这个方法在使用时接收三个参数：要给其添加属性的对象，属性的名<br>称，以及一个描述特性的对象及其参数</p>
+</li>
+<li><p>示例</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="keyword">let</span> person = &#123;&#125;;</span><br><span class="line">    <span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(person,<span class="string">&quot;name&quot;</span>,&#123;</span><br><span class="line">    <span class="attr">writable</span>:<span class="literal">false</span>,</span><br><span class="line">    <span class="attr">value</span>:<span class="string">&quot;王麻子&quot;</span></span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(person.<span class="property">name</span>);</span><br><span class="line">    person.<span class="property">name</span> = <span class="string">&quot;张金条&quot;</span>;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(person.<span class="property">name</span>);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="keyword">let</span> person = &#123;&#125;;</span><br><span class="line">    <span class="keyword">let</span> person = &#123;&#125;;</span><br><span class="line">    <span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(person,<span class="string">&quot;name&quot;</span>,&#123;</span><br><span class="line">    <span class="comment">// configurable:true,</span></span><br><span class="line">    <span class="attr">configurable</span>:<span class="literal">false</span>,</span><br><span class="line">    <span class="attr">value</span>:<span class="string">&quot;王麻子&quot;</span></span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(person.<span class="property">name</span>);</span><br><span class="line">    <span class="keyword">delete</span> person.<span class="property">name</span>;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(person.<span class="property">name</span>);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="访问器属性"><a href="#访问器属性" class="headerlink" title="访问器属性"></a>访问器属性</h3><ul>
+<li><p>访问器属性不包含数据值，它包含一个获取（getter）函数以及一个设置<br>（setter）函数，不过这两个函数并非必须函数。</p>
+</li>
+<li><p>在读取访问器属性时，程序会自个调用获取函数，也就是说获取函数的主<br>要任务就是返回一个有效的值</p>
+</li>
+<li><p>访问器属性也有4个特性用了描述它们的行为</p>
+<p>【Configurable】，默认值为true，表示能否通过delete删除属性从而<br>重新定义属性，能否修改属性的特性，能否把属性修改为访问器属性<br>【Enumerable】，默认值为true，能否通过for-in循环返回属性<br>【get】读取这个属性时调用的函数 getter函数<br>【set】在为这个属性赋值时调用的函数 setter函数</p>
+</li>
+<li><p>以上这些属性也是不能直接定义的，必须通过Object-defineProperty()</p>
+</li>
+<li><p>示例</p>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">     <span class="keyword">let</span> book = &#123;</span><br><span class="line">       <span class="attr">name</span>:<span class="string">&quot;七侠五义&quot;</span>,</span><br><span class="line">       <span class="attr">price</span>:<span class="number">1</span></span><br><span class="line">     &#125;;</span><br><span class="line">  </span><br><span class="line">     book.<span class="property">name</span> = <span class="string">&quot;斗破苍穹&quot;</span>;</span><br><span class="line">     <span class="variable language_">console</span>.<span class="title function_">log</span>(book.<span class="property">name</span>);</span><br><span class="line">     <span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(book,<span class="string">&quot;name&quot;</span>,&#123;</span><br><span class="line">     <span class="title function_">get</span>(<span class="params"></span>)&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">name</span>;</span><br><span class="line">     &#125;,</span><br><span class="line">     <span class="title function_">set</span>(<span class="params">newValue</span>)&#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">name</span> = newValue;</span><br><span class="line">     &#125;</span><br><span class="line">     &#125;);</span><br><span class="line"> &lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="对象合并"><a href="#对象合并" class="headerlink" title="对象合并"></a>对象合并</h2><ul>
+<li><p>在开发JavaScript时我们会把多个对象合并使用</p>
+</li>
+<li><p>具体来说就是把一个对象的所有属性复制到了目标对象上，这种方式也被称之为混<br>入，通过对象的合并我们可以增强对象功能</p>
+</li>
+<li><p>JavaScript专门为合并对象提供了一个Object.assign()方法，这个方法接收一个目<br>标对象和一个或多个其它对象（源对象），然后将每个源对象中自有属性复制到目<br>标对象</p>
+</li>
+<li><p>示例</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="comment">//目标对象</span></span><br><span class="line">    <span class="title class_">Obj1</span> = &#123;<span class="attr">name</span>:<span class="string">&quot;老八&quot;</span>&#125;;</span><br><span class="line">    <span class="comment">//源对象</span></span><br><span class="line">    <span class="title class_">Obj2</span> = &#123;<span class="attr">name</span>:<span class="string">&quot;老八&quot;</span>&#125;;</span><br><span class="line">    <span class="comment">//把2复制到目标对象中</span></span><br><span class="line">    result = <span class="title class_">Object</span>.<span class="title function_">assign</span>(<span class="title class_">Obj1</span>,<span class="title class_">Obj2</span>);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Obj1</span> === result)</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Obj2</span> === result)</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(result)</span><br><span class="line">   </span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(result)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="增强的对象语法"><a href="#增强的对象语法" class="headerlink" title="增强的对象语法"></a>增强的对象语法</h2><ul>
+<li><p>ES6位对象定义了很多定义对象及其操作对象的语法特性，这些特性可以极大程度<br>提高对象处理的方便程度</p>
+</li>
+<li><p>属性值得简写</p>
+<p>在给对象添加值时我们可以引用变量</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line"> <span class="keyword">let</span> username= <span class="string">&quot;sanlvzi&quot;</span>;</span><br><span class="line"> <span class="keyword">let</span> person = &#123;</span><br><span class="line"> <span class="attr">username</span>:username</span><br><span class="line"> &#125;;</span><br><span class="line"> <span class="variable language_">console</span>.<span class="title function_">log</span>(person)</span><br><span class="line"> &lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">还能简写（以下这种情况必须时变量名域对象的属性名相同才可以这么写）</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br/>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">   <span class="keyword">let</span> username= <span class="string">&quot;sanlvzi&quot;</span>;</span><br><span class="line">   username</span><br><span class="line">   &#125;;</span><br><span class="line">   <span class="keyword">let</span> person = &#123;</span><br><span class="line">   <span class="variable language_">console</span>.<span class="title function_">log</span>(person)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="对象解构"><a href="#对象解构" class="headerlink" title="对象解构"></a>对象解构</h2><h3 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h3><ul>
+<li><p>对象解构是从对象中检索属性键的值。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="attr">name</span>:<span class="string">&quot;张麻子&quot;</span>,</span><br><span class="line"><span class="attr">age</span>:<span class="number">18</span></span><br><span class="line"><span class="keyword">let</span> user = &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>传统取值来说，我们可以使用打点表示法或者是下标法来从对象中检索值</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> username = user.<span class="property">name</span>;</span><br><span class="line"><span class="keyword">let</span> age = user[<span class="string">&#x27;age&#x27;</span>]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>以上这种方法是没有任何问题的，但是就当属性较多时，我们的代码中会产生<br>较多的重复代码，然后ES6就搞出来了一个技术叫做对象解构</p>
+</li>
+<li><p>对象解构也叫解构赋值，可以快速的获取值</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> &#123;name,age&#125; = user;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(name)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="使用解构从嵌套的对象中获取值"><a href="#使用解构从嵌套的对象中获取值" class="headerlink" title="使用解构从嵌套的对象中获取值"></a>使用解构从嵌套的对象中获取值</h3><ul>
+<li><p>嵌套即一个对象中还有对象</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="title class_">Person</span> = &#123;</span><br><span class="line">   <span class="attr">name</span>:<span class="string">&quot;Marry&quot;</span>,</span><br><span class="line">   <span class="attr">age</span>:<span class="number">27</span>,</span><br><span class="line">   <span class="attr">friend</span>:&#123;</span><br><span class="line">   <span class="attr">friend_1_Phone</span>:<span class="number">110</span>,</span><br><span class="line">   <span class="attr">address</span>:<span class="string">&quot;文景路凤城四路...&quot;</span></span><br><span class="line">   &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用传统方式获取朋友对象的值</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> p1 = <span class="title class_">Person</span>.<span class="property">friend</span>.<span class="property">friend_1_Phone</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>换成解构赋值，如下：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="title class_">Person</span> = &#123;</span><br><span class="line">   <span class="title class_">Pname</span>:<span class="string">&quot;Marry&quot;</span>,</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">let</span> <span class="title class_">User</span> = &#123;</span><br><span class="line">   <span class="title class_">Uname</span>:<span class="string">&quot;Jack&quot;</span>,</span><br><span class="line">   <span class="title class_">Uage</span>:<span class="string">&#x27;&#x27;</span></span><br><span class="line">   &#125;</span><br><span class="line">   <span class="comment">//在解构时可以加上其它属性值</span></span><br><span class="line">   <span class="keyword">let</span> &#123;<span class="title class_">Pname</span>,<span class="title class_">Page</span> = <span class="number">18</span>&#125; = <span class="title class_">Person</span>;</span><br><span class="line">   <span class="keyword">let</span> &#123;<span class="title class_">Uname</span>,<span class="title class_">Uage</span> = <span class="number">18</span>&#125; = <span class="title class_">User</span>;</span><br><span class="line">   <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Pname</span>)</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="还可以给JavaScript解构对象创建别名"><a href="#还可以给JavaScript解构对象创建别名" class="headerlink" title="还可以给JavaScript解构对象创建别名"></a>还可以给JavaScript解构对象创建别名</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="title class_">User</span> = &#123;</span><br><span class="line"> <span class="attr">name</span>:<span class="string">&quot;Jack&quot;</span>,</span><br><span class="line"> <span class="attr">age</span>:<span class="number">18</span></span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">let</span>&#123;<span class="attr">age</span>:userAge&#125; =<span class="title class_">User</span>;</span><br><span class="line"> <span class="variable language_">console</span>.<span class="title function_">log</span>(userAge) </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="还可以使用对象解构处理动态名称属性"><a href="#还可以使用对象解构处理动态名称属性" class="headerlink" title="还可以使用对象解构处理动态名称属性"></a>还可以使用对象解构处理动态名称属性</h3><ul>
+<li><p>我们在开发时经常会将API的一些响应数据作为Javascript对象处理，这些对象</p>
+<p>可能包含一些动态数据，我们在客户端使用这些数据时可能连属性键时啥都不<br> 知道</p>
+</li>
+<li><p>我们可以将键当成时参数据传递，也就是说我们可以编写一个返回User对象属<br>性值得函数，然后我们可以接收参数，让JS从对象中去检索</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="title class_">User</span> = &#123;</span><br><span class="line">   <span class="attr">name</span>:<span class="string">&quot;Jack&quot;</span>,</span><br><span class="line">   <span class="attr">age</span>:<span class="string">&#x27;&#x27;</span></span><br><span class="line"> &#125;</span><br><span class="line">   <span class="keyword">function</span> <span class="title function_">getProperty</span>(<span class="params">key</span>) &#123;</span><br><span class="line">   <span class="keyword">let</span> &#123;[key]:returnValue&#125; = <span class="title class_">User</span>;</span><br><span class="line">      <span class="keyword">return</span> returnValue;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">let</span> address = <span class="title function_">getProperty</span>(<span class="string">&#x27;address&#x27;</span>);</span><br><span class="line">   <span class="keyword">let</span> name = <span class="title function_">getProperty</span>(<span class="string">&#x27;name&#x27;</span>);</span><br><span class="line">   <span class="variable language_">console</span>.<span class="title function_">log</span>(address,name);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="在函数参数和返回值中解构对象"><a href="#在函数参数和返回值中解构对象" class="headerlink" title="在函数参数和返回值中解构对象"></a>在函数参数和返回值中解构对象</h3>  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">解构赋值传参</span><br></pre></td></tr></table></figure>
+
+  <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="title class_">User</span> = &#123;</span><br><span class="line">   <span class="attr">name</span>:<span class="string">&quot;Jack&quot;</span>,</span><br><span class="line">   <span class="attr">age</span>:<span class="number">18</span></span><br><span class="line"> &#125;</span><br><span class="line">   <span class="keyword">function</span> <span class="title function_">fun</span>(<span class="params">&#123;name,age&#125;</span>) &#123;</span><br><span class="line">   <span class="variable language_">console</span>.<span class="title function_">log</span>(name,age)</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="title function_">fun</span>(<span class="title class_">User</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>  解构函数对象返回值</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">如果一个函数的返回值是一个对象，我们可以直接解构对象为变量</span><br></pre></td></tr></table></figure>
+
+  <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="title class_">User</span> = &#123;</span><br><span class="line">   <span class="attr">name</span>:<span class="string">&quot;Jack&quot;</span>, <span class="keyword">function</span> <span class="title function_">fun</span>(<span class="params"></span>)&#123;</span><br><span class="line">   <span class="attr">name</span>:<span class="string">&quot;Jack&quot;</span>,</span><br><span class="line">   <span class="attr">age</span>:<span class="number">18</span></span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="keyword">function</span> <span class="title function_">fun</span>(<span class="params"></span>) &#123;</span><br><span class="line">   <span class="keyword">return</span> <span class="title class_">User</span>;</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   <span class="keyword">let</span>&#123;age&#125; = <span class="title function_">fun</span>();</span><br><span class="line">   <span class="variable language_">console</span>.<span class="title function_">log</span>(age)</span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">fun</span>(<span class="params"></span>)&#123;</span><br><span class="line">   <span class="keyword">return</span>&#123;</span><br><span class="line">   <span class="attr">name</span>:<span class="string">&quot;Jack&quot;</span>,</span><br><span class="line">   <span class="attr">age</span>:<span class="number">18</span></span><br><span class="line">   &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">let</span>&#123;age&#125; = <span class="title function_">fun</span>();</span><br><span class="line">   <span class="variable language_">console</span>.<span class="title function_">log</span>(age)</span><br></pre></td></tr></table></figure>
+
+<p>  在循环中使用对象解构</p>
+  <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="title class_">User</span> = [</span><br><span class="line">   &#123;</span><br><span class="line">     <span class="string">&#x27;name&#x27;</span>:<span class="string">&quot;张三&quot;</span> ,</span><br><span class="line">     <span class="string">&#x27;age&#x27;</span>:<span class="number">18</span></span><br><span class="line">   &#125;,</span><br><span class="line">   &#123;</span><br><span class="line">     <span class="string">&quot;name&quot;</span>:<span class="string">&quot;李四&quot;</span>,</span><br><span class="line">     <span class="string">&quot;age&quot;</span>:<span class="number">19</span></span><br><span class="line">   &#125;,</span><br><span class="line">   &#123;</span><br><span class="line">     <span class="string">&quot;name&quot;</span>:<span class="string">&quot;王五&quot;</span>,</span><br><span class="line">     <span class="string">&quot;age&quot;</span>:<span class="number">20</span></span><br><span class="line">   &#125;</span><br><span class="line">   ];</span><br><span class="line">     <span class="keyword">for</span>(<span class="keyword">let</span>&#123;name,age&#125; <span class="keyword">of</span> <span class="title class_">User</span>)&#123;</span><br><span class="line">     <span class="variable language_">console</span>.<span class="title function_">log</span>(name,age)</span><br><span class="line">   &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="使用其它方式创建对象"><a href="#使用其它方式创建对象" class="headerlink" title="使用其它方式创建对象"></a>使用其它方式创建对象</h2><h3 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h3><ul>
+<li><p>工厂模式是程序中应用较为普遍的一种设计模式</p>
+</li>
+<li><p>在这里用于抽象对象创建的过程，按照特定的接口创建方式创建对象</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//定义一个方法，该方法用来规定创建对象的基本属性及行为</span></span><br><span class="line"> <span class="comment">//属性我们以方法的参数形式传递进来，让方法内部对这些属性进行处理</span></span><br><span class="line"> <span class="keyword">function</span> <span class="title function_">createPerson</span>(<span class="params">name,age,job</span>) &#123;</span><br><span class="line"> <span class="comment">//创建一个Object对象</span></span><br><span class="line"> <span class="keyword">let</span> obj = <span class="keyword">new</span> <span class="title class_">Object</span>();</span><br><span class="line"> <span class="keyword">let</span> obj = <span class="keyword">new</span> <span class="title class_">Object</span>();</span><br><span class="line"> <span class="comment">//给obj对象开始赋值</span></span><br><span class="line"> obj.<span class="property">name</span> = name;</span><br><span class="line"> obj.<span class="property">age</span> = age;</span><br><span class="line"> obj.<span class="property">job</span> = job;</span><br><span class="line"> obj.<span class="property">eat</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line"> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">name</span>+<span class="string">&quot;，吃饭时DuangDuang的&quot;</span>);</span><br><span class="line"> &#125;</span><br><span class="line">  <span class="keyword">return</span> obj;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">let</span> person_1 = <span class="title function_">createPerson</span>(<span class="string">&quot;张金条&quot;</span>,<span class="number">99</span>,<span class="string">&quot;修空调&quot;</span>);</span><br><span class="line"> <span class="keyword">let</span> person_2 = <span class="title function_">createPerson</span>(<span class="string">&quot;张银条&quot;</span>,<span class="number">98</span>,<span class="string">&quot;挖坑&quot;</span>);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="构造函数方式"><a href="#构造函数方式" class="headerlink" title="构造函数方式"></a>构造函数方式</h3><ul>
+<li><p>以函数的形式为自己的对象定义属性和方法</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line"> <span class="keyword">function</span> <span class="title function_">Person</span>(<span class="params">name,age,job</span>) &#123;</span><br><span class="line">   <span class="variable language_">this</span>.<span class="property">name</span> = name;</span><br><span class="line">   <span class="variable language_">this</span>.<span class="property">age</span> = age;</span><br><span class="line">   <span class="variable language_">this</span>.<span class="property">job</span> = job;</span><br><span class="line">   <span class="variable language_">this</span>.<span class="property">eat</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">   <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;干饭&quot;</span>);</span><br><span class="line">   &#125;;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="comment">//要创建对象就得new，也就是说通过new关键字调用Person方法来创建Person对象</span></span><br><span class="line">   <span class="keyword">let</span> person_1 = <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;张铜条&quot;</span>,<span class="number">88</span>,<span class="string">&quot;摆烂&quot;</span>);</span><br><span class="line">   <span class="keyword">let</span> person_2 = <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;张铁条&quot;</span>,<span class="number">90</span>,<span class="string">&quot;技师&quot;</span>);</span><br><span class="line">   person_1.<span class="title function_">eat</span>();</span><br><span class="line">   person_2.<span class="title function_">eat</span>();</span><br><span class="line"> &lt;/script&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>解析</p>
+<p>在内存中创建一个新对象，每new一次就会创建一个新的对象</p>
+<p>这个对象在方法内部只是为将要形成的对象属性指定了属性值和行为</p>
+</li>
+</ul>
 ]]></content>
   </entry>
 </search>
