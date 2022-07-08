@@ -222,4 +222,153 @@
 <span id="more"></span>
 ]]></content>
   </entry>
+  <entry>
+    <title>HTML常用标签</title>
+    <url>/2022/07/08/JavaScript/</url>
+    <content><![CDATA[<p><img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fwww.debug8.com%2Fstatics%2Fuploads%2F2020%2F08%2F15%2F1597460167384632.jpeg&refer=http%3A%2F%2Fwww.debug8.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1659869298&t=98ffecf7bc2187582206328f237905ec" alt="img"></p>
+<span id="more"></span>
+
+<h1 id="JavaScript对象"><a href="#JavaScript对象" class="headerlink" title="JavaScript对象"></a>JavaScript对象</h1><h2 id="什么是对象"><a href="#什么是对象" class="headerlink" title="什么是对象"></a>什么是对象</h2><ul>
+<li><p>对象是一种复合值，它汇聚多个值（原始值或者是其它对象），并且允许我们按照<br>名称存储和获取这些值。</p>
+</li>
+<li><p>对象是一个属性无序的集合，每个属性都有自己的名字和值，只有在对象中，其使<br>用起来与顺序无关，只需要打点即可调用。</p>
+</li>
+<li><p>在JavaScript中对象可以从其它对象继承属性</p>
+</li>
+<li><p>JavaScript对象是动态的，即可以动态的添加和删除对象属性</p>
+<br/></li>
+</ul>
+<h2 id="认识对象"><a href="#认识对象" class="headerlink" title="认识对象"></a>认识对象</h2><ul>
+<li><p>创建自定义对象我们可以通过创建Object实例来实现，然后再给他添加属性和方法<br>（函数）</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="keyword">let</span> person = <span class="keyword">new</span> <span class="title class_">Object</span>();</span><br><span class="line">    person.<span class="property">name</span> = <span class="string">&quot;zhangsan&quot;</span>;</span><br><span class="line">    person.<span class="property">age</span> = <span class="number">18</span>;</span><br><span class="line">    person.<span class="property">job</span> = <span class="string">&quot;Teacher&quot;</span>; </span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">name</span>+<span class="string">&quot;，年龄&quot;</span>+<span class="variable language_">this</span>.<span class="property">age</span>+<span class="string">&quot;岁，他的工作是：&quot;</span>+<span class="variable language_">this</span>.<span class="property">job</span>);</span><br><span class="line">    person.<span class="property">work</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">   <span class="keyword">let</span> person = &#123;</span><br><span class="line">    name = <span class="string">&quot;zhangsan&quot;</span>,</span><br><span class="line">    age = <span class="number">18</span>,</span><br><span class="line">    job = <span class="string">&quot;Teacher&quot;</span>,</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">name</span>+<span class="string">&quot;，年龄&quot;</span>+<span class="variable language_">this</span>.<span class="property">age</span>+<span class="string">&quot;岁，他的工作</span></span><br><span class="line"><span class="string">是：&quot;</span>+<span class="variable language_">this</span>.<span class="property">job</span>);</span><br><span class="line">    <span class="title function_">work</span>(<span class="params"></span>)&#123;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="属性的类型"><a href="#属性的类型" class="headerlink" title="属性的类型"></a>属性的类型</h2><ul>
+<li>JavaScript使用了一些内部特性来描述属性的特征，这些特性由JavaScript实现引<br>擎的规范定义的，所以开发者不能直接在JavaScript中访问这些访问。</li>
+</ul>
+<h3 id="属性的特性分两种"><a href="#属性的特性分两种" class="headerlink" title="属性的特性分两种"></a>属性的特性分两种</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">**数据属性**</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>【Configurable】：表示属性是否可以通过delete删除并重新定义，</p>
+<p>是否可以修改它的特性，以及是否可以把它改为访问器属性。其默认情况下为true</p>
+</li>
+<li><p>【Enumerable】：表示属性是否可以通过for-in循环返回，默认情况</p>
+<p>也为true</p>
+</li>
+<li><p>【Writable】：表示属性的值是否可以被修改，其默认值为true</p>
+</li>
+<li><p>【Value】：包含属性的实际值，其默认值为undefined</p>
+</li>
+</ul>
+<br/>
+
+<ul>
+<li><p>这些属性特性我们在定义对象时并不需要显式的添加前三个，而Value特性<br>也会被我们定义，如：name:”zhangsan</p>
+</li>
+<li><p>如果想要修改这些默认特性，就必须使用Object.defineProperty()方<br>法，这个方法在使用时接收三个参数：要给其添加属性的对象，属性的名<br>称，以及一个描述特性的对象及其参数</p>
+</li>
+<li><p>示例</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="keyword">let</span> person = &#123;&#125;;</span><br><span class="line">    <span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(person,<span class="string">&quot;name&quot;</span>,&#123;</span><br><span class="line">    <span class="attr">writable</span>:<span class="literal">false</span>,</span><br><span class="line">    <span class="attr">value</span>:<span class="string">&quot;王麻子&quot;</span></span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(person.<span class="property">name</span>);</span><br><span class="line">    person.<span class="property">name</span> = <span class="string">&quot;张金条&quot;</span>;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(person.<span class="property">name</span>);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="keyword">let</span> person = &#123;&#125;;</span><br><span class="line">    <span class="keyword">let</span> person = &#123;&#125;;</span><br><span class="line">    <span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(person,<span class="string">&quot;name&quot;</span>,&#123;</span><br><span class="line">    <span class="comment">// configurable:true,</span></span><br><span class="line">    <span class="attr">configurable</span>:<span class="literal">false</span>,</span><br><span class="line">    <span class="attr">value</span>:<span class="string">&quot;王麻子&quot;</span></span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(person.<span class="property">name</span>);</span><br><span class="line">    <span class="keyword">delete</span> person.<span class="property">name</span>;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(person.<span class="property">name</span>);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="访问器属性"><a href="#访问器属性" class="headerlink" title="访问器属性"></a>访问器属性</h3><ul>
+<li><p>访问器属性不包含数据值，它包含一个获取（getter）函数以及一个设置<br>（setter）函数，不过这两个函数并非必须函数。</p>
+</li>
+<li><p>在读取访问器属性时，程序会自个调用获取函数，也就是说获取函数的主<br>要任务就是返回一个有效的值</p>
+</li>
+<li><p>访问器属性也有4个特性用了描述它们的行为</p>
+<p>【Configurable】，默认值为true，表示能否通过delete删除属性从而<br>重新定义属性，能否修改属性的特性，能否把属性修改为访问器属性<br>【Enumerable】，默认值为true，能否通过for-in循环返回属性<br>【get】读取这个属性时调用的函数 getter函数<br>【set】在为这个属性赋值时调用的函数 setter函数</p>
+</li>
+<li><p>以上这些属性也是不能直接定义的，必须通过Object-defineProperty()</p>
+</li>
+<li><p>示例</p>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">     <span class="keyword">let</span> book = &#123;</span><br><span class="line">       <span class="attr">name</span>:<span class="string">&quot;七侠五义&quot;</span>,</span><br><span class="line">       <span class="attr">price</span>:<span class="number">1</span></span><br><span class="line">     &#125;;</span><br><span class="line">  </span><br><span class="line">     book.<span class="property">name</span> = <span class="string">&quot;斗破苍穹&quot;</span>;</span><br><span class="line">     <span class="variable language_">console</span>.<span class="title function_">log</span>(book.<span class="property">name</span>);</span><br><span class="line">     <span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(book,<span class="string">&quot;name&quot;</span>,&#123;</span><br><span class="line">     <span class="title function_">get</span>(<span class="params"></span>)&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">name</span>;</span><br><span class="line">     &#125;,</span><br><span class="line">     <span class="title function_">set</span>(<span class="params">newValue</span>)&#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">name</span> = newValue;</span><br><span class="line">     &#125;</span><br><span class="line">     &#125;);</span><br><span class="line"> &lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="对象合并"><a href="#对象合并" class="headerlink" title="对象合并"></a>对象合并</h2><ul>
+<li><p>在开发JavaScript时我们会把多个对象合并使用</p>
+</li>
+<li><p>具体来说就是把一个对象的所有属性复制到了目标对象上，这种方式也被称之为混<br>入，通过对象的合并我们可以增强对象功能</p>
+</li>
+<li><p>JavaScript专门为合并对象提供了一个Object.assign()方法，这个方法接收一个目<br>标对象和一个或多个其它对象（源对象），然后将每个源对象中自有属性复制到目<br>标对象</p>
+</li>
+<li><p>示例</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="comment">//目标对象</span></span><br><span class="line">    <span class="title class_">Obj1</span> = &#123;<span class="attr">name</span>:<span class="string">&quot;老八&quot;</span>&#125;;</span><br><span class="line">    <span class="comment">//源对象</span></span><br><span class="line">    <span class="title class_">Obj2</span> = &#123;<span class="attr">name</span>:<span class="string">&quot;老八&quot;</span>&#125;;</span><br><span class="line">    <span class="comment">//把2复制到目标对象中</span></span><br><span class="line">    result = <span class="title class_">Object</span>.<span class="title function_">assign</span>(<span class="title class_">Obj1</span>,<span class="title class_">Obj2</span>);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Obj1</span> === result)</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Obj2</span> === result)</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(result)</span><br><span class="line">   </span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(result)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="增强的对象语法"><a href="#增强的对象语法" class="headerlink" title="增强的对象语法"></a>增强的对象语法</h2><ul>
+<li><p>ES6位对象定义了很多定义对象及其操作对象的语法特性，这些特性可以极大程度<br>提高对象处理的方便程度</p>
+</li>
+<li><p>属性值得简写</p>
+<p>在给对象添加值时我们可以引用变量</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line"> <span class="keyword">let</span> username= <span class="string">&quot;sanlvzi&quot;</span>;</span><br><span class="line"> <span class="keyword">let</span> person = &#123;</span><br><span class="line"> <span class="attr">username</span>:username</span><br><span class="line"> &#125;;</span><br><span class="line"> <span class="variable language_">console</span>.<span class="title function_">log</span>(person)</span><br><span class="line"> &lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">还能简写（以下这种情况必须时变量名域对象的属性名相同才可以这么写）</span><br></pre></td></tr></table></figure></li>
+</ul>
+<br/>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">   <span class="keyword">let</span> username= <span class="string">&quot;sanlvzi&quot;</span>;</span><br><span class="line">   username</span><br><span class="line">   &#125;;</span><br><span class="line">   <span class="keyword">let</span> person = &#123;</span><br><span class="line">   <span class="variable language_">console</span>.<span class="title function_">log</span>(person)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="对象解构"><a href="#对象解构" class="headerlink" title="对象解构"></a>对象解构</h2><h3 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h3><ul>
+<li><p>对象解构是从对象中检索属性键的值。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="attr">name</span>:<span class="string">&quot;张麻子&quot;</span>,</span><br><span class="line"><span class="attr">age</span>:<span class="number">18</span></span><br><span class="line"><span class="keyword">let</span> user = &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>传统取值来说，我们可以使用打点表示法或者是下标法来从对象中检索值</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> username = user.<span class="property">name</span>;</span><br><span class="line"><span class="keyword">let</span> age = user[<span class="string">&#x27;age&#x27;</span>]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>以上这种方法是没有任何问题的，但是就当属性较多时，我们的代码中会产生<br>较多的重复代码，然后ES6就搞出来了一个技术叫做对象解构</p>
+</li>
+<li><p>对象解构也叫解构赋值，可以快速的获取值</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> &#123;name,age&#125; = user;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(name)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="使用解构从嵌套的对象中获取值"><a href="#使用解构从嵌套的对象中获取值" class="headerlink" title="使用解构从嵌套的对象中获取值"></a>使用解构从嵌套的对象中获取值</h3><ul>
+<li><p>嵌套即一个对象中还有对象</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="title class_">Person</span> = &#123;</span><br><span class="line">   <span class="attr">name</span>:<span class="string">&quot;Marry&quot;</span>,</span><br><span class="line">   <span class="attr">age</span>:<span class="number">27</span>,</span><br><span class="line">   <span class="attr">friend</span>:&#123;</span><br><span class="line">   <span class="attr">friend_1_Phone</span>:<span class="number">110</span>,</span><br><span class="line">   <span class="attr">address</span>:<span class="string">&quot;文景路凤城四路...&quot;</span></span><br><span class="line">   &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用传统方式获取朋友对象的值</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> p1 = <span class="title class_">Person</span>.<span class="property">friend</span>.<span class="property">friend_1_Phone</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>换成解构赋值，如下：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="title class_">Person</span> = &#123;</span><br><span class="line">   <span class="title class_">Pname</span>:<span class="string">&quot;Marry&quot;</span>,</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">let</span> <span class="title class_">User</span> = &#123;</span><br><span class="line">   <span class="title class_">Uname</span>:<span class="string">&quot;Jack&quot;</span>,</span><br><span class="line">   <span class="title class_">Uage</span>:<span class="string">&#x27;&#x27;</span></span><br><span class="line">   &#125;</span><br><span class="line">   <span class="comment">//在解构时可以加上其它属性值</span></span><br><span class="line">   <span class="keyword">let</span> &#123;<span class="title class_">Pname</span>,<span class="title class_">Page</span> = <span class="number">18</span>&#125; = <span class="title class_">Person</span>;</span><br><span class="line">   <span class="keyword">let</span> &#123;<span class="title class_">Uname</span>,<span class="title class_">Uage</span> = <span class="number">18</span>&#125; = <span class="title class_">User</span>;</span><br><span class="line">   <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Pname</span>)</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="还可以给JavaScript解构对象创建别名"><a href="#还可以给JavaScript解构对象创建别名" class="headerlink" title="还可以给JavaScript解构对象创建别名"></a>还可以给JavaScript解构对象创建别名</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="title class_">User</span> = &#123;</span><br><span class="line"> <span class="attr">name</span>:<span class="string">&quot;Jack&quot;</span>,</span><br><span class="line"> <span class="attr">age</span>:<span class="number">18</span></span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">let</span>&#123;<span class="attr">age</span>:userAge&#125; =<span class="title class_">User</span>;</span><br><span class="line"> <span class="variable language_">console</span>.<span class="title function_">log</span>(userAge) </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="还可以使用对象解构处理动态名称属性"><a href="#还可以使用对象解构处理动态名称属性" class="headerlink" title="还可以使用对象解构处理动态名称属性"></a>还可以使用对象解构处理动态名称属性</h3><ul>
+<li><p>我们在开发时经常会将API的一些响应数据作为Javascript对象处理，这些对象</p>
+<p>可能包含一些动态数据，我们在客户端使用这些数据时可能连属性键时啥都不<br> 知道</p>
+</li>
+<li><p>我们可以将键当成时参数据传递，也就是说我们可以编写一个返回User对象属<br>性值得函数，然后我们可以接收参数，让JS从对象中去检索</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="title class_">User</span> = &#123;</span><br><span class="line">   <span class="attr">name</span>:<span class="string">&quot;Jack&quot;</span>,</span><br><span class="line">   <span class="attr">age</span>:<span class="string">&#x27;&#x27;</span></span><br><span class="line"> &#125;</span><br><span class="line">   <span class="keyword">function</span> <span class="title function_">getProperty</span>(<span class="params">key</span>) &#123;</span><br><span class="line">   <span class="keyword">let</span> &#123;[key]:returnValue&#125; = <span class="title class_">User</span>;</span><br><span class="line">      <span class="keyword">return</span> returnValue;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">let</span> address = <span class="title function_">getProperty</span>(<span class="string">&#x27;address&#x27;</span>);</span><br><span class="line">   <span class="keyword">let</span> name = <span class="title function_">getProperty</span>(<span class="string">&#x27;name&#x27;</span>);</span><br><span class="line">   <span class="variable language_">console</span>.<span class="title function_">log</span>(address,name);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="在函数参数和返回值中解构对象"><a href="#在函数参数和返回值中解构对象" class="headerlink" title="在函数参数和返回值中解构对象"></a>在函数参数和返回值中解构对象</h3>  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">解构赋值传参</span><br></pre></td></tr></table></figure>
+
+  <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="title class_">User</span> = &#123;</span><br><span class="line">   <span class="attr">name</span>:<span class="string">&quot;Jack&quot;</span>,</span><br><span class="line">   <span class="attr">age</span>:<span class="number">18</span></span><br><span class="line"> &#125;</span><br><span class="line">   <span class="keyword">function</span> <span class="title function_">fun</span>(<span class="params">&#123;name,age&#125;</span>) &#123;</span><br><span class="line">   <span class="variable language_">console</span>.<span class="title function_">log</span>(name,age)</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="title function_">fun</span>(<span class="title class_">User</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>  解构函数对象返回值</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">如果一个函数的返回值是一个对象，我们可以直接解构对象为变量</span><br></pre></td></tr></table></figure>
+
+  <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="title class_">User</span> = &#123;</span><br><span class="line">   <span class="attr">name</span>:<span class="string">&quot;Jack&quot;</span>, <span class="keyword">function</span> <span class="title function_">fun</span>(<span class="params"></span>)&#123;</span><br><span class="line">   <span class="attr">name</span>:<span class="string">&quot;Jack&quot;</span>,</span><br><span class="line">   <span class="attr">age</span>:<span class="number">18</span></span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="keyword">function</span> <span class="title function_">fun</span>(<span class="params"></span>) &#123;</span><br><span class="line">   <span class="keyword">return</span> <span class="title class_">User</span>;</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   <span class="keyword">let</span>&#123;age&#125; = <span class="title function_">fun</span>();</span><br><span class="line">   <span class="variable language_">console</span>.<span class="title function_">log</span>(age)</span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">fun</span>(<span class="params"></span>)&#123;</span><br><span class="line">   <span class="keyword">return</span>&#123;</span><br><span class="line">   <span class="attr">name</span>:<span class="string">&quot;Jack&quot;</span>,</span><br><span class="line">   <span class="attr">age</span>:<span class="number">18</span></span><br><span class="line">   &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">let</span>&#123;age&#125; = <span class="title function_">fun</span>();</span><br><span class="line">   <span class="variable language_">console</span>.<span class="title function_">log</span>(age)</span><br></pre></td></tr></table></figure>
+
+<p>  在循环中使用对象解构</p>
+  <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="title class_">User</span> = [</span><br><span class="line">   &#123;</span><br><span class="line">     <span class="string">&#x27;name&#x27;</span>:<span class="string">&quot;张三&quot;</span> ,</span><br><span class="line">     <span class="string">&#x27;age&#x27;</span>:<span class="number">18</span></span><br><span class="line">   &#125;,</span><br><span class="line">   &#123;</span><br><span class="line">     <span class="string">&quot;name&quot;</span>:<span class="string">&quot;李四&quot;</span>,</span><br><span class="line">     <span class="string">&quot;age&quot;</span>:<span class="number">19</span></span><br><span class="line">   &#125;,</span><br><span class="line">   &#123;</span><br><span class="line">     <span class="string">&quot;name&quot;</span>:<span class="string">&quot;王五&quot;</span>,</span><br><span class="line">     <span class="string">&quot;age&quot;</span>:<span class="number">20</span></span><br><span class="line">   &#125;</span><br><span class="line">   ];</span><br><span class="line">     <span class="keyword">for</span>(<span class="keyword">let</span>&#123;name,age&#125; <span class="keyword">of</span> <span class="title class_">User</span>)&#123;</span><br><span class="line">     <span class="variable language_">console</span>.<span class="title function_">log</span>(name,age)</span><br><span class="line">   &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="使用其它方式创建对象"><a href="#使用其它方式创建对象" class="headerlink" title="使用其它方式创建对象"></a>使用其它方式创建对象</h2><h3 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h3><ul>
+<li><p>工厂模式是程序中应用较为普遍的一种设计模式</p>
+</li>
+<li><p>在这里用于抽象对象创建的过程，按照特定的接口创建方式创建对象</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//定义一个方法，该方法用来规定创建对象的基本属性及行为</span></span><br><span class="line"> <span class="comment">//属性我们以方法的参数形式传递进来，让方法内部对这些属性进行处理</span></span><br><span class="line"> <span class="keyword">function</span> <span class="title function_">createPerson</span>(<span class="params">name,age,job</span>) &#123;</span><br><span class="line"> <span class="comment">//创建一个Object对象</span></span><br><span class="line"> <span class="keyword">let</span> obj = <span class="keyword">new</span> <span class="title class_">Object</span>();</span><br><span class="line"> <span class="keyword">let</span> obj = <span class="keyword">new</span> <span class="title class_">Object</span>();</span><br><span class="line"> <span class="comment">//给obj对象开始赋值</span></span><br><span class="line"> obj.<span class="property">name</span> = name;</span><br><span class="line"> obj.<span class="property">age</span> = age;</span><br><span class="line"> obj.<span class="property">job</span> = job;</span><br><span class="line"> obj.<span class="property">eat</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line"> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">name</span>+<span class="string">&quot;，吃饭时DuangDuang的&quot;</span>);</span><br><span class="line"> &#125;</span><br><span class="line">  <span class="keyword">return</span> obj;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">let</span> person_1 = <span class="title function_">createPerson</span>(<span class="string">&quot;张金条&quot;</span>,<span class="number">99</span>,<span class="string">&quot;修空调&quot;</span>);</span><br><span class="line"> <span class="keyword">let</span> person_2 = <span class="title function_">createPerson</span>(<span class="string">&quot;张银条&quot;</span>,<span class="number">98</span>,<span class="string">&quot;挖坑&quot;</span>);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="构造函数方式"><a href="#构造函数方式" class="headerlink" title="构造函数方式"></a>构造函数方式</h3><ul>
+<li><p>以函数的形式为自己的对象定义属性和方法</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line"> <span class="keyword">function</span> <span class="title function_">Person</span>(<span class="params">name,age,job</span>) &#123;</span><br><span class="line">   <span class="variable language_">this</span>.<span class="property">name</span> = name;</span><br><span class="line">   <span class="variable language_">this</span>.<span class="property">age</span> = age;</span><br><span class="line">   <span class="variable language_">this</span>.<span class="property">job</span> = job;</span><br><span class="line">   <span class="variable language_">this</span>.<span class="property">eat</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">   <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;干饭&quot;</span>);</span><br><span class="line">   &#125;;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="comment">//要创建对象就得new，也就是说通过new关键字调用Person方法来创建Person对象</span></span><br><span class="line">   <span class="keyword">let</span> person_1 = <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;张铜条&quot;</span>,<span class="number">88</span>,<span class="string">&quot;摆烂&quot;</span>);</span><br><span class="line">   <span class="keyword">let</span> person_2 = <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;张铁条&quot;</span>,<span class="number">90</span>,<span class="string">&quot;技师&quot;</span>);</span><br><span class="line">   person_1.<span class="title function_">eat</span>();</span><br><span class="line">   person_2.<span class="title function_">eat</span>();</span><br><span class="line"> &lt;/script&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>解析</p>
+<p>在内存中创建一个新对象，每new一次就会创建一个新的对象</p>
+<p>这个对象在方法内部只是为将要形成的对象属性指定了属性值和行为</p>
+</li>
+</ul>
+]]></content>
+  </entry>
 </search>
