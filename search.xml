@@ -2136,4 +2136,542 @@
 
 ]]></content>
   </entry>
+  <entry>
+    <title>html基础（二)(html5)</title>
+    <url>/2022/07/15/html%E5%9F%BA%E7%A1%80%EF%BC%88%E4%BA%8C)(html5)/</url>
+    <content><![CDATA[<p><img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.iisp.com%2Fimage%2F20161011%2F20161011180825_78244.jpg&refer=http%3A%2F%2Fimg.iisp.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1659877024&t=24bae5fadeb346539de3c527885be3df" alt="img"></p>
+<span id="more"></span>
+
+<h1 id="第一章-HTML5"><a href="#第一章-HTML5" class="headerlink" title="第一章 HTML5"></a>第一章 HTML5</h1><h2 id="1-1新增元素"><a href="#1-1新增元素" class="headerlink" title="1.1新增元素"></a>1.1新增元素</h2><h4 id="1-1-1-新增的结构元素"><a href="#1-1-1-新增的结构元素" class="headerlink" title="1.1.1 新增的结构元素"></a>1.1.1 新增的结构元素</h4><ul>
+<li>&lt;section&gt;元素</li>
+</ul>
+<p>&lt;section&gt;元素表示页面中的内容区块，如：页眉，页脚，章节等部分</p>
+<p>代码：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">section</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">h1</span>&gt;</span>区域一<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>这里是区域一的内容<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">section</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">h1</span>&gt;</span>区域二<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>这里是区域二的内容<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>&lt;article&gt;元素</li>
+</ul>
+<p>&lt;article&gt;元素表示页面中的一块与上下文不相关的独立内容，如：新闻页中诸多文章中的某篇文章</p>
+<p>代码：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">article</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">h1</span>&gt;</span>两个“万岁”<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">p</span>&gt;</span>“伟大、光荣、正确的中国共产党万岁！”<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">p</span>&gt;</span>“伟大、光荣、英雄的中国人民万岁！”<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">article</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>&lt;aside&gt;元素</li>
+</ul>
+<p>&lt;aside&gt;表示&lt;article&gt;元素的内容之外的，它的内容应该与附近内容相关</p>
+<p>代码：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>神州十二号飞船成功升空<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">aside</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">h4</span>&gt;</span>飞船抵达中国空间站<span class="tag">&lt;/<span class="name">h4</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>6月19日上午，神舟十二号飞船抵达距离天和核心舱200米的停留点，开始进行对接准备。</span><br><span class="line">    通过使用最先进的快速交会对接自动化技术</span><br><span class="line">    这一切都要归功于从一次次太空飞行中总结的的经验。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">aside</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>&lt;header&gt;元素</li>
+</ul>
+<p>&lt;header&gt;元素表示页面中的一个内容块或整个页面的标题</p>
+<p>代码：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">article</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">header</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">h1</span>&gt;</span>飞船抵达中国空间站<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">      6月19日上午，神舟十二号飞船抵达距离天和核心舱200米的停留点，开始进行对接准备。</span><br><span class="line">      通过使用最先进的快速交会对接自动化技术</span><br><span class="line">      这一切都要归功于从一次次太空飞行中总结的的经验。</span><br><span class="line">    <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">article</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>&lt;footer&gt;元素</li>
+</ul>
+<p>&lt;footer&gt;元素表示整个页面或页面中一个区域内的脚注，一般包含作者的基本信息</p>
+<p>代码：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">footer</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="symbol">&amp;copy;</span>环球网<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">      	<span class="tag">&lt;<span class="name">p</span>&gt;</span>发表时间：7-12<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>&lt;nav&gt;元素</li>
+</ul>
+<p>&lt;nav&gt;元素通常在内嵌套&lt;a&gt;标签表示页面的导航链接部分</p>
+<p>代码：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">nav</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;/html/&quot;</span>&gt;</span>HTML<span class="tag">&lt;/<span class="name">a</span>&gt;</span> |</span><br><span class="line">   <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;/css/&quot;</span>&gt;</span>CSS<span class="tag">&lt;/<span class="name">a</span>&gt;</span> |</span><br><span class="line">   <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;/js/&quot;</span>&gt;</span>JavaScript<span class="tag">&lt;/<span class="name">a</span>&gt;</span> |</span><br><span class="line">   <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;/jquery/&quot;</span>&gt;</span>jQuery<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">nav</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>&lt;video&gt;元素</p>
+</li>
+<li><ul>
+<li>&lt;video&gt;元素用来插入视频</li>
+<li>&lt;video&gt;元素仅支持MP4，WebM，Ogg视频格式</li>
+<li>元素属性表：</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="https://www.runoob.com/tags/att-video-autoplay.html">autoplay</a></td>
+<td>autoplay</td>
+<td>如果出现该属性，则视频在就绪后马上播放。</td>
+</tr>
+<tr>
+<td><a href="https://www.runoob.com/tags/att-video-controls.html">controls</a></td>
+<td>controls</td>
+<td>如果出现该属性，则向用户显示控件，比如播放按钮。</td>
+</tr>
+<tr>
+<td><a href="https://www.runoob.com/tags/att-video-height.html">height</a></td>
+<td>pixels</td>
+<td>设置视频播放器的高度。</td>
+</tr>
+<tr>
+<td><a href="https://www.runoob.com/tags/att-video-loop.html">loop</a></td>
+<td>loop</td>
+<td>如果出现该属性，则当媒介文件完成播放后再次开始播放。</td>
+</tr>
+<tr>
+<td><a href="https://www.runoob.com/tags/att-video-muted.html">muted</a></td>
+<td>muted</td>
+<td>如果出现该属性，视频的音频输出为静音。</td>
+</tr>
+<tr>
+<td><a href="https://www.runoob.com/tags/att-video-poster.html">poster</a></td>
+<td>URL</td>
+<td>规定视频正在下载时显示的图像，直到用户点击播放按钮。</td>
+</tr>
+<tr>
+<td><a href="https://www.runoob.com/tags/att-video-preload.html">preload</a></td>
+<td>autometadatanone</td>
+<td>如果出现该属性，则视频在页面加载时进行加载，并预备播放。如果使用 “autoplay”，则忽略该属性。</td>
+</tr>
+<tr>
+<td><a href="https://www.runoob.com/tags/att-video-src.html">src</a></td>
+<td>URL</td>
+<td>要播放的视频的 URL。</td>
+</tr>
+<tr>
+<td><a href="https://www.runoob.com/tags/att-video-width.html">width</a></td>
+<td>pixels</td>
+<td>设置视频播放器的宽度。</td>
+</tr>
+</tbody></table>
+<p>代码：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">video</span> <span class="attr">width</span>=<span class="string">&quot;320&quot;</span> <span class="attr">height</span>=<span class="string">&quot;240&quot;</span> <span class="attr">controls</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">source</span> <span class="attr">src</span>=<span class="string">&quot;movie.mp4&quot;</span>  <span class="attr">type</span>=<span class="string">&quot;video/mp4&quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">source</span> <span class="attr">src</span>=<span class="string">&quot;movie.ogg&quot;</span>  <span class="attr">type</span>=<span class="string">&quot;video/ogg&quot;</span>&gt;</span></span><br><span class="line">   您的浏览器不支持 HTML5 video 标签。</span><br><span class="line"> <span class="tag">&lt;/<span class="name">video</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>&lt;audio&gt;元素</p>
+</li>
+<li><ul>
+<li>&lt;audio&gt;元素用来插入音频</li>
+<li>&lt;audio&gt;元素仅支持Ogg和MP3格式</li>
+<li>元素属性表</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="https://www.runoob.com/tags/att-audio-autoplay.html">autoplay</a></td>
+<td>autoplay</td>
+<td>如果出现该属性，则音频在就绪后马上播放。</td>
+</tr>
+<tr>
+<td><a href="https://www.runoob.com/tags/att-audio-controls.html">controls</a></td>
+<td>controls</td>
+<td>如果出现该属性，则向用户显示音频控件（比如播放&#x2F;暂停按钮）。</td>
+</tr>
+<tr>
+<td><a href="https://www.runoob.com/tags/att-audio-loop.html">loop</a></td>
+<td>loop</td>
+<td>如果出现该属性，则每当音频结束时重新开始播放。</td>
+</tr>
+<tr>
+<td><a href="https://www.runoob.com/tags/att-audio-muted.html">muted</a></td>
+<td>muted</td>
+<td>如果出现该属性，则音频输出为静音。</td>
+</tr>
+<tr>
+<td><a href="https://www.runoob.com/tags/att-audio-preload.html">preload</a></td>
+<td>autometadatanone</td>
+<td>规定当网页加载时，音频是否默认被加载以及如何被加载。</td>
+</tr>
+<tr>
+<td><a href="https://www.runoob.com/tags/att-audio-src.html">src</a></td>
+<td><em>URL</em></td>
+<td>规定音频文件的 URL。</td>
+</tr>
+</tbody></table>
+<p>代码：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">audio</span> <span class="attr">controls</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">source</span> <span class="attr">src</span>=<span class="string">&quot;music.ogg&quot;</span> <span class="attr">type</span>=<span class="string">&quot;audio/ogg&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">source</span> <span class="attr">src</span>=<span class="string">&quot;music.mp3&quot;</span> <span class="attr">type</span>=<span class="string">&quot;audio/mpeg&quot;</span>&gt;</span></span><br><span class="line">您的浏览器不支持 audio 元素。</span><br><span class="line"><span class="tag">&lt;/<span class="name">audio</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>&lt;mark&gt;元素</li>
+</ul>
+<p>&lt;mark&gt;元素主要用来在视觉上向用户呈现哪些需要突出显示或高亮显示的文字，一般用在搜索结果中向用户高亮显示搜索关键词</p>
+<p>代码：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>神舟十二号航天员乘组圆满完成空间站阶段<span class="tag">&lt;<span class="name">mark</span>&gt;</span>首次出舱<span class="tag">&lt;/<span class="name">mark</span>&gt;</span>活动全部既定任务<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>&lt;ruby&gt;元素</li>
+</ul>
+<p>&lt;ruby&gt;表示中文注音或字符</p>
+<ul>
+<li>&lt;rt&gt;元素</li>
+</ul>
+<p>&lt;rt&gt;元素与&lt;ruby&gt;配合使用用来解释或发音</p>
+<ul>
+<li>&lt;rp&gt;元素</li>
+</ul>
+<p>&lt;rp&gt;元素与&lt;ruby&gt;一起使用，以定义不支持&lt;ruby&gt;元素的浏览器显示内容，以括号的形式出现如：汉字(Han Zi)</p>
+<p>代码：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">ruby</span>&gt;</span></span><br><span class="line">  汉 <span class="tag">&lt;<span class="name">rp</span>&gt;</span>(<span class="tag">&lt;/<span class="name">rp</span>&gt;</span><span class="tag">&lt;<span class="name">rt</span>&gt;</span>Han<span class="tag">&lt;/<span class="name">rt</span>&gt;</span><span class="tag">&lt;<span class="name">rp</span>&gt;</span>)<span class="tag">&lt;/<span class="name">rp</span>&gt;</span></span><br><span class="line">  字 <span class="tag">&lt;<span class="name">rp</span>&gt;</span>(<span class="tag">&lt;/<span class="name">rp</span>&gt;</span><span class="tag">&lt;<span class="name">rt</span>&gt;</span>zi<span class="tag">&lt;/<span class="name">rt</span>&gt;</span><span class="tag">&lt;<span class="name">rp</span>&gt;</span>)<span class="tag">&lt;/<span class="name">rp</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ruby</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>&lt;details&gt;元素</li>
+</ul>
+<p>&lt;details&gt;元素表示用户要求得到的细节信息，与&lt;summary&gt;配合使用，&lt;summary&gt;提供标题或图例，用户点击标题时，会显示户细节信息，&lt;summary&gt;元素应该是&lt;details&gt;元素的第一个元素</p>
+<p>代码：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">details</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">summary</span>&gt;</span>空间站<span class="tag">&lt;/<span class="name">summary</span>&gt;</span></span><br><span class="line">        空间站（space station）又称太空站、航天站。</span><br><span class="line">      	是一种在近地轨道长时间运行、可供多名航天员巡访、长期工作和生活的载人航天器。</span><br><span class="line">      	空间站分为单模块空间站和多模块空间站两种。</span><br><span class="line">      	单模块空间站可由航天运载器一次发射入轨，多模块空间站则由航天运载器分批将各模块送入轨道，在太空中将各模块组装而成。</span><br><span class="line">      	在空间站中要有人能够生活的一切设施，空间站不具备返回地球的能力。</span><br><span class="line">    <span class="tag">&lt;/<span class="name">details</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="1-2-全局属性"><a href="#1-2-全局属性" class="headerlink" title="1.2 全局属性"></a>1.2 全局属性</h2><h4 id="1-2-1-contentEditable属性"><a href="#1-2-1-contentEditable属性" class="headerlink" title="1.2.1 contentEditable属性"></a>1.2.1 contentEditable属性</h4><p>contentEditable属性由微软开发并被其它浏览器反编译投入引用的一个全局属性，该属性允许用户编辑元素内容，该属性是一个布尔值的属性，可以被指定false或true</p>
+<p>该属性默认inherit（继承）状态，属性为true时，元素被指定为允许编辑；属性为false时，元素被指定为不允许编辑状态；未指定值时，则由inherit状态决定，如果父元素是可编辑元素，则该元素也可编辑</p>
+<p>在编辑完成后，如果想要保存其中的内容，只能把该元素的innerHTML发送到服务器端进行保存，目前还没有特别的API来保存编辑后的元素内容</p>
+<p>代码：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span> <span class="attr">contenteditable</span>=<span class="string">&quot;true&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span>这是预编译内容<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span>这是预编译内容<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span>这是预编译内容<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<p><img src="https://files.catbox.moe/p2ks7u.png"></p>
+<h4 id="1-2-2-designMode属性"><a href="#1-2-2-designMode属性" class="headerlink" title="1.2.2 designMode属性"></a>1.2.2 designMode属性</h4><p>designModel属性用来指定整个页面是否可编辑，当页面可编辑时，页面中任何支持contenteditable属性的元素都变成可编辑状态。该属性只能在JavaScript脚本里被编辑修改，该属性有两个值 “on”或“off”，当属性被指定为“on”时，页面为可编辑状态，为“off”时，页面不可编辑</p>
+<p>代码：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>designMode<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="variable language_">document</span>.<span class="property">designMode</span>=<span class="string">&quot;on&quot;</span>;</span></span><br><span class="line"><span class="language-javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span>这是原有内容<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span>这是原有内容<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span>这是原有内容<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;javascript:void(0)&quot;</span>&gt;</span>链接<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<p><img src="https://files.catbox.moe/lxs8pj.png"></p>
+<h4 id="1-2-3-hidden属性"><a href="#1-2-3-hidden属性" class="headerlink" title="1.2.3 hidden属性"></a>1.2.3 hidden属性</h4><p>在HTML 5中，所有的元素都允许使用一个hidden属性。该属性类似于input元素中的 hidden元素，功能是通知浏览器不渲染该元素。使该元素处干不可见状态。但是元素中的内容还是浏览器创建的，也就是说页面装载后允许使用JavaScript脚本将该属性取消，取消后该元素变为可见状态，同时元素中的内容也即时显示出来。Hidden属性是一个布尔值的属性。当设为true时，元素处于不可见状态;当设为false时，元素处于可见状态</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>html基础（二）（表单）</title>
+    <url>/2022/07/15/html%E5%9F%BA%E7%A1%80%EF%BC%88%E4%BA%8C)(%E8%A1%A8%E5%8D%95)/</url>
+    <content><![CDATA[<p><img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.iisp.com%2Fimage%2F20161011%2F20161011180825_78244.jpg&refer=http%3A%2F%2Fimg.iisp.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1659877024&t=24bae5fadeb346539de3c527885be3df" alt="img"></p>
+<span id="more"></span>
+
+<h1 id="第一章-表单"><a href="#第一章-表单" class="headerlink" title="第一章 表单"></a>第一章 表单</h1><p>表单是用来显示，收集，提交用户信息，表单在网页中主要负责数据采集功能，一个表单由三个基本部分组成：表单元素、表单域、按钮</p>
+<h2 id="1-1表单"><a href="#1-1表单" class="headerlink" title="1.1表单"></a>1.1表单</h2><p>表单是一个包含表单元素的区域，使用&lt;form&gt;…&lt;&#x2F;form&gt;定义，通过在表单中添加对应的表单元素使得用户可以在网页上输入数据</p>
+<p>&lt;form&gt;中含有诸多属性用来规定表单的格式，详见下表</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="https://www.runoob.com/tags/att-form-accept-charset.html">accept-charset</a></td>
+<td><em>character_set</em></td>
+<td>规定服务器可处理的表单数据字符集。</td>
+</tr>
+<tr>
+<td><a href="https://www.runoob.com/tags/att-form-action.html">action</a></td>
+<td><em>URL</em></td>
+<td>规定当提交表单时向何处发送表单数据。</td>
+</tr>
+<tr>
+<td><a href="https://www.runoob.com/tags/att-form-autocomplete.html">autocomplete</a></td>
+<td>onoff</td>
+<td>规定是否启用表单的自动完成功能。</td>
+</tr>
+<tr>
+<td><a href="https://www.runoob.com/tags/att-form-enctype.html">enctype</a></td>
+<td>application&#x2F;x-www-form-urlencodedmultipart&#x2F;form-datatext&#x2F;plain</td>
+<td>规定在向服务器发送表单数据之前如何对其进行编码。（适用于 method&#x3D;”post” 的情况）</td>
+</tr>
+<tr>
+<td><a href="https://www.runoob.com/tags/att-form-method.html">method</a></td>
+<td>getpost</td>
+<td>规定用于发送表单数据的 HTTP 方法。</td>
+</tr>
+<tr>
+<td><a href="https://www.runoob.com/tags/att-form-name.html">name</a></td>
+<td><em>text</em></td>
+<td>规定表单的名称。</td>
+</tr>
+<tr>
+<td><a href="https://www.runoob.com/tags/att-form-novalidate.html">novalidate</a></td>
+<td>novalidate</td>
+<td>如果使用该属性，则提交表单时不进行验证。</td>
+</tr>
+<tr>
+<td><a href="https://www.runoob.com/tags/att-form-target.html">target</a></td>
+<td>_blank_self_parent_top</td>
+<td>规定在何处打开 action URL。</td>
+</tr>
+</tbody></table>
+<h2 id="1-2-表单元素"><a href="#1-2-表单元素" class="headerlink" title="1.2 表单元素"></a>1.2 表单元素</h2><h4 id="1-2-1-输入标签"><a href="#1-2-1-输入标签" class="headerlink" title="1.2.1 输入标签"></a>1.2.1 输入标签</h4><p>多数情况下使用的表单元素是输入标签&lt;input&gt;</p>
+<p>元素内输入类型有标签中的type属性定义，常用的元素类型如下表：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>type&#x3D;”text”</td>
+<td>单行文本框，一般用来以明文的方式输入数据，如：用户名</td>
+</tr>
+<tr>
+<td>type&#x3D;”password”</td>
+<td>密码框，密码字符不会以明文方式显示，而是以“*”，“·”替代</td>
+</tr>
+<tr>
+<td>type&#x3D;”color”</td>
+<td>色盘，可以通过鼠标点击选择一个颜色，其值为十六进制值 如：#ff6700</td>
+</tr>
+<tr>
+<td>type&#x3D;”radio”</td>
+<td>单选按钮，通过在标签中添加相同的name属性值，以多选一的效果 如：性别</td>
+</tr>
+<tr>
+<td>type&#x3D;”checkbox”</td>
+<td>复选按钮，可以同时选中多个数据  如：爱好</td>
+</tr>
+<tr>
+<td>type&#x3D;”date”</td>
+<td>日期类型，规定输入的数据类型必须为日期类型，谷歌内核的浏览器可以唤出浏览器自带的日期的控件选择日期 日期格式：yyyy-MM-dd</td>
+</tr>
+<tr>
+<td>type&#x3D;”time”</td>
+<td>时间类型，规定输入的数据必须为时间</td>
+</tr>
+<tr>
+<td>type&#x3D;”month”</td>
+<td>月类型，规定输入的数据类型必须为月份</td>
+</tr>
+<tr>
+<td>type&#x3D;”file”</td>
+<td>文件类型，点击后可在本地选择文件</td>
+</tr>
+<tr>
+<td>type&#x3D;”number”</td>
+<td>数字类型，外观与text文本框相似，但不允许输入数值以外的数据</td>
+</tr>
+<tr>
+<td>type&#x3D;”range”</td>
+<td>数字范围选择器，具有max与min属性，使用滑动条的方式制定数值</td>
+</tr>
+<tr>
+<td>type&#x3D;”email”</td>
+<td>邮箱类型，外观与文本框相似，其值必须为邮箱格式，浏览器会对其内容做简单的验证</td>
+</tr>
+<tr>
+<td>type&#x3D;”url”</td>
+<td>url类型，外观与文本框相似，其中必须为url，浏览器会对其内容做简单验证</td>
+</tr>
+<tr>
+<td>type&#x3D;”hidden”</td>
+<td>隐藏域，表单提供一个不在界面显示的文本域</td>
+</tr>
+</tbody></table>
+<h2 id="1-2-2-下拉标签"><a href="#1-2-2-下拉标签" class="headerlink" title="1.2.2 下拉标签"></a>1.2.2 下拉标签</h2><ul>
+<li><p>&lt;select&gt;元素为表单控件，用于在表单中接收数据</p>
+</li>
+<li><ul>
+<li>&lt;select&gt;元素可创建单选或多选菜单</li>
+<li>&lt;option&gt;标签定义了菜单中的可选项</li>
+</ul>
+</li>
+<li><p>下拉列表支持属性</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="https://www.runoob.com/tags/att-select-autofocus.html">autofocus</a></td>
+<td>autofocus</td>
+<td>规定在页面加载时下拉列表自动获得焦点。</td>
+</tr>
+<tr>
+<td><a href="https://www.runoob.com/tags/att-select-disabled.html">disabled</a></td>
+<td>disabled</td>
+<td>当该属性为 true 时，会禁用下拉列表。</td>
+</tr>
+<tr>
+<td><a href="https://www.runoob.com/tags/att-select-form.html">form</a></td>
+<td><em>form_id</em></td>
+<td>定义 select 字段所属的一个或多个表单。</td>
+</tr>
+<tr>
+<td><a href="https://www.runoob.com/tags/att-select-multiple.html">multiple</a></td>
+<td>multiple</td>
+<td>当该属性为 true 时，可选择多个选项。</td>
+</tr>
+<tr>
+<td><a href="https://www.runoob.com/tags/att-select-name.html">name</a></td>
+<td><em>text</em></td>
+<td>定义下拉列表的名称。</td>
+</tr>
+<tr>
+<td><a href="https://www.runoob.com/tags/att-select-required.html">required</a></td>
+<td>required</td>
+<td>规定用户在提交表单前必须选择一个下拉列表中的选项。</td>
+</tr>
+<tr>
+<td><a href="https://www.runoob.com/tags/att-select-size.html">size</a></td>
+<td><em>number</em></td>
+<td>规定下拉列表中可见选项的数目。</td>
+</tr>
+</tbody></table>
+<h4 id="1-2-3-按钮"><a href="#1-2-3-按钮" class="headerlink" title="1.2.3 按钮"></a>1.2.3 按钮</h4><ul>
+<li>按钮在网页中一般用于提交，重置页面数据，也可以与javascript配置做一些交互响应事件</li>
+<li>在HTML中按钮一般使用&lt;input&gt;或&lt;button&gt;来定义</li>
+<li>按钮属性</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="https://www.runoob.com/tags/att-button-autofocus.html">autofocus</a></td>
+<td>autofocus</td>
+<td>规定当页面加载时按钮应当自动地获得焦点。</td>
+</tr>
+<tr>
+<td><a href="https://www.runoob.com/tags/att-button-disabled.html">disabled</a></td>
+<td>disabled</td>
+<td>规定应该禁用该按钮。</td>
+</tr>
+<tr>
+<td><a href="https://www.runoob.com/tags/att-button-form.html">form</a></td>
+<td><em>form_id</em></td>
+<td>规定按钮属于一个或多个表单。</td>
+</tr>
+<tr>
+<td><a href="https://www.runoob.com/tags/att-button-formaction.html">formaction</a></td>
+<td><em>URL</em></td>
+<td>规定当提交表单时向何处发送表单数据。覆盖 form 元素的 action 属性。该属性与 type&#x3D;”submit” 配合使用。</td>
+</tr>
+<tr>
+<td><a href="https://www.runoob.com/tags/att-button-formenctype.html">formenctype</a></td>
+<td>application&#x2F;x-www-form-urlencodedmultipart&#x2F;form-datatext&#x2F;plain</td>
+<td>规定在向服务器发送表单数据之前如何对其进行编码。覆盖 form 元素的 enctype 属性。该属性与 type&#x3D;”submit” 配合使用。</td>
+</tr>
+<tr>
+<td><a href="https://www.runoob.com/tags/att-button-formmethod.html">formmethod</a></td>
+<td>get，post</td>
+<td>规定用于发送表单数据的 HTTP 方法。覆盖 form 元素的 method 属性。该属性与 type&#x3D;”submit” 配合使用。</td>
+</tr>
+<tr>
+<td><a href="https://www.runoob.com/tags/att-button-formnovalidate.html">formnovalidate</a></td>
+<td>formnovalidate</td>
+<td>如果使用该属性，则提交表单时不进行验证。覆盖 form 元素的 novalidate 属性。该属性与 type&#x3D;”submit” 配合使用。</td>
+</tr>
+<tr>
+<td><a href="https://www.runoob.com/tags/att-button-formtarget.html">formtarget</a></td>
+<td>_blank_self_parent_top<em>framename</em></td>
+<td>规定在何处打开 action URL。覆盖 form 元素的 target 属性。该属性与 type&#x3D;”submit” 配合使用。</td>
+</tr>
+<tr>
+<td><a href="https://www.runoob.com/tags/att-button-name.html">name</a></td>
+<td><em>name</em></td>
+<td>规定按钮的名称。</td>
+</tr>
+<tr>
+<td><a href="https://www.runoob.com/tags/att-button-type.html">type</a></td>
+<td>buttonresetsubmit</td>
+<td>规定按钮的类型。</td>
+</tr>
+<tr>
+<td><a href="https://www.runoob.com/tags/att-button-value.html">value</a></td>
+<td><em>text</em></td>
+<td>规定按钮的初始值。可由脚本进行修改。</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>&lt;button&gt;与&lt;input&gt;按钮区别</p>
+</li>
+<li><ul>
+<li>&lt;button&gt;按钮如果不设置type属性，在不同浏览器中可能会提交不同值</li>
+<li>&lt;button&gt;按钮是成对出现的，可放置文本，图像等，&lt;input&gt;标签只能通过value属性为其设置文本</li>
+<li>需要注意的是虽然&lt;button&gt;按钮可以嵌套其它标签，但不能再去嵌套按钮</li>
+</ul>
+</li>
+</ul>
+<h4 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">form</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">            文本：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">            密码：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;password&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">            颜色色：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;color&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>单选：</span><br><span class="line">            男<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;radio&quot;</span> <span class="attr">name</span>=<span class="string">&quot;gender&quot;</span>&gt;</span></span><br><span class="line">            女<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;radio&quot;</span> <span class="attr">name</span>=<span class="string">&quot;gender&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>复选：</span><br><span class="line">            爱好1<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span>&gt;</span></span><br><span class="line">            爱好2<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span>&gt;</span></span><br><span class="line">            爱好3<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span>&gt;</span></span><br><span class="line">            爱好4<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">            下拉：<span class="tag">&lt;<span class="name">select</span> <span class="attr">name</span>=<span class="string">&quot;&quot;</span> &gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;&quot;</span>&gt;</span>[请输入...]<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;&quot;</span>&gt;</span>选择数据一<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;&quot;</span>&gt;</span>选择数据二<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">select</span>&gt;</span>县</span><br><span class="line">            <span class="tag">&lt;<span class="name">select</span> <span class="attr">name</span>=<span class="string">&quot;&quot;</span> &gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;&quot;</span>&gt;</span>[请输入...]<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;&quot;</span>&gt;</span>选择数据一<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;&quot;</span>&gt;</span>选择数据二<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">select</span>&gt;</span>村</span><br><span class="line">        <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">            日期：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;date&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">            时间：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;time&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">            月份：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;month&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">            文件：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;file&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">            数字：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;number&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">            数字范围：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;range&quot;</span> <span class="attr">max</span>=<span class="string">&quot;10&quot;</span> <span class="attr">min</span>=<span class="string">&quot;0&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">            邮箱：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;email&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">            地址：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;url&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">            隐藏：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;hidden&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">value</span>=<span class="string">&quot;input提交按钮&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;reset&quot;</span> <span class="attr">value</span>=<span class="string">&quot;input重置按钮&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;input按钮&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span>&gt;</span>button提交按钮<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;reset&quot;</span>&gt;</span>button重置按钮<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span>&gt;</span>button按钮<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="1-3-HTML5-表单增强"><a href="#1-3-HTML5-表单增强" class="headerlink" title="1.3 HTML5 表单增强"></a>1.3 HTML5 表单增强</h2><h4 id="1-3-1-form属性"><a href="#1-3-1-form属性" class="headerlink" title="1.3.1 form属性"></a>1.3.1 form属性</h4><p>在HTML4中，表单内的从属元素必须书写在表单内部，但在HTML5中，可以把它书写在页面的任意地方，然后给该元素指定一个form属性，属性值为该表单的id，这样就可以声明该元素从属于指定的表单</p>
+<p>示例</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">id</span>=<span class="string">&quot;formTest&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;password&quot;</span> <span class="attr">name</span>=<span class="string">&quot;password&quot;</span> <span class="attr">form</span>=<span class="string">&quot;formTest&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>代码解析：</p>
+<ol>
+<li>第一个input标签从属form表单，它被书写在form表单内部，所以用不着对它指定form属性</li>
+<li>第二个input表单被书写在form之外，但想要它从属form，这时就可以为其添加form属性并指定表单id让它从属form表单</li>
+</ol>
+<h4 id="1-3-2-formaction属性"><a href="#1-3-2-formaction属性" class="headerlink" title="1.3.2 formaction属性"></a>1.3.2 formaction属性</h4><p>在HTML 4中，一个表单内的所有元素都只能通过表单的action属性统一提交到另一个页面，而在HTML 5中可以给所有的提交按钮，诸如&lt;input type&#x3D;”submit”&gt;、&lt;inputtype&#x3D;”image”&gt;、&lt;button type&#x3D;”submit”&gt;都增加不同的formaction属性，使得点击不同的按钮，可以将表单提交到不同的页面，formaction属性的使用方法如下：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">id</span>=<span class="string">&quot;testform&quot;</span> <span class="attr">action</span>=<span class="string">&quot; serve.jsp&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">name</span>=<span class="string">&quot;s1&quot;</span> <span class="attr">value</span>=<span class="string">&quot;v1&quot;</span> <span class="attr">formaction</span>=<span class="string">&quot;s1.jsp&quot;</span>&gt;</span>提交到s1</span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">name</span>=<span class="string">&quot;s2&quot;</span> <span class="attr">value</span>=<span class="string">&quot;v2&quot;</span> <span class="attr">formaction</span>=<span class="string">&quot;s2.jsp&quot;</span>&gt;</span>提交到s2</span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">name</span>=<span class="string">&quot;s3&quot;</span> <span class="attr">value</span>=<span class="string">&quot;v3&quot;</span> <span class="attr">formaction</span>=<span class="string">&quot;s3.jsp&quot;</span>&gt;</span>提交到s3</span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>= <span class="string">&quot;submit&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>注：该属性目前支持的浏览器并不多，慎重使用</strong></p>
+<h4 id="1-3-3-list属性"><a href="#1-3-3-list属性" class="headerlink" title="1.3.3 list属性"></a>1.3.3 list属性</h4><p>在HTML 5中，为单行文本框(&lt;input type&#x3D;”text”&gt;)增加了一个list属性，该属性的值为某个datalist元素的id。datalist元素也是HTML 5中新增元素，该元素类似于选择框( select&gt;)，但是当用户想要设定的值不在选择列表之内时，允许其自行输入。该元素本身并不显示，而是当文本框获得焦点时以提示输入的方式显示。为了避免在没有支持该元素的浏览器上出现显示错误，可以用CSS等将它设定为不显示。</p>
+<p>示例</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    text: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot; greeting&quot;</span> <span class="attr">list</span>=<span class="string">&quot;greetings&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">datalist</span> <span class="attr">id</span>=<span class="string">&quot;greetings&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;Good Morning&quot;</span>&gt;</span>Good Morning<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;Hello&quot;</span>&gt;</span>Hello<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;Good Afternoon&quot;</span>&gt;</span>Good Afternoon<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">datalist</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="1-3-4-autocomplete属性"><a href="#1-3-4-autocomplete属性" class="headerlink" title="1.3.4 autocomplete属性"></a>1.3.4 autocomplete属性</h4><p>辅助输入所用的自动完成功能，是一个节省输入时间，同时也十分方便的功能。在HTML5之前，因为谁都可以看见输入的值，所以存在安全隐患，但只要使用autocomplete属性，安全性就可以得到很好的控制。.</p>
+<p>对于autocomplete属性，可以指定“on”、“off”与“”(不指定）这三种值。不指定时，使用浏览器的默认值(取决于各浏览器的决定)。把该属性设为on时，可以显式指定候补输入的数据列表。使用detalist元素与list属性提供候补输入的数据列表，自动完成时，可以将该datalist元素中的数据作为候补输入的数据在文本框中自动显示。autocomplete属性的使用方法如下所示。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    text: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;greeting&quot;</span> <span class="attr">list</span>=<span class="string">&quot;greetings&quot;</span> <span class="attr">autocomplete</span>=<span class="string">&quot;on&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">datalist</span> <span class="attr">id</span>=<span class="string">&quot;greetings&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;Good Morning&quot;</span>&gt;</span>Good Morning<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;Hello&quot;</span>&gt;</span>Hello<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;Good Afternoon&quot;</span>&gt;</span>Good Afternoon<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">datalist</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="1-3-5-output标签"><a href="#1-3-5-output标签" class="headerlink" title="1.3.5 output标签"></a>1.3.5 output标签</h4><ul>
+<li><p>output为H5的新增标签，用来定义不同类型的输出，长和form表单一起使用，用来输出显示计算结果</p>
+</li>
+<li><p>语法</p>
+</li>
+<li><p>标签属性</p>
+</li>
+<li><ul>
+<li>for：定义输出域相关的一个或多个元素，以空格隔开；</li>
+<li>form：定义输入字段所属的一个或多个表单，以空格隔开；</li>
+<li>name：定义对象的唯一名称（表单提交时使用）。</li>
+</ul>
+</li>
+</ul>
+<p>示例</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">oninput</span>=<span class="string">&quot;o.value=parseInt(a.value)&quot;</span>&gt;</span></span><br><span class="line">        选择数字范围：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;range&quot;</span> <span class="attr">min</span>=<span class="string">&quot;0&quot;</span> <span class="attr">max</span>=<span class="string">&quot;100&quot;</span> <span class="attr">id</span>=<span class="string">&quot;a&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">output</span> <span class="attr">id</span>=<span class="string">&quot;o&quot;</span> &gt;</span>50<span class="tag">&lt;/<span class="name">output</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>示例二</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">oninput</span>=<span class="string">&quot;x.value=parseInt(a.value)+parseInt(b.value)&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;number&quot;</span> <span class="attr">id</span>=<span class="string">&quot;a&quot;</span> <span class="attr">value</span>=<span class="string">&quot;0&quot;</span>&gt;</span> +</span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;number&quot;</span> <span class="attr">id</span>=<span class="string">&quot;b&quot;</span> <span class="attr">value</span>=<span class="string">&quot;0&quot;</span>&gt;</span> =</span><br><span class="line">        <span class="tag">&lt;<span class="name">output</span> <span class="attr">name</span>=<span class="string">&quot;x&quot;</span> <span class="attr">for</span>=<span class="string">&quot;a b&quot;</span>&gt;</span>0<span class="tag">&lt;/<span class="name">output</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>注：</p>
+<p>oninput为表单事件，表示当对元素输入数据时触发</p>
+<p>parseInt为javascript函数，用来解析一个字符串，并返回一个整数</p>
+<h4 id="1-3-6-表单验证"><a href="#1-3-6-表单验证" class="headerlink" title="1.3.6 表单验证"></a>1.3.6 表单验证</h4><p>在H5中，新增了大量在提交时对表单与表单内新增元素进行有效性验证的功能</p>
+<h5 id="1-3-6-1-自动验证"><a href="#1-3-6-1-自动验证" class="headerlink" title="1.3.6.1 自动验证"></a>1.3.6.1 自动验证</h5><p>在H5中，新增的一些表单元素本身就带有简单的提交格式验证，如邮箱（email）就有固定的格式“@”，“.”，但普通的表单元素就要通过对元素使用属性的方法，来实现在表单提交时执行自动验证的功能</p>
+<p><img src="https://files.catbox.moe/wz7j06.png"></p>
+<p>普通表单元素的验证属性</p>
+<ol>
+<li>required属性</li>
+</ol>
+<p>HTML 5中新增的required属性可以应用在大多数输入元素上（除了隐藏元素、图片元素按钮上)。在提交时，如果元素中内容为空白，则不允许提交，同时在浏览器中显示信息提示文字，提示用户这个元素中必须输入内容。</p>
+<p><img src="https://files.catbox.moe/d3k2br.png"></p>
+<ol>
+<li>pattern属性</li>
+</ol>
+<p>之前提到的一些新增的input元素，譬如email、number、url等，要求输入内容符合–定的格式，对input元素使用pattern属性，并且将属性值设为某个格式的正则表达式，在提交时会检查其内容是否符合给定格式。当输入的内容不符合给定格式时，则不允许提交，同时在浏览器中显示信息提示文字，提示输入的内容必须符合给定格式。譬如下面所示，要求输入内容为三个大写字母。</p>
+<p><img src="https://files.catbox.moe/nbjzlx.png"></p>
+<ol>
+<li>min属性与max属性</li>
+</ol>
+<p>min与max这两个属性是数值类型或日期类型的input元素的专用属性，它们限制了在input元素中输入的数值与日期的范围。</p>
+<p><img src="https://files.catbox.moe/7n6qhv.png"></p>
+]]></content>
+  </entry>
 </search>
