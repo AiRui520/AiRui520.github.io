@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://files.catbox.moe/vakrmb.png">
 <meta property="og:image" content="https://files.catbox.moe/cf44z5.png">
 <meta property="article:published_time" content="2022-07-16T02:15:43.000Z">
-<meta property="article:modified_time" content="2022-07-16T02:49:04.549Z">
+<meta property="article:modified_time" content="2022-07-17T23:57:07.644Z">
 <meta property="article:author" content="Fei">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://files.catbox.moe/vakrmb.png">
@@ -257,9 +257,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2022-07-16 10:15:43 / 修改时间：10:49:04" itemprop="dateCreated datePublished" datetime="2022-07-16T10:15:43+08:00">2022-07-16</time>
+      <time title="创建时间：2022-07-16 10:15:43" itemprop="dateCreated datePublished" datetime="2022-07-16T10:15:43+08:00">2022-07-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-07-18 07:57:07" itemprop="dateModified" datetime="2022-07-18T07:57:07+08:00">2022-07-18</time>
     </span>
 
   
@@ -294,7 +300,7 @@
 <p>1998年12月Sun公司发布了Java历史上最重要的一个JDK版本：JDK1.2,JSP&#x2F;Servlet等规范，并且将Java一分为三。      J2M:主要用于移动设备和信息家电等设备的编程      J2SE:Java技术的核心和技术      J2EE:Java技术中应用最广泛的部分</p>
 <h3 id="Java程序运行的机制"><a href="#Java程序运行的机制" class="headerlink" title="Java程序运行的机制"></a>Java程序运行的机制</h3><p>C语言在编写完程序后要经过编译以后才能运行，Java也是如此，Java程序要想运行，也需要经过编译的阶段，但是和C语言不同的是Java编译过后，并不会生成特定的平台机器码，而是一种与平台无关的字节码（.class文件），然而这种文件并不能直接执行，而是运行在Java虚拟机中，由Java虚拟机来解释执行。也就是说如果要运行一个Java程序，必须经历以下3个阶段。</p>
 <p><img src="https://files.catbox.moe/cf44z5.png" alt="img"></p>
-<p>其中Java源代码编译成字节码的过程由Java编译器完成，生成的是平台无关的字节码。这些字节码并不依赖于特定的平台，只面向Java虚拟机(Java Virtual Mechine,简称JVM,不同平台的JVM是不同的，但是他们都遵循共同的JVM规范。这也是Java跨平台的核心部分，只要为对应平台实现了对应的虚拟机，编译后的字节码就可以在不同的平台上运行。总结起来Jvva跨平台实现的核心原理包括以下两点：1.Java源代码在运行之前会先根据JVM规范生成平台无关的字节码文件，也就是class文件，字节码文件不依赖于任何平台。2.Java为不同平台实现了对应的虚拟机，JVM在加载字节码文件后由WM生成对应平台的计算机指令。</p>
+<p>其中Java源代码编译成字节码的过程由Java编译器完成，生成的是平台无关的字节码。这些字节码并不依赖于特定的平台，只面向Java虚拟机(Java Virtual Mechine,简称JVM,不同平台的JVM是不同的，但是他们都遵循共同的JVM规范。这也是Java跨平台的核心部分，只要为对应平台实现了对应的虚拟机，编译后的字节码就可以在不同的平台上运行。总结起来Java跨平台实现的核心原理包括以下两点：1.Java源代码在运行之前会先根据JVM规范生成平台无关的字节码文件，也就是class文件，字节码文件不依赖于任何平台。2.Java为不同平台实现了对应的虚拟机，JVM在加载字节码文件后由WM生成对应平台的计算机指令。</p>
 <h3 id="Java语言的特点"><a href="#Java语言的特点" class="headerlink" title="Java语言的特点"></a>Java语言的特点</h3><p>1.简单性：Java在开发时借鉴了C语言的许多语法，并目屏弃了C中不好的设计，如头文件、指针、结构体、多继到等等，并目新增了垃极回收机制使得程序员无需关注内存的分配与释放，把更多的精力放在业务本身。2.面向对象：面向对象是一种编程思想，相对于面向过程来说，具备一定的优越性，简单来说这种思想将重点放在数据和对象的接口上。打个比方，一个建筑师关注的应该是建筑本身，而不是这栋建筑使用的是什么工具和流程制造的。3.分布式：Java提供了JSP&#x2F;Servleti规范以后，使得Java应用程序能够通过URL打开和访问网络上的对象。4.安全性：由于Java具有分布式的特点，Java在安全方面投入了很大的精力，够防范各种攻击。5.多线程：随着互联网的发展，开发者越来越关注并发性，例如天猫双十一活动每秒的请求量数以百万计算，这不但考验服务器硬件，也考验看服务器编程语言的性能，Jv提供的多线程以及并发偏程，很大程度上解决了局并发存在的问题。6.可移植：正是因为Java提出的跨平台策略使得Java的可移植性具备了操作空间，我们知道Java对于不同的平台开发了对应的JVM,而程序运行前由Java编译器将源代码编译成了平台无关的字节码文件，因此不管是在什么平台开发的源程序，编译后都可以运行在不同平台上的JVM中。</p>
 <h2 id="Java下载与安装"><a href="#Java下载与安装" class="headerlink" title="Java下载与安装"></a>Java下载与安装</h2><p>JDK下载地址：<a target="_blank" rel="noopener" href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">http://www.oracle.com/technetwork/java/javase/downloads/index.html</a></p>
 <h3 id="Java安装目录简介"><a href="#Java安装目录简介" class="headerlink" title="Java安装目录简介"></a>Java安装目录简介</h3><p>·bin:该目录下主要存放DK的各种工具命令.·conf:该目录下主要存放JDK的相关配置文件。·include:该目录下主要存放了一些平台的头文件，·jmods:该目录下主要存放了JDK的各种模块。·Iega:该目录下主要存放了JDK各模块的授权文档。·ib:该目录下主要存放了JDK工具的一些补充jar包和源代码。</p>
