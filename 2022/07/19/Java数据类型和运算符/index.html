@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.2.0">
+
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="manifest" href="/manifest.json">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic%7CLobster+Two:300,300italic,400,400italic,700,700italic%7CAmita:300,300italic,400,400italic,700,700italic%7CMontserrat:300,300italic,400,400italic,700,700italic%7CPT+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"airui520.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":"true`","version":"8.12.1","exturl":false,"sidebar":{"position":"left","width":300,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta property="og:type" content="blog">
+<meta property="og:title" content="Java数据类型和运算符">
+<meta property="og:url" content="https://airui520.github.io/2022/07/19/Java%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%BF%90%E7%AE%97%E7%AC%A6/index.html">
+<meta property="og:site_name" content="Fei的博客">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://files.catbox.moe/vakrmb.png">
+<meta property="og:image" content="https://files.catbox.moe/tta4pz.png">
+<meta property="og:image" content="https://files.catbox.moe/jnhlb2.png">
+<meta property="og:image" content="https://files.catbox.moe/hqqiet.png">
+<meta property="og:image" content="https://files.catbox.moe/dmtwd1.png">
+<meta property="og:image" content="https://files.catbox.moe/vskyk4.png">
+<meta property="og:image" content="https://files.catbox.moe/xv3qg6.png">
+<meta property="article:published_time" content="2022-07-19T06:10:27.000Z">
+<meta property="article:modified_time" content="2022-07-20T10:33:12.510Z">
+<meta property="article:author" content="Fei">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://files.catbox.moe/vakrmb.png">
+
+
+<link rel="canonical" href="https://airui520.github.io/2022/07/19/Java%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%BF%90%E7%AE%97%E7%AC%A6/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://airui520.github.io/2022/07/19/Java%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%BF%90%E7%AE%97%E7%AC%A6/","path":"2022/07/19/Java数据类型和运算符/","title":"Java数据类型和运算符"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Java数据类型和运算符 | Fei的博客</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXXX-X"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-XXXXXXXX-X","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Fei的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <img class="custom-logo-image" src="/images/bg.jpg" alt="Fei的博客">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">18</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0-Java%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.</span> <span class="nav-text">第一章 Java数据类型和运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%87%E8%AF%86%E7%AC%A6%E5%92%8C%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">1.1.</span> <span class="nav-text">标识符和关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%87%E8%AF%86%E7%AC%A6%E5%91%BD%E5%90%8D%E6%96%B9%E5%BC%8F"><span class="nav-number">1.2.</span> <span class="nav-text">标识符命名方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%88%86%E7%B1%BB"><span class="nav-number">1.3.</span> <span class="nav-text">数据类型分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B4%E5%9E%8B"><span class="nav-number">1.3.1.</span> <span class="nav-text">整型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%AE%E7%82%B9%E5%9E%8B"><span class="nav-number">1.3.2.</span> <span class="nav-text">浮点型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E5%9E%8B"><span class="nav-number">1.3.3.</span> <span class="nav-text">字符型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%83%E5%B0%94%E5%9E%8B"><span class="nav-number">1.3.4.</span> <span class="nav-text">布尔型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="nav-number">1.4.</span> <span class="nav-text">基本类型转换</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="nav-number">1.4.1.</span> <span class="nav-text">自动类型转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%BA%E5%88%B6%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="nav-number">1.4.2.</span> <span class="nav-text">强制类型转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E7%B1%BB%E5%9E%8B%E6%8F%90%E5%8D%87"><span class="nav-number">1.4.3.</span> <span class="nav-text">自动类型提升</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.5.</span> <span class="nav-text">运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%8D%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.5.1.</span> <span class="nav-text">位运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.5.2.</span> <span class="nav-text">逻辑运算符</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E7%AE%97%E7%AC%A6%E4%BC%98%E5%85%88%E7%BA%A7"><span class="nav-number">1.6.</span> <span class="nav-text">运算符优先级</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Fei"
+      src="/images/head.jpg">
+  <p class="site-author-name" itemprop="name">Fei</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/AiRui520" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;AiRui520" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:2813764348@qq.com" title="E-Mail → mailto:2813764348@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://xiguayaaaaa.github.io/" title="https:&#x2F;&#x2F;xiguayaaaaa.github.io" rel="noopener" target="_blank">xigua</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://simon-yian.com/" title="https:&#x2F;&#x2F;simon-yian.com" rel="noopener" target="_blank">banana</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/AiRui520" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://airui520.github.io/2022/07/19/Java%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%BF%90%E7%AE%97%E7%AC%A6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.jpg">
+      <meta itemprop="name" content="Fei">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Fei的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Java数据类型和运算符 | Fei的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java数据类型和运算符<a href="https://github.com/AiRui520/next/edit/main/subdirectory-name/_posts/Java%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%BF%90%E7%AE%97%E7%AC%A6.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-07-19 14:10:27" itemprop="dateCreated datePublished" datetime="2022-07-19T14:10:27+08:00">2022-07-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-07-20 18:33:12" itemprop="dateModified" datetime="2022-07-20T18:33:12+08:00">2022-07-20</time>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><img src="https://files.catbox.moe/vakrmb.png"></p>
+<span id="more"></span>
+
+<h1 id="第一章-Java数据类型和运算符"><a href="#第一章-Java数据类型和运算符" class="headerlink" title="第一章 Java数据类型和运算符"></a>第一章 Java数据类型和运算符</h1><p>Java是一门强类型语言，所谓的强类型语言，可以理解为包含以下2层含义：<br>1.所有的变量都必须先声明，后使用<br>2.变量的类型一旦确定，那么变量的值必须和数据类型相匹配<br>变量:可以理解为程序运行时内存中用于保存数据的一个存储区域，该存储区域有自己的名称、类型、和值。强类型语言可以在编译过程中发现源代码的错误，从而保证程序更加健壮。</p>
+<h2 id="标识符和关键字"><a href="#标识符和关键字" class="headerlink" title="标识符和关键字"></a>标识符和关键字</h2><p>Java中将变量名和方法名以及类名统称为标识符，标识符命名规则如下：</p>
+<p>1.标识符只由字母、数字、下划线(_)、和美元符号($)组成，但是不能以数字开头<br>2.标识符不能是Java的关键字和保留字、但是可以包含关键字和保留字<br>3.标识符不能包含空格以及其他特殊符号</p>
+<h2 id="标识符命名方式"><a href="#标识符命名方式" class="headerlink" title="标识符命名方式"></a>标识符命名方式</h2><p>在Java中标识符的命名一般遵循以下两种命名方式：<br>1.Pascal命名法：所有单词的首字母均大写，例如StudentName,TeacherAge,这种命名法通常用于类名。<br>2.Camel命名法：第一个单词的首字母小写，其余单词首字母均大写。例如：productName,produceCount。这种命名法通常用于变量名及方法名。</p>
+<h2 id="数据类型分类"><a href="#数据类型分类" class="headerlink" title="数据类型分类"></a>数据类型分类</h2><p>Java中数据类型可以分为两大类：基本类型和引用类型。其中基本类型又可以分为4类，分别是：整型、浮点型、布尔型和字符型</p>
+<h3 id="整型"><a href="#整型" class="headerlink" title="整型"></a>整型</h3><p><strong>整型通常包含以下4种：</strong><br>  byte: 一个byte类型整数在内存中占8位(bit)即1个字节，可以表示的数值范围为：-128一127<br>  short: 一个short类型整数在内存中占16位即2个字节，可以表示的数值范围为-2^15一一2^15-1<br>  int: 一个int类型整数在内存中占32位4字节，可以表示的数值范围为-2^31一231-1<br>  long: 一个long类型整数在内存中占64位8字节，可以表示的数值范围-2^63一一2^63-1</p>
+<p>如果直接将一个较小的整数值(byte或者short类型的表示范围内)赋值给一个byte类型或者short变量，系统会自动把这个整数值当成byte或者short类型处理，因为在Java中定义一个整型变量。编译器会默认是int类型</p>
+<p>如果使用一个巨大的整数值（超出了int类型能表示的范围），Java不会自动把这个整数当成long类型处理，如果希望编译器把这个正式当做long类型处理，应该在数值后添加”l”或者”L”.</p>
+<h4 id="变量的声明"><a href="#变量的声明" class="headerlink" title="变量的声明"></a>变量的声明</h4><p>在Java中声明一个变量必须先指定数据类型（Java11之前），并对其进行初始化</p>
+<h4 id="变量的初始化"><a href="#变量的初始化" class="headerlink" title="变量的初始化"></a>变量的初始化</h4><p>声明一个变量时，目的就是为了在变量中保存数据，并使用该数据。因此，当变量定义完毕后，需要对其进行初始化，所谓初始化，就是在为变量开辟的内容空间中保存一份数据。</p>
+<p><img src="https://files.catbox.moe/tta4pz.png"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义一个byte类型的变量</span></span><br><span class="line"><span class="type">byte</span> <span class="variable">b</span> <span class="operator">=</span> <span class="number">100</span>;</span><br><span class="line"><span class="comment">//变量值超出了byte表示范围，编译器会报错</span></span><br><span class="line"><span class="type">byte</span> <span class="variable">b2</span> <span class="operator">=</span> <span class="number">128</span>;</span><br><span class="line"><span class="comment">//定义一个short类型变量</span></span><br><span class="line"><span class="type">short</span> <span class="variable">s</span> <span class="operator">=</span> <span class="number">100</span>;</span><br><span class="line"><span class="comment">//定义一个整型的变量</span></span><br><span class="line"><span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">200</span>;</span><br><span class="line"><span class="comment">//定义一个long类型的变量</span></span><br><span class="line"><span class="type">long</span> <span class="variable">l</span> <span class="operator">=</span> <span class="number">2000L</span>;</span><br><span class="line"><span class="type">long</span> <span class="variable">k</span> <span class="operator">=</span> <span class="number">2000l</span>;</span><br></pre></td></tr></table></figure>
+
+<p>Java中整数值有4种表示方式：十进制、二进制、十六进制、八进制，其中二进制的整数以0b或者0B开头；八进制的整数以0开头；十六进制的整数以0X或者0x开头，其中10-15分别以a-表示。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//二进制</span></span><br><span class="line"><span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">0b1011</span>;</span><br><span class="line"><span class="comment">//八进制</span></span><br><span class="line"><span class="type">int</span> <span class="variable">b</span> <span class="operator">=</span> <span class="number">0111</span>;</span><br><span class="line"><span class="comment">//十六进制</span></span><br><span class="line"><span class="type">int</span> <span class="variable">c</span> <span class="operator">=</span> <span class="number">0x111</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="浮点型"><a href="#浮点型" class="headerlink" title="浮点型"></a>浮点型</h3><p>Java中浮点型有两类：float和double.。Java的浮点型有固定的表示范围，Java的浮点数遵循1EEE754标准，采用二进制数据的科学计数法来表示浮点数，对于float类型，第1位是符号位，接下来的8位表示指数，在接下来的23位表示尾数；对于double类型的值，第1位也是符号位，接下来的11位表示指数，再接下来的52位表示尾数。</p>
+<p>Java中浮点型有两种表示形式：<br>十进制：这种形式就是简单的浮点数，如：3.14,7.1等浮点型必须包含一个小数点，否则会被当成int类型处理<br>科学计数法：例如5.12e2(即5.12x102)<br>Java语言中浮点型默认的都是double类型的，如果要让Java把一个浮点数当故float类型处理，应该在这个浮点型后面添加后缀f或者F</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义一个浮点型</span></span><br><span class="line"><span class="type">double</span> <span class="variable">d</span> <span class="operator">=</span> <span class="number">5.12</span>;</span><br><span class="line"><span class="comment">//定义一个float类型,此时编译器会报错，因为Java默认将浮点型都当做double类型，</span></span><br><span class="line"><span class="comment">//因此如果要声明一个float类型,应该添加F后缀</span></span><br><span class="line"><span class="type">float</span> <span class="variable">f</span> <span class="operator">=</span> <span class="number">5.12</span>;<span class="comment">//编译错误</span></span><br><span class="line"><span class="type">float</span> <span class="variable">f2</span> <span class="operator">=</span> <span class="number">5.12F</span>;</span><br></pre></td></tr></table></figure>
+
+<p>Java还提供了三个特殊的浮点数：正无穷大、负无穷大和非数，用于表示益出和出错。正无穷大用POSITIVE _INFINITY表示；负无穷大用NEGATIVE_INFINITY表示，非数通过NAN表示</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">double</span> <span class="variable">d1</span> <span class="operator">=</span> <span class="number">0.1</span>;</span><br><span class="line"><span class="comment">//用正浮点数除以0得到正无穷大</span></span><br><span class="line">System.out.print(d1/<span class="number">0</span>);</span><br><span class="line"><span class="type">double</span> <span class="variable">d2</span> <span class="operator">=</span> -<span class="number">0.1</span>;</span><br><span class="line"><span class="comment">//用负浮点数除以0得到负无穷大</span></span><br><span class="line">System.out.print(d2/<span class="number">0</span>);</span><br><span class="line"><span class="comment">//对负数开方得到NAN</span></span><br><span class="line">System.out.println(Math.sqrt(-<span class="number">2</span>));</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：所有的正无穷大都是相等的，所有的负无穷大都是相等的，但是NAN与任何数值都不相等，甚至和NAN都不相等。另外，只有浮点数除以0才可以得到正无穷大或者负无穷大，如果一个整数除以0,则会抛出一个异常(算数异常：ArithmeticException: &#x2F; by zero)</strong></p>
+<h3 id="字符型"><a href="#字符型" class="headerlink" title="字符型"></a>字符型</h3><p>字符型通常用于表示单个字符，字符型值必须要用单引号括起来，Java语言使用16位的Unicode字符集作为编码方式，而Unicode字符集支特世界上所有书面语言的字符，包括中文字符因此Java程序支持各种语言的字符。</p>
+<p>字符型值有3种表示形式<br>·通过单个字符来指定字符型值：例如A’,’9等<br>·通过转义字符表示特殊字符型值，如’\n’，”\t’等：<br>·直接使用Unicode值来表示字符型格式为’\uxxxx’,其中xxxx表示一个十六进制的整数<br>Java中常用转义字符如下表：</p>
+<p><img src="https://files.catbox.moe/jnhlb2.png"></p>
+<p>字符型值也可以使用十六进制的编码方式表示，范围是u0000一一\uFFFF,一共可以表示65535个字符，其中前256个字符和ASCII码中字符一致。并且char类型也可以作为整型值使用</p>
+<h3 id="布尔型"><a href="#布尔型" class="headerlink" title="布尔型"></a>布尔型</h3><p>布尔型只有boolean类型，用于表示逻辑真和假，在Java中布尔型的值只有true或者false,且不能用0或者非0表示。和其他数据类型也不能相互转换.<br>Java规范中并没有强制指定布尔型变量所占用的内存，即使布尔型变量只要1位就可保存，但是大部分计算机在分配内存时所允许的最小内存单元是字节，因此布尔类型实际上占用了8位</p>
+<h2 id="基本类型转换"><a href="#基本类型转换" class="headerlink" title="基本类型转换"></a>基本类型转换</h2><p>在java应用中，经常需要不同数据类型之间进行相互转换，布尔型和其他类型不能相互转换，但是在剩余7种类型之间可以相互转换，转换方式有两种：自动类型转换和强制类型转换</p>
+<h3 id="自动类型转换"><a href="#自动类型转换" class="headerlink" title="自动类型转换"></a>自动类型转换</h3><p>Java中当把一个表示范围小的数值或变量赋值给另一个表示范围大的变量时，系统将自动进行转换，反之则需要强制转换。</p>
+<p><img src="https://files.catbox.moe/hqqiet.png"></p>
+<p>箭头左边的数值类型可以自动转换为箭头右边的数值类型。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TypeCast1</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">byte</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">10</span>;</span><br><span class="line">		<span class="comment">//将byte类型变量a的值赋值给int类型变量b</span></span><br><span class="line">		<span class="comment">//此时将自动转换类型</span></span><br><span class="line">		<span class="type">int</span> <span class="variable">b</span> <span class="operator">=</span> a;</span><br><span class="line">		<span class="type">int</span> <span class="variable">c</span> <span class="operator">=</span> <span class="number">100</span>;</span><br><span class="line">		<span class="comment">//将int类型变量c的值赋值给float类型变量d</span></span><br><span class="line">		<span class="type">float</span> <span class="variable">d</span> <span class="operator">=</span> c;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="强制类型转换"><a href="#强制类型转换" class="headerlink" title="强制类型转换"></a>强制类型转换</h3><p>表示范围大的值或变量赋值给表示范围小的变量时，需要进行强制转换</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TypeCast2</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="comment">//double类中转int类型</span></span><br><span class="line">		<span class="type">double</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">5.12</span>;</span><br><span class="line">		<span class="type">int</span> <span class="variable">b</span> <span class="operator">=</span> (<span class="type">int</span>)a;</span><br><span class="line">		<span class="comment">//int类型转short类型</span></span><br><span class="line">		<span class="type">int</span> <span class="variable">c</span> <span class="operator">=</span> <span class="number">100</span>;</span><br><span class="line">		<span class="type">short</span> <span class="variable">s</span> <span class="operator">=</span> (<span class="type">short</span>) c;</span><br><span class="line">		System.out.println(b);</span><br><span class="line">		<span class="comment">//int类型转char类型</span></span><br><span class="line">		<span class="type">int</span> <span class="variable">e</span> <span class="operator">=</span> <span class="number">97</span>;</span><br><span class="line">		<span class="type">char</span> <span class="variable">f</span> <span class="operator">=</span> (<span class="type">char</span>) e;</span><br><span class="line">		System.out.println(f);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上例中我们发现当我们把浮点型转成整型时，发生了精度丢失，只保留了整数位，舍弃了小数位，因此当操作此种类型转换时一定要注意精度丢失的问题。并且当我们把int类型转成char类型打印时发现打印了a,因为java使用了Unicode:字符集，并且前256位兼容了ASCII码，而97正是字符a。</p>
+<h3 id="自动类型提升"><a href="#自动类型提升" class="headerlink" title="自动类型提升"></a>自动类型提升</h3><p>当一个算术表达式中包含多个基本类型的值时，整个算术表达式的数据类型将发生自动提升，java自动提升规则如下：<br>所有的byte、short、和char类型将被提升到int类型<br>整个算术表达式的数据类型自动提升到表达式中最高等级操作数相同的类型</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义一个byte类型变量并+2</span></span><br><span class="line"><span class="type">short</span> <span class="variable">s</span> <span class="operator">=</span> <span class="number">1</span>；</span><br><span class="line">s = s+<span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+
+<p>编译上述代码时会发现编译无法通过，这是因为变量s是short类型，2则是int类型，此时表达式中包含了多个数据类型，那么该表达式结果的数据类型则会发生自动提升，提升为最高等级操作数数据类型，也就是int,此时将一个int类型的值赋值给short类型的变量，需要进行类型强制转换，上述代码中并未强制转换，因此会编译错误，如果对s+2强制转换为int类型，则会编译通过并正常运行。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义double类型变量</span></span><br><span class="line"><span class="type">double</span> <span class="variable">d</span> <span class="operator">=</span> <span class="number">5.02</span>;</span><br><span class="line"><span class="comment">//定义整型变量</span></span><br><span class="line"><span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">5</span>;</span><br><span class="line"><span class="comment">//定义byte类型变量</span></span><br><span class="line"><span class="type">byte</span> <span class="variable">b</span> <span class="operator">=</span> <span class="number">3</span>;</span><br><span class="line"><span class="type">double</span> <span class="variable">s</span> <span class="operator">=</span> d+i+b;</span><br></pre></td></tr></table></figure>
+
+<p>在上例代码表达式中包含double类型、int类型、byte类型，根据Java类型自动提升的规则，我们知道表达最终的运算结果为等级最高的数据类型，也就是double类型，因此我们最后保存结果时定义了double类型的变量。</p>
+<p>Java中的基本数据类型以及每种类型所占用的字节数和取值范围：</p>
+<p><img src="https://files.catbox.moe/dmtwd1.png"></p>
+<h2 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h2><p>编程语言主要的功能之一就是进行或简单或复杂的运算，在运算过程中有操作数，同样也需要运算符的参与，运算符其实就是一种特殊的符号，用于表述数据的运算，赋值和比较等。<br>Java中运算符可以分为以下几类：<br>·算术运算符（加、减、乘、除、取余、自增自减）</p>
+<p>·%：取余运算符，求余是指使用第一个操作数除以第二个操作数，得到一个整除的结果后剩下的就是余数。需要注意的是求余运算，本质上也是一个除法运算，如果求余运算的两个操作数都是整型，则第二个操作数不能为0，<br>否则会引发程序异常。如果求余运算的两个操作数中有1个或者2个都是浮点数，则第二个操作数可以是0或者0.0，结果是NAN。0或者0.0对零以外的任何数求余都会得到0或者0.0.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ModDemo</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">5</span>;</span><br><span class="line">		<span class="type">int</span> <span class="variable">b</span> <span class="operator">=</span> <span class="number">3</span>;</span><br><span class="line">		<span class="type">int</span> <span class="variable">c</span> <span class="operator">=</span> <span class="number">5</span>%<span class="number">3</span>;</span><br><span class="line">		System.out.println(c);</span><br><span class="line">		System.out.println(<span class="string">&quot;5对0.0取余：&quot;</span>+<span class="number">5.0</span>%<span class="number">0.0</span>);<span class="comment">//NAN</span></span><br><span class="line">		System.out.println(<span class="string">&quot;0对5.0取余：&quot;</span>+<span class="number">0</span>%<span class="number">5.0</span>);<span class="comment">//0.0</span></span><br><span class="line">		System.out.println(<span class="string">&quot;0对0.0求余：&quot;</span>+<span class="number">0</span>%<span class="number">0.0</span>);<span class="comment">//NAN</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>·赋值运算符 （&#x3D;）<br>·比较运算符（&gt;、 &lt;、 &gt;&#x3D;、 &lt;&#x3D;、&#x3D;&#x3D;）<br>·逻辑运算符<br>·位运算符<br>·类型相关运算符</p>
+<h3 id="位运算符"><a href="#位运算符" class="headerlink" title="位运算符"></a>位运算符</h3><p>Java中位运算符有7个：<br>&amp;:按位与。当两位同时为1时才返回1（同1为1）。<br>|:按位或。只要有一位为1时即返回1（有1则1）。<br>~:按位非。单目运算符，将操作数每一位（包括符号位）1变0,0变1（符号位一起取反加一）<br>^:按位异或。当两位相同时返回0，不同时返回1。（相同为0，不同为1）<br>&lt;&lt;:左移运算符(左移为乘)</p>
+<p>·&gt;&gt;:右移运算符</p>
+<p>·&gt;&gt;&gt;:无符号右移运算符<br>一般来说，位运算只操作整数类型的变量或值。</p>
+<p><img src="https://files.catbox.moe/vskyk4.png"></p>
+<h3 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h3><p><strong>逻辑运算符用于操作两个布尔型的变量或者常量，主要有以下6个。</strong></p>
+<p>·&amp;&amp;:与，左右两个操作数都是true才会返回true,否则返回false,需要注意的是如果左右两边是表达式，如果第一个表达式就返回false,则第二个表达式并不进行运算。</p>
+<p>·&amp;:不短路与，作用于&amp;&amp;相同，但是无论第一个表达式的结果是true还是false,第二个表达式都会进行运算。</p>
+<p>·||:或，两个操作数只要有一个为true,就可以返回true,否则返回false,同样，如果第一个表达式返回值为true,则第二个表达式不进行运算</p>
+<p>·|:不短路或，作用于相同，但是无论第一个表达式结果如何，第二个表达式都会进行运算。</p>
+<p>·!:非，只需要一个操作数，如果操作数为true,则返回false,如果操作数为false,则返回true。</p>
+<p>·^:异或，当两个操作数不同时返回为true,如果两个操作数相同的返回false。</p>
+<h4 id="三目运算符"><a href="#三目运算符" class="headerlink" title="三目运算符"></a>三目运算符</h4><p>三目运算符只有一个：？：，三目运算符语法格式如下：<br>(expression) ? if-true-statement ： if-false-statement;<br>运算规则如下：<br>1.计算表达式expression的值<br>2.如果表达式返回true,则返回if-true-statement的值<br>3.如果表达式返回false,则返回if-false-statement的值</p>
+<h4 id="赋值扩展运算符"><a href="#赋值扩展运算符" class="headerlink" title="赋值扩展运算符"></a>赋值扩展运算符</h4><p>赋值运算符可以同算术运算符、位移运算符结合，对赋值运算符进行扩展，扩展后的赋值运算符如下：<br>·+&#x3D;:对于x+&#x3D;y,等价于x&#x3D;x+y。<br>·-&#x3D;:对于x-&#x3D;y,等价于x&#x3D;x-y。<br>·*&#x3D;:对于x*&#x3D;y,等价于x&#x3D;x*y。</p>
+<p>&#x2F;&#x3D;、%&#x3D;、&amp;&#x3D;、|&#x3D;、^&#x3D;、&lt;&lt;&#x3D;、&gt;&gt;&#x3D;、&gt;&gt;&gt;&#x3D;（无符号右移赋值操作）</p>
+<h2 id="运算符优先级"><a href="#运算符优先级" class="headerlink" title="运算符优先级"></a>运算符优先级</h2><p>运算符有不同的优先级，所谓优先级就是在表达式中运算的先后顺序，Java语言中大部分运算符都是从左向右结合的，只有个别运算符从右向走结合，例如：单目运算符、赋值运算符、三目运算符，下表将列出所有运算符的优先级：</p>
+<p><img src="https://files.catbox.moe/xv3qg6.png"></p>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Fei
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://airui520.github.io/2022/07/19/Java%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%BF%90%E7%AE%97%E7%AC%A6/" title="Java数据类型和运算符">https://airui520.github.io/2022/07/19/Java数据类型和运算符/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/07/16/Java%E8%AF%AD%E8%A8%80%E6%A6%82%E8%BF%B0/" rel="prev" title="Java语言概述">
+                  <i class="fa fa-chevron-left"></i> Java语言概述
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/07/19/Java%E6%8E%A7%E5%88%B6%E6%B5%81%E7%A8%8B%E5%92%8C%E6%95%B0%E7%BB%84/" rel="next" title="Java控制流程和数组">
+                  Java控制流程和数组 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2001 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fei</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">117k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">1:47</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=your_add_this_id" async="async"></script>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+<script class="next-config" data-name="chatra" type="application/json">{"enable":true,"async":true,"id":null}</script>
+<script src="/js/third-party/chat/chatra.js"></script>
+<script async src="https://call.chatra.io/chatra.js"></script>
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

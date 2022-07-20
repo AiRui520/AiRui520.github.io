@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.2.0">
+
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="manifest" href="/manifest.json">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic%7CLobster+Two:300,300italic,400,400italic,700,700italic%7CAmita:300,300italic,400,400italic,700,700italic%7CMontserrat:300,300italic,400,400italic,700,700italic%7CPT+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"airui520.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":"true`","version":"8.12.1","exturl":false,"sidebar":{"position":"left","width":300,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta property="og:type" content="blog">
+<meta property="og:title" content="Java控制流程和数组">
+<meta property="og:url" content="https://airui520.github.io/2022/07/19/Java%E6%8E%A7%E5%88%B6%E6%B5%81%E7%A8%8B%E5%92%8C%E6%95%B0%E7%BB%84/index.html">
+<meta property="og:site_name" content="Fei的博客">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://files.catbox.moe/vakrmb.png">
+<meta property="og:image" content="https://files.catbox.moe/inscuk.png">
+<meta property="og:image" content="https://files.catbox.moe/4tv5yo.png">
+<meta property="og:image" content="https://files.catbox.moe/pm1dc7.png">
+<meta property="article:published_time" content="2022-07-19T06:11:07.000Z">
+<meta property="article:modified_time" content="2022-07-20T10:35:37.334Z">
+<meta property="article:author" content="Fei">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://files.catbox.moe/vakrmb.png">
+
+
+<link rel="canonical" href="https://airui520.github.io/2022/07/19/Java%E6%8E%A7%E5%88%B6%E6%B5%81%E7%A8%8B%E5%92%8C%E6%95%B0%E7%BB%84/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://airui520.github.io/2022/07/19/Java%E6%8E%A7%E5%88%B6%E6%B5%81%E7%A8%8B%E5%92%8C%E6%95%B0%E7%BB%84/","path":"2022/07/19/Java控制流程和数组/","title":"Java控制流程和数组"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Java控制流程和数组 | Fei的博客</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXXX-X"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-XXXXXXXX-X","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Fei的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <img class="custom-logo-image" src="/images/bg.jpg" alt="Fei的博客">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">18</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8E%A7%E5%88%B6%E6%B5%81%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">控制流程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%BA%E5%BA%8F%E7%BB%93%E6%9E%84"><span class="nav-number">1.1.</span> <span class="nav-text">顺序结构</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E6%94%AF%E7%BB%93%E6%9E%84"><span class="nav-number">2.</span> <span class="nav-text">分支结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#if%E6%9D%A1%E4%BB%B6%E8%AF%AD%E5%8F%A5"><span class="nav-number">2.0.1.</span> <span class="nav-text">if条件语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#switch%E6%9D%A1%E4%BB%B6%E8%AF%AD%E5%8F%A5"><span class="nav-number">2.0.2.</span> <span class="nav-text">switch条件语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E6%94%AF%E5%B5%8C%E5%A5%97"><span class="nav-number">2.0.3.</span> <span class="nav-text">分支嵌套</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BE%AA%E7%8E%AF%E7%BB%93%E6%9E%84"><span class="nav-number">2.1.</span> <span class="nav-text">循环结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#for%E5%BE%AA%E7%8E%AF"><span class="nav-number">2.1.1.</span> <span class="nav-text">for循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#while%E5%BE%AA%E7%8E%AF"><span class="nav-number">2.1.2.</span> <span class="nav-text">while循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#do-while%E5%BE%AA%E7%8E%AF"><span class="nav-number">2.1.3.</span> <span class="nav-text">do while循环</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A7%E5%88%B6%E5%BE%AA%E7%8E%AF%E7%BB%93%E6%9E%84"><span class="nav-number">2.2.</span> <span class="nav-text">控制循环结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8break%E7%BB%93%E6%9D%9F%E5%BE%AA%E7%8E%AF"><span class="nav-number">2.3.</span> <span class="nav-text">使用break结束循环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8continue%E8%B7%B3%E8%BF%87%E6%AD%A4%E6%AC%A1%E5%BE%AA%E7%8E%AF"><span class="nav-number">2.4.</span> <span class="nav-text">使用continue跳过此次循环</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AA%E7%8E%AF%E5%B5%8C%E5%A5%97"><span class="nav-number">2.4.1.</span> <span class="nav-text">循环嵌套</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AA%E7%8E%AF%E5%B5%8C%E5%A5%97%E4%B8%AD%E7%9A%84break"><span class="nav-number">2.4.2.</span> <span class="nav-text">循环嵌套中的break</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AA%E7%8E%AF%E5%B5%8C%E5%A5%97%E4%B8%AD%E4%BD%BF%E7%94%A8continue"><span class="nav-number">2.4.3.</span> <span class="nav-text">循环嵌套中使用continue</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E7%BB%84"><span class="nav-number">3.</span> <span class="nav-text">数组</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E6%95%B0%E7%BB%84"><span class="nav-number">3.1.</span> <span class="nav-text">定义数组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">3.1.1.</span> <span class="nav-text">数组的初始化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%95%B0%E7%BB%84"><span class="nav-number">3.2.</span> <span class="nav-text">使用数组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#for%E5%BE%AA%E7%8E%AF%E9%81%8D%E5%8E%86%E6%95%B0%E7%BB%84"><span class="nav-number">3.2.1.</span> <span class="nav-text">for循环遍历数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#foreach%E9%81%8D%E5%8E%86%E6%95%B0%E7%BB%84"><span class="nav-number">3.2.2.</span> <span class="nav-text">foreach遍历数组</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%B1%E5%85%A5%E6%95%B0%E7%BB%84"><span class="nav-number">3.3.</span> <span class="nav-text">深入数组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E4%B8%AD%E7%9A%84%E6%95%B0%E7%BB%84"><span class="nav-number">3.3.1.</span> <span class="nav-text">内存中的数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E7%9A%84%E9%95%BF%E5%BA%A6%E4%B8%8D%E8%83%BD%E8%A2%AB%E6%94%B9%E5%8F%98"><span class="nav-number">3.3.2.</span> <span class="nav-text">数组的长度不能被改变</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E7%BB%B4%E6%95%B0%E7%BB%84"><span class="nav-number">3.3.3.</span> <span class="nav-text">多维数组</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Arrays%E5%B7%A5%E5%85%B7%E7%B1%BB"><span class="nav-number">3.4.</span> <span class="nav-text">Arrays工具类</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Fei"
+      src="/images/head.jpg">
+  <p class="site-author-name" itemprop="name">Fei</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/AiRui520" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;AiRui520" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:2813764348@qq.com" title="E-Mail → mailto:2813764348@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://xiguayaaaaa.github.io/" title="https:&#x2F;&#x2F;xiguayaaaaa.github.io" rel="noopener" target="_blank">xigua</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://simon-yian.com/" title="https:&#x2F;&#x2F;simon-yian.com" rel="noopener" target="_blank">banana</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/AiRui520" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://airui520.github.io/2022/07/19/Java%E6%8E%A7%E5%88%B6%E6%B5%81%E7%A8%8B%E5%92%8C%E6%95%B0%E7%BB%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.jpg">
+      <meta itemprop="name" content="Fei">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Fei的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Java控制流程和数组 | Fei的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java控制流程和数组<a href="https://github.com/AiRui520/next/edit/main/subdirectory-name/_posts/Java%E6%8E%A7%E5%88%B6%E6%B5%81%E7%A8%8B%E5%92%8C%E6%95%B0%E7%BB%84.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-07-19 14:11:07" itemprop="dateCreated datePublished" datetime="2022-07-19T14:11:07+08:00">2022-07-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-07-20 18:35:37" itemprop="dateModified" datetime="2022-07-20T18:35:37+08:00">2022-07-20</time>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>11k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>10 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><img src="https://files.catbox.moe/vakrmb.png"></p>
+<span id="more"></span>
+
+<h1 id="控制流程"><a href="#控制流程" class="headerlink" title="控制流程"></a>控制流程</h1><p>三类程序结构：顺序结构、分支结构、循环结构</p>
+<p>分支结构：用于实现根据条件来选择性执行某一段代码，因此分支结构也被叫做选择结构。<br>循环结构：则是用于实现根据循环条件重复执行某段代码。<br>Java提供了if和switch两种分支语句，还有while,do while和for三种盾环语句。</p>
+<p>JDK5还提供了增强for盾环，foreach循环。以更简洁的书写方式遍历集合、数组。</p>
+<h2 id="顺序结构"><a href="#顺序结构" class="headerlink" title="顺序结构"></a>顺序结构</h2><p>顺序结构：代码都是自上而下，依次执行，不会出现跳行执行、逆向执行等情况。</p>
+<h1 id="分支结构"><a href="#分支结构" class="headerlink" title="分支结构"></a>分支结构</h1><p>java提供了两种常见的分支结构：if语句和switchi语句，其中if语句使用布尔表达式或者布尔值作为分支结构条件来进行分支控制。</p>
+<h3 id="if条件语句"><a href="#if条件语句" class="headerlink" title="if条件语句"></a>if条件语句</h3><p>if语句使用布尔表达式或者布尔值作为分支条件来进行分支控制，语句有以下三种形式。<br>单分支结构(一个if)、双分支结构（if..else）、多分支结构（if、else if）</p>
+<h3 id="switch条件语句"><a href="#switch条件语句" class="headerlink" title="switch条件语句"></a>switch条件语句</h3><p>switch语句有一个控制表达式和多个case标签组成，和if语句不同的是，switchi语句后面的控制表达式的数据类型只能是byte、short、char、int四种类型，从Java7以后添加了枚举类型和String类型<br>switch语句通常需要在case标签后紧跟一个代码块，case标签作为这个代码块的标识，switch语句的语法格式如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">switch</span> (expression)&#123;</span><br><span class="line">    <span class="keyword">case</span> condition1:</span><br><span class="line">        &#123;</span><br><span class="line">        	statement(s)    </span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">     <span class="keyword">case</span> condition2:</span><br><span class="line">        &#123;</span><br><span class="line">        	statement(s)    </span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;   </span><br><span class="line">     <span class="keyword">case</span> condition2:</span><br><span class="line">        &#123;</span><br><span class="line">        	statement(s)    </span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">     ....</span><br><span class="line">      <span class="keyword">case</span> condition N:</span><br><span class="line">        &#123;</span><br><span class="line">        	statement(s)    </span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">default</span>:&#123;</span><br><span class="line">        statement (s)</span><br><span class="line">    &#125;	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>switch分支语句的执行是先对expression求值，然后依次匹配case，如果没有与之匹配的，则执行default</p>
+<h3 id="分支嵌套"><a href="#分支嵌套" class="headerlink" title="分支嵌套"></a>分支嵌套</h3><p>如果把一个分支结构放进另一个分支结构中，这种情况叫做分支嵌套，分支嵌套可以是if中嵌套switch,switch中嵌套f,也可以是if互相嵌套或者switch自身嵌套。例如，计算一个年份是否是闰年。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;请输入年份：&quot;</span>);</span><br><span class="line">		<span class="type">Scanner</span> <span class="variable">scanner</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">		<span class="type">int</span> <span class="variable">year</span> <span class="operator">=</span> scanner.nextInt();</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span>(year%<span class="number">4</span>==<span class="number">0</span>) &#123;</span><br><span class="line">			<span class="keyword">if</span>(year%<span class="number">100</span>==<span class="number">0</span>) &#123;</span><br><span class="line">				<span class="keyword">if</span>(year%<span class="number">400</span>==<span class="number">0</span>) &#123;</span><br><span class="line">					System.out.println(year+<span class="string">&quot;是闰年&quot;</span>);</span><br><span class="line">				&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">					System.out.println(year+<span class="string">&quot;不是闰年&quot;</span>);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">				System.out.println(year+<span class="string">&quot;是闰年&quot;</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">			System.out.println(year+<span class="string">&quot;不是闰年&quot;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="循环结构"><a href="#循环结构" class="headerlink" title="循环结构"></a>循环结构</h2><p>循环结构是指在满足某个循环条件的情况下，反复执行同一段代码，直到不满足循环条件为止。被循环执行的代码叫做循环体。当反复执行循环体时，要在适当的时机修改循环条件，从而结束循环，否则循环会一直进行下去，形成死盾环。一个恰当的盾坏结构应该包含以下4个组成部分：<br>1.初始化语句：一个或多个语句，这些语句用来完成一些初始化工作，在循环开始之前执行<br>2.循环条件：循环条件是一个布尔表达式，该表达式决定是否执行循环体<br>3.循环体：这部分是循环的主题，如果循环条件允许，该代码块将被反复执行，如果这个代码块只有一条语句，则代码块的花括号可以管略。<br>4.迭代语句：这部分在一次循环体执行结束后执行，在循环条件求值前执行，通常用于控制循环条件中的变量，使得循环在合适的时候结束。</p>
+<h3 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a>for循环</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>([init_statment];[test_exression];[iteration_statement])&#123;</span><br><span class="line">    statement;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>初始化语句只在循环条件开始前执行依次，对于for循环而言，循环条件总比循环体要多执行一次，因为最后一次执行循环条件返回false，将不再执行循环体。</p>
+<p><strong>注意：除非特殊情况尽量不要在循环体内修改循环变量的值。</strong></p>
+<p>for循环圆括号中只有两个分号是必须的，初始化语句、循环条件、迭代语句部分都是可以省略的，如果省略了循环条件，则这个循环条件默认为true，将产生死循环。例如下面的代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">EndlessForLoop</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="keyword">for</span> (;;) &#123;</span><br><span class="line">			System.out.println(<span class="string">&quot;-----endless-----&quot;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="while循环"><a href="#while循环" class="headerlink" title="while循环"></a>while循环</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[init_statement]</span><br><span class="line"><span class="keyword">while</span>(test_expression)&#123;</span><br><span class="line">	statement;</span><br><span class="line">    [iteration_statment]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>while循环每次执，行循环体，之前，先对test_expression循环条件求值，如果循环条件为true,则执行循环体部分。从上述伪代码中来看，iteration_statment位于循环体的最后，因此只有当循环体成功执行完成时，while循环才会执行iteration_statmenti语句。</p>
+<h3 id="do-while循环"><a href="#do-while循环" class="headerlink" title="do while循环"></a>do while循环</h3><p>do while循环与while循环的区别在于：while循环是先判断循环条件，如果条件为真则执行循环体；而do while循环则新执行循环体，然后才判断循环条件，如果循环条件为真，则执行下一次循环，否则终止循环。do while循环语法格式如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[init_statement]</span><br><span class="line"><span class="keyword">do</span>&#123;</span><br><span class="line">	statement;</span><br><span class="line">    [iteration_statment]</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">while</span>(test_expression);</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：do while循环的循环条件必须有一个分号，该分号代表该循环结构结束。</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		</span><br><span class="line">		<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">		<span class="type">int</span> <span class="variable">k</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">while</span> (++i&gt;<span class="number">1</span>) &#123;</span><br><span class="line">			System.out.println(<span class="string">&quot;循环条件至少执行1次&quot;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(i);</span><br><span class="line">		<span class="keyword">do</span> &#123;</span><br><span class="line">			k++;</span><br><span class="line">		&#125;<span class="keyword">while</span>(<span class="literal">false</span>);</span><br><span class="line">		</span><br><span class="line">		System.out.println(k);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p>++i&#x3D;1执行后的值为1，此时该表达式结果为false,不执行循环体，而do while循环中循环条件直接是false,但是此时仍l旧执行了循环体，k的值成为了1。</p>
+<h2 id="控制循环结构"><a href="#控制循环结构" class="headerlink" title="控制循环结构"></a>控制循环结构</h2><p>Java提供了continue和break控制循环结构</p>
+<h2 id="使用break结束循环"><a href="#使用break结束循环" class="headerlink" title="使用break结束循环"></a>使用break结束循环</h2><p>break：用于完全结束一个循环，跳出循环体，不管哪种循环，一旦循环体遇到break，系统将完全结束该循环，开始执行循环结构以后的代码。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">			<span class="keyword">if</span>(i==<span class="number">7</span>) &#123;</span><br><span class="line">                System.out.println(i);</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当i&#x3D;7时，直接跳出循环</p>
+<h2 id="使用continue跳过此次循环"><a href="#使用continue跳过此次循环" class="headerlink" title="使用continue跳过此次循环"></a>使用continue跳过此次循环</h2><p>continue的功和break有点类似，区别是continue.只是跳出此次循环，继续执行剩下的循环，并不是完全终止循环。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">			<span class="keyword">if</span>(i==<span class="number">7</span>) &#123;</span><br><span class="line">				<span class="keyword">continue</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			System.out.println(i);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="循环嵌套"><a href="#循环嵌套" class="headerlink" title="循环嵌套"></a>循环嵌套</h3><p>如果把一个循环放进另一个循环体内，那么就可以形成循环嵌套，循环嵌套可以是上述3种循环的任意嵌套，例如：for循环和while循环的相互嵌套，while循环和do while循环的相互嵌套，也可以是while循环和do while循环的相互嵌套。</p>
+<p>当程序遇到循环嵌套是，如果外层循环的循环条件允许，则开始执行外层循环的循环体，而内层循环将被外层循环的循环体来执行，只是内层循环需要反复执行自己的循环体而已。当内层循环执行结束，且完成循环的循环体执行结束时，在再次计算外层循环的循环条件，决定是否再次执行外层循环的循环体。</p>
+<p>示例：打印等腰三角形</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt; <span class="number">6</span>; i++) &#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="type">int</span> <span class="variable">k</span> <span class="operator">=</span> <span class="number">5</span>-i; k &gt; <span class="number">0</span>; k-- ) &#123;</span><br><span class="line">				System.out.print(<span class="string">&quot; &quot;</span>);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">for</span>(<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; (<span class="number">2</span>*i) - <span class="number">1</span>; j++) &#123;</span><br><span class="line">				System.out.print(<span class="string">&quot;*&quot;</span>);</span><br><span class="line">			&#125;</span><br><span class="line">			System.out.println();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p>示例：冒泡排序</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">        <span class="type">int</span>[] arr = &#123;<span class="number">9</span>,<span class="number">8</span>,<span class="number">7</span>,<span class="number">6</span>,<span class="number">5</span>&#125;;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; arr.length - <span class="number">1</span>; i++) &#123;</span><br><span class="line">        	System.out.println(<span class="string">&quot;第&quot;</span>+(i+<span class="number">1</span>)+<span class="string">&quot;趟比较:&quot;</span>);</span><br><span class="line">        	</span><br><span class="line">        	<span class="keyword">for</span>(<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; arr.length - <span class="number">1</span> -i; j++) &#123;</span><br><span class="line">        		<span class="keyword">if</span>(arr[j] &gt; arr[j+<span class="number">1</span>]) &#123;</span><br><span class="line">        			<span class="type">int</span> <span class="variable">temp</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        			temp = arr[j];</span><br><span class="line">        			arr[j] = arr[j+<span class="number">1</span>];</span><br><span class="line">        			arr[j+<span class="number">1</span>] = temp;</span><br><span class="line">        		&#125;</span><br><span class="line">        		System.out.print(<span class="string">&quot;第&quot;</span>+(j+<span class="number">1</span>)+<span class="string">&quot;次比较:&quot;</span>);</span><br><span class="line">        		System.out.println(Arrays.toString(arr));</span><br><span class="line">        	&#125;</span><br><span class="line">        &#125;</span><br><span class="line">       </span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p>示例：二分查找</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">int</span>[] a = &#123;<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">9</span>,<span class="number">11</span>&#125;;</span><br><span class="line">		<span class="type">int</span> <span class="variable">cc</span> <span class="operator">=</span> Demo11.binarySearch(a, <span class="number">3</span>);</span><br><span class="line">		System.out.println(cc);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">binarySearch</span><span class="params">(<span class="type">int</span>[] srcArray, <span class="type">int</span> des)</span> &#123;</span><br><span class="line">	    <span class="comment">//定义初始最小、最大索引</span></span><br><span class="line">	    <span class="type">int</span> <span class="variable">start</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">	    <span class="type">int</span> <span class="variable">end</span> <span class="operator">=</span> srcArray.length - <span class="number">1</span>;<span class="comment">//5</span></span><br><span class="line">	    <span class="comment">//确保不会出现重复查找，越界</span></span><br><span class="line">	    <span class="keyword">while</span> (start &lt;= end) &#123;</span><br><span class="line">	        <span class="comment">//计算出中间索引值</span></span><br><span class="line">	        <span class="type">int</span> <span class="variable">middle</span> <span class="operator">=</span> (end + start)&gt;&gt;&gt;<span class="number">1</span> ;<span class="comment">//防止溢出//3</span></span><br><span class="line">	        <span class="keyword">if</span> (des == srcArray[middle]) &#123;</span><br><span class="line">	            <span class="keyword">return</span> middle;</span><br><span class="line">	        <span class="comment">//判断下限</span></span><br><span class="line">	        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (des &lt; srcArray[middle]) &#123;</span><br><span class="line">	            end = middle - <span class="number">1</span>;</span><br><span class="line">	        <span class="comment">//判断上限</span></span><br><span class="line">	        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">	            start = middle + <span class="number">1</span>;</span><br><span class="line">	        &#125;</span><br><span class="line">	    &#125;</span><br><span class="line">	    <span class="comment">//若没有，则返回-1</span></span><br><span class="line">	    <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="comment">//类是对象的模板，对象是类的实例</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="循环嵌套中的break"><a href="#循环嵌套中的break" class="headerlink" title="循环嵌套中的break"></a>循环嵌套中的break</h3><p>break语句仅结束其所在的循环，例如在双层循环嵌套中，只结束内层循环，而不能结束外层盾环。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">			<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; <span class="number">5</span>; j++) &#123;</span><br><span class="line">				<span class="keyword">if</span>(j==<span class="number">2</span>) &#123;</span><br><span class="line">					<span class="keyword">break</span>;</span><br><span class="line">				&#125;</span><br><span class="line">				System.out.println(<span class="string">&quot;内存循环：&quot;</span>+j);</span><br><span class="line">			&#125;</span><br><span class="line">			System.out.println(<span class="string">&quot;外存循环：&quot;</span>+i);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行上述代码，我们可以发现break只是结束了内层自己所在的循环，外层循环并没有被结束，仍旧在继续循环。那么，如何让break结束外层循环呢，此时就要在break后面紧跟一个标签了，这个标签用于表示一个外层盾环。Java中的标签就是一个紧跟着冒号的标识符，与其他语言不同的是，Java中的标签只有放在循环语句前才有作用。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		outer:</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">			<span class="comment">//内层循环</span></span><br><span class="line">			<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; <span class="number">3</span>; j++) &#123;</span><br><span class="line">				<span class="keyword">if</span>(j==<span class="number">1</span>) &#123;</span><br><span class="line">					<span class="comment">//跳出outer所标识的循环</span></span><br><span class="line">					<span class="keyword">break</span> outer;</span><br><span class="line">				&#125;</span><br><span class="line">				System.out.println(<span class="string">&quot;i的值为：&quot;</span>+i+<span class="string">&quot;,j的值为：&quot;</span>+j);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p>程序从外层循环进入内层循环，当j等于1时，程序遇到一个break outer语言，该语句将会导致结束outer标签指定的循环，不是break所在的循环，而是结束break循环的外层循环。</p>
+<p>需要注意的是，break后的标签必须是一个有效的标签，这个标签必须在break语句所在的循环之前定义，或者在所在循环的外层循环之前定义。当然，如果把这个标签放在break语句所在的循环之前定义，也就失去了标签的意义，因为break默认就是结束其所在的循环。</p>
+<h3 id="循环嵌套中使用continue"><a href="#循环嵌套中使用continue" class="headerlink" title="循环嵌套中使用continue"></a>循环嵌套中使用continue</h3><p>将上例中break换成continue，此处continue的作用不变，只是在多层循环中，continue会忽略当前循环，直接到外层循环继续进行循环</p>
+<h1 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h1><p><strong>数组就是：具有相同数据类型且按照一定次序排列的一组数据的集合。</strong></p>
+<p>在数组的概念中需要注意以下几点：<br>1.具有相同的数据类型，也就是说存放在一个数组的元素必须数据类型相同，不能把不同类型的元素放进同一个数组。<br>2.按照一定次序排列，数组中的元素是有序的，这句话包含两层含义，第一：元素是有顺序的。也可以理解为每个数组元素都有一个编号，这个编号是连续的（我们通常把这个编号叫做数组的下标或者索引）；第二：元素存放的顺序<br>和取出的顺序是一致的，也就是说存放元素的顺序是10,20,30,40。那么取出的顺序也是10,20,30,40。<br>3.一组数据，一组数据是指元素的个数可以是0个，也可以是1个，也可以是多个，Java中允许数组中有0个元素，也就是我们所说的空数组。</p>
+<h2 id="定义数组"><a href="#定义数组" class="headerlink" title="定义数组"></a>定义数组</h2><p>Java的数据类型可以分为两大类：基本类型和引用类型，其中基本类型有8个，引用类型则包括：对象，数组，接口。因此数组也是一种数据类型。数组的定义方式有两种语法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">type[] arrayName;</span><br><span class="line">type arrayName[];</span><br></pre></td></tr></table></figure>
+
+<p>int类型是一个基本类型，而int[]则是一个引用类型。</p>
+<p>数组初始化一旦完成，数组在内存中所占的空间将被固定下来，长度就不会改变，若长度改变，则一定</p>
+<p>数组是一种引用类型的变量，当仅仅是定义了数组后，仅仅是定义了一个引用变量，这个变量还未指向任何有效内存，此时整个数组还不能使用，只有对数组初始化后才能使用。</p>
+<h3 id="数组的初始化"><a href="#数组的初始化" class="headerlink" title="数组的初始化"></a>数组的初始化</h3><p>Java中数组必须先初始化，然后才可以使用。所谓初始化，就是为数组的元素分配内存空间，并为每个元素赋初始值。<br>数组的初始化有两种方式：<br>1.静态初始化：初始化时由程序员指定每个元素的初始值。由系统觉定数组的长度<br>2.动态初始化：初始化是程序员指定数组长度，由系统为元素分配初始值。<br>静态初始化语法格式如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">arrayName = <span class="keyword">new</span> <span class="title class_">type</span>[]&#123;e1,e2,e3&#125;</span><br><span class="line">arrayName = &#123;e1,e2,e3&#125;</span><br></pre></td></tr></table></figure>
+
+<p>动态初始化只指定数组的长度，由系统为每个元素指定初始值。动态初始化的语法格式如下：<br>arrayName new type[length];<br>在上面的语法中，需要指定一个int类型的length参数，该参数指定了数组的长度，也就是可以容纳数组元素的个数，与静态初始化类型，此处的<br>type必须与定义数组时使用的type类型相同。动态初始化语法格式如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[] ary  = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">3</span>];</span><br><span class="line"><span class="type">char</span>[] chars = <span class="keyword">new</span> <span class="title class_">char</span>[<span class="number">5</span>]; </span><br></pre></td></tr></table></figure>
+
+<p>执行动态初始化时，开发者只需指定数组的长度，即为每个元素指定所需的内存空间，系统将负责为这些数组元素分配初始值。指定初始值时，系统按如下规则分配初始值：<br>·数组元素的类型是基本类型中的整型(byte,short,int,Iong),则数组元素的初始值为0；<br>·数组元素的类型是基本类型中的浮点型(float,double),则数组元素的值是0.0；<br>·数组元素的类型是基本类型中的字符型(char),则数组元素的值是’\u0000’:<br>·数组元素的类型是基本类型中的布尔型(boolean),则数组元素的默认值是false。<br>·数组元素的类型是基本类型中的引用类型，则数组元素的默认值是null。</p>
+<h2 id="使用数组"><a href="#使用数组" class="headerlink" title="使用数组"></a>使用数组</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义一个整型数组，并对其动态初始化，此时数组中的元素都是默认值</span></span><br><span class="line"><span class="type">int</span>[] a = <span class="keyword">new</span> <span class="title class_">int</span> [<span class="number">5</span>];</span><br><span class="line"><span class="comment">//对数组的第二个元素进行赋值</span></span><br><span class="line">a[<span class="number">1</span>] = <span class="number">10</span></span><br></pre></td></tr></table></figure>
+
+<p>遇到数组索引时，需要考虑java.lang.ArraryIndexOutOfBoundsException(数组越界异常)。</p>
+<h3 id="for循环遍历数组"><a href="#for循环遍历数组" class="headerlink" title="for循环遍历数组"></a>for循环遍历数组</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">int</span>[] a = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">3</span>];</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; a.length; i++) &#123;</span><br><span class="line">			a[i] = i+<span class="number">100</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; a.length; i++) &#123;</span><br><span class="line">			System.out.println(a[i]);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="foreach遍历数组"><a href="#foreach遍历数组" class="headerlink" title="foreach遍历数组"></a>foreach遍历数组</h3><p>Java5以后，Java提供了更简洁遍历数组的方式：foreach循环。使用foreach遍历数组和集合元素时，无需获得数组和集合长度，无需根据索引来访问数组元素。</p>
+<p>foreach我们可以理解为增强for循环，不需要开发者根据索引去数组中取值，系统会自动从数组a中取到每一个元素，并赋值给i，只需要打印i即可，这种方式也有效的避免了数组下标越界异常。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="comment">//定义一个整型数组，并对其静态初始化</span></span><br><span class="line">		<span class="type">int</span>[] a = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</span><br><span class="line">		<span class="comment">//使用foreach遍历</span></span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> i : a) &#123;</span><br><span class="line">			System.out.println(i);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="深入数组"><a href="#深入数组" class="headerlink" title="深入数组"></a>深入数组</h2><h3 id="内存中的数组"><a href="#内存中的数组" class="headerlink" title="内存中的数组"></a>内存中的数组</h3><p>数组引用变量只是一个引用，这个引用变量可以指向任何有效内存，只有当该引用指向有效内存后，才可以通过该数组变量访问数组。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> [] a;</span><br></pre></td></tr></table></figure>
+
+<p>此时只是定义了一个数组类型的变量，该变量没有指向任何有效内存，如果此时访问数组元素时，将会引发空指针异常。</p>
+<p>与所有引用变量相同的是，引用变量是访问真实对象的根本方式，也就是说，如果希望在程序中访问数组对象本身，只能通过数组的引用变量来访问。</p>
+<p>实际的数组对象被存储在堆内存中，如果引用该数组对象的数组引用变量是一个局部变量，那么它将被存储在栈内存中。数组在内存中的示意图如下图所示：</p>
+<p><img src="https://files.catbox.moe/inscuk.png"></p>
+<h3 id="数组的长度不能被改变"><a href="#数组的长度不能被改变" class="headerlink" title="数组的长度不能被改变"></a>数组的长度不能被改变</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">int</span>[] a = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">4</span>];</span><br><span class="line">		<span class="type">int</span>[] b = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">5</span>];</span><br><span class="line">		a = b;</span><br><span class="line">		System.out.println(a.length);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行上述代码，发现数组a的长度发生了变化</p>
+<p>当代码执行完第10行时，此时数组a和数组b的内存示意图如下：</p>
+<p><img src="https://files.catbox.moe/4tv5yo.png"></p>
+<p>当代码执行第11行时，此时内存中发生如下变化：</p>
+<p><img src="https://files.catbox.moe/pm1dc7.png"></p>
+<p>从图示中可以看出，此时a并不指向原来的内存空间，而是和b一样指向了相同的内存空间，而原来a指向的内存还在内存中，也就是说变的仅仅是变量a指向的内存空间，而不是数组长度，a原来指向的数组长度还是4，并没有发生变化</p>
+<p><strong>数组一旦被初始化后长度不可变，如果发生了变化，一定是指向了新的数组。</strong></p>
+<h3 id="多维数组"><a href="#多维数组" class="headerlink" title="多维数组"></a>多维数组</h3><p>Java语言里提供了多维数组的支持，但是实际上并不存在多维数组，例如二维数组，完全可以认为是数组类型的数组：因为Java语言里的数组类型是引用类型，因此数组变量其实是一个引用，这个引用指向真实数组的内存。数组元素的类型也可以是引用，如果数组元素的引用再次指向真实的数组内存，此时就产生了多维数组，换句话说，多维数组本质都是一维数组。我们可以把数组当成一种数据类型，可以理解为数组类型的数组，二维数组的语法如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">type[] [] a = <span class="keyword">new</span> <span class="title class_">type</span>[length1][length2]</span><br></pre></td></tr></table></figure>
+
+<p>下面通过实例来定义二维数组，并对其进行遍历</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="comment">//此处可以理解为定义了一个3行4列的矩阵</span></span><br><span class="line">		<span class="comment">//也可以理解为外层的数组长度为3，即包含了3个数组</span></span><br><span class="line">		<span class="comment">//内存数组中每个数组有4个元素</span></span><br><span class="line">		<span class="type">int</span>[] [] a = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">3</span>][<span class="number">4</span>];</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; a.length; i++) &#123;</span><br><span class="line">			<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; a[i].length; j++) &#123;</span><br><span class="line">				a[i][j] = i*j;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(Arrays.deepToString(a));</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过上述代码我们可以理解为数组a是一个二维数组，也就是说数组a是长度为3的数组，而数组a中又存放了3个长度为4的数组，为每个元素赋值，<strong>deepToString</strong>则是Arrays工具类为我们提供了打印多维数组的方法。Arrays工具类会在下一小节讲解。</p>
+<h2 id="Arrays工具类"><a href="#Arrays工具类" class="headerlink" title="Arrays工具类"></a>Arrays工具类</h2><p>Java提供了Arrays.工具类，里面包，含了一些方法，可以直接操作数组。<br>·int binarySearch(long[] a,long key):使用二分查找法查询key元素值在数组a中出现的索引，如果a数组不包含key元素，则返回负数，调用此方法时要求数组中的元素已经按升序排列。<br>T[] copyOf(T[] original,int newLength):该方法会把original数组复制成一个新数组，其中length:是新数组的长度，如果length.小于original数组的长度，则新数组就是原数组的前面length个元素，如果lenght大于original数组的长度，则新数组的前面元素就是原数组的所有元素，后面补充默认值，根据数组类型确定<br>·copyOfRange(T[] original,int from,int to):这个方法与前面的类以，但是这个方法只复制原数组form索引到to索引l的元素。<br>·boolean equals(type[] a,tyte[] a2):如果数组a和a2长度相等，并且a和a2每个元素也相等则返回true,否则返回false.。<br>·void fill((long[]a,I):该方法会把a数组的所有元素都赋值为val<br>·void sort(type[] a):该方法对a数组进行排序<br>·String toString(type[] a):该方法将一个数组转换成字符串，该方法按顺序吧多个元素连接在一起，元素之间用逗号隔开。<br><strong>实例一：复制数组1</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">int</span>[] a = &#123;<span class="number">5</span>,<span class="number">7</span>,<span class="number">8</span>&#125;;</span><br><span class="line">		<span class="comment">//如果length小于a数组长度，则只复制前n个元素</span></span><br><span class="line">		<span class="type">int</span>[] b = Arrays.copyOf(a, <span class="number">2</span>);</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> i : b) &#123;</span><br><span class="line">			System.out.println(i);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//如果length大于数组a的长度，多余元素则以默认值填充</span></span><br><span class="line">		<span class="type">int</span>[] c = Arrays.copyOf(a, <span class="number">5</span>);</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> i : c) &#123;</span><br><span class="line">			System.out.println(i);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>实例二：复制数组2</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">int</span>[] a = &#123;<span class="number">2</span>,<span class="number">5</span>,<span class="number">3</span>,<span class="number">9</span>,<span class="number">6</span>&#125;;</span><br><span class="line">		<span class="type">int</span>[] b = Arrays.copyOfRange(a, <span class="number">0</span>, <span class="number">2</span>);</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> i : b) &#123;</span><br><span class="line">			System.out.println(i);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p>复制的元素时包含了form和to索引处的元素。需要注意的是，如果该方法的第三个参数超出了原数组长度，此时并不会抛出异常，会将原数组中所有的元素进行复制，空余的位置以默认值。</p>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Fei
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://airui520.github.io/2022/07/19/Java%E6%8E%A7%E5%88%B6%E6%B5%81%E7%A8%8B%E5%92%8C%E6%95%B0%E7%BB%84/" title="Java控制流程和数组">https://airui520.github.io/2022/07/19/Java控制流程和数组/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/07/19/Java%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%BF%90%E7%AE%97%E7%AC%A6/" rel="prev" title="Java数据类型和运算符">
+                  <i class="fa fa-chevron-left"></i> Java数据类型和运算符
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2001 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fei</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">117k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">1:47</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=your_add_this_id" async="async"></script>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+<script class="next-config" data-name="chatra" type="application/json">{"enable":true,"async":true,"id":null}</script>
+<script src="/js/third-party/chat/chatra.js"></script>
+<script async src="https://call.chatra.io/chatra.js"></script>
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
