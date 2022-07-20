@@ -3766,7 +3766,7 @@
 <p>分支结构：用于实现根据条件来选择性执行某一段代码，因此分支结构也被叫做选择结构。<br>循环结构：则是用于实现根据循环条件重复执行某段代码。<br>Java提供了if和switch两种分支语句，还有while,do while和for三种盾环语句。</p>
 <p>JDK5还提供了增强for盾环，foreach循环。以更简洁的书写方式遍历集合、数组。</p>
 <h2 id="顺序结构"><a href="#顺序结构" class="headerlink" title="顺序结构"></a>顺序结构</h2><p>顺序结构：代码都是自上而下，依次执行，不会出现跳行执行、逆向执行等情况。</p>
-<h1 id="分支结构"><a href="#分支结构" class="headerlink" title="分支结构"></a>分支结构</h1><p>java提供了两种常见的分支结构：if语句和switchi语句，其中if语句使用布尔表达式或者布尔值作为分支结构条件来进行分支控制。</p>
+<h2 id="分支结构"><a href="#分支结构" class="headerlink" title="分支结构"></a>分支结构</h2><p>java提供了两种常见的分支结构：if语句和switchi语句，其中if语句使用布尔表达式或者布尔值作为分支结构条件来进行分支控制。</p>
 <h3 id="if条件语句"><a href="#if条件语句" class="headerlink" title="if条件语句"></a>if条件语句</h3><p>if语句使用布尔表达式或者布尔值作为分支条件来进行分支控制，语句有以下三种形式。<br>单分支结构(一个if)、双分支结构（if..else）、多分支结构（if、else if）</p>
 <h3 id="switch条件语句"><a href="#switch条件语句" class="headerlink" title="switch条件语句"></a>switch条件语句</h3><p>switch语句有一个控制表达式和多个case标签组成，和if语句不同的是，switchi语句后面的控制表达式的数据类型只能是byte、short、char、int四种类型，从Java7以后添加了枚举类型和String类型<br>switch语句通常需要在case标签后紧跟一个代码块，case标签作为这个代码块的标识，switch语句的语法格式如下：</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">switch</span> (expression)&#123;</span><br><span class="line">    <span class="keyword">case</span> condition1:</span><br><span class="line">        &#123;</span><br><span class="line">        	statement(s)    </span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">     <span class="keyword">case</span> condition2:</span><br><span class="line">        &#123;</span><br><span class="line">        	statement(s)    </span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;   </span><br><span class="line">     <span class="keyword">case</span> condition2:</span><br><span class="line">        &#123;</span><br><span class="line">        	statement(s)    </span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">     ....</span><br><span class="line">      <span class="keyword">case</span> condition N:</span><br><span class="line">        &#123;</span><br><span class="line">        	statement(s)    </span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">default</span>:&#123;</span><br><span class="line">        statement (s)</span><br><span class="line">    &#125;	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -3953,5 +3953,10 @@
 <h2 id="运算符优先级"><a href="#运算符优先级" class="headerlink" title="运算符优先级"></a>运算符优先级</h2><p>运算符有不同的优先级，所谓优先级就是在表达式中运算的先后顺序，Java语言中大部分运算符都是从左向右结合的，只有个别运算符从右向走结合，例如：单目运算符、赋值运算符、三目运算符，下表将列出所有运算符的优先级：</p>
 <p><img src="https://files.catbox.moe/xv3qg6.png"></p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>Java面向对象</title>
+    <url>/2022/07/20/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/</url>
+    <content><![CDATA[]]></content>
   </entry>
 </search>
