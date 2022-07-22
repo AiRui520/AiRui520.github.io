@@ -3955,8 +3955,8 @@
 ]]></content>
   </entry>
   <entry>
-    <title>Java面向对象</title>
-    <url>/2022/07/20/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/</url>
+    <title>Java面向对象(基础)</title>
+    <url>/2022/07/20/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1(%E5%9F%BA%E7%A1%80)/</url>
     <content><![CDATA[<p><img src="https://files.catbox.moe/vakrmb.png"></p>
 <span id="more"></span>
 
@@ -4048,6 +4048,316 @@
 <p>当执行第4行代码时，JVM将堆内存中age的值修改为18.</p>
 <h3 id="局部变量的初始化机制"><a href="#局部变量的初始化机制" class="headerlink" title="局部变量的初始化机制"></a>局部变量的初始化机制</h3><p>局部变量定义后，必须经过显式初始化后才能使用，系统不会为局部变量执行初始化。这意味着定义局部变量后，系统并未为这个变量分配内存空间，直到等到程序为这个变量赋初始值时，系统才会为局部变量分配内存，并将初始值保存到这块内存中。<br>与成员变量不同，局部变量不属于任何类或实例，因此它总是保存在其所在方法的浅内存中。如果局部变量是基本类型的变量，则直接把这个变量的值保存在该变量对应的内存中，如果局部变量是一个引用类型的变量，则这个变量里存放的是地址，通过该地址引用到该变量实际引用的对<br>象或数组。栈内存中的变量无需系统垃圾回收，往往随方法或代码块的运行结束而结束。因此，局部变量的作用域是从初始化该变量开始，直到该方法或该代码块运行完成而结束。因为局部变量只保存基本类型的值或者对象的引用，因此局部变量所占的内存区通常比较小。</p>
 <h2 id="static关键字"><a href="#static关键字" class="headerlink" title="static关键字"></a>static关键字</h2><p>在前面的内容中我们可以总结出static用于修饰方法和示例变量，使用static修饰的方法叫做类方法，使用static修饰的变量叫放类变量(tatic还可以修饰代码块，我们将在下一章节中深入学习)，无论是类变量还是类方法，都属于类，而不属于对象，是所有对象共享的。<br>类变量属于整个类，当系统第一次准备使用该类时，系统会为该类变量分配内存空间，类变量开始生效，直到该类被卸载，该类的类变量所占有的内存才被系统的垃圾回收机制回收。类变量生存范围几乎等同于该类的生存范围。当类初始化完成后，类变量也被初始化完成。类变量既可通<br>过类来访问，也可通过类的对象来访问。但通过类的对象来访问类变量时，实际上并不是访问该对象所拥有的变量，因为当系统创建该类的对象时，系统不会再为类变量分配内存，也不会再次对类变量进行初始化，也就是说，对象根本不拥有对应类的类变量。通过对象访问类变量只是一<br>种假象，通过对象访问的依然是该类的类变量，可以这样理解：当通过对象来访问类变量时，系统会在底层转换为通过该类来访问类变量。<br>由于对象实际上并不特有类变量，类变量是由该类持有的，同一个类的所有对象问类变量时，实际上方间的都是孩类所特有的变量。因此，从程序运行表面来看，即可看到同一类的所有实例的类变量共享同一块内存区。<br>类方法也是类成员的一种，类方法也是属于类的，通常直接使用类作为调用者来调用类方法，但也可以使用对象来调用类方法。与类变量类似，使使用对象来调用类方法，其效果也与用类来调用类方法完全一样。</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>Java面向对象(高级)</title>
+    <url>/2022/07/21/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-%E9%AB%98%E7%BA%A7/</url>
+    <content><![CDATA[<p><img src="https://files.catbox.moe/vakrmb.png"></p>
+<span id="more"></span>
+
+<h1 id="Java面向对象"><a href="#Java面向对象" class="headerlink" title="Java面向对象"></a>Java面向对象</h1><h2 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h2><p>Java 也支持面向对象的三大特征∶封装、继承和多态，Java 提供了 private、protected 和 public 三个访问控制修饰符来实现良好的封装，提供了extends 关键字来让子类继承父类，子类继承父类就可以继承到父类的成员变量和方法，如果访问控制允许，子类实例可以直接调用父类里定义的方法。继承是实现类复用的重要手段，除此之外，也可通过组合关系来实现这种复用，从某种程度上来看，继承和组合具有相同的功能。使用继承关系来实现复用时，子类对象可以直接赋给父类变量，这个变量具有多态性，编程更加灵活;而利用组合关系来实现复用时，则不具备这种灵活性。<br> 构造器用于对类实例进行初始化操作，构造器支持重载，如果多个重载的构造器里包含了相同的初始化代码，则可以把这些初始化代码放置在普通初始化块里完成。初始化块总在构造器执行之前被调用。除此之外，Java 还提供了一种静态初始化块，静态初始化块用于初始化类，在类初始化阶段被执行。如果继承树里的某一个类需要被初始化时，系统将会同时初始化该类的所有父类。</p>
+<h3 id="理解封装"><a href="#理解封装" class="headerlink" title="理解封装"></a>理解封装</h3><p>封装（encapsulation)是面向对象的三大特征之一，它的含义是指将对象的状态信息隐藏在对象内部，不允许外部程序直接访问对象内部信息，而是通过该类提供的方法来实现对内部信息的操作和访问。</p>
+<p>对一个类或者对象实现良好的封装，可以实现以下目的：</p>
+<ol>
+<li>隐藏类的实现细节，例如我们定义一个学生类，并创建了对象，对象的年龄是不能随意修改和访问的。例如我们使用的Arrays工具类中的sort()方法，我们并不需要关注方法内实现的细节，我们只需要知道该方法可以对数组进行排序即可</li>
+<li>让使用者只能通过预定的方法来访问数据，从而可以在该方法中加入控制逻辑，限制对成员变量的不合理访问。</li>
+<li>便于修改，提高代码的可维护性</li>
+</ol>
+<p><strong>为实现良好的封装，需要从两个方面考虑：</strong></p>
+<ul>
+<li><p>将对象的成员变量和实现细节隐藏在对象内部，不允许外部直接访问</p>
+</li>
+<li><p>把方法暴露出来，让方法来控制对这些成员变量进行安全的访问和操作</p>
+<p>​</p>
+</li>
+</ul>
+<h3 id="使用访问控制符"><a href="#使用访问控制符" class="headerlink" title="使用访问控制符"></a>使用访问控制符</h3><p>ava提供了3个访问控制符，private，protected和public，分别代表了3种级别的访问控制权限，另外有一个缺省的访问修饰符，因此Java提供了4个访问控制级别。Java的访问控制级别有小到大，如下图所示：</p>
+<p><img src="https://files.catbox.moe/lmknma.png"></p>
+<p><strong>当不使用任何访问控制符来修饰类或者类成员是，系统默认使用该访问控制级别</strong></p>
+<ul>
+<li>private（当前类访问权限）∶ 如果类里的一个成员（包括成员变量、方法和构造器等）使用 private 访问控制符来修饰，则这个成员只能在当前类的内部被访问。很显然，这个访问控制符用于修饰成员变量最合适，使用它来修饰成员变量就可以把成员变量隐藏在该类的内部。</li>
+<li>default（包访问权限）∶如果类里的一个成员（包括成员变量、方法和构造器等）或者一个外部 类不使用任何访问控制符修饰，就称它是包访问权限的，default 访问控制的成员或外部类可以被相同包下的其他类访问。</li>
+<li>protected（子类访问权限）∶如果一个成员（包括成员变量、方法和构造器等）使用protected 访 问控制符修饰，那么这个成员既可以被同一个包中的其他类访问，也可以被不同包中的子类访问。在通常情况下，如果使用 protected 来修饰一个方法，通常是希望其子类来重写这个方法。关于父类、子类的介绍请参考6.2节的内容。</li>
+<li>public （公共访问权限）∶ 这是一个最宽松的访问控制级别，如果一个成员（包括成员变量、方 法和构造器等）或者一个外部类使用 public 访问控制符修饰，那么这个成员或外部类就可以被所有类访问，不管访问类和被访问类是否处于同一个包中，是否具有父子继承关系。</li>
+</ul>
+<p>可以用下表来概括上述内容：</p>
+<table>
+<thead>
+<tr>
+<th>修饰符</th>
+<th>范围</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>public</td>
+<td>公共的</td>
+</tr>
+<tr>
+<td>protected</td>
+<td>同包，子类</td>
+</tr>
+<tr>
+<td>default</td>
+<td>同包</td>
+</tr>
+<tr>
+<td>private</td>
+<td>类内</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>修饰符&#x2F;范围</th>
+<th>类内</th>
+<th>同包子类</th>
+<th>同包非子类</th>
+<th>非同包子类</th>
+<th>非同包非子类</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>public</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td>protected</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>×</td>
+</tr>
+<tr>
+<td>default</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+<td>×</td>
+<td>×</td>
+</tr>
+<tr>
+<td>private</td>
+<td>√</td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+</tr>
+</tbody></table>
+<p>对于外部类而言，它也可以使用访问控制符修饰，但外部类只能有两种访问控制级别;public 和默认，外部类不能使用 private 和 protected 修饰，因为外部类没有处于任何类的内部，<strong>也就没有其所在类的内部、所在类的子类两个范围</strong>，因此 private 和 protected 访问控制符对外部类没有意义。 外部类可以使用 public 和包访问控制权限，使用 public 修饰的外部类可以被所有类使用，如声明变量、创建实例; 不使用任何访问控制符修饰的外部类只能被同一个包中的其他类使用。 </p>
+<p><strong>1.不能用private:</strong><br>对于一个外部类，用private修饰是没有意义的。因为如果使用private修饰外部类，其它类就不能访问的这个类，那么这个类就不能创建实<br>例，这个类的属性和方法就不能被外界访问，所以没有意义。</p>
+<p><strong>2.不能用protected:</strong><br>protected;是用来修饰类中的属性和方法的，不是用来修饰类的。假如定义一个A类用protected修饰，再在与A类不可包的另一个保重定义一个B类，B类如果要继承A类，前提是B类能够访问到A类。仔细想想就会发现这是冲突的。（你要成为A类的子类，你的先访问到A类，但你要访问到A类，那你先得成为A类的子类。因为protected修饰的类就是给子类访问的)这个逻辑明显是冲突的。<br>所以不仅是外部类，普通类也不能用protected修饰。<br>这时肯定有人会说：把B类放在A类同一个包下，那B类不就可以访问到A类了呜？<br>但是：如果你把B类放在和A类同一个包下，那和用default修饰A类有什么区别，既然和default没有区别，那干麻还要用protected修饰A类，<br>而且protected本身可以跳出同一个包访问的意义也不存在了，所以用protected修饰类是没有意义的。</p>
+<p><strong>关于访问控制符的使用，存在如下几条基本原则。</strong></p>
+<ul>
+<li>类里的绝大部分成员变量都应该使用 private 修饰，只有一些 static 修饰的、类似全局变量的成 员变量，才可能考虑使用 public 修饰。除此之外，有些方法只用于辅助实现该类的其他方法，这些方法被称为工具方法，工具方法也应该使用 private 修饰。</li>
+<li>如果某个类主要用做其他类的父类，该类里包含的大部分方法可能仅希望被其子类重写，而不 想被外界直接调用，则应该使用protected 修饰这些方法。</li>
+<li>希望暴露出来给其他类自由调用的方法应该使用 public 修饰。因此，类的构造器通过使用 public 修饰，从而允许在其他地方创建该类的实例。因为外部类通常都希望被其他类自由使用，所以大部分外部类都使用 public 修饰。</li>
+</ul>
+<h3 id="package、import和import-static"><a href="#package、import和import-static" class="headerlink" title="package、import和import static"></a>package、import和import static</h3><p>所谓的包从操作系统层面来看就是一个文件夹，如果从项目开发的角度来看，就是用于管理代码的目录，一个项目可能会由多个人进行开发，那么类名相同也就不可避免，那么如何确保我们写的类不被其他开发者覆盖呢，那么我们就可以用包加以区分。</p>
+<p>简而言之，Java中的包就是为了管理Java类，以及控制权限的目录。<br>如果需要使用不同包中的其他类是，我们需要在类名前加包名。例如如下写法：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">cn.bytecollege.<span class="type">Student</span> <span class="variable">s</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">cn</span>.bytecollege.Student();</span><br></pre></td></tr></table></figure>
+
+<p>这种写法在语法上是完全合法的。但是这是一件很麻烦的事情。为了简化编程，Java引入了import关键字，import可以导入指定包层次下某个类或者全部类，import语句应该出现在package语句后、类定义之前，一个Java源文件只能包含一个package语句，但可以包含多个import语句，多个import语句用于导入多个包层次下的类。</p>
+<h3 id="深入构造器"><a href="#深入构造器" class="headerlink" title="深入构造器"></a>深入构造器</h3><p>构造器是一个特殊的方法，所以也叫构造方法，这个特殊的方法用于创建对象时执行初始化。构造方法是创建对象的基本方式，因此，Java类必须包含一个或者以上的构造器。</p>
+<h4 id="构造器的作用"><a href="#构造器的作用" class="headerlink" title="构造器的作用"></a>构造器的作用</h4><p>构造器最大的用处就是在创建对象时执行初始化。</p>
+<p>当创建一个对象时，系统为这个对象的实例变量进行默认初始化，这种默认的初始化把所有基本类型的实例变量设为 0（对数值型实例变量）或 false（对布尔型实例变量），把所有引用类型的实例变量设为 null。 如果想改变这种默认的初始化，想让系统创建对象时就为该对象的实例变量显式指定初始值，就可以通过构造器来实现。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Student</span> &#123;</span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">	<span class="keyword">private</span> <span class="type">int</span> age;</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 提供一个自定义构造方法用于初始化实例变量</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> name</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> age</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="keyword">public</span> <span class="title function_">Student</span><span class="params">(String name, <span class="type">int</span> age)</span> &#123;</span><br><span class="line">		<span class="built_in">super</span>();</span><br><span class="line">		<span class="built_in">this</span>.name = name;</span><br><span class="line">		<span class="built_in">this</span>.age = age;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">Student</span> <span class="variable">s</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Student</span>(<span class="string">&quot;周芷若&quot;</span>,<span class="number">18</span>);</span><br><span class="line">		System.out.println(s.name);</span><br><span class="line">		System.out.println(s.age);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行上面的程序，可以看到输出的name值是周芷若，年龄是18，这就是构造方法的作用——为实例变量初始化值</p>
+<p>构造器是创建 Java 对象的重要途径，通过 new 关键字调用构造器时，构造器也确实返回了该类的对象，<strong>但这个对象并不是完全由构造器负责创建的</strong>。<strong>实际上，当程序员调用构造器时，系统会先为该对象分配内存空间，并为这个对象执行默认初始化，这个对象已经产生了</strong>——这些操作在构造器执行之前就都完成了。也就是说，<strong>当系统开始执行构造器的执行体之前，系统已经创建了一个对象，只是这个对象还不能被外部程序访问，只能在该构造器中通过 this 来引用</strong>。当构造器的执行体执行结束来后，这个对象作为构造器的返回值被返回，通常还会赋给另一个引用类型的变量，从而让外部程序可以访问该对象。</p>
+<p>因为构造器主要用于被其他方法调用，用以返回该类的实例，因而通常把构造器设置成 public 访问权限，从而允许系统中任何位置的类来创建该类的对象。除非在一些极端的情况下，业务需要限制创建该类的对象，可以把构造器设置成其他访问权限，例如设置为 protected，主要用于被其子类调用;把其设置为 private，阻止其他类创建该类的实例。</p>
+<h4 id="构造器重载"><a href="#构造器重载" class="headerlink" title="构造器重载"></a>构造器重载</h4><p>同一个类里具有多个构造器，多个构造器的形参列表不同，即被称为构造器重载。</p>
+<p>因为构造器必须与类名相同，所以同一个类的所有构造器名肯定相同。为了让系统能区分不同的构造器，多个构造器的参数列表必须不同。，构造方法名称相同，参数列表不同，系统通过new调用构造方法时，根据传入的参数列表来决定调用哪个构造方法。</p>
+<h2 id="类的继承"><a href="#类的继承" class="headerlink" title="类的继承"></a>类的继承</h2><p>继承也是面向对象的三大特征之一，是实现代码复用的重要手段之一，<strong>Java的继承具有单继承的特点，也就是所每个类有且只能有一个父类。</strong></p>
+<h3 id="继承的特点"><a href="#继承的特点" class="headerlink" title="继承的特点"></a>继承的特点</h3><p>所谓继承就是在已有类的基础上构建一个新类，使用extends关键字来实现，从而达到代码复用的目的，其中已有类也叫做父类、基类或者超类，新扩展的的类叫做子类或者派生类。</p>
+<p>Java使用extends作为继承的关键字，其实extends翻译为扩展更为合适，而不是继承，因为翻译做继承的话，很容易和我们理解意义上的继承混淆。并且子类更多的是作为父类的扩展，也就是说父类中更多的描述的是共性，也就是大家都具有的特性，而子类中不但有共性，也可能有特性。</p>
+<p>定义父类：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.bytecollege;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 父类定义两个实例变量和一个实例方法</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> MR.W</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Father</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> String name;</span><br><span class="line">	<span class="keyword">public</span> <span class="type">int</span> age;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">printInfo</span><span class="params">()</span> &#123;</span><br><span class="line">		System.out.println(name+<span class="string">&quot;=====&quot;</span>+age);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>定义子类，该子类继承Father，并且类本身中不定义任何内容。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.bytecollege;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 子类继承父类，子类中不包含任何内容</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> MR.W</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Son</span> <span class="keyword">extends</span> <span class="title class_">Father</span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>编写测试类：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.bytecollege;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">Son</span> <span class="variable">son</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Son</span>();</span><br><span class="line">		son.age = <span class="number">18</span>;</span><br><span class="line">		son.name = <span class="string">&quot;张三&quot;</span>;</span><br><span class="line">		son.printInfo();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行测试类，我们发现打印了张三&#x3D;&#x3D;&#x3D;18岁，我们发现Son中没有定义任何内容，但是我们依然可以访问到实例变量name和age，这说明子类Son从父类继承了这两个属性，并且我们调用了son对象的printInfo()方法，这说明子类不但继承了父类的实例变量，也继承了父类的实例方法。（</p>
+<p>Java中采用了单继承，也就是说一个类有且只能有一个直接父类，多个间接父类，例如：类A继承了类B，类B又继承了类C，类C又继承了类D，那么类A的直接的直接父类是类B，间接父类则有类C和类D。</p>
+<p>此外，需要注意的是，如果一个Java类没有显式的指定直接父类，那么这个类默认隐式的extends了java.lang.Object类。</p>
+<h3 id="方法重写"><a href="#方法重写" class="headerlink" title="方法重写"></a>方法重写</h3><p>子类扩展了父类，那么就获得了父类中定义的可访问的成员变量和方法。并且子类在父类的基础上可以对父类进行扩展，增加自己的状态或者行为。子类扩展了父类，当父类方法不能满足子类需要时，子类就可以重写父类方法，也叫做方法覆盖。</p>
+<p>所谓方法重写就是，子类扩展父类以后，为满足自身需要，对父类行为或者方法进行覆盖，<br>子类包含与父类同名方法的现象叫做方法重写。这里需要注意以下几点：</p>
+<ol>
+<li>方法重写只存在于继承关系中</li>
+<li>方法重写子类方法名和父类方法名相同，并且参数列表和父类方法参数列表完全相同</li>
+<li>子类方法返回值类型与父类方法返回值类型一致，或者子类方法返回值类型是父类方法返回值类型的子类</li>
+<li>子类方法抛出的异常要小于父类方法抛出的异常（关于异常的内容，我们将在Java高级一书中讲解，此处了解即可。）</li>
+<li>子类方法的访问权限要大于等于父类方法访问权限</li>
+</ol>
+<p>简单归纳为方法重写中的注意事项为“两小一大两相同”，其中两小指的是子类方法返回值和抛出异常小于父类方法返回值和抛出异常。一大则是指子类方法访问权限大于等于父类访问权限。两相同则是指方法名和参数列表相同。<br>此外，需要注意的是，如果父类方法具有 private 访问权限，则该方法对其子类是隐藏的，因此其子类无法访问该方法，也就是无法重写该方法。如果子类中定义了一个与父类 private 方法具有相同的方法名、相同的形参列表、相同的返回值类型的方法，依然不是重写，只是在子类中重新定义了一个新方法。</p>
+<p><strong>方法重写和方法重载的区别：</strong><br>（1）方法重载（Overload）方法重写（Override）<br>（2）方法重载发生在同一个类里面，方法重写只发生在继承里面。<br>（3）方法重载和返回值类型无关，方法重写子类方法的返回值类型要和父类方法返回值的类型一致，或者是父类返回值的子类。<br>（4）方法重载和抛出异常无关，方法重写子类方法抛出异常小于等于父类方法抛出异常<br>（5）方法重载和修饰符的权限无关，方法重写子类方法的访问权限大于等于父类方法的访问权限<br>（6）方法重载参数列表要参数个数不同或类型顺序不同，方法重写的参数列表要与父类的参数列表一致。</p>
+<p>首先我们定义一个父类：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.bytecollege;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 定义Ostrich类，并定义run方法</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> MR.W</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Bird</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">(String name)</span> &#123;</span><br><span class="line">		System.out.println(name+<span class="string">&quot;====run&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>定义子类，并重写父类方法：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.bytecollege;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 定义Sparrow类，并重写run方法</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> MR.W</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Sparrow</span> <span class="keyword">extends</span> <span class="title class_">Bird</span>&#123;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">(String name)</span> &#123;</span><br><span class="line">		System.out.println(name+<span class="string">&quot;是一只麻雀，不能快速的跑，但是我可以跳&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们定义了Bird类，并在类中定义了run方法，因为鸟类都具有跑这个行为，但是麻雀准确意义上不能称之为跑，所以重写了父类的方法，并且严格遵循了重写方法的规则。需要注意的是在代码第8行，有一行@Override，这叫做注解，当发生方法重写时，添加在方法上方（关于注解的内容，我们会在Java高级一书反射章节中讲解，此处简单了解即可）。<br><strong>注意：父类构造方法不能被继承，因此也不能被重写。可以重写的一定是从父类继承的可访问的方法。</strong></p>
+<h3 id="super关键字"><a href="#super关键字" class="headerlink" title="super关键字"></a>super关键字</h3><p>super可以指代父类对象，用于访问从父类继承得到的实例变量或者方法，同时也可以访问父类的构造方法。super和this一样，都不出现在类方法中，如果出现在构造方法中，必须放在第一行，因此super()和this()调用构造方法时，不能同时出现。</p>
+<ul>
+<li>super访问父类属性</li>
+</ul>
+<p>首先，我们定义父类，父类中包含了name和age两个属性</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.bytecollege.extend;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 父类中定义两个实例变量</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> MR.W</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Father</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> String name;</span><br><span class="line">	<span class="keyword">public</span> <span class="type">int</span> age;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>接着我们定义子类，在子类中不定义任何实例变量，定义个print()方法，方法中使用super访问限定父类实例变量：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.bytecollege.extend;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 定义子类继承父类</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> MR.W</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Son</span> <span class="keyword">extends</span> <span class="title class_">Father</span>&#123;</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 定义实例方法使用super访问父类实例变量</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">print</span><span class="params">()</span> &#123;</span><br><span class="line">		System.out.println(<span class="built_in">super</span>.age);</span><br><span class="line">		System.out.println(<span class="built_in">super</span>.name);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>定义测试类：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.bytecollege.extend;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 定义测试类</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> MR.W</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">Son</span> <span class="variable">son</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Son</span>();</span><br><span class="line">		son.age = <span class="number">18</span>;</span><br><span class="line">		son.name =<span class="string">&quot;张三&quot;</span>;</span><br><span class="line">		son.print();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>测试类中我们创建了Son对象，并为其从父类继承来的属性赋值，代码12行调用son对象print方法后，在方法内部，我们使用super访问了父类的属性，并成功打印。<br>在上面的示例中，Son中没有定义任何实例变量，Son中所有的实例变量实际上都是从父类继承过来的，那么如果Son中如果定义了实例变量，并且和父类中实例变量同名，那么又会发生什么呢？那么，下面我们修改上述示例：<br>定义父类：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.bytecollege.extend;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 父类中定义两个实例变量</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> MR.W</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Father</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> String name;</span><br><span class="line">	<span class="keyword">public</span> <span class="type">int</span> age;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">info</span><span class="params">()</span> &#123;</span><br><span class="line">		System.out.println(name+<span class="string">&quot;====&quot;</span>+age);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在父类中定义实例变量name和age，并定义inof，打印自身的name和age。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">package cn.bytecollege.extend;</span><br><span class="line">/**</span><br><span class="line"> * 定义子类继承父类</span><br><span class="line"> * @author MR.W</span><br><span class="line"> */</span><br><span class="line">public class Son extends Father&#123;</span><br><span class="line">	public String name;</span><br><span class="line">	public void print() &#123;</span><br><span class="line">		System.out.println(&quot;打印name:&quot;+name);</span><br><span class="line">		System.out.println(&quot;访问父类name:&quot;+super.name);</span><br><span class="line">		System.out.println(&quot;访问父类age:&quot;+super.age);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>定义子类，并在子类中定义和父类相同的name实例变量，在print()方法中分别打印自身定义的name实例变量和父类的两个实例变量。<br>编写测试类：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.bytecollege.extend;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 定义测试类</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> MR.W</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">Son</span> <span class="variable">son</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Son</span>();</span><br><span class="line">		son.age = <span class="number">18</span>;</span><br><span class="line">		son.name =<span class="string">&quot;张三&quot;</span>;</span><br><span class="line">		son.print();</span><br><span class="line">		son.info();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行测试类，结果如下：</p>
+<p><img src="https://files.catbox.moe/uclhit.png"></p>
+<p>根据结果我们可以看出，如果子类和父类具有同名的实例变量，那么在子类实例方法中访问该成员变量时，无需显式的添加super，访问的就是自身的实例变量。也就是说如果在某个方法中访问某个成员变量，但是没有显式的指定调用者，则编译器查找顺序如下：</p>
+<ol>
+<li><p>查找该方法中是否含有该局部变量</p>
+</li>
+<li><p>查找当前类中是否包含该实例变量</p>
+</li>
+<li><p>查找直接父类中是否包含该变量，依次向上追溯所有父类，如果直到Object类还是没有找到，则编译错误</p>
+<p>​</p>
+</li>
+</ol>
+<p>我们在子类中定义了和父类同名的实例变量，当我们创建对象后，为name属性赋值，此时JVM查找到类本身中具有name属性，因此直接为子类对象name属性赋值，而age值此时子类对象中并不存在，因此只能为从父类继承的属性赋值，当调用print()时，print()方法是在Son中定义的，在该方法中第一行因为没有使用super，所有访问的是自身的name属性，因此打印张三，第二行访问父类属性时，因为将张三赋值给了子类的name属性，父类的属性并没有赋值，因此只有默认值，所以为null。紧接着我们访问了父类的age属性，因为age属性子类自身没有定义，所以只能访问父类的，并且明确限定了super，如果不加super，那么打印的也是18，在父类中访问自身的属性时，就会打印null和18，其实当上述代码运行时，实际上会为Son对象分配两块内存，一块用于存储在子类中定义的变量，一块用于存在从父类继承过来得到的实例变量。</p>
+<ul>
+<li>super访问父类实例方法</li>
+</ul>
+<p>访问父类的实例方法和访问实例变量类似，下面通过示例来学习，使用super调用父类实例方法。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.bytecollege.extend;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 定义父类，并定义实例方法</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> MR.W</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Father2</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">info</span><span class="params">()</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;执行了Father2的info&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.bytecollege.extend;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 定义子类</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> MR.W</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Son2</span> <span class="keyword">extends</span> <span class="title class_">Father2</span>&#123;</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 子类实例方法中调用父类方法</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test</span><span class="params">()</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;调用Son2 test方法&quot;</span>);</span><br><span class="line">		<span class="built_in">super</span>.info();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>定义测试类：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.bytecollege.extend;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test2</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">Son2</span> <span class="variable">son2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Son2</span>();</span><br><span class="line">		son2.test();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行上述代码我们发现当我们调用test方法时，test方法中使用super调用了父类对象的info方法，并成功执行</p>
+<ul>
+<li>super访问父类构造方法</li>
+</ul>
+<p>我们知道子类不能继承父类的构造器，但是子类的构造方法中可以调用父类的构造方法。下面我们定义Base类和Sub类，并在Sub类中调用父类Base的构造器。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.bytecollege.extend;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 定义父类，并提供无参构造</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> MR.W</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Base</span> <span class="keyword">extends</span> <span class="title class_">Object</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="title function_">Base</span><span class="params">()</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;执行了Base的构造方法&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">package</span> cn.bytecollege.extend;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 定义子类</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> MR.W</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Sub</span> <span class="keyword">extends</span> <span class="title class_">Base</span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="title function_">Sub</span><span class="params">()</span> &#123;</span><br><span class="line">		<span class="built_in">super</span>();</span><br><span class="line">		System.out.println(<span class="string">&quot;执行了Sub()构造方法&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">Sub</span> <span class="variable">s</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Sub</span>();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果如下：</p>
+<p><img src="https://files.catbox.moe/rw3hei.png"></p>
+<p>从代码中可以看出使用super()调用了父类构造方法，和this一样super调用构造方法，也必须放在代码的第一行。需要注意的是子类不管是否显示的使用super调用父类构造方法，JVM总会在创建子类对象时调用父类构造器，即使把上述代码中Sub类中第9行代码删了，仍旧会出现上述效果。子类调用父类构造方法分以下几种情况。</p>
+<ul>
+<li>子类构造器执行体的第一行使用 super 显式调用父类构造器，系统将根据 super 调用里传入的实 参列表调用父类对应的构造器。</li>
+<li>子类构造器执行体的第一行代码使用 this 显式调用本类中重载的构造器，系统将根据 this 调用 传入的实参列表调用本类中的另一个构造器。执行本类中另一个构造器时即会调用父类构造器。</li>
+<li>子类构造器执行体中既没有 super 调用，也没有 this 调用，系统将会在执行子类构造器之前，隐 式调用父类无参数的构造器。</li>
+</ul>
+<p>换句话说就是<strong>创建子类对象时会先创建父类对象</strong></p>
+<p>下面，我们通过示例来学习，我们定义3个类，A继承B，B继承C</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.bytecollege;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">A</span> <span class="keyword">extends</span> <span class="title class_">B</span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="title function_">A</span><span class="params">()</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;创建了A对象&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">package</span> cn.bytecollege;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">B</span> <span class="keyword">extends</span> <span class="title class_">C</span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="title function_">B</span><span class="params">()</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;创建了B对象&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">package</span> cn.bytecollege;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">C</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="title function_">C</span><span class="params">()</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;创建了C对象&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">package</span> cn.bytecollege;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test2</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">A</span> <span class="variable">a</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">A</span>();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果如图：</p>
+<p><img src="https://files.catbox.moe/famycf.png"></p>
+<p>通过上例中的代码我们可以看出两点：</p>
+<ol>
+<li>即使不显式的使用super，程序在创建对象时，也会先调用父类构造方法，这是因为编译器会为我们在每个构造方法内第一行添加super();</li>
+<li>创建子类对象时一定会先创建父类对象。创建任何对象总是从该类所在继承树最顶项层类的构造器开始执行，然后依次向下执行，最后才执行本类的构造器。如果某个父类通过 this 调用了同类中重载的构造器，就会依次执行此父类的多个构造器。</li>
+</ol>
+<h3 id="Object类"><a href="#Object类" class="headerlink" title="Object类"></a>Object类</h3><h4 id="Object类的方法"><a href="#Object类的方法" class="headerlink" title="Object类的方法"></a>Object类的方法</h4><p>Object是所有类的父类，当一个类没有使用extends关键字显式的指定父类，则该类继承Object类，因为所有类都是Object的子类，任何Java对象都可以调用Object类的方法。Object提供了以下几个方法：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>getClass()</td>
+<td>获得当前对象的类对象</td>
+</tr>
+<tr>
+<td>hashCode()</td>
+<td>返回当前对象的hashCode()</td>
+</tr>
+<tr>
+<td>equals()</td>
+<td>判断两个对象是否相等</td>
+</tr>
+<tr>
+<td>clone()</td>
+<td>克隆并返回当前对象副本</td>
+</tr>
+<tr>
+<td>toString()</td>
+<td>打印该对象</td>
+</tr>
+<tr>
+<td>notify()</td>
+<td>线程唤醒</td>
+</tr>
+<tr>
+<td>notifyAll()</td>
+<td>线程唤醒</td>
+</tr>
+<tr>
+<td>wait()</td>
+<td>线程等待</td>
+</tr>
+<tr>
+<td>finalize()</td>
+<td>通知垃圾回收器回收，该方法不确实实际执行时间，不推荐使用</td>
+</tr>
+</tbody></table>
+<h4 id="重写equals-方法"><a href="#重写equals-方法" class="headerlink" title="重写equals()方法"></a>重写equals()方法</h4><p>在上一小节我们知道Object类是所有Java类的父类，也就是说所有Java类都继承了Object类的可访问的方法，这其中就包括equals()方法，equals方法是用于判断两个对象是否相等。首先我们来看一下Object中equals方法的源码</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">equals</span><span class="params">(Object obj)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> (<span class="built_in">this</span> == obj);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>从源码中我们可以看到Object中equals()，方法代码很简单，其中this表示当前对象，也就是说谁调用equals方法，this就是谁，obj则是指要和当前对象比对的对象，源码中只是简单的判断this是否等于obj，也就是说判断当前对象和传入对象是否是同一引用，那么这里又产生了新的概念，“同一引用”，下面我们通过示例来学习同一引用<br>定义Student类：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.bytecollege;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 定义Student类，并给定两个实例变量</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> MR.W</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Student</span> &#123;</span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">	<span class="keyword">private</span> <span class="type">int</span> age;</span><br><span class="line">	<span class="keyword">public</span> <span class="title function_">Student</span><span class="params">(String name, <span class="type">int</span> age)</span> &#123;</span><br><span class="line">		<span class="built_in">super</span>();</span><br><span class="line">		<span class="built_in">this</span>.name = name;</span><br><span class="line">		<span class="built_in">this</span>.age = age;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">Student</span> <span class="variable">s1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Student</span>(<span class="string">&quot;张三&quot;</span>,<span class="number">18</span>);</span><br><span class="line">		<span class="type">Student</span> <span class="variable">s2</span> <span class="operator">=</span> s1;</span><br><span class="line">		System.out.println(s1.equals(s2));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>此时运行程序会发现打印true，在代码16行，我们创建了Student对象并将对象的引用赋值给了变量s1，在代码17行，我们又将s1中的引用赋值给了s2，此时变量s1和s2中都保存的是同一引用或者地址，调用equals方法时返回了true，那么我们现在再从内存的角度理解同一引用：<br>当代码执行到16行是，此时内存中示意图如下：</p>
+<p><img src="https://files.catbox.moe/20a187.png"></p>
+<p>当代码执行到底17行是，定义了变量s2，并将s1的值赋值给了s2，也就是说将栈内存中的s1中保存的值复制了一份放到了s2中，此时内存示意图如下：</p>
+<p><img src="https://files.catbox.moe/ff8th8.png"></p>
+<p>时s1和s2就是同一引用，因为他们指向了堆内存中的同一块内存区域，那么调用equals方法后，判断栈内存中值是否相等，换句话说就是判断自己是否和自己相等的，结果是肯定的。<br>但是在实际情况中只有在少数情况下才会出现两个对象指向同一引用的情况，那么该怎么判断两个对象相等呢，例如s1和s2所有的属性都相等，我们就认为这两个对象相等，此时Object类提供的equals()方法是不能满足我们的需要的，这就需要重写equals()方法。<br>通常重写equals()方法需要满足以下几个条件：</p>
+<ul>
+<li>自反性∶ 对任意 x，x.equals（x）一定返回 true。</li>
+<li>对称性∶ 对任意x和 y，如果 y.equals（x）返回 true，则x.equals（y）也返回 true。</li>
+<li>传递性∶ 对任意x，y，z，如果x.equals（y）返回 ture，y.equals（z）返回 true，则x.equals（z）一定返回 true。</li>
+<li>一致性∶ 对任意x和 y，如果对象中用于等价比较的信息没有改变，那么无论调用 x.equals（y） 多少次，返回的结果应该保持一致，要么一直是 true，要么一直是 false。</li>
+<li>对任何不是 null 的x，x.equals（null）一定返回 false。</li>
+</ul>
+<p>下面，我们根据上述规则重写Student的equals()方法。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.bytecollege;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 定义Student类，并给定两个实例变量</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> MR.W</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Student</span> &#123;</span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">	<span class="keyword">private</span> <span class="type">int</span> age;</span><br><span class="line">	<span class="keyword">public</span> <span class="title function_">Student</span><span class="params">(String name, <span class="type">int</span> age)</span> &#123;</span><br><span class="line">		<span class="built_in">super</span>();</span><br><span class="line">		<span class="built_in">this</span>.name = name;</span><br><span class="line">		<span class="built_in">this</span>.age = age;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">equals</span><span class="params">(Object obj)</span> &#123;</span><br><span class="line">		<span class="comment">//1.判断是否是同一引用，如果是则直接返回true</span></span><br><span class="line">		<span class="keyword">if</span>(<span class="built_in">this</span> == obj) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//2.判断obj是否为null，如果是则返回false</span></span><br><span class="line">		<span class="keyword">if</span>(obj == <span class="literal">null</span>) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//3.判断是否是同一类型</span></span><br><span class="line">		<span class="keyword">if</span>(!(obj <span class="keyword">instanceof</span> Student) ) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//4.转换为同一类型对象</span></span><br><span class="line">		<span class="type">Student</span> <span class="variable">s</span> <span class="operator">=</span> (Student) obj;</span><br><span class="line">		<span class="comment">//5.判断所有实例变量是否相等</span></span><br><span class="line">		<span class="keyword">if</span>(<span class="built_in">this</span>.name.equals(s.name)&amp;&amp;<span class="built_in">this</span>.age==s.age) &#123;<span class="comment">//这里的equals是比较String对象的</span></span><br><span class="line">			<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>根据重写的步骤，我们可以将重写 equals()方法归纳为以下5：</p>
+<ol>
+<li>判断是否是同一引用，如果是则直接返回true</li>
+<li>判断obj是否为null，如果是则返回false</li>
+<li>判断是否是同一类型</li>
+<li>转换为同一类型对象</li>
+<li>判断所有实例变量是否相等</li>
+</ol>
+<p>下面，我们编写测试类：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.bytecollege;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">EuqalsTest</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		</span><br><span class="line">		<span class="type">Student</span> <span class="variable">s1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Student</span>(<span class="string">&quot;张三&quot;</span>, <span class="number">18</span>);</span><br><span class="line">		<span class="type">Student</span> <span class="variable">s2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Student</span>(<span class="string">&quot;张三&quot;</span>, <span class="number">18</span>);</span><br><span class="line">		<span class="type">Student</span> <span class="variable">s3</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Student</span>(<span class="string">&quot;李四&quot;</span>,<span class="number">19</span>);</span><br><span class="line">		</span><br><span class="line">		System.out.println(s1.equals(s2));</span><br><span class="line">		System.out.println(s1.equals(s3));</span><br><span class="line">		System.out.println(s2.equals(s3));<span class="comment">//这里的equals是比较Object对象的</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="x3D-x3D-和equals的区别"><a href="#x3D-x3D-和equals的区别" class="headerlink" title="&#x3D;&#x3D;和equals的区别"></a>&#x3D;&#x3D;和equals的区别</h4><p>我们在判断两个基本类型是否相等时，通常使用双等号，但是判断两个对象相等，使用&#x3D;&#x3D;就比较有局限性了，因为使用双等号只能判断两个变量指向同一引用的情况，而我们在日常开发中通常两个对象的所有实例变量相等，即可认为两个对象相等。从内存的角度来说，&#x3D;&#x3D;用于判断变量栈内存中保存的内容是否相等，而equals则是判断对象在堆内存中的内容是否相等。简而言之，基本类型相等的判断使用&#x3D;&#x3D;，而判断两个对象是否相等，则需要重写equals方法来判断。</p>
+<h2 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h2><h3 id="什么是多态"><a href="#什么是多态" class="headerlink" title="什么是多态"></a>什么是多态</h3><p>Java引用变量有两个类型：编译时类型和运行时类型。编译时类型有声明该变量时使用的类型决定，运行时类型由实际赋值给该变量的对象决定。如果两种类型不一致，就会出现多态性（也就是父类引用指向了子类对象）。</p>
 ]]></content>
   </entry>
 </search>
