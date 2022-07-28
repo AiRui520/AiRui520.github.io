@@ -4645,4 +4645,677 @@
 <p>注意：枚举类里定义抽象方法时不能使用 abstract 关键字将枚举类定义成抽象类（因为系统自动会为它添加 abstract 关铰字），但因为枚举类需要显式创建枚举值，而不是作为父类，所以定义每个枚举值时必须为抽象方法提供实现，否则将出现编译错误。</p>
 ]]></content>
   </entry>
+  <entry>
+    <title>Java-String和常用类</title>
+    <url>/2022/07/27/Java-String%E5%92%8C%E5%B8%B8%E7%94%A8%E7%B1%BB/</url>
+    <content><![CDATA[<p><img src="https://files.catbox.moe/vakrmb.png"></p>
+<span id="more"></span>
+
+<h1 id="String和常用类"><a href="#String和常用类" class="headerlink" title="String和常用类"></a>String和常用类</h1><p>Java为开发者提供了丰富的类库，例如字符串、数学计算、日期处理等等，完全可以满足日常开发的需要</p>
+<h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><p>在Java中字符串就是连续的字符序列，Java提供了String，StringBuilder、StringBuffer 3个类来封装字符串，在日常开发时，有很大一部分操作就是在操作字符串。例如：在web开发中对前端页面提交的数据进行验证、过滤特殊字符、检测敏感字符等等。因此Java为开发者提供了大量的API，并且也出现了一系列帮助开发者操作数据库的第三方工具库，如国内开发者开发的hutool、和Google提供的Guava。</p>
+<h3 id="String"><a href="#String" class="headerlink" title="String"></a>String</h3><p>String类是一个不可变类，不可变类即类中的成员变量都使用final修饰，这也就说明一个String对象被创建以后，包含在这里对象中的字符序列是不可改变的，直到整个对象被销毁。并且在Java中所有字符串相关的类都是Charsquence接口的子类。<br>String类提供了大量的构造方法来创建String对象，先来看以下几个：</p>
+<ul>
+<li>String()：创建一个包含0个字符的String对象</li>
+<li>String(byte[] bytes,Charset charset)：使用指定的字符集将指定的byte[]解码成一个新的String对象</li>
+<li>String(String original)：根据字符串字面量来创建String对象。</li>
+<li>String(StringBuffer buffer)：根据StringBuffer对象来创建String</li>
+<li>String(StringBuilder builder)：根据StringBuilder来创建对应的String对象。</li>
+</ul>
+<p>下面，通过示例来学习以上构造方法：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.bytecollege;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.nio.charset.Charset;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">StringDemo</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="comment">//创建一个字符序列为空的字符串</span></span><br><span class="line">		<span class="type">String</span> <span class="variable">str1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>();</span><br><span class="line">		<span class="comment">//使用指定的字符集将指定的byte[]解码成一个新的String对象</span></span><br><span class="line">		<span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> <span class="string">&quot;天苍苍，野茫茫&quot;</span>;</span><br><span class="line">		System.out.println(Charset.defaultCharset());</span><br><span class="line">		<span class="type">String</span> <span class="variable">str2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(s.getBytes(),Charset.defaultCharset());</span><br><span class="line">		System.out.println(str2);</span><br><span class="line">		<span class="type">String</span> <span class="variable">str3</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;张三&quot;</span>);</span><br><span class="line">		System.out.println(str3);</span><br><span class="line">		<span class="type">String</span> <span class="variable">str4</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(<span class="keyword">new</span> <span class="title class_">StringBuffer</span>(<span class="string">&quot;张三丰&quot;</span>));</span><br><span class="line">		System.out.println(str4);</span><br><span class="line">		<span class="type">String</span> <span class="variable">str5</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(<span class="keyword">new</span> <span class="title class_">StringBuilder</span>(<span class="string">&quot;张无忌&quot;</span>));</span><br><span class="line">		System.out.println(str5);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>除了以上创建字符串的方式，还可以通过字面量的方式创建字符串对象：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">String s = &quot;金毛狮王&quot;;</span><br></pre></td></tr></table></figure>
+
+<p>除此之外，String还提供了诸多API用来操作字符串。</p>
+<table>
+<thead>
+<tr>
+<th>方法名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>equals(String string)</td>
+<td>判断两个字符串是否相等</td>
+</tr>
+<tr>
+<td>equalsIgnoreCase(String string)</td>
+<td>忽略大小写判断两个字符串是否相等</td>
+</tr>
+<tr>
+<td>length()</td>
+<td>获取字符串长度</td>
+</tr>
+<tr>
+<td>charAt(int index)</td>
+<td>获取某个索引处的字符</td>
+</tr>
+<tr>
+<td>indexOf(String string)</td>
+<td>获取字符串第一次出现的位置</td>
+</tr>
+<tr>
+<td>indexOf(String string,int startIndex)</td>
+<td>从startIndex处查找第一次出现的位置</td>
+</tr>
+<tr>
+<td>lastIndexOf(String string)</td>
+<td>字符串最后一次出现的位置</td>
+</tr>
+<tr>
+<td>startsWith(String string)</td>
+<td>判断是否以string开始</td>
+</tr>
+<tr>
+<td>endsWith(String string)</td>
+<td>判断是否以string结尾</td>
+</tr>
+<tr>
+<td>compareTo(String string)</td>
+<td>比较字符串大小</td>
+</tr>
+<tr>
+<td>toLowerCase()</td>
+<td>字符串转小写</td>
+</tr>
+<tr>
+<td>toUpperCase()</td>
+<td>字符串转大写</td>
+</tr>
+<tr>
+<td>subString(int index)</td>
+<td>从index位置处截取到字符串末尾</td>
+</tr>
+<tr>
+<td>subString(int startIndex,int endIndex)</td>
+<td>从startIndex位置开始，到endIndex结束，前闭后开</td>
+</tr>
+<tr>
+<td>trim()</td>
+<td>去除字符串首尾空格</td>
+</tr>
+<tr>
+<td>split(String string)</td>
+<td>以string对字符串进行分割，此方法会省略末尾空字符</td>
+</tr>
+<tr>
+<td>split(String string,int limit)</td>
+<td>对字符串进行分割，此方法不会省略末尾空字符</td>
+</tr>
+<tr>
+<td>join(String s,String…str)</td>
+<td>以s为连接符，连接str内字符串</td>
+</tr>
+<tr>
+<td>concat(String str)</td>
+<td>连接字符串</td>
+</tr>
+<tr>
+<td>valueOf()</td>
+<td>基本类型转字符串</td>
+</tr>
+<tr>
+<td>contains(String str)</td>
+<td>判断是否包含str</td>
+</tr>
+<tr>
+<td>toCharArray()</td>
+<td>将字符串转换成字符数组</td>
+</tr>
+<tr>
+<td>intern()</td>
+<td>判断字符串在常量池中是否存在，如果不存在，则复制，1.6是将实例复制，1.7及以后是将引用复制。</td>
+</tr>
+<tr>
+<td>isEmpty()</td>
+<td>判断字符串是否为空</td>
+</tr>
+<tr>
+<td>stripLeading()</td>
+<td>去除字符串首部的空格（since11）</td>
+</tr>
+<tr>
+<td>stripTrailing()</td>
+<td>去除字符串尾部的空格（since11）</td>
+</tr>
+<tr>
+<td>isBlank()</td>
+<td>判断字符串是否为空及是否全是空格</td>
+</tr>
+</tbody></table>
+<p>下面，通过示例学习String的常用API</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.bytecollege;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 本例将演示String常用API</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> MR.W</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">StringDemo2</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="comment">//判断两个字符串相等</span></span><br><span class="line">		<span class="type">String</span> <span class="variable">a</span> <span class="operator">=</span> <span class="string">&quot;abc&quot;</span>;</span><br><span class="line">		<span class="type">String</span> <span class="variable">b</span> <span class="operator">=</span> <span class="string">&quot;abc&quot;</span>;</span><br><span class="line">		<span class="type">String</span> <span class="variable">c</span> <span class="operator">=</span> <span class="string">&quot;ABC&quot;</span>;</span><br><span class="line">		System.out.println(a.equals(b));</span><br><span class="line">		<span class="comment">//忽略大小写判断两个字符串是否相等</span></span><br><span class="line">		System.out.println(a.equalsIgnoreCase(c));</span><br><span class="line">		<span class="comment">//获取字符串长度</span></span><br><span class="line">		<span class="type">String</span> <span class="variable">d</span> <span class="operator">=</span> <span class="string">&quot;HelloWorld&quot;</span>;</span><br><span class="line">		System.out.println(d.length());</span><br><span class="line">		<span class="comment">//获取索引处的字符,方法参数在0-字符串长度-1之间</span></span><br><span class="line">		System.out.println(d.charAt(<span class="number">0</span>));	</span><br><span class="line">		<span class="comment">//从头开始查找获取字符串第一次出现的位置</span></span><br><span class="line">		<span class="type">int</span> <span class="variable">index</span> <span class="operator">=</span> d.indexOf(<span class="string">&quot;lo&quot;</span>);</span><br><span class="line">		System.out.println(index);</span><br><span class="line">		<span class="comment">//从某个位置处查找获取字符串第一次出现的位置</span></span><br><span class="line">		System.out.println(d.indexOf(<span class="string">&quot;o&quot;</span>,<span class="number">7</span>));</span><br><span class="line">		<span class="comment">//查找字符串最后一次出现的位置</span></span><br><span class="line">		System.out.println(d.lastIndexOf(<span class="string">&quot;o&quot;</span>));</span><br><span class="line">		<span class="comment">//判断字符串是否是以某个字符串开始</span></span><br><span class="line">		System.out.println(d.startsWith(<span class="string">&quot;He&quot;</span>));</span><br><span class="line">		<span class="comment">//判断字符串是否以某个字符串结束</span></span><br><span class="line">		System.out.println(d.endsWith(<span class="string">&quot;lo&quot;</span>));</span><br><span class="line">		<span class="comment">//比较两个字符串大小,如果两个字符串相等则返回0</span></span><br><span class="line">		<span class="comment">//如果字符串中的字符相等，但是长度不相等则返回长度差值</span></span><br><span class="line">		<span class="comment">//如果字符不相等则返回字符差值</span></span><br><span class="line">		System.out.println(a.compareTo(b));</span><br><span class="line">		<span class="comment">//字符串转大小</span></span><br><span class="line">		System.out.println(a.toUpperCase());</span><br><span class="line">		<span class="comment">//字符串转小写</span></span><br><span class="line">		System.out.println(a.toLowerCase());</span><br><span class="line">		<span class="comment">//截取字符串，从传入位置截取到字符串末尾</span></span><br><span class="line"><span class="comment">//		System.out.println(a.substring(2));</span></span><br><span class="line">		<span class="comment">//截取字符串，从传入位置截取到第二个参数处，前闭后开</span></span><br><span class="line"><span class="comment">//		System.out.println(a.substring(1,2));</span></span><br><span class="line">		<span class="comment">//去除字符串首尾空格</span></span><br><span class="line">		System.out.println(<span class="string">&quot;   Hello   &quot;</span>.trim());</span><br><span class="line">		<span class="comment">//分割字符串,默认会省略末尾的空</span></span><br><span class="line">		<span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> <span class="string">&quot;Hello,World&quot;</span>;</span><br><span class="line">		String[] strs = s.split(<span class="string">&quot;,&quot;</span>);</span><br><span class="line">		<span class="keyword">for</span> (String str : strs) &#123;</span><br><span class="line">			System.out.println(s);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//分割字符串，第二个参数传入负值，则不省略末尾的空</span></span><br><span class="line">		strs = s.split(<span class="string">&quot;,&quot;</span>,-<span class="number">1</span>);</span><br><span class="line">		<span class="comment">//连接字符串</span></span><br><span class="line">		System.out.println(a.concat(b));</span><br><span class="line">		<span class="comment">//将基本类型转成字符串</span></span><br><span class="line">		<span class="type">int</span> <span class="variable">k</span> <span class="operator">=</span> <span class="number">100</span>;</span><br><span class="line">		System.out.println(String.valueOf(k));</span><br><span class="line">		<span class="comment">//判断是否包含某个字符串</span></span><br><span class="line">		System.out.println(a.contains(<span class="string">&quot;@&quot;</span>));</span><br><span class="line">		<span class="comment">//将字符串转换成数组</span></span><br><span class="line">		<span class="type">char</span>[] cs = a.toCharArray();</span><br><span class="line">		<span class="comment">//判断字符串是否为空</span></span><br><span class="line">		System.out.println(a.isEmpty());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面的实例中演示了字符串的常用API，因为String是一个不可变类，因此要大量操作字符串时，并不建议使用String对象，而应该使用下一小节中的StringBuilder和StringBuffer</p>
+<h3 id="StringBuilder和StringBuffer"><a href="#StringBuilder和StringBuffer" class="headerlink" title="StringBuilder和StringBuffer"></a>StringBuilder和StringBuffer</h3><p>StringBuffer和StringBuilder通常也用于操作字符串，但是StringBuffer和StringBuilder中的字符数组不是用final修饰的，所有字符数组可以指向新的数组，也就是说用这两个类创建的字符串对象是可变的，StringBuffer和StringBuilder为开发者提供了以下几个方法。用于操作字符串：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>append(String str)</td>
+<td>字符串末尾追加字符串</td>
+</tr>
+<tr>
+<td>delete(int start, int end)</td>
+<td>删除区间内字符</td>
+</tr>
+<tr>
+<td>deleteCharAt(int index)</td>
+<td>删除索引处字符</td>
+</tr>
+<tr>
+<td>replace(int start, int end, String str)</td>
+<td>替换区间内的字符</td>
+</tr>
+<tr>
+<td>substring(int start)</td>
+<td>从start处截取到末尾</td>
+</tr>
+<tr>
+<td>substring(int start, int end)</td>
+<td>从start处截取到end</td>
+</tr>
+<tr>
+<td>insert(int offset, String str)</td>
+<td>索引处插入字符串</td>
+</tr>
+<tr>
+<td>indexOf(String str)</td>
+<td>字符串str第一次出现的位置</td>
+</tr>
+<tr>
+<td>reverse()</td>
+<td>字符序列反转</td>
+</tr>
+<tr>
+<td>toString()</td>
+<td>对象转成字符串</td>
+</tr>
+</tbody></table>
+<p>因为StringBuffer和StringBuilder提供的方法都一样，所以方法都是通用的，下面通过示例学习<br>首先，StringBuilder提供了一下几个构造方法：</p>
+<ul>
+<li>StringBuilder StringBuilder()：创建一个空的StringBuilder对象，一个空的字符序列</li>
+<li>StringBuilder StringBuilder(StringBuilder builder)：传入StringBuilder对象创建字符序列</li>
+<li>StringBuilder StringBuilder(String str)：根据字符串创建字符序列</li>
+<li>StringBuilder(int capcity)：指定容量的StringBuilder对象</li>
+</ul>
+<p>下面通过示例学习StringBuilder的方法。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.bytecollege;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 本例将演示StringBuilder常用API</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> MR.W</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">StringBuilderDemo</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">String</span> <span class="variable">a</span> <span class="operator">=</span> <span class="string">&quot;Hello&quot;</span>;</span><br><span class="line">		<span class="type">StringBuilder</span> <span class="variable">sb</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>(a);</span><br><span class="line">		<span class="comment">//字符序列后追加字符串</span></span><br><span class="line">		System.out.println(sb.append(<span class="string">&quot;World&quot;</span>).toString());</span><br><span class="line">		<span class="comment">//删除区间内的字符</span></span><br><span class="line">		System.out.println(sb.delete(<span class="number">0</span>, <span class="number">3</span>));</span><br><span class="line">		<span class="comment">//删除某个索引处的字符</span></span><br><span class="line">		System.out.println(sb.deleteCharAt(<span class="number">5</span>));</span><br><span class="line">		<span class="comment">//替换区间内的字符</span></span><br><span class="line">		System.out.println(sb.replace(<span class="number">0</span>, <span class="number">1</span>, <span class="string">&quot;W&quot;</span>));</span><br><span class="line">		<span class="comment">//索引处插入字符串</span></span><br><span class="line">		System.out.println(sb.insert(<span class="number">0</span>, <span class="string">&quot;false&quot;</span>));</span><br><span class="line">		<span class="comment">//反转字符串</span></span><br><span class="line">		System.out.println(sb.reverse());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Java对String的优化"><a href="#Java对String的优化" class="headerlink" title="Java对String的优化"></a>Java对String的优化</h3><p>Java在底层对String进行了优化，节省了一定的内存空间，在前面的章节中可以看到，通过字面量的形式创建String对象，所谓字面量（也叫做直接量），就是在定义变量后直接给定的值。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//下面的代码中10就是一个字面量</span><br><span class="line">int a = 10;</span><br><span class="line">//下面的代码中5.2就是字面量</span><br><span class="line">double b = 5.2;</span><br><span class="line">//字符串对象直接给的值也是字面量</span><br><span class="line">String s = &quot;张三&quot;;</span><br></pre></td></tr></table></figure>
+
+<p>因为String是一个不可变类，也就是说一旦定义好一个字符串后，字符串的值是不能被改变了，如果发生了改变一定是指向了一个新的对象。那么这样的话无疑会占用大量的内存空间。因此Java对String进行了一定的优化，在JVM中有一块区域叫做常量池，常量池里放着字符串的字面量和常量。当字面量出现一个字符串后，Java会将该字面量放入常量池，如果再有变量引用该字符串时，直接返回常量池中字符串的引用，而不创建对象。通过下面的示例可以验证以上结论：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">String a = &quot;张三&quot;;</span><br><span class="line">String b = &quot;张三&quot;;</span><br><span class="line">//返回结果为true</span><br><span class="line">System.out.print(a==b);</span><br></pre></td></tr></table></figure>
+
+<p>在前面的章节中知道，两个对象用“&#x3D;&#x3D;”判断相等时，如果返回true，则这两个变量一定指向了相同的对象。从上面的结果可以看出变量a和变量b指向了同一个对象。总结一下就是<strong>常量池中的字符串有且只有一个，一旦创建后如果出现相同的字符串则直接返回字符串对象的引用，而不创建新的字符串。</strong><br>下面深入学习Java对字符串的优化</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">String a = &quot;张三&quot;;</span><br><span class="line">String b = new String(&quot;张三&quot;);</span><br><span class="line">//返回结果为false</span><br><span class="line">System.out.print(a==b);</span><br><span class="line">//返回结果为true</span><br><span class="line">System.out.print(a.equals(b));</span><br></pre></td></tr></table></figure>
+
+<p>上面的结果可能会很疑惑，我们对上例中的代码逐行分析：当代码执行到第1行时，此时出现了字面量“张三”。因为已经将该对象放入常量池，因此，运行时直接该对象的引用保存在a中。<br>代码第2行，又出现了“张三”，此时常量池已经有了这个对象，此时就不再创建，此时先返回该对象的引用，返回该引用后，又new了一个String对象，此时在堆中分配了一块内存区域，这块内存中保存这刚才返回的引用。然后将堆中的引用保存在b中，因为a指向了常量池，变量b指向了堆中，所以a和b中保存的引用不同，所以用&#x3D;&#x3D;判断时返回false，但是两个对象的内容相等。所以使用equals时两个变量的内容相等。<br>继续看下面的示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">String a = &quot;HelloWorld&quot;;</span><br><span class="line">String d = &quot;Hello&quot;+&quot;World&quot;;</span><br><span class="line">//返回true</span><br><span class="line">System.out.print(a==d);</span><br><span class="line">//返回true</span><br><span class="line">System.out.print(a.equals(d));</span><br></pre></td></tr></table></figure>
+
+<p>运行上面的示例，可以看到结果都为true，这又是为什么呢？这也是Java对字符串的一项优化，也就是说在编译期间就可以确定变量d的结果为“HelloWorld”,而在确定变量d的结果之前，变量a的值已经放入了常量池，此时不再创建对象，直接返回引用，因此就有了上例中的结果。<br>上面的示例可以看出字面量和字面量拼接结果是确定的，那么字面量和变量拼接，变量和变量拼接又会出现什么结果呢，针对上述的问题，JVM还对String做了优化，看下面的示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">String a = &quot;HelloWorld&quot;;</span><br><span class="line">String b = new String(&quot;Hello&quot;);</span><br><span class="line">String c = new String(&quot;World&quot;);</span><br><span class="line">String d = b+c;</span><br><span class="line">//返回false</span><br><span class="line">System.out.print(a==d);</span><br><span class="line">//返回true</span><br><span class="line">System.out.print(a.equals(d));</span><br><span class="line">String e = &quot;Hello&quot;;</span><br><span class="line">String f = e + c;</span><br><span class="line">//返回false</span><br><span class="line">System.out.print(a==f);</span><br><span class="line">//返回true</span><br><span class="line">System.out.print(a.equals(f));</span><br></pre></td></tr></table></figure>
+
+<p>因为变量d是两个堆中的对象拼接，此时java会用StringBuilder对两个对象拼接，也就是说在堆中新创建一个对象，保存拼接后的字符串，并将引用返回给d保存，因为不是执行同一块内存，所有a中的地址和d中的地址不相同，所以返回false，两个对象的内容相同，所以使用equals方法时返回true，下面的代码也是一样，java会使用StringBuilder对两个对象进行拼接，所以返回的地址不同。</p>
+<h3 id="String和StringBuffer以及StringBuilder的区别"><a href="#String和StringBuffer以及StringBuilder的区别" class="headerlink" title="String和StringBuffer以及StringBuilder的区别"></a>String和StringBuffer以及StringBuilder的区别</h3><p>根据本小节的内容，三者的区别可以归纳如下：</p>
+<ol>
+<li>String、StringBuffer、StringBuilder都是Charsquence接口的子类</li>
+<li>String、StringBuffer、StringBuilder都是final修饰的，不能被继承，也就是说三者都没有子类</li>
+<li>String是不可变类，创建的字符串序列不能被修改，StringBuffer和StringBuilder是可以修改的</li>
+<li>StringBuffer是线程安全的，StringBuilder是非线程安全的，因此StringBuilder效率更高，在不考虑线程安全或者单线程情况下优先考虑使用StringBuilder。</li>
+</ol>
+<h2 id="Scanner获取键盘输入"><a href="#Scanner获取键盘输入" class="headerlink" title="Scanner获取键盘输入"></a>Scanner获取键盘输入</h2><p>在前面的章节中，我们反复遇到Scanner对象，并使用其方法接受从键盘输入的数据。Scanner可以从文件、输入流、字符串中解析处基本类型和字符串值，Scanner提供了多个构造器，可以分别接收文件、输入流、字符串作为数据源，并从中解析数据。Scanner主要提供以下方法来扫描输入。</p>
+<ul>
+<li>hasNextXXX()：是否还有下个输入项，其中XXX可以是Int，Long等代表基本类型的字符串。如果判断是否有 下一个字符串则直接使用hasNext()。</li>
+<li>nextXxx()：获取下个输入项，输入项可以是基本类型数据，如果是字符串则直接使用next()</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.bytecollege;</span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ScannerDemo</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;请输入：&quot;</span>);</span><br><span class="line">		<span class="type">Scanner</span> <span class="variable">scanner</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">		<span class="keyword">while</span>(scanner.hasNext()) &#123;</span><br><span class="line">			<span class="type">int</span> <span class="variable">k</span> <span class="operator">=</span> scanner.nextInt();</span><br><span class="line">			System.out.println(k);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="系统相关"><a href="#系统相关" class="headerlink" title="系统相关"></a>系统相关</h2><p>Java提供了System类和Runtime类来获取平台相关属性和运行平台进行交互。</p>
+<h3 id="System类"><a href="#System类" class="headerlink" title="System类"></a>System类</h3><p>System类代表当前运行Java程序的平台。System为开发者提供了获取系统环境变量，系统属性等方法。下面通过示例来使用System类访问操作系统的环境变量和系统属性。</p>
+<ul>
+<li>Map&lt;String,String&gt; getenv()：获取系统所有的环境变量，保存在map集合中。</li>
+<li>String getenv(String name)：获取指定的环境变量</li>
+<li>Properties getProperties()：获取系统的属性。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.bytecollege;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">import</span> java.util.Map.Entry;</span><br><span class="line"><span class="keyword">import</span> java.util.Properties;</span><br><span class="line"><span class="keyword">import</span> java.util.Set;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SystemDemo</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//获取所有的环境变量</span></span><br><span class="line">		Map&lt;String,String&gt; map = System.getenv();</span><br><span class="line">		<span class="comment">//遍历map</span></span><br><span class="line">		<span class="keyword">for</span>(String s : map.keySet()) &#123;</span><br><span class="line">			System.out.println(s+<span class="string">&quot;======&quot;</span>+map.get(s));</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//获取指定名称的环境变量值,如果环境变量的名称不存在则返回null</span></span><br><span class="line">		System.out.println(System.getenv(<span class="string">&quot;JAVA_HOME&quot;</span>));</span><br><span class="line">		<span class="comment">//获取系统参数</span></span><br><span class="line">		<span class="type">Properties</span> <span class="variable">properties</span> <span class="operator">=</span> System.getProperties();</span><br><span class="line">		</span><br><span class="line">		Set&lt;Entry&lt;Object, Object&gt;&gt; entry =  properties.entrySet();</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span> (Entry&lt;Object, Object&gt; e : entry) &#123;</span><br><span class="line">			System.out.println(e.getKey()+<span class="string">&quot;=============&quot;</span>+e.getValue());</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上例中使用了Map和Properties容器，在此处只为获取保存在其中的数据，详细内容讲在后续章节学习，此处不做深究。<br>除此以外，System还提供了两个使用频率比较高的方法：</p>
+<ul>
+<li>long currentTimeMillis()：获取当前时间的毫秒数，返回当前时间与UTC 1970年1月1日 00:00:00的时间差，以毫秒为单位</li>
+<li>int identityHashCode(Object x)：获取指定对象的精确hashCode值，关于hashCode会在Set集合中详细讲解，此处先做了解</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.bytecollege;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SystemDemo2</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="comment">//获取当前时间的毫秒数</span></span><br><span class="line">		System.out.println(System.currentTimeMillis());</span><br><span class="line">		System.out.print(System.identityHashCode(<span class="string">&quot;Hello&quot;</span>));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>System还提供了一个复制数组的方法：</p>
+<ul>
+<li>void arraycopy(Object src,  int  srcPos,  int destPos, int length)：该方法的作用是复制数组，第一个src是指被复制的数组，srcPos是指定复制的起始位置，dest则是指将元素粘贴到哪个数组，destPos是指目标数组粘贴的起始位置，length则可以理解为复制元素的个数。</li>
+<li>void exit(int status)：退出虚拟机。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.bytecollege;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CopyArray</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">int</span>[] a = &#123;<span class="number">5</span>,<span class="number">9</span>,<span class="number">1</span>,<span class="number">4</span>,<span class="number">3</span>&#125;;</span><br><span class="line">		<span class="type">int</span>[] b = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">10</span>];</span><br><span class="line">		<span class="comment">//复制数组a元素粘贴的b数组</span></span><br><span class="line">		System.arraycopy(a, <span class="number">0</span>, b, <span class="number">3</span>, <span class="number">5</span>);</span><br><span class="line">		System.out.println(Arrays.toString(b));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Runtime类"><a href="#Runtime类" class="headerlink" title="Runtime类"></a>Runtime类</h3><p>Runtime类代表Java程序的运行时环境，每个Java程序都有一个与之对应Runtime实例。可以访问JVM相关信息，处理器数量，内存信息等</p>
+<ul>
+<li>int availableProcessors()：获取处理器数量</li>
+<li>long freeMemory()：获取jvm空闲内存</li>
+<li>long totalMemory()：获取最大内存</li>
+<li>long maxMemory()：获取虚拟机可以用最大内存</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.bytecollege;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RuntimeDemo</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">Runtime</span> <span class="variable">runtime</span> <span class="operator">=</span> Runtime.getRuntime();</span><br><span class="line">		System.out.println(<span class="string">&quot;处理器数量：&quot;</span>+runtime.availableProcessors());</span><br><span class="line">		System.out.println(<span class="string">&quot;总内寸数：&quot;</span>+runtime.totalMemory()/Math.pow(<span class="number">1024</span>,<span class="number">2</span>)+<span class="string">&quot;MB&quot;</span>);</span><br><span class="line">		System.out.println(<span class="string">&quot;JVM空闲内存：&quot;</span>+runtime.freeMemory()/Math.pow(<span class="number">1024</span>, <span class="number">2</span>)+<span class="string">&quot;MB&quot;</span>);</span><br><span class="line">		System.out.println(<span class="string">&quot;可用最大内存：&quot;</span>+runtime.maxMemory()/Math.pow(<span class="number">1024</span>, <span class="number">3</span>)+<span class="string">&quot;GB&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>不同的电脑可能会出现不同的结果：</p>
+<p><img src="https://files.catbox.moe/hken2g.png"></p>
+<p>Runtime还提供了exec()方法，用于启动一个进程来运行操作系统的命令。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">runtime.exec(<span class="string">&quot;notepad.exe&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>运行示例中的代码可以打开记事本，其他命令可以自行查找。</p>
+<h2 id="数学相关"><a href="#数学相关" class="headerlink" title="数学相关"></a>数学相关</h2><h3 id="Math工具类"><a href="#Math工具类" class="headerlink" title="Math工具类"></a>Math工具类</h3><p>Math提供了基本的加减乘除以为，还提供了一些复杂的数学运行，三角函数，对数运算等，Math类还提供了两个常量PI和E<br>Math的主要方法如下表：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Math.sqrt()</td>
+<td>求平方根，参数为负数时返回NAN</td>
+</tr>
+<tr>
+<td>Math.pow(x,a)</td>
+<td>幂运算，x的a次方</td>
+</tr>
+<tr>
+<td>Math.floor(a)</td>
+<td>向下取整</td>
+</tr>
+<tr>
+<td>Math.ceil(a)</td>
+<td>向上取整</td>
+</tr>
+<tr>
+<td>Math.floorMod(x,y)</td>
+<td>求余，x%y</td>
+</tr>
+<tr>
+<td>Math.toDegree()</td>
+<td>弧度转换成角度</td>
+</tr>
+<tr>
+<td>Math.toRadians()</td>
+<td>角度转换成弧度</td>
+</tr>
+<tr>
+<td>Math.sin()</td>
+<td>求正弦</td>
+</tr>
+<tr>
+<td>Math.cos()</td>
+<td>求余弦</td>
+</tr>
+<tr>
+<td>Math.tan()</td>
+<td>求正切</td>
+</tr>
+<tr>
+<td>Math.abs()</td>
+<td>求绝对值</td>
+</tr>
+<tr>
+<td>Math.max()</td>
+<td>两个数的最大值</td>
+</tr>
+<tr>
+<td>Math.min()</td>
+<td>两个数最小值</td>
+</tr>
+<tr>
+<td>Math.random()</td>
+<td>0.0到1.0的随机数</td>
+</tr>
+</tbody></table>
+<p>下面通过示例学习Math的 方法：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.bytecollege;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MathDemo</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">//求平方根</span></span><br><span class="line">        System.out.println(Math.sqrt(<span class="number">4</span>));</span><br><span class="line">        <span class="comment">//幂运算，x的a次方</span></span><br><span class="line">        System.out.println(Math.pow(<span class="number">3</span>,<span class="number">3</span>));</span><br><span class="line">        <span class="comment">//求余，x%y</span></span><br><span class="line">        System.out.println(Math.floorMod(<span class="number">10</span>,<span class="number">3</span>));</span><br><span class="line">        <span class="comment">//求正弦</span></span><br><span class="line">        System.out.println(Math.sin(Math.PI/<span class="number">2</span>));</span><br><span class="line">        <span class="comment">//求余弦</span></span><br><span class="line">        System.out.println(Math.cos(Math.PI));</span><br><span class="line">        <span class="comment">//求正切</span></span><br><span class="line">        System.out.println(Math.tan(<span class="number">0</span>));</span><br><span class="line">        <span class="comment">//求绝对值</span></span><br><span class="line">        System.out.println(Math.abs(-<span class="number">101</span>));</span><br><span class="line">        <span class="comment">//求两个数的最大值</span></span><br><span class="line">        System.out.println(Math.max(-<span class="number">2</span>,<span class="number">2</span>));</span><br><span class="line">        <span class="comment">//求两个数的最小值</span></span><br><span class="line">        System.out.println(Math.min(-<span class="number">2</span>,<span class="number">2</span>));</span><br><span class="line">        <span class="comment">//0.0到1.0的随机数</span></span><br><span class="line">        System.out.println(Math.random());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Random生成随机数"><a href="#Random生成随机数" class="headerlink" title="Random生成随机数"></a>Random生成随机数</h3><p>Random类用于生成一个伪随机数，Random类包含两个构造方法：</p>
+<ul>
+<li>Random()：以当前时间作为种子</li>
+<li>Random(long seed)：需要开发者显式传入long型的种子</li>
+</ul>
+<p>Random有以下几个生成伪随机数的方法：</p>
+<ul>
+<li>nextDouble()：生成0.0—1.0之间的伪随机double数。</li>
+<li>nextFloat()：生成0.0—1.0之间的伪随机float数。</li>
+<li>nextInt()：生成一个 int类型取值范围内的伪随机整数</li>
+<li>nextInt(int a)：生成0-a之间的伪随机整数。</li>
+<li>nextLong()：生成处于long整数取值范围的伪随机整数。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.bytecollege;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Random;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 本例将演示随机数</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> MR.W</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RandomDemo</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		</span><br><span class="line">		<span class="type">Random</span> <span class="variable">r1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Random</span>();</span><br><span class="line">		System.out.println(r1.nextBoolean());</span><br><span class="line">		System.out.println(r1.nextDouble());</span><br><span class="line">		System.out.println(r1.nextFloat());</span><br><span class="line">		System.out.println(r1.nextInt());</span><br><span class="line">		System.out.println(r1.nextLong());</span><br><span class="line">		System.out.println(r1.nextInt(<span class="number">100</span>));</span><br><span class="line">		</span><br><span class="line">		<span class="type">Random</span> <span class="variable">r2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Random</span>(<span class="number">100</span>);</span><br><span class="line">		<span class="type">Random</span> <span class="variable">r3</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Random</span>(<span class="number">100</span>);</span><br><span class="line">		System.out.println(r2.nextInt());</span><br><span class="line">		System.out.println(r2.nextInt());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过上例的示例，产生了不同的随机数，需要注意的当种子相同时，产生的随机数是相同的。</p>
+<h3 id="BigDecimal"><a href="#BigDecimal" class="headerlink" title="BigDecimal"></a>BigDecimal</h3><p>在学习数据类型时，其中浮点型有float和double两种，同时也了解到float和double在计算时很容易出现精度问题：<br>例如，如下代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">double</span> <span class="variable">s</span> <span class="operator">=</span> <span class="number">0.05</span>+<span class="number">0.01</span>;</span><br><span class="line">System.out.print(s);</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://files.catbox.moe/ozsins.png"><br>如果程序对运算精度要求不高，double和float完全可以满足需要，但是有些时候对浮点型精度要求比较高，例如金融项目、电商项目等。这就需要使用BigDecimal类的方法了。<br>首先，查看BigDecimal的构造方法：</p>
+<ul>
+<li>BigDecimal(String val)：通过字符串创建BigDecimal对象，Java推荐使用该构造方法创建对象，因为如果传入浮点型的值时，因为本身该值就不精确，因此创建的BigDecimal也会不精确，所以推荐使用字符串的形式创建对象。</li>
+</ul>
+<p>如果必须使用 double 浮点数作为 BigDecimal 构造器的参数时，不要直接将该 double 浮点数作为构造器参数创建 BigDecimal 对象，而是应该通过 BigDecimal.valueOf（double value）静态方法来创建 BigDecimal 对象。<br>BigDecimal类提供了add()、subtract()、multiply()、divide()、pow()等方法对精确浮点数进行常规算术运算。下面程序示范了 BigDecimal 的基本运算。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.bytecollege;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.math.BigDecimal;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BigDecimalDemo</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">BigDecimal</span> <span class="variable">d1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BigDecimal</span>(<span class="string">&quot;0.05&quot;</span>);</span><br><span class="line">		<span class="type">BigDecimal</span> <span class="variable">d2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BigDecimal</span>(<span class="string">&quot;0.01&quot;</span>);</span><br><span class="line">		<span class="comment">//加法</span></span><br><span class="line">		System.out.println(d1.add(d2));</span><br><span class="line">		<span class="comment">//减法</span></span><br><span class="line">		System.out.println(d1.subtract(d2));</span><br><span class="line">		<span class="comment">//乘法</span></span><br><span class="line">		System.out.println(d1.multiply(d2));</span><br><span class="line">		<span class="comment">//除法</span></span><br><span class="line">		System.out.println(d1.divide(d2));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果如下：<br><img src="https://files.catbox.moe/w3yvec.png"></p>
+<h2 id="包装类"><a href="#包装类" class="headerlink" title="包装类"></a>包装类</h2><p>Java是一门面向对象的语言，但是在前面的章节中的了解到，定义基本类型变量时，并没有new对象，也就是说8种基本数据类型并不支持面向对象，基本类型数据也就不具备对象的特性，没有成员变量和成员方法可以被调用。Java提供这8种基本数据类型其一是为了节省内存开支，开发者没必要为了定义一个整型变量而去创建一个对象，这样对内存也是一种浪费，另外也是为了使得开发者更好的在语言之间迁移。<br>Java针对每个基本类提供了对应的包装类，如下表：</p>
+<table>
+<thead>
+<tr>
+<th>基本类型</th>
+<th>包装类</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>byte</td>
+<td>Byte</td>
+</tr>
+<tr>
+<td>short</td>
+<td>Short</td>
+</tr>
+<tr>
+<td>int</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>long</td>
+<td>Long</td>
+</tr>
+<tr>
+<td>char</td>
+<td>Character</td>
+</tr>
+<tr>
+<td>float</td>
+<td>Float</td>
+</tr>
+<tr>
+<td>double</td>
+<td>Double</td>
+</tr>
+<tr>
+<td>boolean</td>
+<td>Boolean</td>
+</tr>
+</tbody></table>
+<p>有时候需要将基本类型转换成包装类，例如，将一个十进制数转换成二进制时，基本类型的变量没有方法可以调用，此时就需要进行转换，Java中有如下规定：</p>
+<ol>
+<li>基本类型转换成包装类叫做自动装箱</li>
+<li>包装类转换成基本类型时叫做自动拆箱</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">100</span>;</span><br><span class="line"><span class="comment">//自动装箱</span></span><br><span class="line"><span class="type">Integer</span> <span class="variable">b</span> <span class="operator">=</span> Integer.valueOf(a);</span><br><span class="line"><span class="comment">//自动拆箱</span></span><br><span class="line"><span class="type">Integer</span> <span class="variable">c</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Integer</span>(<span class="number">100</span>);</span><br><span class="line"><span class="type">int</span> <span class="variable">d</span> <span class="operator">=</span> c;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Integer类中的缓存"><a href="#Integer类中的缓存" class="headerlink" title="Integer类中的缓存"></a>Integer类中的缓存</h3><p>Integer类提供了缓存，将-128到127之间的Integer对象创建好放置在内存中，使用是直接返回对象的引用，通过下面示例来学习Integer中的缓存。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Java会自动进行装箱</span></span><br><span class="line"><span class="type">Integer</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">100</span>;</span><br><span class="line"><span class="type">Integer</span> <span class="variable">b</span> <span class="operator">=</span> <span class="number">100</span>;</span><br><span class="line">System.out.print(a==b);</span><br></pre></td></tr></table></figure>
+
+<p>引用类型的判断使用equals()方法，但是上面的示例运行结果是true，这就是缓存的作用，因为对象a和对象b的值相等，且在-128-127之间，此时100这个对象已经创建好了，当创建a、b两个对象时，直接从缓存中获取对象，也就是说a和b都指向了相同的内存区域。如果变量的值超出了缓存范围，则会创建新的对象。如下示例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">Integer</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">129</span>;</span><br><span class="line"><span class="type">Integer</span> <span class="variable">b</span> <span class="operator">=</span> <span class="number">129</span>;</span><br><span class="line">System.out.print(a==b);</span><br></pre></td></tr></table></figure>
+
+<p>因为对象a和b的值超出了缓存范围，因此是两个不同的对象，指向了不同的内存区域，因此返回false。<br>此外，当包装类和基本类型的值进行比较时，会进行自动拆箱</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">Integer</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">129</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">b</span> <span class="operator">=</span> <span class="number">129</span>;</span><br><span class="line">System.out.print(a==b);</span><br></pre></td></tr></table></figure>
+
+<p>上例的代码会返回true，这是因为当基本类型和包装类型比较时，会将包装类拆箱成基本类型，而基本类型则不存在缓存，就是两个真实的值在比较，因此返回true。<br>当 JDK 提供了自动装箱和自动拆箱功能后，大大简化了基本类型变量和包装类对象之间的转换过程。值得指出的是，进行自动装箱和自动拆箱时必须注意类型匹配，例如 Integer 只能自动拆箱成 int类型变量，不要试图拆箱成 boolean 类型变量; 与之类似的是，int 类型变量只能自动装箱成 Integer 对象（即使赋给 Obiect 类型变量，那也只是利用了Java 的向上自动转型特性），不要试图装箱成 Boolean对象。<br>除此之外，包装类还可实现基本类型变量和字符串之间的转换。把字符串类型的值转换为基本类型的值有两种方式。 利用包装类提供的 parseXxx（String s）静态方法（除了 Character 之外的所有包装类都提供了该方法。<br><strong>另外需要注意的是，Byte、Short、Integer、Long这4个包装类，都具有-128到127之间的缓存，Float和Double类型则不具有。Boolean类型中表示true和false的对象则是两个常量</strong>。</p>
+<h3 id="Integer类常用方法"><a href="#Integer类常用方法" class="headerlink" title="Integer类常用方法"></a>Integer类常用方法</h3><p><img src="https://files.catbox.moe/ge891f.png"></p>
+<h2 id="日期时间类"><a href="#日期时间类" class="headerlink" title="日期时间类"></a>日期时间类</h2><p>Java提供了Date类和Calendar类用于处理日期，包括创建日期，获取当前日期等。</p>
+<h3 id="Date类"><a href="#Date类" class="headerlink" title="Date类"></a>Date类</h3><p>Date类为开发者提供了6个构造方法，但是有4个已经标记为Deprecated(过时的方法，不推荐使用，可能会在未来的某个版本彻底废弃)。因此我们查看剩余两个：</p>
+<ul>
+<li>Date()：创建一个代表当前时间的Date对象。</li>
+<li>Date(long date)：根据指定的long型整数生成一个Date对象。其中参数表示创建Date对象和GMT 1970年1月1日 08:00:00之间的时间差。单位是毫秒</li>
+</ul>
+<p>下面通过示例学习两个构造方法的使用。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//当前时间</span><br><span class="line">Date date = new Date();</span><br><span class="line">//指定时间</span><br><span class="line">Date date2 = new Date(1000000);</span><br></pre></td></tr></table></figure>
+
+<p>Date类还为开发者提供了一下4个方法：</p>
+<ul>
+<li>boolean after(Date when)∶ 测试该日期是否在指定日期 when 之后。</li>
+<li>boolean before(Date when)∶ 测试该日期是否在指定日期 when 之前。</li>
+<li>long getTime()∶ 返回该时间对应的 long型整数，即从GMT1970-01-01 00∶00∶00 到该Date 对象 之间的时间差，以毫秒作为计时单位。</li>
+<li>void setTime(long time):设置该Date对象的时间。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.bytecollege;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DateDemo</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Date</span> <span class="variable">date</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Date</span>(<span class="number">2020</span>,<span class="number">10</span>,<span class="number">01</span>);</span><br><span class="line">        <span class="type">Date</span> <span class="variable">newdate</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Date</span>(<span class="number">2021</span>,<span class="number">10</span>,<span class="number">02</span>);</span><br><span class="line">        <span class="comment">//测试该日期是否在指定日期 when 之后</span></span><br><span class="line">        <span class="type">boolean</span> <span class="variable">a</span> <span class="operator">=</span> date.after(newdate);</span><br><span class="line">        <span class="comment">//测试该日期是否在指定日期 when 之前</span></span><br><span class="line">        <span class="type">boolean</span> <span class="variable">b</span> <span class="operator">=</span> date.before(newdate);</span><br><span class="line">        <span class="comment">//返回该时间对应的 long型整数</span></span><br><span class="line">        date.setTime(<span class="number">86400</span>);</span><br><span class="line">        <span class="comment">//设置该Date对象的时间</span></span><br><span class="line">        <span class="type">long</span> <span class="variable">c</span> <span class="operator">=</span> date.getTime();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Calendar类"><a href="#Calendar类" class="headerlink" title="Calendar类"></a>Calendar类</h3><p>因为Date类的设计缺陷，Java提供了Calendar类处理日期和时间。Calendar是一个抽象类。它用了几个静态方法用来获取Calendar对象。<br>Calendar 类提供了大量访问、修改日期时间的方法，常用方法如下。</p>
+<ul>
+<li>void add（int field， int amount）∶ 根据日历的规则，为给定的日历字段添加或减去指定的时间量。</li>
+<li>int get（int field）∶ 返回指定日历字段的值。</li>
+<li>int getActualMaximum（int field）∶ 返回指定日历字段可能拥有的最大值。例如月，最大值为 11。</li>
+<li>int getActualMinimum（int field）∶ 返回指定日历字段可能拥有的最小值。例如月，最小值为 0。</li>
+<li>void roll（int field， int amount）∶与 add()方法类似，区别在于加上 amount 后超过了该字段所能表 示的最大范围时，也不会向上一个字段进位。</li>
+<li>void set（int field， int value）∶将给定的日历字段设置为给定值。</li>
+<li>void set（int year， int month， int date）∶ 设置 Calendar 对象的年、月、日三个字段的值。</li>
+<li>void set（int year， int month，int date，int hourOfDay， int minute，int second）∶设置 Calendar 对象的年、 月、日、时、分、秒6个字段的值。 上面的很多方法都需要一个int类型的 field参数，field是 Calendar类的类变量，如 Calendar，YEAR、 CalendarMONTH等分别代表了年、月、日、小时、分钟、秒等时间字段。需要指出的是，Calendar.MONTH字段代表月份，月份的起始值不是1，而是0，所以要设置8 月时，用7 而不是8。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.bytecollege;</span><br><span class="line"><span class="keyword">import</span> java.util.Calendar;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CalenderDemo</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Calendar</span> <span class="variable">calendar</span> <span class="operator">=</span> Calendar.getInstance();</span><br><span class="line">        <span class="comment">//设置 Calendar 对象的年、月、日、时、分、秒6个字段的值</span></span><br><span class="line">        calendar.set(<span class="number">2020</span>,<span class="number">10</span>,<span class="number">1</span>,<span class="number">20</span>,<span class="number">23</span>,<span class="number">59</span>,<span class="number">59</span>);</span><br><span class="line">        <span class="comment">//返回指定日历字段的值</span></span><br><span class="line">        System.out.println(calendar.get(Calendar.HOUR_OF_DAY));</span><br><span class="line">        <span class="comment">//返回指定日历字段可能拥有的最小值</span></span><br><span class="line">        System.out.println(calendar.getActualMinimum(Calendar.DAY_OF_MONTH));</span><br><span class="line">        <span class="comment">//返回指定日历字段可能拥有的最大值</span></span><br><span class="line">        calendar.add(Calendar.MONTH,<span class="number">3</span>);</span><br><span class="line"><span class="comment">//        calendar.roll(Calendar.MONTH,-10);</span></span><br><span class="line">        System.out.println(calendar.getTime());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>add（int field，int amount）的功能非常强大，add 主要用于改变 Calendar 的特定字段的值。如果需要增加某字段的值，则让 amount 为正数;如果需要减少某字段的值，则让 amount 为负数即可。 add（int field， int amount）有如下两条规则：</p>
+<ul>
+<li>当被修改的字段超出它允许的范围时，会发生进位，即上一级字段也会增大。</li>
+<li>如果下一级字段也需要改变，那么该字段会修正到变化最小的值</li>
+</ul>
+<p>roll()的规则与 add()的处理规则不同∶当被修改的字段超出它允许的范围时，上一级字段不会增大。</p>
+<h3 id="Java8-新增的日期时间类"><a href="#Java8-新增的日期时间类" class="headerlink" title="Java8 新增的日期时间类"></a>Java8 新增的日期时间类</h3><p>Java 8专门新增了一个 java.time 包，该包下包含了如下常用的类。</p>
+<ul>
+<li>LocalDate∶该类代表不带时区的日期，例如 2007-12-03。该类提供了静态的 now()方法来获取 当前日期，它还提供了 minusXxx()方法在当前年份基础上减去几年、几月、几周或几日等，也提供了 plusXxx()方法在当前年份基础上加上几年、几月、几周或几日等。</li>
+<li>LocalTime∶ 该类代表不带时区的时间，例如 10∶15∶30。该类提供了静态的 now()方法来获取当 前时间，除此之外，它还提供了minusXxx()方法在当前年份基础上减去几小时、几分、几秒等，也提供了plusXxx()方法在当前年份基础上加上几小时、几分、几秒等。</li>
+<li>LocalDateTime∶该类代表不带时区的日期、时间，例如 2007-12-03T10∶15∶30。该类提供了静态 的 now()方法来获取当前日期、时间，它还提供了 minusXxx()方法在当前年份基础上减去几年、几月、几日、几小时、几分、几秒等，也提供了plusXxx()方法在当前年份基础上加上几年、几月、几日、几小时、几分、几秒等。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.bytecollege;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.time.LocalDate;</span><br><span class="line"><span class="keyword">import</span> java.time.LocalDateTime;</span><br><span class="line"><span class="keyword">import</span> java.time.LocalTime;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LocalDemo</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">LocalDate</span> <span class="variable">ld</span> <span class="operator">=</span> LocalDate.now();</span><br><span class="line">		System.out.println(ld);</span><br><span class="line">		<span class="type">LocalTime</span> <span class="variable">lt</span> <span class="operator">=</span> LocalTime.now();</span><br><span class="line">		System.out.println(lt);</span><br><span class="line">		<span class="type">LocalDateTime</span> <span class="variable">ldt</span> <span class="operator">=</span> LocalDateTime.now();</span><br><span class="line">		System.out.println(ldt);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="格式化"><a href="#格式化" class="headerlink" title="格式化"></a>格式化</h2><p>在日常的开发中，开发者经常会遇到按照一定格式显示数据的情况，例如，文本、数字、日期等等，在本小节，我们将学习Java中常用的格式化类。</p>
+<h3 id="数字格式化"><a href="#数字格式化" class="headerlink" title="数字格式化"></a>数字格式化</h3><p>NumberFormat 是所有数值格式的抽象基类。此类提供格式化和解析数值的接口。NumberFormat提供了以下方法用于格式化。</p>
+<ul>
+<li>getInstance()、getNumberInstance()。返回当前默认语言环境的通用数值格式。</li>
+<li>getInstance(Locale)、getNumberInstance(Locale)。返回指定语言环境的通用数值格式。</li>
+<li>NumberFormat.setMinimumIntegerDigits(int)。设置数的整数部分所允许的最小位数。</li>
+<li>NumberFormat.setMaximumIntegerDigits(int)。设置数的整数部分所允许的最大位数。</li>
+<li>NumberFormat.setMinimumFractionDigits(int)。设置最少小数点位数，不足的位数以0补位，超出的话按实际位数输出。</li>
+<li>NumberFormat.setMaximumFractionDigits(int)。设置最多保留小数位数，不足不补0。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.bytecollege;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.text.NumberFormat;</span><br><span class="line"><span class="keyword">import</span> java.util.Locale;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NumberFormatDemo</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">double</span> <span class="variable">d</span> <span class="operator">=</span> <span class="number">12345.676688000</span>;</span><br><span class="line">        <span class="type">NumberFormat</span> <span class="variable">nf</span> <span class="operator">=</span> NumberFormat.getNumberInstance();</span><br><span class="line">        System.out.println(nf.format(d));<span class="comment">//12,345.677 默认只保留到小数点后三位</span></span><br><span class="line">        nf.setMinimumIntegerDigits(<span class="number">2</span>);</span><br><span class="line">        System.out.println(nf.format(d));<span class="comment">//12,345.677 整数部分大于2位按默认最小数位数3位输出</span></span><br><span class="line">        d = <span class="number">1234.0</span>;</span><br><span class="line">        nf.setMaximumIntegerDigits(<span class="number">3</span>);</span><br><span class="line">        System.out.println(nf.format(d));<span class="comment">//234</span></span><br><span class="line">        nf = NumberFormat.getInstance();</span><br><span class="line">        d = <span class="number">12345.6766</span>;</span><br><span class="line">        nf.setMinimumFractionDigits(<span class="number">1</span>);</span><br><span class="line">        System.out.println(nf.format(d));<span class="comment">//12,345.677 小数部分大于1位，按默认最大小数位数3位输出</span></span><br><span class="line">        nf.setMinimumFractionDigits(<span class="number">5</span>);</span><br><span class="line">        System.out.println(nf.format(d));<span class="comment">//12,345.67660 不够位数补0</span></span><br><span class="line">        nf.setMaximumFractionDigits(<span class="number">1</span>);</span><br><span class="line">        System.out.println(nf.format(d));<span class="comment">//12,345.7</span></span><br><span class="line">        nf = NumberFormat.getNumberInstance(Locale.CHINA);</span><br><span class="line">        d = <span class="number">12345.6789</span>;</span><br><span class="line">        System.out.println(nf.format(d));<span class="comment">//12,345.679</span></span><br><span class="line">        nf = NumberFormat.getNumberInstance(Locale.US);</span><br><span class="line">        System.out.println(nf.format(d));<span class="comment">//12 345,679</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="日期格式化"><a href="#日期格式化" class="headerlink" title="日期格式化"></a>日期格式化</h3><p>在前面的日期类当中当打印Date对象时发现，打印的格式并不是我们日常生活中看到的格式，因此，需要对日期进行格式化，Java为开发者提供了SimpleDateFormat对象格式化日期，当创建SimpleDateFormat对象时需要传入一个格式字符串。下面通过示例来学习。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.bytecollege;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.text.ParseException;</span><br><span class="line"><span class="keyword">import</span> java.text.SimpleDateFormat;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DateFormatDemo</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ParseException &#123;</span><br><span class="line">		<span class="type">Date</span> <span class="variable">date</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Date</span>(<span class="number">158764354</span>);</span><br><span class="line">		<span class="type">SimpleDateFormat</span> <span class="variable">format</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SimpleDateFormat</span>(<span class="string">&quot;yyyy-MM-dd HH:mm:ss&quot;</span>);</span><br><span class="line">		<span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> format.format(date);</span><br><span class="line">		System.out.println(str);</span><br><span class="line">		<span class="comment">//将字符串转换成Date类型，字符串格式也要符合构造方法中的参数格式</span></span><br><span class="line">		<span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> <span class="string">&quot;1990-08-18 12:00:00&quot;</span>;</span><br><span class="line">		<span class="comment">//parse方法用于解析</span></span><br><span class="line">		<span class="type">Date</span> <span class="variable">d</span> <span class="operator">=</span> format.parse(s);</span><br><span class="line">		System.out.println(d);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Java 8位开发者提供了更强大的格式化工具DateFormatter，格式化之前需要先获取DateFormatter对象。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.bytecollege;</span><br><span class="line"><span class="keyword">import</span> java.time.LocalDateTime;</span><br><span class="line"><span class="keyword">import</span> java.time.format.DateTimeFormatter;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DateFormatterDemo</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">DateTimeFormatter</span> <span class="variable">formatter</span> <span class="operator">=</span> DateTimeFormatter.ofPattern(<span class="string">&quot;yyyy-MM-dd HH:mm:ss&quot;</span>);</span><br><span class="line">		<span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> formatter.format(LocalDateTime.now());</span><br><span class="line">		System.out.println(str);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h2><p>正则表达式(regular expression)描述了一种字符串匹配的模式（pattern），可以用来检查一个串是否含有某种子串、将匹配的子串替换或者从某个串中取出符合某个条件的子串等。</p>
+<h3 id="元字符"><a href="#元字符" class="headerlink" title="元字符"></a>元字符</h3><p>构造正则表达式的方法和创建数学表达式的方法一样。也就是用多种元字符与运算符可以将小的表达式结合在一起来创建更大的表达式。正则表达式的组件可以是单个的字符、字符集合、字符范围、字符间的选择或者所有这些组件的任意组合。<br>正则表达式是由普通字符（例如字符 a 到 z）以及特殊字符（称为”元字符”）组成的文字模式。模式描述在搜索文本时要匹配的一个或多个字符串。正则表达式作为一个模板，将某个字符模式与所搜索的字符串进行匹配。<br>在学习正则表达之前，首先需要了解一下元字符，也就是正则表达式的组成部分，每个元字符都有其特定的表示含义及范围。</p>
+<table>
+<thead>
+<tr>
+<th>字符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>\</td>
+<td>将下一个字符标记为一个特殊字符、或一个原义字符、或一个 向后引用、或一个八进制转义符。例如，’n’ 匹配字符 “n”。’\n’ 匹配一个换行符。序列 ‘\‘ 匹配 “&quot; 而 “(“ 则匹配 “(“。</td>
+</tr>
+<tr>
+<td>^</td>
+<td>匹配输入字符串的开始位置。如果设置了 RegExp 对象的 Multiline 属性，^ 也匹配 ‘\n’ 或 ‘\r’ 之后的位置。</td>
+</tr>
+<tr>
+<td>$</td>
+<td>匹配输入字符串的结束位置。如果设置了RegExp 对象的 Multiline 属性，$ 也匹配 ‘\n’ 或 ‘\r’ 之前的位置。</td>
+</tr>
+<tr>
+<td>*</td>
+<td>匹配前面的子表达式零次或多次。例如，zo* 能匹配 “z” 以及 “zoo”。* 等价于{0,}。</td>
+</tr>
+<tr>
+<td>+</td>
+<td>匹配前面的子表达式一次或多次。例如，’zo+’ 能匹配 “zo” 以及 “zoo”，但不能匹配 “z”。+ 等价于 {1,}。</td>
+</tr>
+<tr>
+<td>?</td>
+<td>匹配前面的子表达式零次或一次。例如，”do(es)?” 可以匹配 “do” 或 “does” 。? 等价于 {0,1}。</td>
+</tr>
+<tr>
+<td>{n}</td>
+<td>n 是一个非负整数。匹配确定的 n 次。例如，’o{2}’ 不能匹配 “Bob” 中的 ‘o’，但是能匹配 “food” 中的两个 o。</td>
+</tr>
+<tr>
+<td>{n,}</td>
+<td>n 是一个非负整数。至少匹配n 次。例如，’o{2,}’ 不能匹配 “Bob” 中的 ‘o’，但能匹配 “foooood” 中的所有 o。’o{1,}’ 等价于 ‘o+’。’o{0,}’ 则等价于 ‘o*’。</td>
+</tr>
+<tr>
+<td>{n,m}</td>
+<td>m 和 n 均为非负整数，其中n &lt;&#x3D; m。最少匹配 n 次且最多匹配 m 次。例如，”o{1,3}” 将匹配 “fooooood” 中的前三个 o。’o{0,1}’ 等价于 ‘o?’。请注意在逗号和两个数之间不能有空格。</td>
+</tr>
+<tr>
+<td>?</td>
+<td>当该字符紧跟在任何一个其他限制符 (*, +, ?, {n}, {n,}, {n,m}) 后面时，匹配模式是非贪婪的。非贪婪模式尽可能少的匹配所搜索的字符串，而默认的贪婪模式则尽可能多的匹配所搜索的字符串。例如，对于字符串 “oooo”，’o+?’ 将匹配单个 “o”，而 ‘o+’ 将匹配所有 ‘o’。</td>
+</tr>
+<tr>
+<td>.</td>
+<td>匹配除换行符（\n、\r）之外的任何单个字符。要匹配包括 ‘\n’ 在内的任何字符，请使用像”<strong>(.|\n)</strong>“的模式。</td>
+</tr>
+<tr>
+<td>(pattern)</td>
+<td>匹配 pattern 并获取这一匹配。所获取的匹配可以从产生的 Matches 集合得到，在VBScript 中使用 SubMatches 集合，在JScript 中则使用 $0…$9 属性。要匹配圆括号字符，请使用 ‘(‘ 或 ‘)‘。</td>
+</tr>
+<tr>
+<td>(?:pattern)</td>
+<td>匹配 pattern 但不获取匹配结果，也就是说这是一个非获取匹配，不进行存储供以后使用。这在使用 “或” 字符 (|) 来组合一个模式的各个部分是很有用。例如， ‘industr(?:y|ies) 就是一个比 ‘industry|industries’ 更简略的表达式。</td>
+</tr>
+<tr>
+<td>(?&#x3D;pattern)</td>
+<td>正向肯定预查（look ahead positive assert），在任何匹配pattern的字符串开始处匹配查找字符串。这是一个非获取匹配，也就是说，该匹配不需要获取供以后使用。例如，”Windows(?&#x3D;95|98|NT|2000)”能匹配”Windows2000”中的”Windows”，但不能匹配”Windows3.1”中的”Windows”。预查不消耗字符，也就是说，在一个匹配发生后，在最后一次匹配之后立即开始下一次匹配的搜索，而不是从包含预查的字符之后开始。</td>
+</tr>
+<tr>
+<td>(?!pattern)</td>
+<td>正向否定预查(negative assert)，在任何不匹配pattern的字符串开始处匹配查找字符串。这是一个非获取匹配，也就是说，该匹配不需要获取供以后使用。例如”Windows(?!95|98|NT|2000)”能匹配”Windows3.1”中的”Windows”，但不能匹配”Windows2000”中的”Windows”。预查不消耗字符，也就是说，在一个匹配发生后，在最后一次匹配之后立即开始下一次匹配的搜索，而不是从包含预查的字符之后开始。</td>
+</tr>
+<tr>
+<td>(?&lt;&#x3D;pattern)</td>
+<td>反向(look behind)肯定预查，与正向肯定预查类似，只是方向相反。例如，”<code>(?&lt;=95&amp;#124;98&amp;#124;NT&amp;#124;2000)Windows</code>“能匹配”<code>2000Windows</code>“中的”<code>Windows</code>“，但不能匹配”<code>3.1Windows</code>“中的”<code>Windows</code>“。</td>
+</tr>
+<tr>
+<td>(?&lt;!pattern)</td>
+<td>反向否定预查，与正向否定预查类似，只是方向相反。例如”<code>(?&lt;!95&amp;#124;98&amp;#124;NT&amp;#124;2000)Windows</code>“能匹配”<code>3.1Windows</code>“中的”<code>Windows</code>“，但不能匹配”<code>2000Windows</code>“中的”<code>Windows</code>“。</td>
+</tr>
+<tr>
+<td>x|y</td>
+<td>匹配 x 或 y。例如，’z|food’ 能匹配 “z” 或 “food”。’(z|f)ood’ 则匹配 “zood” 或 “food”。</td>
+</tr>
+<tr>
+<td>[xyz]</td>
+<td>字符集合。匹配所包含的任意一个字符。例如， ‘[abc]’ 可以匹配 “plain” 中的 ‘a’。</td>
+</tr>
+<tr>
+<td>[^xyz]</td>
+<td>负值字符集合。匹配未包含的任意字符。例如， ‘[^abc]’ 可以匹配 “plain” 中的’p’、’l’、’i’、’n’。</td>
+</tr>
+<tr>
+<td>[a-z]</td>
+<td>字符范围。匹配指定范围内的任意字符。例如，’[a-z]’ 可以匹配 ‘a’ 到 ‘z’ 范围内的任意小写字母字符。</td>
+</tr>
+<tr>
+<td>[^a-z]</td>
+<td>负值字符范围。匹配任何不在指定范围内的任意字符。例如，’[^a-z]’ 可以匹配任何不在 ‘a’ 到 ‘z’ 范围内的任意字符。</td>
+</tr>
+<tr>
+<td>\b</td>
+<td>匹配一个单词边界，也就是指单词和空格间的位置。例如， ‘er\b’ 可以匹配”never” 中的 ‘er’，但不能匹配 “verb” 中的 ‘er’。</td>
+</tr>
+<tr>
+<td>\B</td>
+<td>匹配非单词边界。’er\B’ 能匹配 “verb” 中的 ‘er’，但不能匹配 “never” 中的 ‘er’。</td>
+</tr>
+<tr>
+<td>\cx</td>
+<td>匹配由 x 指明的控制字符。例如， \cM 匹配一个 Control-M 或回车符。x 的值必须为 A-Z 或 a-z 之一。否则，将 c 视为一个原义的 ‘c’ 字符。</td>
+</tr>
+<tr>
+<td>\d</td>
+<td>匹配一个数字字符。等价于 [0-9]。</td>
+</tr>
+<tr>
+<td>\D</td>
+<td>匹配一个非数字字符。等价于 [^0-9]。</td>
+</tr>
+<tr>
+<td>\f</td>
+<td>匹配一个换页符。等价于 \x0c 和 \cL。</td>
+</tr>
+<tr>
+<td>\n</td>
+<td>匹配一个换行符。等价于 \x0a 和 \cJ。</td>
+</tr>
+<tr>
+<td>\r</td>
+<td>匹配一个回车符。等价于 \x0d 和 \cM。</td>
+</tr>
+<tr>
+<td>\s</td>
+<td>匹配任何空白字符，包括空格、制表符、换页符等等。等价于 [ \f\n\r\t\v]。</td>
+</tr>
+<tr>
+<td>\S</td>
+<td>匹配任何非空白字符。等价于 [^ \f\n\r\t\v]。</td>
+</tr>
+<tr>
+<td>\t</td>
+<td>匹配一个制表符。等价于 \x09 和 \cI。</td>
+</tr>
+<tr>
+<td>\v</td>
+<td>匹配一个垂直制表符。等价于 \x0b 和 \cK。</td>
+</tr>
+<tr>
+<td>\w</td>
+<td>匹配字母、数字、下划线。等价于’[A-Za-z0-9_]’。</td>
+</tr>
+<tr>
+<td>\W</td>
+<td>匹配非字母、数字、下划线。等价于 ‘[^A-Za-z0-9_]’。</td>
+</tr>
+<tr>
+<td>\xn</td>
+<td>匹配 n，其中 n 为十六进制转义值。十六进制转义值必须为确定的两个数字长。例如，’\x41’ 匹配 “A”。’\x041’ 则等价于 ‘\x04’ &amp; “1”。正则表达式中可以使用 ASCII 编码。</td>
+</tr>
+<tr>
+<td>\num</td>
+<td>匹配 num，其中 num 是一个正整数。对所获取的匹配的引用。例如，’(.)\1’ 匹配两个连续的相同字符。</td>
+</tr>
+<tr>
+<td>\n</td>
+<td>标识一个八进制转义值或一个向后引用。如果 \n 之前至少 n 个获取的子表达式，则 n 为向后引用。否则，如果 n 为八进制数字 (0-7)，则 n 为一个八进制转义值。</td>
+</tr>
+<tr>
+<td>\nm</td>
+<td>标识一个八进制转义值或一个向后引用。如果 \nm 之前至少有 nm 个获得子表达式，则 nm 为向后引用。如果 \nm 之前至少有 n 个获取，则 n 为一个后跟文字 m 的向后引用。如果前面的条件都不满足，若 n 和 m 均为八进制数字 (0-7)，则 \nm 将匹配八进制转义值 nm。</td>
+</tr>
+<tr>
+<td>\nml</td>
+<td>如果 n 为八进制数字 (0-3)，且 m 和 l 均为八进制数字 (0-7)，则匹配八进制转义值 nml。</td>
+</tr>
+<tr>
+<td>\un</td>
+<td>匹配 n，其中 n 是一个用四个十六进制数字表示的 Unicode 字符。例如， \u00A9 匹配版权符号 (?)。</td>
+</tr>
+</tbody></table>
+<p>Java中为开发提供了2个类用于正则表达式：</p>
+<ul>
+<li><strong>Pattern 类：</strong>pattern 对象是一个正则表达式的编译表示。Pattern 类没有公共构造方法。要创建一个 Pattern 对象，你必须首先调用其公共静态编译方法，它返回一个 Pattern 对象。该方法接受一个正则表达式作为它的第一个参数。</li>
+<li><strong>Matcher 类：</strong>Matcher 对象是对输入字符串进行解释和匹配操作的引擎。与Pattern 类一样，Matcher 也没有公共构造方法。你需要调用 Pattern 对象的 matcher 方法来获得一个 Matcher 对象。</li>
+</ul>
+<p>下面我们通过一个简单的示例，来了解正则表达式</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.bytecollege;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.regex.Matcher;</span><br><span class="line"><span class="keyword">import</span> java.util.regex.Pattern;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RexDemo</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">String</span> <span class="variable">content</span> <span class="operator">=</span> <span class="string">&quot;884105019@qq.com&quot;</span>;</span><br><span class="line">		<span class="type">Pattern</span> <span class="variable">p</span> <span class="operator">=</span> Pattern.compile(<span class="string">&quot;^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$&quot;</span>);</span><br><span class="line">		<span class="type">Matcher</span> <span class="variable">m</span> <span class="operator">=</span> p.matcher(content);</span><br><span class="line">		System.out.println(m.matches());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+  </entry>
 </search>
