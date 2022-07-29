@@ -4299,6 +4299,10 @@
 <li>即使不显式的使用super，程序在创建对象时，也会先调用父类构造方法，这是因为编译器会为我们在每个构造方法内第一行添加super();</li>
 <li>创建子类对象时一定会先创建父类对象。创建任何对象总是从该类所在继承树最顶项层类的构造器开始执行，然后依次向下执行，最后才执行本类的构造器。如果某个父类通过 this 调用了同类中重载的构造器，就会依次执行此父类的多个构造器。</li>
 </ol>
+<h3 id="super关键字和this关键字的区别"><a href="#super关键字和this关键字的区别" class="headerlink" title="super关键字和this关键字的区别"></a>super关键字和this关键字的区别</h3><p>1.属性的区别：<br>this访问本类中的属性，如果本类没有此属性则从父类中续继查找。super访问父类中的属性。</p>
+<p>2.方法的以别：<br>tihs访问本类中的方法，如果本类没有此方法则从父类中继续查找。super访问父类中的方法。</p>
+<p>3.构造的区别：<br>this调用本类构造，必须放在构造方法的首行。super调用父类构造，必须放在子类构造方法首行。</p>
+<p>4.其他区别：<br>this表示当前对象。sper不能表示当前对象<br>A、this.变量和super.变量<br>this.变量 调 用的当前对象的变量；<br>super.变量 直接调用的是父类中的变量。<br>B、this(参数)和super(参数)方法<br>this（参数)调用（转发）的是当前类中的构造器；<br>super(参数)用于确认要使用父类中的哪一个构造器。</p>
 <h3 id="Object类"><a href="#Object类" class="headerlink" title="Object类"></a>Object类</h3><h4 id="Object类的方法"><a href="#Object类的方法" class="headerlink" title="Object类的方法"></a>Object类的方法</h4><p>Object是所有类的父类，当一个类没有使用extends关键字显式的指定父类，则该类继承Object类，因为所有类都是Object的子类，任何Java对象都可以调用Object类的方法。Object提供了以下几个方法：</p>
 <table>
 <thead>
