@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.2.0">
+
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="manifest" href="/manifest.json">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic%7CLobster+Two:300,300italic,400,400italic,700,700italic%7CAmita:300,300italic,400,400italic,700,700italic%7CMontserrat:300,300italic,400,400italic,700,700italic%7CPT+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"airui520.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":"true`","version":"8.12.1","exturl":false,"sidebar":{"position":"left","width":300,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta property="og:type" content="blog">
+<meta property="og:title" content="Java集合框架--Set">
+<meta property="og:url" content="https://airui520.github.io/2022/08/03/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6-Set/index.html">
+<meta property="og:site_name" content="Fei的博客">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://files.catbox.moe/vakrmb.png">
+<meta property="og:image" content="https://files.catbox.moe/3z10zq.png">
+<meta property="article:published_time" content="2022-08-03T11:55:50.000Z">
+<meta property="article:modified_time" content="2022-08-03T12:02:44.176Z">
+<meta property="article:author" content="Fei">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://files.catbox.moe/vakrmb.png">
+
+
+<link rel="canonical" href="https://airui520.github.io/2022/08/03/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6-Set/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://airui520.github.io/2022/08/03/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6-Set/","path":"2022/08/03/Java集合框架-Set/","title":"Java集合框架--Set"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Java集合框架--Set | Fei的博客</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXXX-X"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-XXXXXXXX-X","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Fei的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <img class="custom-logo-image" src="/images/bg.jpg" alt="Fei的博客">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">28</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6%E2%80%93Set"><span class="nav-number">1.</span> <span class="nav-text">Java集合框架–Set</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Set%E6%A6%82%E8%BF%B0"><span class="nav-number">1.1.</span> <span class="nav-text">Set概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HashSet"><span class="nav-number">1.2.</span> <span class="nav-text">HashSet</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HashSet%E5%B8%B8%E7%94%A8API"><span class="nav-number">1.2.1.</span> <span class="nav-text">HashSet常用API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HashSet%E9%81%8D%E5%8E%86"><span class="nav-number">1.2.2.</span> <span class="nav-text">HashSet遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E5%86%99hashCode"><span class="nav-number">1.2.3.</span> <span class="nav-text">重写hashCode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HashSet%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">1.2.4.</span> <span class="nav-text">HashSet使用场景</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LinkedHashSet"><span class="nav-number">1.3.</span> <span class="nav-text">LinkedHashSet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TreeSet"><span class="nav-number">1.4.</span> <span class="nav-text">TreeSet</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TreeSet%E5%B8%B8%E7%94%A8API"><span class="nav-number">1.4.1.</span> <span class="nav-text">TreeSet常用API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E7%84%B6%E6%8E%92%E5%BA%8F"><span class="nav-number">1.4.2.</span> <span class="nav-text">自然排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E5%88%B6%E6%8E%92%E5%BA%8F"><span class="nav-number">1.4.3.</span> <span class="nav-text">定制排序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%84%E4%B8%AASet%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90"><span class="nav-number">1.5.</span> <span class="nav-text">各个Set性能分析</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Fei"
+      src="/images/head.jpg">
+  <p class="site-author-name" itemprop="name">Fei</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/AiRui520" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;AiRui520" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:2813764348@qq.com" title="E-Mail → mailto:2813764348@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://xiguayaaaaa.github.io/" title="https:&#x2F;&#x2F;xiguayaaaaa.github.io" rel="noopener" target="_blank">xigua</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://simon-yian.com/" title="https:&#x2F;&#x2F;simon-yian.com" rel="noopener" target="_blank">banana</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/AiRui520" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://airui520.github.io/2022/08/03/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6-Set/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.jpg">
+      <meta itemprop="name" content="Fei">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Fei的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Java集合框架--Set | Fei的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java集合框架--Set<a href="https://github.com/AiRui520/next/edit/main/subdirectory-name/_posts/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6-Set.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-08-03 19:55:50 / 修改时间：20:02:44" itemprop="dateCreated datePublished" datetime="2022-08-03T19:55:50+08:00">2022-08-03</time>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>9.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>8 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><img src="https://files.catbox.moe/vakrmb.png"></p>
+<span id="more"></span>
+
+<h1 id="Java集合框架–Set"><a href="#Java集合框架–Set" class="headerlink" title="Java集合框架–Set"></a>Java集合框架–Set</h1><h2 id="Set概述"><a href="#Set概述" class="headerlink" title="Set概述"></a>Set概述</h2><p>Set也是集合中的一个容器，类似于一个罐子，程序可以依次把若干个对象放进Set，但是Set无法保存元素添加的顺序，Set不允许包含相同的元素，如果把两个相同的元素加入同一个Set中，则添加失败，add()方法会返回false，并且新元素不会被添加。Set接口主要有两个实现类HashSet、TreeSet。</p>
+<h2 id="HashSet"><a href="#HashSet" class="headerlink" title="HashSet"></a>HashSet</h2><p>HashSet 是 Set 接口的典型实现，大多数时候使用 Set 集合时就是使用这个实现类。HashSet 按 Hash算法来存储集合中的元素，因此具有很好的存取和查找性能。 HashSet 具有以下特点。</p>
+<ul>
+<li>不能保证元素的排列顺序，顺序可能与添加顺序不同，顺序也有可能发生变化。</li>
+<li>HashSet 不是同步的，如果多个线程同时访问一个 HashSet，假设有两个或者两个以上线程同时 修改了HashSet集合时，则必须通过代码来保证其同步。</li>
+<li>集合元素值可以是 null。 当向 HashSet 集合中存入一个元素时，HashSet 会调用该对象的 hashCode()方法来得到该对象的 hashCode 值，然后根据该hashCode 值决定该对象在 HashSet 中的存储位置。如果有两个元素通过equals()方法比较返回 true，但它们的 hashCode()方法返回值不相等，HashSet 将会把它们存储在不同的位置，依然可以添加成功。</li>
+<li>也就是说，HashSet 集合判断两个元素相等的标准是两个对象通过 equals()方法比较相等，并且两个对象的 hashCode()方法返回值也相等。</li>
+</ul>
+<h3 id="HashSet常用API"><a href="#HashSet常用API" class="headerlink" title="HashSet常用API"></a>HashSet常用API</h3><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>add(Object o)</td>
+<td>添加元素</td>
+</tr>
+<tr>
+<td>remove(Object o)</td>
+<td>移除元素</td>
+</tr>
+<tr>
+<td>isEmpty()</td>
+<td>判断元素是否为空</td>
+</tr>
+<tr>
+<td>size()</td>
+<td>获取set中元素个数</td>
+</tr>
+</tbody></table>
+<p>下面通过示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.bytecollege;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.HashSet;</span><br><span class="line"><span class="keyword">import</span> java.util.Set;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HashSetDemo</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		Set&lt;String&gt; set = <span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;&gt;();</span><br><span class="line">		<span class="comment">//添加元素</span></span><br><span class="line">		set.add(<span class="string">&quot;张无忌&quot;</span>);</span><br><span class="line">		<span class="comment">//移除元素</span></span><br><span class="line">		set.remove(<span class="string">&quot;张无忌&quot;</span>);</span><br><span class="line">		<span class="comment">//此时set中没有元素</span></span><br><span class="line">		System.out.println(set.isEmpty());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="HashSet遍历"><a href="#HashSet遍历" class="headerlink" title="HashSet遍历"></a>HashSet遍历</h3><ol>
+<li>因为HashSet中的元素没有索引，所以不支持for循环直接遍历，但是可以使用foreach进行遍历</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.bytecollege;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.HashSet;</span><br><span class="line"><span class="keyword">import</span> java.util.Set;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 本例将演示使用foreach遍历Set</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> MR.W</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HashSetForDemo</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		Set&lt;String&gt; set = <span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;&gt;();</span><br><span class="line">		</span><br><span class="line">		set.add(<span class="string">&quot;乔峰&quot;</span>);</span><br><span class="line">		set.add(<span class="string">&quot;虚竹&quot;</span>);</span><br><span class="line">		set.add(<span class="string">&quot;段誉&quot;</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span> (String name : set) &#123;</span><br><span class="line">			System.out.println(name);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>HashSet继承了Iterable接口，因此HashSet还可以使用迭代器遍历。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.bytecollege;</span><br><span class="line"><span class="keyword">import</span> java.util.HashSet;</span><br><span class="line"><span class="keyword">import</span> java.util.Iterator;</span><br><span class="line"><span class="keyword">import</span> java.util.Set;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HashSetIteDemo</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		Set&lt;String&gt; set = <span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;&gt;();</span><br><span class="line">		</span><br><span class="line">		set.add(<span class="string">&quot;乔峰&quot;</span>);</span><br><span class="line">		set.add(<span class="string">&quot;虚竹&quot;</span>);</span><br><span class="line">		set.add(<span class="string">&quot;段誉&quot;</span>);</span><br><span class="line">		</span><br><span class="line">		Iterator&lt;String&gt; it = set.iterator();</span><br><span class="line">		<span class="keyword">while</span>(it.hasNext()) &#123;</span><br><span class="line">			System.out.println(it.next());</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">Iterator</span> <span class="variable">iterator</span> <span class="operator">=</span> set.iterator(); iterator.hasNext();) &#123;</span><br><span class="line">			System.out.println(iterator.next());</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="重写hashCode"><a href="#重写hashCode" class="headerlink" title="重写hashCode"></a>重写hashCode</h3><p>HashSet 中每个能存储元素的”槽位”（slot）通常称为”桶”（bucket），如果有多个元素的 hashCode值相同，但它们通过equals()方法比较返回 false，就需要在一个”桶”里放多个元素，这样会导致性能下降。 <br>下面给出重写 hashCode() 方法的基本规则。</p>
+<ul>
+<li>在程序运行过程中，同一个对象多次调用 hashCode（）方法应该返回相同的值。</li>
+<li>当两个对象通过 equals()方法比较返回 true 时，这两个对象的 hashCode()方法应返回相等的值</li>
+<li>对象中用作 equals()方法比较标准的实例变量，都应该用于计算 hashCode 值。</li>
+</ul>
+<p>下面给出重写hashCode() 方法的一般步骤。</p>
+<ol>
+<li>把对象内每个有意义的实例变量（即每个参与 equals方法比较标准的实例变量）计算出一个 int 类型的 hashCode 值，计算方式如下： | 实例变量类型 | 计算方式 | 实例变量类型 | 计算方式 | | — | — | — | — | | boolean | hashCode&#x3D;(f?1:0); | float | hashCode&#x3D;Float.floatToIntBits(f) | | 整型 | hashCode&#x3D;(int)f; | double | long l &#x3D; Double.doubleToLongBits(f);<br>hashCode &#x3D; (int)(l^l&gt;&gt;&gt;32); | | long | hashCode&#x3D;(int)(f^(f&gt;&gt;&gt;32)) | 引用类型 | hashCode &#x3D; f.hashCode(); |</li>
+<li>用第1步计算出来的多个hashCode 值组合计算出一个 hashCode 值返回。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> f1.hashCode() + (<span class="type">int</span>)f2;</span><br></pre></td></tr></table></figure>
+
+<p>为了避免直接相加产生偶然相等 （两个对象的 f、f 实例变量并不相等，但它们的 hashCode 的和恰好相等），可以通过各实例变量的 hashCode 值乘以任意一个质数后再相加。例如如下代码;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> f1.hashCode()*<span class="number">19</span> + (<span class="type">int</span>)f2*<span class="number">31</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="HashSet使用场景"><a href="#HashSet使用场景" class="headerlink" title="HashSet使用场景"></a>HashSet使用场景</h3><p>根据HashSet的特点可以知道HashSet中存放的元素不能重复，利用这个特性就可以做一些去重的业务，例如在给定字符串HelloWorld中统计出现的字符。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.bytecollege;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.HashSet;</span><br><span class="line"><span class="keyword">import</span> java.util.Set;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HashSetDemo</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		</span><br><span class="line">		<span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> <span class="string">&quot;HelloWorld&quot;</span>;</span><br><span class="line">		<span class="comment">//将字符串转换成字符数组</span></span><br><span class="line">		<span class="type">char</span>[] ch = str.toCharArray();</span><br><span class="line">		</span><br><span class="line">		Set&lt;Character&gt; set = <span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;&gt;();</span><br><span class="line">		<span class="comment">//遍历字符数组将所有元素添加进set去重</span></span><br><span class="line">		<span class="keyword">for</span> (Character c : ch) &#123;</span><br><span class="line">			set.add(c);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//遍历set</span></span><br><span class="line">		<span class="keyword">for</span> (Character c : set) &#123;</span><br><span class="line">			System.out.println(c);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="LinkedHashSet"><a href="#LinkedHashSet" class="headerlink" title="LinkedHashSet"></a>LinkedHashSet</h2><p>HashSet有一个子类LinkedHashSet，LinkedHashSet集合同HashSet一样，也是根据元素的hashCode值来确定元素的存储位置，并且通过链表维护元素的顺序，换句话说，遍历LinkedHashSet时，LinkedHashSet将会按照元素的添加顺序来访问集合里的元素。<br>由于LinkedHash需要维护元素插入的顺序，因此性能略低于HashSet。下面通过示例学习LinkedHashSet</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.bytecollege;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.LinkedHashSet;</span><br><span class="line"><span class="keyword">import</span> java.util.Set;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 本例将演示LinkedHashSet</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> MR.W</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LinkedHashSetDemo</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		Set&lt;String&gt; set = <span class="keyword">new</span> <span class="title class_">LinkedHashSet</span>&lt;&gt;();</span><br><span class="line">		set.add(<span class="string">&quot;乔峰&quot;</span>);</span><br><span class="line">		set.add(<span class="string">&quot;虚竹&quot;</span>);</span><br><span class="line">		set.add(<span class="string">&quot;段誉&quot;</span>);</span><br><span class="line">		<span class="keyword">for</span> (String name : set) &#123;</span><br><span class="line">			System.out.println(name);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>从示例代码以及HashSet的遍历我们可以看出LinkedHashSet维护了添加顺序，也就是说添加进容器的元素和取出的元素顺序是一致的。<br>如果在某些场景下要使用set容器保存元素，并且需要维护set中的存放元素的顺序，那么就可以使用LinkedHashSet</p>
+<h2 id="TreeSet"><a href="#TreeSet" class="headerlink" title="TreeSet"></a>TreeSet</h2><p>TreeSet 是 SortedSet 接口的实现类，TreeSet 可以确保集合元素处干排序状态。</p>
+<h3 id="TreeSet常用API"><a href="#TreeSet常用API" class="headerlink" title="TreeSet常用API"></a>TreeSet常用API</h3><p>与 HashSet 集合相比，TreeSet 还提供了如下几个额外的方法。</p>
+<ul>
+<li>Comparator comparator()∶如果 TreeSet 采用了定制排序，则该方法返回定制排序所使用的 Comparator;如果 TreeSet 采用了自然排序，则返回 null。</li>
+<li>Object first()∶返回集合中的第一个元素。</li>
+<li>Object last(): 返回集合中的最后一个元素。</li>
+<li>Object lower(Object e)∶ 返回集合中位于指定元素之前的元素（即小于指定元素的最大元素，参 考元素不需要是 TreeSet集合里的元素）。</li>
+<li>Object higher(Object e)∶返回集合中位于指定元素之后的元素（即大于指定元素的最小元素， 参考元素不需要是 TreeSet 集合里的元素）</li>
+<li>SortedSet subSet(Object fromElement，Object toElement)∶返回此Set 的子集合，范围从fromElement （包含）到 toElement （不包含）。</li>
+<li>SortedSet headSet(Object toElement)∶ 返回此 Set 的子集，由小于 toElement 的元素组成。</li>
+<li>SortedSet tailSet(Object fromElement)∶ 返回此 Set 的子集，由大于或等于 fromElement 的元素组成。</li>
+</ul>
+<p>下面通过示例学习TreeSet的常用方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.bytecollege;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.TreeSet;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TreeSetDemo</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        TreeSet&lt;Integer&gt; treeSet = <span class="keyword">new</span> <span class="title class_">TreeSet</span>&lt;Integer&gt;();</span><br><span class="line">        treeSet.add(<span class="number">10</span>);</span><br><span class="line">        treeSet.add(<span class="number">20</span>);</span><br><span class="line">        treeSet.add(<span class="number">30</span>);</span><br><span class="line">        treeSet.add(<span class="number">40</span>);</span><br><span class="line">        treeSet.add(<span class="number">50</span>);</span><br><span class="line">        <span class="comment">//如果 TreeSet 采用了定制排序，则该方法返回定制排序所使用的Comparator;如果 TreeSet 采用了自然排序，则返回 null。</span></span><br><span class="line">        System.out.println(treeSet.comparator());</span><br><span class="line">        <span class="comment">//返回集合中的第一个元素。</span></span><br><span class="line">        System.out.println(treeSet.first());</span><br><span class="line">        <span class="comment">//返回集合中的最后一个元素。</span></span><br><span class="line">        System.out.println(treeSet.last());</span><br><span class="line">        <span class="comment">//返回集合中位于指定元素之前的元素（即小于指定元素的最大元素，参考元素不需要是 TreeSet集合里的元素）。</span></span><br><span class="line">        System.out.println(treeSet.lower(<span class="number">25</span>));</span><br><span class="line">        <span class="comment">//返回集合中位于指定元素之后的元素（即大于指定元素的最小元素，参考元素不需要是 TreeSet 集合里的元素）</span></span><br><span class="line">        System.out.println(treeSet.higher(<span class="number">25</span>));</span><br><span class="line">        <span class="comment">//返回此Set 的子集合，范围从fromElement（包含）到 toElement （不包含）。</span></span><br><span class="line">        System.out.println(treeSet.subSet(<span class="number">20</span>,<span class="number">50</span>));</span><br><span class="line">        <span class="comment">//返回此 Set 的子集，由小于 toElement 的元素组成</span></span><br><span class="line">        System.out.println(treeSet.headSet(<span class="number">30</span>));</span><br><span class="line">        <span class="comment">//返回此 Set 的子集，由大于或等于 fromElement 的元素组成。</span></span><br><span class="line">        System.out.println(treeSet.tailSet(<span class="number">30</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>根据 上面程序的运行结果即可看出，TreeSet 并不是根据元素的插入顺序进行排序的。而是根据元素实际值的大小来进行排序的。 <br>与 HashSet 集合采用 hash 算法来决定元素的存储位置不同，TreeSet 采用红黑树的数据结构来存储集合元素。那么 TreeSet 进行排序的规则是怎样的呢? TreeSet 支持两种排序方法∶自然排序和定制排序。在默认情况下，TreeSet 采用自然排序。</p>
+<h3 id="自然排序"><a href="#自然排序" class="headerlink" title="自然排序"></a>自然排序</h3><p>TreeSet 会调用集合元素的 compareTo（Object obj）方法来比较元素之间的大小关系，然后将集合元素按升序排列，这种方式就是自然排序。<br> Java 提供了一个 Comparable接口，该接口里定义了一个 compareTo(Object obj)方法，该方法返回一个整数值，实现该接口的类必须实现该方法，实现了该接口的类的对象就可以比较大小。当一个对象调用该方法与另一个对象进行比较时，例如 obj1.compareTo(obj2)，如果该方法返回 0，则表明这两个对象相等;如果该方法返回一个正整数，则表明 obj1 大于 obj2;如果该方法返回一个负整数，则表明 obj1小于obj2。<br>下面通过示例学习该接口，首先定义Student类，类中包含name和age属性：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.bytecollege;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Student</span> &#123;</span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">	<span class="keyword">private</span> <span class="type">int</span> age;</span><br><span class="line">	<span class="keyword">public</span> <span class="title function_">Student</span><span class="params">(String name)</span> &#123;</span><br><span class="line">		<span class="built_in">super</span>();</span><br><span class="line">		<span class="built_in">this</span>.name = name;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">package</span> cn.bytecollege;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Set;</span><br><span class="line"><span class="keyword">import</span> java.util.TreeSet;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HashSetDemo</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		Set&lt;Student&gt; set = <span class="keyword">new</span> <span class="title class_">TreeSet</span>&lt;&gt;();</span><br><span class="line">		<span class="type">Student</span> <span class="variable">s1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Student</span>(<span class="string">&quot;张三&quot;</span>,<span class="number">18</span>);</span><br><span class="line">		<span class="type">Student</span> <span class="variable">s2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Student</span>(<span class="string">&quot;李四&quot;</span>,<span class="number">18</span>);</span><br><span class="line">		</span><br><span class="line">		set.add(s1);</span><br><span class="line">		set.add(s2);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当运行以上程序时，发现程序抛出了异常：</p>
+<p><img src="https://files.catbox.moe/3z10zq.png"></p>
+<p>这是因为Student没有继承Comparable接口，如果把一个对象添加到TreeSet时，则该对象的类必须继承Comparable接口，否则程序将会抛出异常。<br>下面的程序将演示正确的添加方式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.bytecollege;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Student</span> <span class="keyword">implements</span> <span class="title class_">Comparable</span>&lt;Student&gt;&#123;</span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">	<span class="keyword">private</span> <span class="type">int</span> age;</span><br><span class="line">	<span class="keyword">public</span> <span class="title function_">Student</span><span class="params">(String name,<span class="type">int</span> age)</span> &#123;</span><br><span class="line">		<span class="built_in">super</span>();</span><br><span class="line">		<span class="built_in">this</span>.name = name;</span><br><span class="line">		<span class="built_in">this</span>.age = age;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compareTo</span><span class="params">(Student o)</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">this</span>.age-o.age;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">package</span> cn.bytecollege;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Set;</span><br><span class="line"><span class="keyword">import</span> java.util.TreeSet;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HashSetDemo</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		Set&lt;Student&gt; set = <span class="keyword">new</span> <span class="title class_">TreeSet</span>&lt;&gt;();</span><br><span class="line">		<span class="type">Student</span> <span class="variable">s1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Student</span>(<span class="string">&quot;张三&quot;</span>,<span class="number">18</span>);</span><br><span class="line">		<span class="type">Student</span> <span class="variable">s2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Student</span>(<span class="string">&quot;李四&quot;</span>,<span class="number">19</span>);</span><br><span class="line">		</span><br><span class="line">		set.add(s1);</span><br><span class="line">		set.add(s2);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Student类继承Comparable接口并重写compareTo()方法后再次向TreeSet中添加，可以顺利添加，并且可以按照age属性的大小进行排序。<br>当把一个对象加入 TreeSet 集合中时，TreeSet 调用该对象的 compareTo(Object obj)方法与容器中的其他对象比较大小，然后根据红黑树结构找到它的存储位置。如果两个对象通过 compareTo(Object obj)方法比较相等，新对象将无法添加到 TreeSet 集合中。<br> 对于TreeSet集合而言，它判断两个对象是否相等的唯一标准是∶两个对象通过compareTo(Object obj)方法比较是否返回 0——如果通过 compareTo（Object obi）方法比较返回 0，TreeSet 则会认为它们相等;否则就认为它们不相等。</p>
+<h3 id="定制排序"><a href="#定制排序" class="headerlink" title="定制排序"></a>定制排序</h3><p>TreeSet 的自然排序是根据集合元素的大小，TreeSet 将它们以升序排列。如果需要实现定制排序，例如以降序排列，则可以通过 Comparator 接口的帮助。该接口里包含一个int compare(T o1，T o2)方法，该方法用于比较 o1 和 o2 的大小∶ 如果该方法返回正整数，则表明o1 大于o2;如果该方法返回0，则表明 o1等于 o2;如果该方法返回负整数，则表明 o1小于 o2。<br> 如果需要实现定制排序，则需要在创建 TreeSet 集合对象时，提供一个 Comparator 对象与该TreeSet集合关联，由该 Comparator 对象负责集合元素的排序逻辑。<br>下面通过示例学习Comparator的用法，继续使用上例中的Student类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.bytecollege;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Student</span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">	<span class="keyword">private</span> <span class="type">int</span> age;</span><br><span class="line">	<span class="keyword">public</span> <span class="title function_">Student</span><span class="params">(String name,<span class="type">int</span> age)</span> &#123;</span><br><span class="line">		<span class="built_in">super</span>();</span><br><span class="line">		<span class="built_in">this</span>.name = name;</span><br><span class="line">		<span class="built_in">this</span>.age = age;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">package</span> cn.bytecollege;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Comparator;</span><br><span class="line"><span class="keyword">import</span> java.util.Set;</span><br><span class="line"><span class="keyword">import</span> java.util.TreeSet;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ComparatorDemo</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		Set&lt;Student&gt; set = <span class="keyword">new</span> <span class="title class_">TreeSet</span>&lt;Student&gt;(<span class="keyword">new</span> <span class="title class_">Comparator</span>&lt;Student&gt;() &#123;</span><br><span class="line">			<span class="meta">@Override</span></span><br><span class="line">			<span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compare</span><span class="params">(Student o1, Student o2)</span> &#123;</span><br><span class="line">				<span class="keyword">return</span> o1.age-o2.age;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;);</span><br><span class="line">		</span><br><span class="line">		<span class="type">Student</span> <span class="variable">s1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Student</span>(<span class="string">&quot;张三&quot;</span>,<span class="number">18</span>);</span><br><span class="line">		<span class="type">Student</span> <span class="variable">s2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Student</span>(<span class="string">&quot;李四&quot;</span>,<span class="number">19</span>);</span><br><span class="line">		<span class="type">Student</span> <span class="variable">s3</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Student</span>(<span class="string">&quot;王五&quot;</span>,<span class="number">20</span>);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="各个Set性能分析"><a href="#各个Set性能分析" class="headerlink" title="各个Set性能分析"></a>各个Set性能分析</h2><p>HashSet 和 TreeSet 是 Set 的两个典型实现，到底如何选择 HashSet 和 TreeSet 呢?HashSet 的性能总是比 TreeSet 好（特别是最常用的添加、查询元素等操作），因为 TreeSet 需要额外的红黑树算法来维护集合元素的次序。只有当需要一个保持排序的 Set 时，才应该使用 TreeSet，否则都应该使用 HashSet。<br> HashSet 还有一个子类∶LinkedHashSet，对于普通的插入、删除操作，LinkedHashSet 比 HashSet要略微慢一点，这是由维护链表所带来的额外开销造成的，但由于有了链表，遍历 LinkedHashSet 会更快。</p>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Fei
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://airui520.github.io/2022/08/03/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6-Set/" title="Java集合框架--Set">https://airui520.github.io/2022/08/03/Java集合框架-Set/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/08/01/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6-Map/" rel="prev" title="Java集合框架--Map">
+                  <i class="fa fa-chevron-left"></i> Java集合框架--Map
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/08/03/Java%E5%B8%B8%E8%A7%81%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" rel="next" title="Java常见排序算法">
+                  Java常见排序算法 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2001 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fei</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">256k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">3:52</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=your_add_this_id" async="async"></script>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+<script class="next-config" data-name="chatra" type="application/json">{"enable":true,"async":true,"id":null}</script>
+<script src="/js/third-party/chat/chatra.js"></script>
+<script async src="https://call.chatra.io/chatra.js"></script>
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

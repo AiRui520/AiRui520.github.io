@@ -24,29 +24,26 @@
 <script class="next-config" data-name="main" type="application/json">{"hostname":"airui520.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":"true`","version":"8.12.1","exturl":false,"sidebar":{"position":"left","width":300,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
     <meta property="og:type" content="blog">
-<meta property="og:title" content="Java常用的正则表达式">
-<meta property="og:url" content="https://airui520.github.io/2022/08/01/Java%E5%B8%B8%E7%94%A8%E7%9A%84%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/index.html">
+<meta property="og:title" content="Java发展简史">
+<meta property="og:url" content="https://airui520.github.io/2022/08/03/Java%E5%8F%91%E5%B1%95%E7%AE%80%E5%8F%B2/index.html">
 <meta property="og:site_name" content="Fei的博客">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://files.catbox.moe/vakrmb.png">
-<meta property="og:image" content="https://files.catbox.moe/c4h179.png">
-<meta property="og:image" content="https://files.catbox.moe/6j7046.png">
-<meta property="og:image" content="https://files.catbox.moe/tj1pu1.png">
-<meta property="article:published_time" content="2022-08-01T11:31:38.000Z">
-<meta property="article:modified_time" content="2022-08-01T11:38:29.329Z">
+<meta property="article:published_time" content="2022-08-03T12:05:37.000Z">
+<meta property="article:modified_time" content="2022-08-03T12:06:46.955Z">
 <meta property="article:author" content="Fei">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://files.catbox.moe/vakrmb.png">
 
 
-<link rel="canonical" href="https://airui520.github.io/2022/08/01/Java%E5%B8%B8%E7%94%A8%E7%9A%84%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
+<link rel="canonical" href="https://airui520.github.io/2022/08/03/Java%E5%8F%91%E5%B1%95%E7%AE%80%E5%8F%B2/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://airui520.github.io/2022/08/01/Java%E5%B8%B8%E7%94%A8%E7%9A%84%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/","path":"2022/08/01/Java常用的正则表达式/","title":"Java常用的正则表达式"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://airui520.github.io/2022/08/03/Java%E5%8F%91%E5%B1%95%E7%AE%80%E5%8F%B2/","path":"2022/08/03/Java发展简史/","title":"Java发展简史"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Java常用的正则表达式 | Fei的博客</title>
+<title>Java发展简史 | Fei的博客</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXXX-X"></script>
   <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-XXXXXXXX-X","only_pageview":false}</script>
@@ -139,7 +136,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+    <div class="sidebar-inner sidebar-overview-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -152,7 +149,6 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A0%A1%E9%AA%8C%E6%95%B0%E5%AD%97%E7%9A%84%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">校验数字的表达式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A0%A1%E9%AA%8C%E5%AD%97%E7%AC%A6%E7%9A%84%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">校验字符的表达式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%89%B9%E6%AE%8A%E9%9C%80%E6%B1%82%E7%9A%84%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">特殊需求的表达式</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -231,7 +227,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://airui520.github.io/2022/08/01/Java%E5%B8%B8%E7%94%A8%E7%9A%84%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
+    <link itemprop="mainEntityOfPage" href="https://airui520.github.io/2022/08/03/Java%E5%8F%91%E5%B1%95%E7%AE%80%E5%8F%B2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/head.jpg">
@@ -244,12 +240,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="Java常用的正则表达式 | Fei的博客">
+      <meta itemprop="name" content="Java发展简史 | Fei的博客">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Java常用的正则表达式<a href="https://github.com/AiRui520/next/edit/main/subdirectory-name/_posts/Java%E5%B8%B8%E7%94%A8%E7%9A%84%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
+          Java发展简史<a href="https://github.com/AiRui520/next/edit/main/subdirectory-name/_posts/Java%E5%8F%91%E5%B1%95%E7%AE%80%E5%8F%B2.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
         </h1>
 
         <div class="post-meta-container">
@@ -261,7 +257,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-08-01 19:31:38 / 修改时间：19:38:29" itemprop="dateCreated datePublished" datetime="2022-08-01T19:31:38+08:00">2022-08-01</time>
+      <time title="创建时间：2022-08-03 20:05:37 / 修改时间：20:06:46" itemprop="dateCreated datePublished" datetime="2022-08-03T20:05:37+08:00">2022-08-03</time>
     </span>
 
   
@@ -271,14 +267,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>24</span>
+      <span>4.9k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
+      <span>4 分钟</span>
     </span>
 </div>
 
@@ -292,15 +288,15 @@
         <p><img src="https://files.catbox.moe/vakrmb.png"></p>
 <span id="more"></span>
 
-<h1 id="校验数字的表达式"><a href="#校验数字的表达式" class="headerlink" title="校验数字的表达式"></a>校验数字的表达式</h1><ul>
-<li><img src="https://files.catbox.moe/c4h179.png"></li>
-</ul>
-<h1 id="校验字符的表达式"><a href="#校验字符的表达式" class="headerlink" title="校验字符的表达式"></a>校验字符的表达式</h1><ul>
-<li><img src="https://files.catbox.moe/6j7046.png"></li>
-</ul>
-<h1 id="特殊需求的表达式"><a href="#特殊需求的表达式" class="headerlink" title="特殊需求的表达式"></a>特殊需求的表达式</h1><ul>
-<li><img src="https://files.catbox.moe/tj1pu1.png"></li>
-</ul>
+<p><strong>1991年4月，</strong>由James Gosling博士领导的绿色计划（Green Project)开始启动，此计划的目的是开发一种能够在各种消费型电子产品（如机顶盒、冰箱、收音机等）上运行的程序架构。这个计划的产品就是Java语言的前身——Oak，Oak当时在消费品市场上并不算成功，但随着1995年互联网潮流的兴起， Oak迅速找到了最适合自己发展的市场定位并蜕变成为 Java语言。<br><strong>1992 年3月，</strong>由于Oak已被用作另一种已存在的编程语言名称，因此必须选一个新的名字——Java。 Java 的灵感来源于咖啡，据说James Gosling 研发小组的工程师经常喝的咖啡就产自印度尼西亚的爪哇岛(Java）上所种植的咖啡豆。<br><strong>1993年2月,</strong> Sun Microsystems的子公司 FirstPerson试图从时代华纳获得一个电视机顶盒交互系统的一系列订单。在那时，由于绿色计划不是很成功，随即失去了时代华纳的订单，于是开发的重心从家庭消费电子产品转移到了电视机顶盒的相关平台上。<br><strong>1995年5月23日,</strong> Oak语言更名为Java,并且在 Sun World大会上正式发布Java 1.0版本。Java 语言第一次提出了“Write Once, Run Anywhere”的口号。<br><strong>1996年1月23日，</strong>JDK 1.0发布，Java语言有了第一个正式版本的运行环境，JDK 1.0提供了一个解释执行的Java 虚拟机实现(Sun Classic VM) 。JDK1.0版本的代表技术包括 Java虚拟机、Applet 以及 AWT等。<br><strong>1996年4月，10个最主要的操作系统供应商申明，将在其产品中嵌入Java 技术。同年9月，已有大约8.3万个网页应用了 Java技术来制作。在1996年5月底</strong>，Sun 公司于美国旧金山举行了首届JavaOne大会，从此JavaOne成为全世界数百万Java语言开发者每年一度的技术盛会。<br><strong>1997年2月19日，</strong> Sun公司发布了JDK 1.1, Java 技术的一些最基础的支撑点9（如 JDBC等）都是在JDK1.1版本中发布的 JDK 1.1版的技术代表有JAR文件格式、JDBC、 JavaBeans 和 RMI. Java语法也有了一定的发展，如内部类(Inner Class)和反射（Reflection)都是在这个时候出现的。</p>
+<blockquote>
+<p>从1.1.47后，每个JDK版本都有一个自己的名字(工程代号)，分别为JDK 1.1.4 - Sparkler （宝石）JDK1.1:5- Pumpkin（南瓜) JDK1.1.6- Abigail(阿比盖尔，女子名)、JDK1.1.7- Brutus(布鲁图，古罗马政治家和将军)和JDK1.1.8- Chelsea(切尔西，城市名)。</p>
+</blockquote>
+<p><strong>1998年12月4日，</strong>JDK迎来了一个里程碑式的版本JDK1.2, 工程代号为Playground(竞技场)Sun公司在这个版本中把Java 技术体系拆分为3个方向，分别是面向桌面应用开发的J2SE (Java 2 Platform, StandardEdition）、面向企业级开发的J2EE (Java 2 Platform, Enterprise Edition)和面向手机等移动终端开发的J2ME (Java 2 Platform, Micro Edition）。在这个版本中出现的代表性技术非常多，如EJB、Java Plug-in、Java IDL 以及 Swing等，并且这个版本中Java 虚拟机第一次内置了 JIT (Just In Time)编译器（JDK 1.2中曾并存过3个虚拟机， Classic VMs HotSpot VM 和 Exact VM， 其中 Exact VM 只在 Solaris平台出现过:后面两个虚拟机都是内置JIT编译器的，而之前版本所带的 Classic VM只能以外挂的形式使用JIT编译器)。在语言和API级别上，Java 添加了 strictfp关键字与现在 Java编码之中极为常用的一系列 Collections集合类。在1999年3月和7月，分别有JDK 1.2.1和JDK1.2.2两个小版本发布。<br><strong>1999年4月27日,</strong> HotSpot 虚拟机发布。HotSpot 最初由一家名为“Longview Technologies”的小公司开发，因为 HotSpot 的优异表现，这家公司在1997年被Sun公司收购了。HotSpot 虚拟机发布时是作为JDK 1.2的附加程序提供的，后来它成为了JDK1.3及之后所有版本的Sun JDK 的默认虚拟机。<br><strong>2000年5月8日，</strong>工程代号为 Kestrel(美洲红)的JDK 1.3发布，JDK 1.3相对于JDK 1.2的改进主要表现在一些类库上(如数学运算和新的 Timer API等)，JNDI服务从JDK 1.3开始被作为一项平台级服务提供(以前JNDI仅仅是一项扩展)，使用CORBA IIOP来实现RMI的通信协议等。这个版本还对 Java 2D做了很多改进，提供了大量新的 Java 2D API，并且新添加了 JavaSound类库。JDK 1.3有一个修正版本JDK 1.3.1,工程代号为 Ladybird（瓢虫)，于2001年5月17日发布。<br>从MJDK1.3开始, Sun 公司维持了一个习惯:大约每隔两年发布一个JDK的主版本，以动物名作为工程代号，期间发布的各个修正版本则以昆虫名作为工程代号。<br><strong>2002年2月13日，</strong> JDK1.4发布，工程代号为Merlin （灰背)。<br><strong>2002年9月16日，</strong>发布了工程代号为Grasshopper （蚱蜢)的JDK 1.4.1。</p>
+<blockquote>
+<p>JDK1.4是Java真正走向成熟的一个版本,Compaq、 Fujitsu、 SAS、 Symbian 以及IBM等著名公司都有参与甚至实现自己独立的JDK 1.4。哪怕是在十多年后的今天，仍然有许多主流应用（Spring、 Hibernate 以及 Struts等)能直接运行在JDK 1.4之上，或者继续发布能运行在JDK 1.4上的版本。</p>
+</blockquote>
+<p><strong>2003年6月26日，</strong>发布了工程代号为Mantis（螳螂)的JDK1.4.2。<br><strong>2004年9月30 日，</strong>JDK1.5发布，工程代号 Tiger（老虎)。从JDK 1.2发布以来，Java在语法层面上的变换一直很小，而JDK1.5在 Java语法易用性上做出了非常大的改进。例如，自动装箱、泛型、动态注解、枚举、可变长参数以及遍历循环(foreach 循环)等语法特性都是在JDK 1.5中加入的。在虚拟机和API层面上，这个版本改进了 Java的内存模型(Java Memory Model, JMM)，提供了 java.util.concurrent 并发包等。另外,JDK 1.5是官方声明可以支持Windows 9x平台的最后一个JDK版本。<br><strong>2006年12月11日，</strong>JDK1.6发布，工程代号 Mustang（野马)。在这个版本中，Sun公司终结了从JDK 1.2开始已经有8年历史的J2EE、J2SE 和 J2ME的命名方式，启用Java SE 6、 Java EE 6和Java ME 6的命名方式。JDK 1.6的改进包括提供动态语言支持(通过内置 Mozilla Java Rhino引擎实现)、提供编译API 和微型HTTP服务器API等。同时，这个版本对Java 虚拟机内部做了大量改进，包括锁与同步、垃收集以及类加载等方面的算法都有相当多的改动。<br>在 <strong>2006年11月13日</strong>的 JavaOne大会上,Sun 公司宣布最终会将Java开源，并在随后的一年多时间内，陆续将JDK的各个部分在GPL v2 (GNU General Public License v2)协议下公开了源码，并建立了OpenJDK组织对这些源码进行独立管理。除了极少量的产权代码外（Encumbered Code，这部分代码大多是Sun公司本身也无权限进行开源处理的），OpenJDK几乎包括了Sun JDK的全部代码外，OpenJDK的质量主管曾经表示，在JDK 1.7中，Sun JDK 和 OpenJDK 除了代码文件头的版权注释之外，代码基本上完全一样，所以OpenJDK7与Sun JDK 1.7本质上就是同套代码库开发的产品。<br>JDK1.6发布以后，由于代码复杂性的增加、JDK开源、开发 JavaFX、经济危机及Sun 公司收购案等原因，SUN公司在JDK发展以外的事情上耗费了很多资源，JDK的更新没有再维持两年发布一个主版本的发展速度。JDK1.6到目前为止一共发布了37个 Update版本，最新的版本为 Java SE 6 Update 37, 于2012年10月16日发布，2009年2月19日，工程代号为Dophin (海豚)的JDK 1.7完成了其第一个里程碑版本。 根据 JDK 1.7 的功能规划，一共设置了 10个里程碑。最后一个里程碑版本原计划于2010年9月9日结束，但由于各种原因JDK1.7最终无法按计划完成。<br>MJDK1.7最开始的功能规划来看，它本应是一个包含许多重要改进的JDK版本，其中的 Lambda 项目 (Lambda表达式、函数式编程)、Jigsaw项目(虚拟机模块化支持)、动态语言支持、GarbageFirst 收集器和 Coin项目(语言细节进化)等子项目对于 Java业界都会产生深远的影响。在JDK1.7开发期间， Sun 公司由于相继在技术竞争和商业竞争中都陷入泥潭，公司的股票市值跌至仅有高峰时期的3%， 已无力推动 JDK1.7的研发工作按正常计划进行。为了尽快结束JDK 1.7长期“跳票”的问题，Oracle公司收购Sun 公司后不久便宣布将实行“B计划”。<br>大幅裁剪了JDK 1.7 预定目标，以便保证JDK 1.7的正式版能够于2011年7月28日准时发布。“B计划”把不能按时完成的 Lambda 项目、Jigsaw项目和Coin项目的部分改进延迟到 JDK 1.8之中。最终，JDK 1.7的主要改进包括提供新的G1收集器(G1 在发布时依然处于 Experimental状态，直至2012年4月的 Update 4 中才正式“转正”)、加强对非 Java语言的调用支持(JSR-292，这项特性到目前为止依然没有完全实现定型）以级类加载架构等。<br>到目前为止, JDK 1.7已经发布了9个 Update版本，最新的 Java SE 7 Update 9于 2012年 10月16日发布。<br>从 Java SE 7 Update 4起, Oracle开始支持Mac OSX操作系统，并在 Update6中达到完全支持的程度，同时在 Update 6中还对ARM指令集架构提供了支持。至此，官方提供的JDK可以运行于 Windows（不含Windows9x） 、 Linux,、Solaris和 Mac OS 平台上，支持ARM、 x86、x64 和 Sparc指令集架构类型。<br>由于此前 Oracle 公司已经收购了另外一家大型的中间件企业BEA公司，在完成对 Sun 公司的收购之后, Oracle  公司分别从BEA公司和Sun 公司中取得了目前三大商业虚拟机的其中两个—JRockit和 HotSpot, Oracle公司宣布在未来1~2年的时间内，将把这两个优秀的虚拟机互相取长补短，最终合二为一。由此可以预见在不久的将来, Java 虚拟机技术将会产生相当巨大的变化。<br><strong>2011年7月28日,</strong> Oracle 公司发布 Java SE 1.7。<br><strong>2014年3月18日,</strong> Oracle 公司发布 Java SE 1.8。<br><strong>2017年9月22日,</strong> Java SE 1.9正式发布。Java 9提供了一个全新的模块系统，它的核心变化就是引入了一种新的 Java编程组件，也就是模块化。Java 9提供了轻量级JSON API;使用G1作为默认的垃圾收集器，替代了之前默认使用的 Paralel GC; 引入了 jshel这个交互性工具，jshel 为Java带来了读入一一求值一一打印一一循环的功能。它的目的在于以即时结果和反馈的形式，简化原型的实现并帮助我们探索语言在编码时的可选项;对os process拥有更好的控制和管理方式； 全面支持Http 2.0，以所谓的孵化器模块交付，并且为Java配备一个全新的 Http客户端来替代 HttpURLConnection，同时还实现 Http 2.0 和 websockets。</p>
 
     </div>
 
@@ -330,7 +326,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://airui520.github.io/2022/08/01/Java%E5%B8%B8%E7%94%A8%E7%9A%84%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="Java常用的正则表达式">https://airui520.github.io/2022/08/01/Java常用的正则表达式/</a>
+      <a href="https://airui520.github.io/2022/08/03/Java%E5%8F%91%E5%B1%95%E7%AE%80%E5%8F%B2/" title="Java发展简史">https://airui520.github.io/2022/08/03/Java发展简史/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -343,14 +339,11 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2022/07/27/Java-String%E5%92%8C%E5%B8%B8%E7%94%A8%E7%B1%BB/" rel="prev" title="Java-String和常用类">
-                  <i class="fa fa-chevron-left"></i> Java-String和常用类
+                <a href="/2022/08/03/Java%E5%B8%B8%E8%A7%81%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" rel="prev" title="Java常见排序算法">
+                  <i class="fa fa-chevron-left"></i> Java常见排序算法
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2022/08/01/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6-List%E5%92%8CQueue/" rel="next" title="Java集合框架--List和Queue">
-                  Java集合框架--List和Queue <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
