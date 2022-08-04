@@ -5574,7 +5574,7 @@
 <ul>
 <li>boolean add(Object e)∶将指定元素加入此队列的尾部。</li>
 <li>Object element()∶获取队列头部的元素，但是不删除该元素。</li>
-<li>boolean offer(Object e)∶将指定元素加入此队列的尾部。当使用有容量限制的队列时，此方法通常比 add(Object e)方法更好。</li>
+<li>boolean offer(Object e)∶将指定元素加入此队列的尾部。当使用有容量限制的队列时，通常推荐使用 add(Object e)方法更好。</li>
 <li>Object peek()∶获取队列头部的元素，但是不删除该元素。如果此队列为空，则返回 null。</li>
 <li>Object poll()∶获取队列头部的元素，并删除该元素。如果此队列为空，则返回 null。</li>
 <li>Object remove()∶获取队列头部的元素，并删除该元素。</li>
