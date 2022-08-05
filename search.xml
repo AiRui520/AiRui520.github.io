@@ -6491,4 +6491,79 @@
 </ol>
 ]]></content>
   </entry>
+  <entry>
+    <title>HashMap添加元素及扩容机制</title>
+    <url>/2022/08/05/HashMap%E6%B7%BB%E5%8A%A0%E5%85%83%E7%B4%A0%E5%8F%8A%E6%89%A9%E5%AE%B9%E6%9C%BA%E5%88%B6/</url>
+    <content><![CDATA[<p><img src="https://files.catbox.moe/vakrmb.png"></p>
+<span id="more"></span>
+
+<h1 id="HashMap添加元素的过程"><a href="#HashMap添加元素的过程" class="headerlink" title="HashMap添加元素的过程"></a>HashMap添加元素的过程</h1><p><img src="https://files.catbox.moe/gqygu3.jpg"></p>
+<p><strong>理解一：</strong></p>
+<p>HashMap map &#x3D; new HashMap();</p>
+<p>在实例化以后，添加第一个元素时，HashMap底层就会创建了一个长度为16的一位table数组</p>
+<p>添加元素的时候调用hashCode方法，得到要添加元素的哈希值，通过哈希值得到数组的索引值</p>
+<p>通过得到的索引值判断该位置是否有元素，如果没有元素则直接添加</p>
+<p>有元素的话，则判断该元素的key是否和要添加元素的key是否一致，如果一致则直接覆盖</p>
+<p>如果key值不一致，则需要判断这个位置的元素结点是链表的结点还是红黑树的结点</p>
+<p>若是红黑树的结点则以红黑树的方式插入</p>
+<p>若是链表的结点，则遍历链表，插入该元素，插入过程中key值一致则覆盖，不一致添加至下一位</p>
+<p>重复以上在链表下存储结点的过程，若链表的长度大于8 但是数组的长度小于64</p>
+<p>则数组扩容，链表转换为红黑树存放数据。</p>
+<p>在数组中添加元素到达规定的阈值时，则对数组进行扩容，继续添加元素。</p>
+<p><strong>理解二：</strong></p>
+<p>首先添加第一个元素，若存放元素的数组table为null或里面没有元素，就去对数组进行扩容，扩容后，初始值为16，<br>然后根据传入的key,经过hash计算，得到关键码值（位置索引）</p>
+<p>再判断table[i]是否等于null，如果为null，则直接将这个元素添加在该数组下标所在位置</p>
+<p>如果table[i]不等于null，则表示该下标处已有元素</p>
+<p>再判断已存在的元素的key值是不是等于要添加元素的key值。</p>
+<p>如果相等，则直接覆盖已存在的元素</p>
+<p>如果不相等，则判断存储在table[i]位置元素的数据结构是不是红黑树，如果是则用红黑树的方式插入</p>
+<p>如果不是，则说明它所在位置元素是以链表的方式存储的</p>
+<p>遍历链表，判断要添加元素的key是否存在</p>
+<p>如果不存在，则直接添加在链表末尾</p>
+<p>如果存在，则将已存在的元素直接覆盖，将自己的value赋值给已存在元素的value。</p>
+<p>下一次如果继续有元素要添加在table[i]这个位置下，则重复以上添加操作，当所在链表的长度大于8之后，就将其存储元素方式，转换为红黑树方式存储。</p>
+<p>每次成功添加一个元素后，就让元素个数加一，如果元素个数大于初始阈值threshold（12）则需要对table数组进行扩容。扩容之后重复以上操作，添加元素。</p>
+<h1 id="HashMap扩容机制"><a href="#HashMap扩容机制" class="headerlink" title="HashMap扩容机制"></a>HashMap扩容机制</h1><p>HashMap的底层有数组 + 链表(红黑树)组成，数组的大小可以在构造方法时设置，默认大小为16，数组中每一个元素就是一个链表，jdk7之前链表中的元素采用头插法插入元素，jdk8之后采用尾插法插入元素，由于插入的元素越来越多，查找效率就变低了，所以满足某种条件时，链表会转换成红黑树。随着元素的增加，HashMap的数组会频繁扩容，如果构造时不赋予加载因子默认值，那么负载因子默认值为0.75,数组扩容的情况如下:<br>1:当添加某个元素后，数组的总的添加元素数大于了 数组长度 * 0.75(默认,也可自己设定),数组长度扩容为两倍。(如开始创建HashMap集合后，数组长度为16，临界值为16 * 0.75 &#x3D; 12，当加入元素后元素个数超过12，数组长度扩容为32，临界值变为24)</p>
+<p>2：在没有红黑树的条件下，添加元素后数组中某个链表的长度超过了8，数组会扩容为两倍.(若开始创建HashMAp集合后，假设添加的元素都在一个链表中，当链表中元素为8时，再在链表中添加一个元素，此时若数组中不存在红黑树，则数组会扩容为两倍变成32，假设此时链表元素排列不变，再在该链表中添加一个元素，数组长度再扩容两倍，变为64，假设此时链表元素排列还是不变，则此时链表中存在10个元素，这是HashMap链表元素数存在的最大值，此时，再加入元素，满足了链表树化的两个条件(1:数组长度达到64, 2:该链表长度达到了8)，该链表会转换为红黑树</p>
+<p><strong>HashMap创建的底层原理</strong></p>
+<p>1:首先创建HashMap集合时，在不手动赋值的情况下会先设置默认负载因子0.75</p>
+<p>2.向集合值添加元素会调用putVal()方法，前三个参数分别为<a href="https://so.csdn.net/so/search?q=hash&spm=1001.2101.3001.7020">hash</a>(key),key,value，即hash值，键值对。</p>
+<p>3.hash(key)方法计算hash值</p>
+<p> 计算方法是键的hashCode()方法与高位16进行异或运算得到hash值</p>
+<p> 4.进入putVal方法，首先看上半部分</p>
+<p> 首先判断数组中是否已经创建，此时还创建数组，所以此时调用</p>
+<p>resize()方法设置初始容量<br>若未在构造方法时设置初始容量，则初始容量设置为16.(注意容量只能为2的倍数，即使输入的不是2的倍数也会自动转换)</p>
+<p>将元素存储在i &#x3D; (n - 1) &amp; hash的下标链表中，因为此时为加入元素所以table[i]一定是null,元素一定会存入到数组中。 5.接着会跳过之后的判断语句</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">size代表了此时集合中已经加入的元素个数，当其值大于了临界值</span><br><span class="line">threshold(此时为<span class="number">12</span>)时，会调用resize()方法进行二倍扩容</span><br></pre></td></tr></table></figure>
+
+<p>6.添加完第一个元素后继续添加下一个元素，因为重写了hashCode()方法，让两个元素的hash值相同，所以它们会存储在同一个链表中，进入putVal()方法后，上面的第一个if语句为false,因为已经初始化了数组，第二个if也是false，因为当前链表下的头元素已经存在，它会进入if语句的分支else语句</p>
+<p> 7.第一个if语句判断链表中头元素与当前插入的元素是否是同一个元素(hash()方法与equals()方法比较)</p>
+<p>这里重写了hash()方法所以hash值相同但两种内容不同所以进入else分支，判断当前数组中的结点是链表还是红黑树，如果是红黑树，就按红黑树的添加方式添加。此时我们还未形成红黑树，所以不会执行，进入else语句。</p>
+<p>8.接下来进入一个死循环，死循环结束有两种方式</p>
+<p>1.第一种结束方式:链表中没有找到与当前添加元素相同的元素(euqals()方法比较),就会用尾插法在链表末尾插入这个添加的元素，然后会进行if判断，判断添加元素前当前链表中元素是否达到了8，如果达到了，进入</p>
+<p>treeifyBin(tab, hash)语句，在该语句中，我们只关注前半部分，在数组容量小于64时，数组会调用<br>resize()方法扩容为2倍 2.第二种结束方式</p>
+<p>还是在for循环中，如果找到了与添加元素相同的元素(euqals()方法比较),直接跳出循环。然后进入if语句，覆盖掉链表中元素的“值”(value)，</p>
+<p> 9.之后更新集合中元素的个数，判断是否超过了临界值，超过了就会扩容为2倍</p>
+<h1 id="Java集合体系概述"><a href="#Java集合体系概述" class="headerlink" title="Java集合体系概述"></a>Java集合体系概述</h1><p>Java集合大致可以分为List、Set、Map和Queue，其中List代表有序、可重复的集合，Set代表无序、不可重复的集合，而Map则代表具有映射关系的集合。Queue 用于模拟队列这种数据结构，队列通常是指”先进先出”（FIFO）的容器。队列的头部保存在队列中存放时间最长的元素，队列的尾部保存在队列中存放时间最短的元素。新元素插入（offer）到队列的尾部，访问元素（poll）操作会返回队列头部的元素。通常，队列不允许随机访问队列中的元素。</p>
+<h2 id="ArrayList和Vector"><a href="#ArrayList和Vector" class="headerlink" title="ArrayList和Vector"></a>ArrayList和Vector</h2><p>和ArrayList具有相同功能的类是Vector，Vector是Java早期提供的一个集合类，Vector和ArrayList的方法以及底层的实现基本相似，唯一不同的是Vector的方法都是线程安全的，打开Vector源码可以发现Vector的方法都是用synchronized修饰的（关于synchronized修饰符，会在多线程中讲解），因此Vector效率低于ArrayList。除此之外ArrayList和Vector的区别还体现在以下几个方面：</p>
+<ol>
+<li>ArrayList扩容后的长度是原长度的1.5倍，而Vector扩容后的长度是原长度的2倍</li>
+<li>ArrayList调用无参构造方法创建对象时，会创建一个空的Object数组，当添加第一个元素时进行扩容，初始容量为10，当Vector调用无参构造创建对象时，则会直接初始化保存数据的数组，长度为10。</li>
+</ol>
+<h2 id="ArrayList和LinkedList的区别"><a href="#ArrayList和LinkedList的区别" class="headerlink" title="ArrayList和LinkedList的区别"></a>ArrayList和LinkedList的区别</h2><p>ArrayList和LinkedList虽然都是List接口的子类，但是在底层实现以及效率上存在以下区别</p>
+<ol>
+<li>ArrayList和LinkedList都实现了List接口</li>
+<li>ArrayList和LinkedList都是非线程安全的，因此在多线程环境下可能会出现出现不同步的情况</li>
+<li>ArrayList底层实现是数组，LinkedList底层实现是双向链表</li>
+<li>ArrayList因为底层实现是数组，并且支持随机访问因此查找效率高，但是ArrayList在新增元素时会扩容以及复制数组元素，并且删除时也会进行数组复制，所以增删效率低。而LinkedList不支持随机访问，获取元素时必须从首节点开始从前往后遍历查找，因此查找效率低。但是增加和删除时最多涉及到两个节点的操作，因此增删效率高。</li>
+</ol>
+<h2 id="HashMap和Hashtable"><a href="#HashMap和Hashtable" class="headerlink" title="HashMap和Hashtable"></a>HashMap和Hashtable</h2><p>HashMap 和 Hashtable 都是 Map 接口的典型实现类，它们之间的关系完全类似于 ArrayList 和 Vector的关系∶ Hashtable 是一个古老的 Map 实现类，它从 JDK 1.0起就已经出现了，当它出现时，Java还没有提供Map 接口，所以它包含了两个烦琐的方法，即 elements() 类似于 Map接口定义的 values()方法）和 keys() 类似于 Map 接口定义的 keySet()方法。<br>除此之外，Hashtable 和 HashMap 存在三点典型区别。</p>
+<ul>
+<li>Hashtable 是一个线程安全的 Map接口实现，但 HashMap 是线程不安全的实现，所以 HashMap 比 Hashtable 的性能高一点;但如果有多个线程访问同一个 Map 对象时，使用 Hashtable 实现类会更好。</li>
+<li>Hashtable 不允许使用 null 作为 key 和 value，如果试图把 null 值放进 Hashtable 中，将会引发 NullPointerException 异常; 但 HashMap 可以使用 null 作为 key 或 value。</li>
+<li>HashMap数组初始长度为16，扩容后长度是原长度的2倍，Hashtable初始长度为11，扩容后的长度是原长度的2n+1</li>
+</ul>
+<p>对于 Map 的常用实现类而言，虽然 HashMap 和 Hashtable 的实现机制几乎一样，但由于Hashtable是一个古老的、线程安全的集合，因此 HashMap 通常比 Hashtable 要快。<br> TreeMap 通常比 HashMap、Hashtable 要慢（尤其在插入、删除 key-value 对时更慢），因为 TreeMap底层采用红黑树来管理 key-value 对（红黑树的每个节点就是一个 key-value 对）。 使用 TreeMap 有一个好处∶ TreeMap 中的 key-value 对总是处于有序状态，无须专门进行排序操作。当 TreeMap 被填充之后，就可以调用 keySet() ，取得由key 组成的 Set，然后使用 toArray()方法生成 key的数组，接下来使用 Arrays 的 binarySearch() 方法在已排序的数组中快速地查询对象。<br> 对于一般的应用场景，程序应该多考虑使用 HashMap，因为 HashMap 正是为快速查询设计的（HashMap 底层其实也是采用数组来存储 key-value 对）。但如果程序需要一个总是排好序的 Map 时，则可以考虑使用TreeMap。 LinkedHashMap 比 HashMap 慢一点，因为它需要维护链表来保持 Map中 key-value 时的添加顺序。</p>
+]]></content>
+  </entry>
 </search>
