@@ -6566,4 +6566,765 @@
 <p>对于 Map 的常用实现类而言，虽然 HashMap 和 Hashtable 的实现机制几乎一样，但由于Hashtable是一个古老的、线程安全的集合，因此 HashMap 通常比 Hashtable 要快。<br> TreeMap 通常比 HashMap、Hashtable 要慢（尤其在插入、删除 key-value 对时更慢），因为 TreeMap底层采用红黑树来管理 key-value 对（红黑树的每个节点就是一个 key-value 对）。 使用 TreeMap 有一个好处∶ TreeMap 中的 key-value 对总是处于有序状态，无须专门进行排序操作。当 TreeMap 被填充之后，就可以调用 keySet() ，取得由key 组成的 Set，然后使用 toArray()方法生成 key的数组，接下来使用 Arrays 的 binarySearch() 方法在已排序的数组中快速地查询对象。<br> 对于一般的应用场景，程序应该多考虑使用 HashMap，因为 HashMap 正是为快速查询设计的（HashMap 底层其实也是采用数组来存储 key-value 对）。但如果程序需要一个总是排好序的 Map 时，则可以考虑使用TreeMap。 LinkedHashMap 比 HashMap 慢一点，因为它需要维护链表来保持 Map中 key-value 时的添加顺序。</p>
 ]]></content>
   </entry>
+  <entry>
+    <title>面试集合篇</title>
+    <url>/2022/08/12/%E9%9D%A2%E8%AF%95%E9%9B%86%E5%90%88%E7%AF%87/</url>
+    <content><![CDATA[<p><img src="https://files.catbox.moe/vakrmb.png"></p>
+<span id="more"></span>
+
+<h1 id="Java-集合框架有哪些？"><a href="#Java-集合框架有哪些？" class="headerlink" title="Java 集合框架有哪些？"></a>Java 集合框架有哪些？</h1><p>在java中的集合框架主要分为两部分：Collection接口和Map接口。这两个接口只是他们的父接口，在他们下面还有许多接口和实现类。详细框架结构如下图所示：</p>
+<p><img src="https://files.catbox.moe/ub1wzl.png"></p>
+<h2 id="说出一些集合框架的优点？"><a href="#说出一些集合框架的优点？" class="headerlink" title="说出一些集合框架的优点？"></a>说出一些集合框架的优点？</h2><p>集合框架的部分优点如下：</p>
+<ul>
+<li>使用核心集合类降低开发成本，而非实现我们自己的集合类。</li>
+<li>随着使用经过严格测试的集合框架类，代码质量会得到提高。</li>
+<li>通过使用 JDK 附带的集合类，可以降低代码维护成本。</li>
+<li>复用性和可操作性。</li>
+</ul>
+<h2 id="集合框架中的泛型有什么优点？"><a href="#集合框架中的泛型有什么优点？" class="headerlink" title="集合框架中的泛型有什么优点？"></a>集合框架中的泛型有什么优点？</h2><p>Java5 引入了泛型，所有的集合接口和实现都大量地使用它。泛型允许我们为集合提供一个可以容纳的对象类型。因此，如果你添加其它类型的任何元素，它会在编译时报错。这避免了在运行时出现  因为你将会在编译时得到报错信息。</p>
+<p>泛型也使得代码整洁，我们不需要使用显式转换和 instanceOf 操作符。它也给运行时带来好处，因为不会产生类型检查的字节码指令。</p>
+<h1 id="Java-集合框架的基础接口有哪些？"><a href="#Java-集合框架的基础接口有哪些？" class="headerlink" title="Java 集合框架的基础接口有哪些？"></a>Java 集合框架的基础接口有哪些？</h1><ul>
+<li><p>Collection ，为集合层级的根接口。一个集合代表一组对象，这些对象即为它的元素。Java 平台不提供这个接口任何直接的实现。</p>
+</li>
+<li><ul>
+<li>Set ，是一个不能包含重复元素的集合。这个接口对数学集合抽象进行建模，被用来代表集合，就如一副牌。</li>
+<li>List ，是一个有序集合，可以包含重复元素。你可以通过它的索引来访问任何元素。List 更像长度动态变换的数组。</li>
+</ul>
+</li>
+<li><p>Map ，是一个将 key 映射到 value 的对象。一个 Map 不能包含重复的 key，每个 key 最多只能映射一个 value 。</p>
+</li>
+<li><p>一些其它的接口有 Queue、Dequeue、SortedSet、SortedMap 和 ListIterator 。</p>
+</li>
+</ul>
+<h2 id="为何-Collection-不从-Cloneable-和-Serializable-接口继承？"><a href="#为何-Collection-不从-Cloneable-和-Serializable-接口继承？" class="headerlink" title="为何 Collection 不从 Cloneable 和 Serializable 接口继承？"></a>为何 Collection 不从 Cloneable 和 Serializable 接口继承？</h2><p>Collection 接口指定一组对象，对象即为它的元素。</p>
+<ul>
+<li>如何维护这些元素由 Collection 的具体实现决定。例如，一些如 List 的 Collection 实现允许重复的元素，而其它的如 Set 就不允许。</li>
+<li>很多 Collection 实现有一个公有的 clone 方法。然而，把它放到集合的所有实现中也是没有意义的。这是因为 Collection 是一个抽象表现，重要的是实现。</li>
+</ul>
+<p>当与具体实现打交道的时候，克隆或序列化的语义和含义才发挥作用。所以，具体实现应该决定如何对它进行克隆或序列化，或它是否可以被克隆或序列化。在所有的实现中授权克隆和序列化，最终导致更少的灵活性和更多的限制，特定的实现应该决定它是否可以被克隆和序列化。</p>
+<h2 id="为何-Map-接口不继承-Collection-接口？"><a href="#为何-Map-接口不继承-Collection-接口？" class="headerlink" title="为何 Map 接口不继承 Collection 接口？"></a>为何 Map 接口不继承 Collection 接口？</h2><p>尽管 Map 接口和它的实现也是集合框架的一部分，但 Map 不是集合，集合也不是 Map。因此，Map 继承 Collection 毫无意义，反之亦然。</p>
+<p>如果 Map 继承 Collection 接口，那么元素去哪儿？Map 包含 key-value 对，它提供抽取 key 或 value 列表集合( Collection )的方法，但是它不适合“一组对象”规范。</p>
+<h2 id="Collection-和-Collections-的区别？"><a href="#Collection-和-Collections-的区别？" class="headerlink" title="Collection 和 Collections 的区别？"></a>Collection 和 Collections 的区别？</h2><ul>
+<li>Collection ，是集合类的上级接口，继承与他的接口主要有 Set 和List 。</li>
+<li>Collections ，是针对集合类的一个工具类，它提供一系列静态方法实现对各种集合的搜索、排序、线程安全化等操作。</li>
+</ul>
+<h2 id="集合框架里实现的通用算法有哪些？"><a href="#集合框架里实现的通用算法有哪些？" class="headerlink" title="集合框架里实现的通用算法有哪些？"></a>集合框架里实现的通用算法有哪些？</h2><p>Java 集合框架提供常用的算法实现，比如排序和搜索。</p>
+<p>Collections类包含这些方法实现。大部分算法是操作 List 的，但一部分对所有类型的集合都是可用的。部分算法有排序、搜索、混编、最大最小值。</p>
+<h2 id="集合框架底层数据结构总结"><a href="#集合框架底层数据结构总结" class="headerlink" title="集合框架底层数据结构总结"></a>集合框架底层数据结构总结</h2><p>1.List</p>
+<ul>
+<li>ArrayList ：Object 数组。</li>
+<li>Vector ：Object 数组。</li>
+<li>LinkedList ：双向链表(JDK6 之前为循环链表，JDK7 取消了循环)。</li>
+</ul>
+<p>2.Map</p>
+<ul>
+<li><p>HashMap ：</p>
+</li>
+<li><ul>
+<li>JDK8 之前，HashMap 由数组+链表组成的，数组是HashMap的主体，链表则是主要为了解决哈希冲突而存在的（“拉链法”解决冲突）。</li>
+<li>JDK8 以后，在解决哈希冲突时有了较大的变化，当链表长度大于阈值（默认为 8 ）时，将链表转化为红黑树，以减少搜索时间。</li>
+</ul>
+</li>
+<li><p>LinkedHashMap ：LinkedHashMap 继承自 HashMap，所以它的底层仍然是基于拉链式散列结构即由数组和链表或红黑树组成。另外，LinkedHashMap 在上面结构的基础上，增加了一条双向链表，使得上面的结构可以保持键值对的插入顺序。同时通过对链表进行相应的操作，实现了访问顺序相关逻辑。详细可以查看：<a href="https://www.imooc.com/article/22931">《LinkedHashMap 源码详细分析（JDK1.8）》</a> 。</p>
+</li>
+<li><p>Hashtable ：数组+链表组成的，数组是 HashMap 的主体，链表则是主要为了解决哈希冲突而存在的。</p>
+</li>
+<li><p>TreeMap ：红黑树（自平衡的排序二叉树）。</p>
+</li>
+</ul>
+<p>3.Set</p>
+<ul>
+<li>HashSet ：无序，唯一，基于 HashMap 实现的，底层采用 HashMap 来保存元素。</li>
+<li>LinkedHashSet ：LinkedHashSet 继承自 HashSet，并且其内部是通过 LinkedHashMap 来实现的。有点类似于我们之前说的LinkedHashMap 其内部是基于 HashMap 实现一样，不过还是有一点点区别的。</li>
+<li>TreeSet ：有序，唯一，红黑树(自平衡的排序二叉树)。</li>
+</ul>
+<h1 id="什么是迭代器-Iterator-？"><a href="#什么是迭代器-Iterator-？" class="headerlink" title="什么是迭代器(Iterator)？"></a>什么是迭代器(Iterator)？</h1><p>Iterator 接口，提供了很多对集合元素进行迭代的方法。每一个集合类都包含了可以返回迭代器实例的迭代方法。迭代器可以在迭代的过程中删除底层集合的元素，但是不可以直接调用集合的 remove(Object Obj) 方法删除，可以通过迭代器的 remove() 方法删除。</p>
+<h2 id="Iterator-和-ListIterator-的区别是什么？"><a href="#Iterator-和-ListIterator-的区别是什么？" class="headerlink" title=".Iterator 和 ListIterator 的区别是什么？"></a>.Iterator 和 ListIterator 的区别是什么？</h2><ul>
+<li>Iterator 可用来遍历 Set 和 List 集合，但是 ListIterator 只能用来遍历 List。</li>
+<li>Iterator 对集合只能是前向遍历，ListIterator 既可以前向也可以后向。</li>
+<li>ListIterator 实现了 Iterator 接口，并包含其他的功能。比如：增加元素，替换元素，获取前一个和后一个元素的索引等等。</li>
+</ul>
+<h2 id="快速失败（fail-fast）和安全失败（fail-safe）的区别是什么？"><a href="#快速失败（fail-fast）和安全失败（fail-safe）的区别是什么？" class="headerlink" title="快速失败（fail-fast）和安全失败（fail-safe）的区别是什么？"></a>快速失败（fail-fast）和安全失败（fail-safe）的区别是什么？</h2><p>差别在于 ConcurrentModification 异常：</p>
+<ul>
+<li>快速失败：当你在迭代一个集合的时候，如果有另一个线程正在修改你正在访问的那个集合时，就会抛出一个 ConcurrentModification 异常。 在 java.util 包下的都是快速失败。</li>
+<li>安全失败：你在迭代的时候会去底层集合做一个拷贝，所以你在修改上层集合的时候是不会受影响的，不会抛出 ConcurrentModification 异常。在 java.util.concurrent 包下的全是安全失败的。</li>
+</ul>
+<h2 id="如何删除-List-中的某个元素？"><a href="#如何删除-List-中的某个元素？" class="headerlink" title="如何删除 List 中的某个元素？"></a>如何删除 List 中的某个元素？</h2><p>有两种方式，分别如下：</p>
+<ul>
+<li>方式一，使用 Iterator ，顺序向下，如果找到元素，则使用 remove 方法进行移除。</li>
+<li>方式二，倒序遍历 List ，如果找到元素，则使用 remove 方法进行移除。</li>
+</ul>
+<h2 id="Enumeration-和-Iterator-接口有什么不同？"><a href="#Enumeration-和-Iterator-接口有什么不同？" class="headerlink" title="Enumeration 和 Iterator 接口有什么不同？"></a>Enumeration 和 Iterator 接口有什么不同？</h2><ul>
+<li>Enumeration 跟 Iterator 相比较快两倍，而且占用更少的内存。</li>
+<li>但是，Iterator 相对于 Enumeration 更安全，因为其他线程不能修改当前迭代器遍历的集合对象。同时，Iterators 允许调用者从底层集合中移除元素，这些 Enumerations 都没法完成。</li>
+</ul>
+<h2 id="为何-Iterator-接口没有具体的实现？"><a href="#为何-Iterator-接口没有具体的实现？" class="headerlink" title="为何 Iterator 接口没有具体的实现？"></a>为何 Iterator 接口没有具体的实现？</h2><p>Iterator 接口，定义了遍历集合的方法，但它的实现则是集合实现类的责任。每个能够返回用于遍历的 Iterator 的集合类都有它自己的 Iterator 实现内部类。</p>
+<p>这就允许集合类去选择迭代器是 fail-fast 还是 fail-safe 的。比如，ArrayList 迭代器是 fail-fast 的，而 CopyOnWriteArrayList 迭代器是 fail-safe 的。</p>
+<h1 id="Comparable-和-Comparator-的区别"><a href="#Comparable-和-Comparator-的区别" class="headerlink" title="Comparable 和 Comparator 的区别?"></a>Comparable 和 Comparator 的区别?</h1><ul>
+<li>Comparable 接口，在 java.lang 包下，用于当前对象和其它对象的比较，所以它有一个 compareTo(Object obj) 方法用来排序，该方法只有一个参数。</li>
+<li>Comparator 接口，在 java.util 包下，用于传入的两个对象的比较，所以它有一个 compare(Object obj1, Object obj2) 方法用来排序，该方法有两个参数。</li>
+</ul>
+<h2 id="compareTo-方法的返回值表示的意思？"><a href="#compareTo-方法的返回值表示的意思？" class="headerlink" title="compareTo 方法的返回值表示的意思？"></a>compareTo 方法的返回值表示的意思？</h2><ul>
+<li>大于 0 ，表示对象大于参数对象。</li>
+<li>小于 0 ，表示对象小于参数对象</li>
+<li>等于 0 ，表示两者相等。</li>
+</ul>
+<h2 id="如何对-Object-的-List-排序？"><a href="#如何对-Object-的-List-排序？" class="headerlink" title="如何对 Object 的 List 排序？"></a>如何对 Object 的 List 排序？</h2><ul>
+<li>对 Object[] 数组进行排序时，我们可以用 Arrays#sort(…) 方法。</li>
+<li>对 List&lt;Object&gt; 数组进行排序时，我们可以用 Collections#sort(…) 方法。</li>
+</ul>
+<h1 id="有哪些关于-Java-集合框架的最佳实践？"><a href="#有哪些关于-Java-集合框架的最佳实践？" class="headerlink" title="有哪些关于 Java 集合框架的最佳实践？"></a>有哪些关于 Java 集合框架的最佳实践？</h1><ul>
+<li>基于应用的需求来选择使用正确类型的集合，这对性能来说是非常重要的。例如，如果元素的大小是固定的，并且知道优先级，我们将会使用一个 Array ，而不是 ArrayList 。</li>
+<li>一些集合类允许我们指定他们的初始容量。因此，如果我们知道存储数据的大概数值，就可以避免重散列或者大小的调整。</li>
+<li>总是使用泛型来保证类型安全，可靠性和健壮性。同时，使用泛型还可以避免运行时的 ClassCastException 异常。</li>
+<li>在 Map 中使用 JDK 提供的不可变类作为一个 key，这样可以避免 hashcode 的实现和我们自定义类的 equals 方法。</li>
+<li>应该依照接口而不是实现来编程。</li>
+<li>返回零长度的集合或者数组，而不是返回一个 null ，这样可以防止底层集合是空的。</li>
+</ul>
+<h1 id="List-和-Set-区别？"><a href="#List-和-Set-区别？" class="headerlink" title="List 和 Set 区别？"></a>List 和 Set 区别？</h1><p>List，Set 都是继承自 Collection 接口。</p>
+<ul>
+<li>List 特点：元素有放入顺序，元素可重复。</li>
+<li>Set 特点：元素无放入顺序，元素不可重复，重复元素会覆盖掉。</li>
+</ul>
+<p>注意：元素虽然无放入顺序，但是元素在 Set 中的位置是有该元素的 hashcode 决定的，其位置其实是固定的。</p>
+<p>另外 List 支持 for 循环，也就是通过下标来遍历，也可以用迭代器，但是 Set 只能用迭代，因为他无序，无法用下标来取得想要的值。</p>
+<p>Set 和 List 对比：</p>
+<ul>
+<li>Set：检索指定的元素效率高，删除和插入效率高，插入和删除可能会引起元素位置改变。</li>
+<li>List：和数组类似，List 可以动态增长，查找指定的元素效率低，插入删除指定的元素效率低，因为可能会引起其他元素位置改变。</li>
+</ul>
+<p>当然，如果是随机访问（指定下标），则 List 会快于 Set 。总之，什么场景下使用 Set ，什么场景下使用 List ，还是比较明确的。</p>
+<h1 id="List-和-Map-区别？"><a href="#List-和-Map-区别？" class="headerlink" title="List 和 Map 区别？"></a>List 和 Map 区别？</h1><ul>
+<li>List 是对象集合，允许对象重复。</li>
+<li>Map 是键值对的集合，不允许 key 重复</li>
+</ul>
+<h1 id="Array-和-ArrayList-有何区别？什么时候更适合用-Array？"><a href="#Array-和-ArrayList-有何区别？什么时候更适合用-Array？" class="headerlink" title="Array 和 ArrayList 有何区别？什么时候更适合用 Array？"></a>Array 和 ArrayList 有何区别？什么时候更适合用 Array？</h1><ul>
+<li>Array 可以容纳基本类型和对象，而 ArrayList 只能容纳对象。</li>
+<li>Array 是指定大小的，而 ArrayList 大小是固定的，可自动扩容。</li>
+<li>Array 没有提供 ArrayList 那么多功能，比如 addAll、removeAll 和 iterator 等。</li>
+</ul>
+<p>尽管 ArrayList 明显是更好的选择，但也有些时候 Array 比较好用，比如下面的三种情况。</p>
+<ul>
+<li>1、如果列表的大小已经指定，大部分情况下是存储和遍历它们</li>
+<li>2、对于遍历基本数据类型，尽管 Collections 使用自动装箱来减轻编码任务，在指定大小的基本类型的列表上工作也会变得很慢。</li>
+<li>3、如果你要使用多维数组，使用 [][] 比 List 会方便。</li>
+</ul>
+<h1 id="ArrayList-与-LinkedList-区别？"><a href="#ArrayList-与-LinkedList-区别？" class="headerlink" title="ArrayList 与 LinkedList 区别？"></a>ArrayList 与 LinkedList 区别？</h1><h2 id="ArrayList"><a href="#ArrayList" class="headerlink" title="ArrayList"></a>ArrayList</h2><ul>
+<li>优点：ArrayList 是实现了基于动态数组的数据结构，因为地址连续，一旦数据存储好了，查询操作效率会比较高（在内存里是连着放的）。</li>
+<li>缺点：因为地址连续，ArrayList 要移动数据，所以插入和删除操作效率比较低。</li>
+</ul>
+<h2 id="LinkedList"><a href="#LinkedList" class="headerlink" title="LinkedList"></a>LinkedList</h2><ul>
+<li>优点：LinkedList 基于链表的数据结构，地址是任意的，所以在开辟内存空间的时候不需要等一个连续的地址。对于新增和删除操作 add 和 remove ，LinedList 比较占优势。LinkedList 适用于要头尾操作或插入指定位置的场景。</li>
+<li>缺点：因为 LinkedList 要移动指针，所以查询操作性能比较低。</li>
+</ul>
+<h2 id="适用场景分析："><a href="#适用场景分析：" class="headerlink" title="适用场景分析："></a>适用场景分析：</h2><ul>
+<li>当需要对数据进行对随机访问的情况下，选用 ArrayList 。</li>
+<li>当需要对数据进行多次增加删除修改时，采用 LinkedList 。</li>
+</ul>
+<p>如果容量固定，并且只会添加到尾部，不会引起扩容，优先采用 ArrayList 。</p>
+<ul>
+<li>当然，绝大数业务的场景下，使用 ArrayList 就够了。主要是，注意好避免 ArrayList 的扩容，以及非顺序的插入。</li>
+</ul>
+<h2 id="ArrayList-是如何扩容的？"><a href="#ArrayList-是如何扩容的？" class="headerlink" title="ArrayList 是如何扩容的？"></a>ArrayList 是如何扩容的？</h2><ul>
+<li>如果通过无参构造的话，初始数组容量为 0 ，当真正对数组进行添加时，才真正分配容量。每次按照 1.5 倍（位运算）的比率通过 copeOf 的方式扩容。</li>
+<li>在 JKD6 中实现是，如果通过无参构造的话，初始数组容量为10，每次通过 copeOf 的方式扩容后容量为原来的 1.5 倍。</li>
+</ul>
+<p>重点是 1.5 倍扩容，这是和 HashMap 2 倍扩容不同的地方。</p>
+<h2 id="ArrayList-集合加入-1-万条数据，应该怎么提高效率？"><a href="#ArrayList-集合加入-1-万条数据，应该怎么提高效率？" class="headerlink" title="ArrayList 集合加入 1 万条数据，应该怎么提高效率？"></a>ArrayList 集合加入 1 万条数据，应该怎么提高效率？</h2><p>ArrayList 的默认初始容量为 10 ，要插入大量数据的时候需要不断扩容，而扩容是非常影响性能的。因此，现在明确了 10 万条数据了，我们可以直接在初始化的时候就设置 ArrayList 的容量！</p>
+<p>这样就可以提高效率了~</p>
+<h1 id="ArrayList-与-Vector-区别？"><a href="#ArrayList-与-Vector-区别？" class="headerlink" title="ArrayList 与 Vector 区别？"></a>ArrayList 与 Vector 区别？</h1><p>ArrayList 和 Vector 都是用数组实现的，主要有这么三个区别：</p>
+<ul>
+<li>1、Vector 是多线程安全的，线程安全就是说多线程访问同一代码，不会产生不确定的结果，而 ArrayList 不是。这个可以从源码中看出，Vector 类中的方法很多有 synchronized 进行修饰，这样就导致了 Vector 在效率上无法与 ArrayList 相比。</li>
+</ul>
+<p>Vector 是一种老的动态数组，是线程同步的，效率很低，一般不赞成使用。</p>
+<ul>
+<li>2、两个都是采用的线性连续空间存储元素，但是当空间不足的时候，两个类的增加方式是不同。</li>
+<li>3、Vector 可以设置增长因子，而 ArrayList 不可以。</li>
+</ul>
+<p>适用场景分析：</p>
+<ul>
+<li>1、Vector 是线程同步的，所以它也是线程安全的，而 ArrayList 是线程无需同步的，是不安全的。如果不考虑到线程的安全因素，一般用 ArrayList 效率比较高。</li>
+</ul>
+<p>实际场景下，如果需要多线程访问安全的数组，使用 CopyOnWriteArrayList 。</p>
+<ul>
+<li>2、如果集合中的元素的数目大于目前集合数组的长度时，在集合中使用数据量比较大的数据，用 Vector 有一定的优势。</li>
+</ul>
+<p>这种情况下，使用 LinkedList 更合适。</p>
+<h1 id="HashMap-和-Hashtable-的区别？"><a href="#HashMap-和-Hashtable-的区别？" class="headerlink" title="HashMap 和 Hashtable 的区别？"></a>HashMap 和 Hashtable 的区别？</h1><p>Hashtable 是在 Java 1.0 的时候创建的，而集合的统一规范命名是在后来的 Java2.0 开始约定的，而当时其他一部分集合类的发布构成了新的集合框架。</p>
+<ul>
+<li>（1）Hashtable 继承 Dictionary ，HashMap 继承的是 Java2 出现的 Map 接口。</li>
+<li>（2）HashMap 去掉了 Hashtable 的 contains 方法，但是加上了 containsValue 和 containsKey 方法。</li>
+<li>（3）HashMap 允许空键值，而 Hashtable 不允许。</li>
+<li>【重点】（4）HashTable 是同步的，而 HashMap 是非同步的，效率上比 HashTable 要高。也因此，HashMap 更适合于单线程环境，而 HashTable 适合于多线程环境。</li>
+<li>（5）HashMap 的迭代器（Iterator）是 fail-fast 迭代器，HashTable的 enumerator 迭代器不是 fail-fast 的。</li>
+<li>【重要】（6）HashTable 中数组默认大小是 11 ，扩容方法是 old * 2 + 1 ，HashMap 默认大小是 16 ，扩容每次为 2 的指数大小。</li>
+</ul>
+<p>一般现在不建议用 HashTable 。主要原因是两点：</p>
+<ul>
+<li>一是，HashTable 是遗留类，内部实现很多没优化和冗余。</li>
+<li>二是，即使在多线程环境下，现在也有同步的 ConcurrentHashMap 替代，没有必要因为是多线程而用 Hashtable 。</li>
+</ul>
+<h2 id="Hashtable-的-size-方法中明明只有一条语句-“return-count-”-，为什么还要做同步？"><a href="#Hashtable-的-size-方法中明明只有一条语句-“return-count-”-，为什么还要做同步？" class="headerlink" title="Hashtable 的 #size() 方法中明明只有一条语句 “return count;” ，为什么还要做同步？"></a>Hashtable 的 #size() 方法中明明只有一条语句 “return count;” ，为什么还要做同步？</h2><p>同一时间只能有一条线程执行固定类的同步方法，但是对于类的非同步方法，可以多条线程同时访问。所以，这样就有问题了，可能线程 A 在执行 Hashtable 的 put 方法添加数据，线程 B 则可以正常调用 #size() 方法读取 Hashtable 中当前元素的个数，那读取到的值可能不是最新的，可能线程 A 添加了完了数据，但是没有对 count++ ，线程 B 就已经读取 count 了，那么对于线程 B 来说读取到的 count 一定是不准确的。</p>
+<p>而给 #size() 方法加了同步之后，意味着线程 B 调用 #size() 方法只有在线程 A 调用 put 方法完毕之后才可以调用，这样就保证了线程安全性。</p>
+<h1 id="HashSet-和-HashMap-的区别？"><a href="#HashSet-和-HashMap-的区别？" class="headerlink" title="HashSet 和 HashMap 的区别？"></a>HashSet 和 HashMap 的区别？</h1><ul>
+<li>Set 是线性结构，值不能重复。HashSet 是 Set 的 hash 实现，HashSet 中值不能重复是用 HashMap 的 key 来实现的。</li>
+<li>Map 是键值对映射，可以空键空值。HashMap 是 Map 的 hash 实现，key 的唯一性是通过 key 值 hashcode 的唯一来确定，value 值是则是链表结构。</li>
+</ul>
+<p>因为不同的 key 值，可能有相同的 hashcode ，所以 value 值需要是链表结构。</p>
+<p>他们的共同点都是 hash 算法实现的唯一性，他们都不能持有基本类型，只能持有对象。</p>
+<p>为了更好的性能，Netty 自己实现了 key 为基本类型的 HashMap ，例如 <a href="https://netty.io/4.1/api/io/netty/util/collection/IntObjectHashMap.html">IntObjectHashMap</a> 。</p>
+<h1 id="HashSet-和-TreeSet-的区别？"><a href="#HashSet-和-TreeSet-的区别？" class="headerlink" title="HashSet 和 TreeSet 的区别？"></a>HashSet 和 TreeSet 的区别？</h1><ul>
+<li>HashSet 是用一个 hash 表来实现的，因此，它的元素是无序的。添加，删除和 HashSet 包括的方法的持续时间复杂度是 O(1) 。</li>
+<li>TreeSet 是用一个树形结构实现的，因此，它是有序的。添加，删除和 TreeSet 包含的方法的持续时间复杂度是 O(logn) 。</li>
+</ul>
+<h2 id="如何决定选用-HashMap-还是-TreeMap？"><a href="#如何决定选用-HashMap-还是-TreeMap？" class="headerlink" title="如何决定选用 HashMap 还是 TreeMap？"></a>如何决定选用 HashMap 还是 TreeMap？</h2><ul>
+<li>对于在 Map 中插入、删除和定位元素这类操作，HashMap 是最好的选择。</li>
+<li>然而，假如你需要对一个有序的 key 集合进行遍历， TreeMap 是更好的选择。</li>
+</ul>
+<p>基于你的 collection 的大小，也许向 HashMap 中添加元素会更快，再将 HashMap 换为 TreeMap 进行有序 key 的遍历。</p>
+<h1 id="HashMap-和-ConcurrentHashMap-的区别？"><a href="#HashMap-和-ConcurrentHashMap-的区别？" class="headerlink" title="HashMap 和 ConcurrentHashMap 的区别？"></a>HashMap 和 ConcurrentHashMap 的区别？</h1><p>ConcurrentHashMap 是线程安全的 HashMap 的实现。主要区别如下：</p>
+<ul>
+<li>1、ConcurrentHashMap 对整个桶数组进行了分割分段(Segment)，然后在每一个分段上都用 lock 锁进行保护，相对 于Hashtable 的 syn 关键字锁的粒度更精细了一些，并发性能更好。而 HashMap 没有锁机制，不是线程安全的。</li>
+</ul>
+<p>JDK8 之后，ConcurrentHashMap 启用了一种全新的方式实现,利用 CAS 算法。</p>
+<ul>
+<li>2、HashMap 的键值对允许有 null ，但是 ConCurrentHashMap 都不允许。</li>
+</ul>
+<h1 id="队列和栈是什么，列出它们的区别？"><a href="#队列和栈是什么，列出它们的区别？" class="headerlink" title="队列和栈是什么，列出它们的区别？"></a>队列和栈是什么，列出它们的区别？</h1><p>栈和队列两者都被用来预存储数据。</p>
+<ul>
+<li><p>java.util.Queue是一个接口，它的实现类在Java并发包中。</p>
+</li>
+<li><ul>
+<li>队列允许先进先出（FIFO）检索元素，但并非总是这样。</li>
+<li>Deque 接口允许从两端检索元素。</li>
+</ul>
+</li>
+<li><p>栈与队列很相似，但它允许对元素进行后进先出（LIFO）进行检索。</p>
+</li>
+<li><ul>
+<li>Stack 是一个扩展自 Vector 的类，而 Queue 是一个接口。</li>
+</ul>
+</li>
+</ul>
+<h1 id="HashMap-的工作原理是什么？"><a href="#HashMap-的工作原理是什么？" class="headerlink" title="HashMap 的工作原理是什么？"></a>HashMap 的工作原理是什么？</h1><p>我们知道在 Java 中最常用的两种结构是数组和模拟指针（引用），几乎所有的数据结构都可以利用这两种来组合实现，HashMap 也是如此。实际上 HashMap 是一个“链表散列”。</p>
+<p>HashMap 是基于 hashing 的原理。</p>
+<p><img src="https://files.catbox.moe/9bvs8c.png"></p>
+<ul>
+<li>我们使用 #put(key, value) 方法来存储对象到 HashMap 中，使用 get(key) 方法从 HashMap 中获取对象。</li>
+<li>当我们给 #put(key, value) 方法传递键和值时，我们先对键调用 #hashCode() 方法，返回的 hashCode 用于找到 bucket 位置来储存 Entry 对象。</li>
+</ul>
+<h2 id="当两个对象的-hashCode-相同会发生什么？"><a href="#当两个对象的-hashCode-相同会发生什么？" class="headerlink" title="当两个对象的 hashCode 相同会发生什么？"></a>当两个对象的 hashCode 相同会发生什么？</h2><p>因为 hashcode 相同，所以它们的 bucket 位置相同，“碰撞”会发生。</p>
+<p>因为 HashMap 使用链表存储对象，这个 Entry（包含有键值对的 Map.Entry 对象）会存储在链表中。</p>
+<h2 id="hashCode-和-equals-方法有何重要性？"><a href="#hashCode-和-equals-方法有何重要性？" class="headerlink" title="hashCode 和 equals 方法有何重要性？"></a>hashCode 和 equals 方法有何重要性？</h2><p>HashMap 使用 key 对象的 #hashCode() 和 #equals(Object obj) 方法去决定 key-value 对的索引。当我们试着从 HashMap 中获取值的时候，这些方法也会被用到。</p>
+<ul>
+<li>如果这两个方法没有被正确地实现，在这种情况下，两个不同 Key 也许会产生相同的 #hashCode() 和 #equals(Object obj) 输出，HashMap 将会认为它们是相同的，然后覆盖它们，而非把它们存储到不同的地方。</li>
+</ul>
+<p>同样的，所有不允许存储重复数据的集合类都使用 #hashCode() 和 #equals(Object obj) 去查找重复，所以正确实现它们非常重要。#hashCode() 和 #equals(Object obj) 方法的实现，应该遵循以下规则：</p>
+<ul>
+<li>如果 o1.equals(o2) ，那么 o1.hashCode() &#x3D;&#x3D; o2.hashCode() 总是为 true 的。</li>
+<li>如果 o1.hashCode() &#x3D;&#x3D; o2.hashCode() ，并不意味 o1.equals(o2) 会为 true 。</li>
+</ul>
+<h2 id="HashMap-默认容量是多少？"><a href="#HashMap-默认容量是多少？" class="headerlink" title="HashMap 默认容量是多少？"></a>HashMap 默认容量是多少？</h2><p>默认容量都是 16 ，负载因子是 0.75 。就是当 HashMap 填充了 75% 的 busket 是就会扩容，最小的可能性是（16 * 0.75 &#x3D; 12），一般为原内存的 2 倍。</p>
+<h2 id="有哪些顺序的-HashMap-实现类？"><a href="#有哪些顺序的-HashMap-实现类？" class="headerlink" title="有哪些顺序的 HashMap 实现类？"></a>有哪些顺序的 HashMap 实现类？</h2><ul>
+<li>LinkedHashMap ，是基于元素进入集合的顺序或者被访问的先后顺序排序。</li>
+<li>TreeMap ，是基于元素的固有顺序 (由 Comparator 或者 Comparable 确定)。</li>
+</ul>
+<h2 id="我们能否使用任何类作为-Map-的-key？"><a href="#我们能否使用任何类作为-Map-的-key？" class="headerlink" title="我们能否使用任何类作为 Map 的 key？"></a>我们能否使用任何类作为 Map 的 key？</h2><p>我们可以使用任何类作为 Map 的 key ，然而在使用它们之前，需要考虑以下几点：</p>
+<ul>
+<li>1、如果类重写了 equals 方法，它也应该重写 hashcode 方法。</li>
+<li>2、类的所有实例需要遵循与 equals 和 hashcode 相关的规则。</li>
+<li>3、如果一个类没有使用 equals ，你不应该在 hashcode 中使用它。</li>
+<li>4、用户自定义 key 类的最佳实践是使之为不可变的，这样，hashcode 值可以被缓存起来，拥有更好的性能。不可变的类也可以确保hashcode 和 equals 在未来不会改变，这样就会解决与可变相关的问题了。</li>
+</ul>
+<h2 id="HashMap-的长度为什么是-2-的幂次方？"><a href="#HashMap-的长度为什么是-2-的幂次方？" class="headerlink" title="HashMap 的长度为什么是 2 的幂次方？"></a>HashMap 的长度为什么是 2 的幂次方？</h2><p>为了能让 HashMap 存取高效，尽量较少碰撞，也就是要尽量把数据分配均匀，每个链表&#x2F;红黑树长度大致相同。这个实现就是把数据存到哪个链表&#x2F;红黑树中的算法。</p>
+<p>这个算法应该如何设计呢？我们首先可能会想到采用 % 取余的操作来实现。但是，重点来了：</p>
+<ul>
+<li>取余(%)操作中如果除数是 2 的幂次则等价于与其除数减一的与(&amp;)操作（也就是说 hash % length &#x3D;&#x3D; hash &amp; (length - 1) 的前提是 length 是 2 的 n 次方；）。</li>
+<li>并且，采用二进制位操作 &amp;，相对于 % 能够提高运算效率，</li>
+</ul>
+<p>这就解释了 HashMap 的长度为什么是 2 的幂次方。</p>
+<h1 id="HashSet-的工作原理是什么？"><a href="#HashSet-的工作原理是什么？" class="headerlink" title="HashSet 的工作原理是什么？"></a>HashSet 的工作原理是什么？</h1><p>HashSet 是构建在 HashMap 之上的 Set hashing 实现类。让我们直接撸下源码，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">transient</span> HashMap&lt;E,Object&gt; map;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">Object</span> <span class="variable">PRESENT</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Object</span>();</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>map 属性，当我们创建一个 HashMap 对象时，其内部也会创建一个 map 对象。后续 HashSet 所有的操作，实际都是基于这个 map 之上的封装。</li>
+<li>PRESENT 静态属性，所有 map 中 KEY 对应的值，都是它，避免重复创建。</li>
+<li>OK ，再来看一眼 add 方法，代码如下：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">add</span><span class="params">(E e)</span> &#123;    </span><br><span class="line">    <span class="keyword">return</span> map.put(e, PRESENT) == <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="HashSet-如何检查重复？"><a href="#HashSet-如何检查重复？" class="headerlink" title="HashSet 如何检查重复？"></a>HashSet 如何检查重复？</h2><p>当你把对象加入 HashSet 时，HashSet会先计算对象的hashcode值来判断对象加入的位置，同时也会与其他加入的对象的hashcode值作比较。</p>
+<ul>
+<li><p>如果没有相符的 hashcode ，HashSet会假设对象没有重复出现。</p>
+</li>
+<li><p>但是如果发现有相同 hashcode 值的对象，这时会调用 equals 方法来检查 hashcode 相等的对象是否真的相同。</p>
+</li>
+<li><ul>
+<li>如果两者相同，HashSet 就不会让加入操作成功。</li>
+<li>如果两者不同，HashSet 就会让加入操作成功。</li>
+</ul>
+</li>
+</ul>
+<h1 id="TreeMap-原理"><a href="#TreeMap-原理" class="headerlink" title="TreeMap 原理"></a>TreeMap 原理</h1><p>Java 中的 TreeMap 是使用红黑树实现的。</p>
+<h1 id="Java-Priority-Queue-是什么"><a href="#Java-Priority-Queue-是什么" class="headerlink" title="Java Priority Queue 是什么?"></a>Java Priority Queue 是什么?</h1><p>PriorityQueue 是一个基于优先级堆的无界队列，它的元素都以他们的自然顺序有序排列。</p>
+<ul>
+<li>在它创建的时候，我们可以可以提供一个比较器 Comparator 来负责PriorityQueue 中元素的排序。</li>
+<li>PriorityQueue 不允许 null元素，不允许不提供自然排序的对象，也不允许没有任何关联 Comparator 的对象。</li>
+<li>最后，PriorityQueue 不是线程安全的，在执行入队和出队操作它需要 O(log(n)) 的时间复杂度。</li>
+</ul>
+<h2 id="poll-方法和-remove-方法的区别？"><a href="#poll-方法和-remove-方法的区别？" class="headerlink" title="poll 方法和 remove 方法的区别？"></a>poll 方法和 remove 方法的区别？</h2><p>poll 和 remove 方法，都是从队列中取出一个元素，差别在于：</p>
+<ul>
+<li>poll 方法，在获取元素失败的时候会返回空</li>
+<li>remove() 方法，失败的时候会抛出异常。</li>
+</ul>
+<h2 id="LinkedHashMap-和-PriorityQueue-的区别是什么？"><a href="#LinkedHashMap-和-PriorityQueue-的区别是什么？" class="headerlink" title="LinkedHashMap 和 PriorityQueue 的区别是什么？"></a>LinkedHashMap 和 PriorityQueue 的区别是什么？</h2><ul>
+<li>PriorityQueue 保证最高或者最低优先级的的元素总是在队列头部，LinkedHashMap 维持的顺序是元素插入的顺序。</li>
+<li>当遍历一个 PriorityQueue 时，没有任何顺序保证，但是 LinkedHashMap 课保证遍历顺序是元素插入的顺序。</li>
+</ul>
+]]></content>
+  </entry>
+  <entry>
+    <title>面试基础篇</title>
+    <url>/2022/08/12/%E9%9D%A2%E8%AF%95%E5%9F%BA%E7%A1%80%E7%AF%87/</url>
+    <content><![CDATA[<p><img src="https://files.catbox.moe/vakrmb.png"></p>
+<span id="more"></span>
+
+<h1 id="什么是面向对象"><a href="#什么是面向对象" class="headerlink" title="什么是面向对象"></a>什么是面向对象</h1><p>面向对象是一种思想，世间万物都可以看做一个对象，这里只讨论面向对象编程（OOP），Java 是一个支持并发、基于类和面向对象的计算机编程语言。面向对象软件开发具有以下优点：</p>
+<ul>
+<li>代码开发模块化，更易维护和修改。</li>
+<li>代码复用性强。</li>
+<li>增强代码的可靠性和灵活性。</li>
+<li>增加代码的可读性。</li>
+</ul>
+<h2 id="请说说面向对象的特征"><a href="#请说说面向对象的特征" class="headerlink" title="请说说面向对象的特征"></a>请说说面向对象的特征</h2><p>四点：封装、继承、多态、抽象。</p>
+<p>1.封装</p>
+<p>封装，给对象提供了隐藏内部特性和行为的能力。对象提供一些能被其他对象访问的方法来改变它内部的数据。在 Java 当中，有 4 种修饰符： default、public、private 和 protected 。每一种修饰符给其他的位于同一个包或者不同包下面对象赋予了不同的访问权限。</p>
+<p>下面列出了使用封装的一些好处：</p>
+<ul>
+<li>通过隐藏对象的属性来保护对象内部的状态。</li>
+<li>提高了代码的可用性和可维护性，因为对象的行为可以被单独的改变或者是扩展。</li>
+<li>禁止对象之间的不良交互提高模块化。</li>
+</ul>
+<p>2.继承</p>
+<p>继承，给对象提供了从基类获取字段和方法的能力。继承提供了代码的重用行，也可以在不修改类的情况下给现存的类添加新特性。</p>
+<p>3.多态</p>
+<p>多态，是编程语言给不同的底层数据类型做相同的接口展示的一种能力。一个多态类型上的操作，可以应用到其他类型的值上面。</p>
+<p>4.抽象</p>
+<p>抽象，是把想法从具体的实例中分离出来的步骤，因此，要根据他们的功能而不是实现细节来创建类。</p>
+<p>Java 支持创建只暴漏接口而不包含方法实现的抽象的类。这种抽象技术的主要目的是把类的行为和实现细节分离开。</p>
+<h2 id="面向对象和面向过程的区别"><a href="#面向对象和面向过程的区别" class="headerlink" title="面向对象和面向过程的区别"></a>面向对象和面向过程的区别</h2><ul>
+<li><p>面向过程</p>
+</li>
+<li><ul>
+<li>优点：性能比面向对象高，因为类调用时需要实例化，开销比较大，比较消耗资源。比如，单片机、嵌入式开发、Linux&#x2F;Unix 等一般采用面向过程开发，性能是最重要的因素。</li>
+<li>缺点：没有面向对象易维护、易复用、易扩展。</li>
+</ul>
+</li>
+<li><p>面向对象</p>
+</li>
+<li><ul>
+<li>优点：易维护、易复用、易扩展，由于面向对象有封装、继承、多态性的特性，可以设计出低耦合的系统，使系统更加灵活、更加易于维护。</li>
+<li>缺点：性能比面向过程低</li>
+</ul>
+</li>
+</ul>
+<h2 id="重载和重写的区别"><a href="#重载和重写的区别" class="headerlink" title="重载和重写的区别"></a>重载和重写的区别</h2><p>1.重写 override</p>
+<ul>
+<li>方法名、参数、返回值相同。</li>
+<li>子类方法不能缩小父类方法的访问权限。</li>
+<li>子类方法不能抛出比父类方法更多的异常(但子类方法可以不抛出异常)。</li>
+<li>存在于父类和子类之间。</li>
+<li>方法被定义为 final 不能被重写。</li>
+</ul>
+<p>2.重载 overload</p>
+<ul>
+<li>参数类型、个数、顺序至少有一个不相同。</li>
+<li>不能重载只有返回值不同的方法名。</li>
+<li>存在于父类和子类、同类中。</li>
+</ul>
+<p>对比图：</p>
+<table>
+<thead>
+<tr>
+<th>区别</th>
+<th>重载</th>
+<th>重写</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>英文</td>
+<td>Overload</td>
+<td>Override</td>
+</tr>
+<tr>
+<td>定义</td>
+<td>方法名称相同，参数列表的类型或个数不同</td>
+<td>方法名称、参数类型、返回值类型全部相同</td>
+</tr>
+<tr>
+<td>权限</td>
+<td>对权限没有要求</td>
+<td>被重写的方法不能拥有更严格的权限</td>
+</tr>
+<tr>
+<td>范围</td>
+<td>发生在一个类中</td>
+<td>发生在继承类中</td>
+</tr>
+</tbody></table>
+<h2 id="Java-中，什么是构造方法？什么是构造方法重载？什么是拷贝构造方法？"><a href="#Java-中，什么是构造方法？什么是构造方法重载？什么是拷贝构造方法？" class="headerlink" title="Java 中，什么是构造方法？什么是构造方法重载？什么是拷贝构造方法？"></a>Java 中，什么是构造方法？什么是构造方法重载？什么是拷贝构造方法？</h2><p>1.构造方法</p>
+<p>当新对象被创建的时候，构造方法会被调用。每一个类都有构造方法。在程序员没有给类提供构造方法的情况下，Java 编译器会为这个类创建一个默认的构造方法。</p>
+<p>2.构造方法重载</p>
+<p>Java 中构造方法重载和方法重载很相似。可以为一个类创建多个构造方法。每一个构造方法必须有它自己唯一的参数列表。</p>
+<p>3.拷贝构造方法</p>
+<p>Java 不支持像 C++ 中那样的<a href="http://www.runoob.com/cplusplus/cpp-copy-constructor.html">拷贝构造方法</a>，这个不同点是因为如果你不自己写构造方法的情况下，Java 不会创建默认的拷贝构造方法。</p>
+<h1 id="JDK、JRE、JVM-分别是什么关系？"><a href="#JDK、JRE、JVM-分别是什么关系？" class="headerlink" title="JDK、JRE、JVM 分别是什么关系？"></a>JDK、JRE、JVM 分别是什么关系？</h1><p>简单说，就是 JDK 包含 JRE 包含 JVM。</p>
+<h2 id="什么是JDK？"><a href="#什么是JDK？" class="headerlink" title="什么是JDK？"></a>什么是JDK？</h2><p>JDK 即为 Java 开发工具包，包含编写 Java 程序所必须的编译、运行等开发工具以及 JRE。开发工具如：</p>
+<ul>
+<li>用于编译 Java 程序的 javac 命令。</li>
+<li>用于启动 JVM 运行 Java 程序的 Java 命令。</li>
+<li>用于生成文档的 Javadoc 命令。</li>
+<li>用于打包的 jar 命令等等。</li>
+</ul>
+<h2 id="什么是JRE？"><a href="#什么是JRE？" class="headerlink" title="什么是JRE？"></a>什么是JRE？</h2><p>JRE 即为 Java 运行环境，提供了运行 Java 应用程序所必须的软件环境，包含有 Java 虚拟机（JVM）和丰富的系统类库。系统类库即为 Java 提前封装好的功能类，只需拿来直接使用即可，可以大大的提高开发效率。</p>
+<h2 id="什么是JVM？"><a href="#什么是JVM？" class="headerlink" title="什么是JVM？"></a>什么是JVM？</h2><p>JVM 即为 Java 虚拟机，提供了字节码文件(.class)的运行环境支持。</p>
+<p><img src="https://files.catbox.moe/c9wfxq.png"></p>
+<h2 id="为什么-Java-被称作是“平台无关的编程语言”？"><a href="#为什么-Java-被称作是“平台无关的编程语言”？" class="headerlink" title="为什么 Java 被称作是“平台无关的编程语言”？"></a>为什么 Java 被称作是“平台无关的编程语言”？</h2><p>Java 虚拟机是一个可以执行 Java 字节码的虚拟机进程。</p>
+<ul>
+<li>Java 源文件( .java )被编译成能被 Java 虚拟机执行的字节码文件( .class )。</li>
+<li>Java 被设计成允许应用程序可以运行在任意的平台，而不需要程序员为每一个平台单独重写或者是重新编译。Java 虚拟机让这个变为可能，因为它知道底层硬件平台的指令长度和其他特性。</li>
+</ul>
+<h2 id="JDK-各版本的新特性？"><a href="#JDK-各版本的新特性？" class="headerlink" title="JDK 各版本的新特性？"></a>JDK 各版本的新特性？</h2><p>对于大多数面试官，肯定不会问你 JDK 各版本的新特性，更多的会问 JDK8 引入了什么重要的特性？一般上，关键的回答是Lambda 表达式和集合之流式操作，然后说说你在项目中怎么使用的。</p>
+<h2 id="Java-和-C-的区别？"><a href="#Java-和-C-的区别？" class="headerlink" title="Java 和 C++ 的区别？"></a>Java 和 C++ 的区别？</h2><ul>
+<li>都是面向对象的语言，都支持封装、继承和多态。</li>
+<li>Java 不提供指针来直接访问内存，程序内存更加安全。</li>
+<li>Java 的类是单继承的，C++ 支持多重继承；虽然 Java 的类不可以多继承，但是接口可以多继承。</li>
+<li>【重要】Java 有自动内存管理机制，不需要程序员手动释放无用内存。</li>
+</ul>
+<h1 id="什么是字节码？采用字节码的最大好处是什么？"><a href="#什么是字节码？采用字节码的最大好处是什么？" class="headerlink" title="什么是字节码？采用字节码的最大好处是什么？"></a>什么是字节码？采用字节码的最大好处是什么？</h1><h2 id="什么是字节码？"><a href="#什么是字节码？" class="headerlink" title="什么是字节码？"></a><strong>什么是字节码？</strong></h2><p>这个问题，面试官可以衍生提问，Java 是编译执行的语言，还是解释执行的语言。</p>
+<p>Java 中引入了虚拟机的概念，即在机器和编译程序之间加入了一层抽象的虚拟的机器。这台虚拟的机器在任何平台上都提供给编译程序一个的共同的接口。</p>
+<p>编译程序只需要面向虚拟机，生成虚拟机能够理解的代码，然后由解释器来将虚拟机代码转换为特定系统的机器码执行。在 Java 中，这种供虚拟机理解的代码叫做字节码（即扩展名为 .class 的文件），它不面向任何特定的处理器，只面向虚拟机。</p>
+<p>每一种平台的解释器是不同的，但是实现的虚拟机是相同的。Java 源程序经过编译器编译后变成字节码，字节码由虚拟机解释执行，虚拟机将每一条要执行的字节码送给解释器，解释器将其翻译成特定机器上的机器码，然后在特定的机器上运行。这也就是解释了 Java 的编译与解释并存的特点。</p>
+<p><strong>Java 源代码&#x3D;&gt; 编译器 &#x3D;&gt; JVM 可执行的 Java 字节码(即虚拟指令)&#x3D;&gt; JVM &#x3D;&gt; JVM 中解释器 &#x3D;&gt; 机器可执行的二进制机器码 &#x3D;&gt; 程序运行</strong></p>
+<h2 id="采用字节码的好处"><a href="#采用字节码的好处" class="headerlink" title="采用字节码的好处"></a>采用字节码的好处</h2><p>Java 语言通过字节码的方式，在一定程度上解决了传统解释型语言执行效率低的问题，同时又保留了解释型语言可移植的特点。所以 Java 程序运行时比较高效，而且，由于字节码并不专对一种特定的机器，因此，Java程序无须重新编译便可在多种不同的计算机上运行。</p>
+<p>解释型语言：解释型语言，是在运行的时候将程序翻译成机器语言。解释型语言的程序不需要在运行前编译，在运行程序的时候才翻译，专门的解释器负责在每个语句执行的时候解释程序代码。这样解释型语言每执行一次就要翻译一次，效率比较低。</p>
+<h1 id="Java-中的几种基本数据类型是什么？各自占用多少字节？"><a href="#Java-中的几种基本数据类型是什么？各自占用多少字节？" class="headerlink" title="Java 中的几种基本数据类型是什么？各自占用多少字节？"></a>Java 中的几种基本数据类型是什么？各自占用多少字节？</h1><p>Java 支持的数据类型包括基本数据类型和引用类型。</p>
+<p>基本数据类型如下：</p>
+<ul>
+<li>整数值型：byte、short、int、long</li>
+<li>字符型：char</li>
+<li>浮点类型：float、double</li>
+<li>布尔型：boolean</li>
+<li>整数型：默认 int 型，小数默认是 double 型。Float 和 Long 类型的必须加后缀。比如：float f &#x3D; 100f 。</li>
+</ul>
+<p>引用类型声明的变量是指该变量在内存中实际存储的是一个引用地址，实体在堆中。</p>
+<ul>
+<li>引用类型包括类、接口、数组等。</li>
+<li>特别注意，String 是引用类型不是基本类型。</li>
+</ul>
+<h2 id="什么是值传递和引用传递"><a href="#什么是值传递和引用传递" class="headerlink" title="什么是值传递和引用传递"></a>什么是值传递和引用传递</h2><ul>
+<li>值传递，是对基本型变量而言的，传递的是该变量的一个副本，改变副本不影响原变量。</li>
+<li>引用传递，一般是对于对象型变量而言的，传递的是该对象地址的一个副本，并不是原对象本身。</li>
+</ul>
+<p>一般认为，Java 内的传递都是值传递，Java 中实例对象的传递是引用传递</p>
+<h2 id="是否可以在-static-环境中访问非-static-变量？"><a href="#是否可以在-static-环境中访问非-static-变量？" class="headerlink" title="是否可以在 static 环境中访问非 static 变量？"></a>是否可以在 static 环境中访问非 static 变量？</h2><p>static 变量在 Java 中是属于类的，它在所有的实例中的值是一样的。当类被 Java 虚拟机载入的时候，会对 static 变量进行初始化。</p>
+<p>如果你的代码尝试不用实例来访问非 static 的变量，编译器会报错，因为这些变量还没有被创建出来，还没有跟任何实例关联上。</p>
+<h2 id="char-型变量中能不能存贮一个中文汉字？为什么？"><a href="#char-型变量中能不能存贮一个中文汉字？为什么？" class="headerlink" title="char 型变量中能不能存贮一个中文汉字？为什么？"></a>char 型变量中能不能存贮一个中文汉字？为什么？</h2><ul>
+<li>在 C 语言中，char 类型占 1 个字节，而汉字占 2 个字节，所以不能存储。</li>
+<li>在 Java 语言中，char 类型占 2 个字节，而且 Java 默认采用 Unicode 编码，一个 Unicode 码是 16 位，所以一个 Unicode 码占两个字节，Java 中无论汉字还是英文字母，都是用 Unicode 编码来表示的。所以，在 Java 中，char 类型变量可以存储一个中文汉字。</li>
+</ul>
+<h1 id="String、StringBuffer、StringBuilder-的区别？"><a href="#String、StringBuffer、StringBuilder-的区别？" class="headerlink" title="String、StringBuffer、StringBuilder 的区别？"></a>String、StringBuffer、StringBuilder 的区别？</h1><p>Java 平台提供了两种类型的字符串：String 和 StringBuffer&#x2F;StringBuilder，它们可以储存和操作字符串。</p>
+<ul>
+<li>String ，是只读字符串，也就意味着 String 引用的字符串内容是不能被改变的。</li>
+</ul>
+<p>每次对 String 类型进行改变的时候，都会生成一个新的 String 对象，然后将指针指向新的 String 对象。</p>
+<ul>
+<li>StringBuffer&#x2F;StringBuilder 类，表示的字符串对象可以直接进行修改。StringBuilder 是 Java 5 中引入的，它和 StringBuffer 的方法完全相同，区别在于它是在单线程环境下使用的，因为它的所有方面都没有被 synchronized 修饰，因此它的效率也比 StringBuffer 要高。</li>
+</ul>
+<p>StringBuffer 每次都会对 StringBuffer 对象本身进行操作，而不是生成新的对象并改变对象引用。</p>
+<p>相同情况下使用 StirngBuilder 相比使用 StringBuffer 仅能获得 10%~15% 左右的性能提升，但却要冒多线程不安全的风险。</p>
+<h2 id="对于三者使用的总结？"><a href="#对于三者使用的总结？" class="headerlink" title="对于三者使用的总结？"></a>对于三者使用的总结？</h2><ul>
+<li>操作少量的数据 &#x3D; String 。</li>
+</ul>
+<p>这个也是实际编码较为经常使用的方式。</p>
+<ul>
+<li>单线程操作字符串缓冲区下操作大量数据 &#x3D; StringBuilder 。</li>
+</ul>
+<p>甚至有时，我们为了避免每个线程重复创建 StringBuilder 对象，会通过 ThreadLocal + StringBuilder 的方式，进行对 StringBuilder 的重用。</p>
+<ul>
+<li>多线程操作字符串缓冲区下操作大量数据 &#x3D; StringBuffer</li>
+</ul>
+<p>实际场景下，我们基本不太会出现，多线程操作同一个 StringBuffer 对象。</p>
+<h2 id="String-s-new-String-quot-xyz-quot-会创建几个对象？"><a href="#String-s-new-String-quot-xyz-quot-会创建几个对象？" class="headerlink" title="String s = new String(&quot;xyz&quot;) 会创建几个对象？"></a><code>String s = new String(&quot;xyz&quot;)</code> 会创建几个对象？</h2><ul>
+<li>首先，在 String 池内找，找到 “xyz” 字符串，不创建 “xyz” 对应的 String 对象，否则创建一个对象。</li>
+<li>然后，遇到 new 关键字，在内存上创建 String 对象，并将其返回给 s ，又一个对象。</li>
+</ul>
+<p>所以，总共是 1 个或者 2 个对象。</p>
+<h2 id="String-为什么是不可变的？"><a href="#String-为什么是不可变的？" class="headerlink" title="String 为什么是不可变的？"></a>String 为什么是不可变的？</h2><p>简单的来说，String 类中使用 final 关键字字符数组保存字符串。代码如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="type">char</span>[] value;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>所以 String 对象是不可变的。</li>
+</ul>
+<p>而 StringBuilder 与 StringBuffer 都继承自 AbstractStringBuilder 类，在 AbstractStringBuilder 中也是使用字符数组保存字符串 char[] value ，但是没有用 final 关键字修饰。</p>
+<ul>
+<li>所以这两种对象都是可变的。</li>
+</ul>
+<h1 id="什么是自动拆装箱"><a href="#什么是自动拆装箱" class="headerlink" title="什么是自动拆装箱"></a>什么是自动拆装箱</h1><p>自动装箱和拆箱，就是基本类型和引用类型之间的转换。</p>
+<h2 id="为什么要转换？"><a href="#为什么要转换？" class="headerlink" title="为什么要转换？"></a>为什么要转换？</h2><p>如果你在 Java5 下进行过编程的话，你一定不会陌生这一点，你不能直接地向集合( Collection )中放入原始类型值，因为集合只接收对象。</p>
+<ul>
+<li>通常这种情况下你的做法是，将这些原始类型的值转换成对象，然后将这些转换的对象放入集合中。使用 Integer、Double、Boolean 等这些类，我们可以将原始类型值转换成对应的对象，但是从某些程度可能使得代码不是那么简洁精炼。</li>
+<li>为了让代码简练，Java5 引入了具有在原始类型和对象类型自动转换的装箱和拆箱机制。</li>
+<li>但是自动装箱和拆箱并非完美，在使用时需要有一些注意事项，如果没有搞明白自动装箱和拆箱，可能会引起难以察觉的 Bug 。</li>
+</ul>
+<h2 id="int-和-Integer-有什么区别？"><a href="#int-和-Integer-有什么区别？" class="headerlink" title="int 和 Integer 有什么区别？"></a>int 和 Integer 有什么区别？</h2><ul>
+<li>int 是基本数据类型。</li>
+<li>Integer 是其包装类，注意是一个类。</li>
+</ul>
+<h1 id="equals-与-x3D-x3D-的区别？"><a href="#equals-与-x3D-x3D-的区别？" class="headerlink" title="equals 与 &#x3D;&#x3D; 的区别？"></a>equals 与 &#x3D;&#x3D; 的区别？</h1><ul>
+<li><p>值类型（<code>int</code>,<code>char</code>,<code>long</code>,<code>boolean</code>等）的话</p>
+</li>
+<li><ul>
+<li>都是用 &#x3D;&#x3D; 判断相等性。</li>
+</ul>
+</li>
+<li><p>对象引用的话</p>
+</li>
+<li><ul>
+<li>&#x3D;&#x3D; 判断引用所指的对象是否是同一个。</li>
+<li>equals 方法，是 Object 的成员函数，有些类会覆盖(`override&#96;) 这个方法，用于判断对象的等价性。</li>
+</ul>
+</li>
+</ul>
+<p>例如 String 类，两个引用所指向的 String 都是 `“abc”&#96; ，但可能出现他们实际对应的对象并不是同一个（和 JVM 实现方式有关），因此用 &#x3D;&#x3D; 判断他们可能不相等，但用 equals 方法判断一定是相等的。</p>
+<h2 id="如何在父类中为子类自动完成所有的-hashCode-和-equals-实现？这么做有何优劣？"><a href="#如何在父类中为子类自动完成所有的-hashCode-和-equals-实现？这么做有何优劣？" class="headerlink" title="如何在父类中为子类自动完成所有的 hashCode 和 equals 实现？这么做有何优劣？"></a>如何在父类中为子类自动完成所有的 hashCode 和 equals 实现？这么做有何优劣？</h2><p>父类的 equals ，一般情况下是无法满足子类的 equals 的需求。</p>
+<ul>
+<li><p>比如所有的对象都继承 Object ，默认使用的是 Object 的 equals 方法，在比较两个对象的时候，是看他们是否指向同一个地址。但是我们的需求是对象的某个属性相同，就相等了，而默认的 equals 方法满足不了当前的需求，所以我们要重写 equals 方法。</p>
+</li>
+<li><p>如果重写了 equals 方法，就必须重写 hashCode 方法，否则就会降低 Map 等集合的索引速度。</p>
+<p>​</p>
+</li>
+</ul>
+<h2 id="这样的-a-hashCode-有什么用，与-a-equals-b-有什么关系"><a href="#这样的-a-hashCode-有什么用，与-a-equals-b-有什么关系" class="headerlink" title="这样的 a.hashCode() 有什么用，与 a.equals(b) 有什么关系?"></a>这样的 a.hashCode() 有什么用，与 a.equals(b) 有什么关系?</h2><p>这个问题，和上述问题，就是换个姿势，差不了太多。</p>
+<p>1.equals 方法，用于比较对象的内容是否相等。</p>
+<p>当覆盖了 equals 方法时，比较对象是否相等将通过覆盖后的 equals 方法进行比较（判断对象的内容是否相等）。</p>
+<p>2.hashCode 方法，大多在集合中用到。</p>
+<p>将对象放入到集合中时，首先判断要放入对象的 hashCode 值与集合中的任意一个元素的 hashCode 值是否相等，如果不相等直接将该对象放入集合中。</p>
+<p>如果 hashCode 值相等，然后再通过 equals 方法判断要放入对象与集合中的任意一个对象是否相等，如果 equals 判断不相等，直接将该元素放入到集合中，否则不放入。</p>
+<h2 id="有没有可能-2-个不相等的对象有相同的-hashCode？"><a href="#有没有可能-2-个不相等的对象有相同的-hashCode？" class="headerlink" title="有没有可能 2 个不相等的对象有相同的 hashCode？"></a>有没有可能 2 个不相等的对象有相同的 hashCode？</h2><p>可能会发生，这个被称为哈希碰撞。当然，相等的对象，即我们重写了 equals 方法，一定也要重写 hashCode 方法，否则将出现我们在 HashMap 中，相等的对象作为 key ，将找不到对应的 value 。</p>
+<p>所以说，equals 和 hashCode 的关系会是：</p>
+<ul>
+<li>equals 不相等，hashCode 可能相等。</li>
+<li>equals 相等，请重写 hashCode 方法，保证 hashCode 相等。</li>
+</ul>
+<h1 id="final、finally、finalize-的区别？"><a href="#final、finally、finalize-的区别？" class="headerlink" title="final、finally、finalize 的区别？"></a>final、finally、finalize 的区别？</h1><p>1.final</p>
+<p>final ，是修饰符关键字。</p>
+<ul>
+<li>如果一个类被声明为 final ，意味着它不能再派生出新的子类，不能作为父类被继承。因此一个类不能既被声明为 abstract 的，又被声明为 final 的。</li>
+<li>将变量或方法声明为 final ，可以保证它们在使用中不被改变。被声明为 final 的变量必须在声明时给定初值，而在以后的引用中只能读取，不可修改。被声明为 final 的方法也同样只能使用，不能重写。</li>
+</ul>
+<p>另外，在早期的 Java 实现版本中，会将 <code>final</code> 方法转为内嵌调用。但是如果方法过于庞大，可能看不到内嵌调用带来的任何性能提升（现在的 Java 版本已经不需要使用 <code>final</code> 方法进行这些优化了）。类中所有的<code>private</code> 方法都隐式地指定为 <code>final</code> 。</p>
+<p>2.finally</p>
+<p>在异常处理时提供 finally 块来执行任何清除操作。如果抛出一个异常，那么相匹配的 catch 子句就会执行，然后控制就会进入 finally 块（如果有的话）。</p>
+<p>在以下 4 种特殊情况下，finally块不会被执行：</p>
+<ul>
+<li>在 finally 语句块中发生了异常。</li>
+<li>在前面的代码中用了 System.exit() 退出程序。</li>
+<li>程序所在的线程死亡。</li>
+<li>关闭 CPU 。</li>
+</ul>
+<p>3.finalize</p>
+<p>finalize ，是方法名。</p>
+<p>Java 允许使用 #finalize() 方法，在垃圾收集器将对象从内存中清除出去之前做必要的清理工作。这个方法是由垃圾收集器在确定这个对象没有被引用时对这个对象调用的。</p>
+<ul>
+<li>它是在 Object 类中定义的，因此所有的类都继承了它。</li>
+<li>子类覆盖 finalize() 方法，以整理系统资源或者执行其他清理工作。</li>
+<li>#finalize() 方法，是在垃圾收集器删除对象之前对这个对象调用的。</li>
+</ul>
+<p>一般情况下，我们在业务中不会自己实现这个方法，更多是在一些框架中使用 。</p>
+<h2 id="String-类能被继承吗，为什么？"><a href="#String-类能被继承吗，为什么？" class="headerlink" title="String 类能被继承吗，为什么？"></a>String 类能被继承吗，为什么？</h2><p>不能，因为 String 是 final 修饰。</p>
+<h1 id="抽象类和接口有什么区别？"><a href="#抽象类和接口有什么区别？" class="headerlink" title="抽象类和接口有什么区别？"></a>抽象类和接口有什么区别？</h1><p>从设计层面来说，抽象是对类的抽象，是一种模板设计，接口是行为的抽象，是一种行为的规范。</p>
+<ul>
+<li>Java 提供和支持创建抽象类和接口。它们的实现有共同点，不同点在于：接口中所有的方法隐含的都是抽象的，而抽象类则可以同时包含抽象和非抽象的方法。</li>
+<li>类可以实现很多个接口，但是只能继承一个抽象类。类可以不实现抽象类和接口声明的所有方法，当然，在这种情况下，类也必须得声明成是抽象的。</li>
+<li>抽象类可以在不提供接口方法实现的情况下实现接口。</li>
+<li>Java 接口中声明的变量默认都是 final 的。抽象类可以包含非 final 的变量。</li>
+<li>Java 接口中的成员函数默认是 public 的。抽象类的成员函数可以是 private，protected 或者是 public 。</li>
+<li>接口是绝对抽象的，不可以被实例化。抽象类也不可以被实例化，但是，如果它包含 #main(String[] args) 方法的话是可以被调用的。</li>
+</ul>
+<h2 id="继承和组合的区别在哪？"><a href="#继承和组合的区别在哪？" class="headerlink" title="继承和组合的区别在哪？"></a>继承和组合的区别在哪？</h2><ul>
+<li><p>继承：指的是一个类（称为子类、子接口）继承另外的一个类（称为父类、父接口）的功能，并可以增加它自己的新功能的能力，继承是类与类或者接口与接口之间最常见的关系。在 Java 中，此类关系通过关键字 extends 明确标识，在设计时一般没有争议性。</p>
+</li>
+<li><p>组合：组合是关联关系的一种特例，他体现的是整体与部分、拥有的关系，即 has-a 的关系，此时整体与部分之间是可分离的，他们可以具有各自的生命周期，部分可以属于多个整体对象，也可以为多个整体对象共享。</p>
+</li>
+<li><ul>
+<li>比如，计算机与 CPU 、公司与员工的关系等。</li>
+<li>表现在代码层面，和关联关系是一致的，只能从语义级别来区分。</li>
+</ul>
+</li>
+</ul>
+<p>因为组合能带来比继承更好的灵活性，所以有句话叫做“组合优于继承”。</p>
+<h2 id="请详细讲述一下-RandomAccess-接口有什么作用？"><a href="#请详细讲述一下-RandomAccess-接口有什么作用？" class="headerlink" title="请详细讲述一下 RandomAccess 接口有什么作用？"></a>请详细讲述一下 RandomAccess 接口有什么作用？</h2><p>RandomAccess 用来当标记的，是一种标记接口，接口的非典型用法。意思是，随机访问任意下标元素都比较快。</p>
+<p>用处，当要实现某些算法时，会判断当前类是否实现了 RandomAccess 接口，会根据结果选择不同的算法。</p>
+<h1 id="讲讲类的实例化顺序？"><a href="#讲讲类的实例化顺序？" class="headerlink" title="讲讲类的实例化顺序？"></a>讲讲类的实例化顺序？</h1><p>初始化顺序如下：</p>
+<ul>
+<li>父类静态变量</li>
+<li>父类静态代码块</li>
+<li>子类静态变量、</li>
+<li>子类静态代码块</li>
+<li>父类非静态变量（父类实例成员变量）</li>
+<li>父类构造函数</li>
+<li>子类非静态变量（子类实例成员变量）</li>
+<li>子类构造函数</li>
+</ul>
+<h1 id="什么是内部类？"><a href="#什么是内部类？" class="headerlink" title="什么是内部类？"></a>什么是内部类？</h1><p>简单的说，就是在一个类、接口或者方法的内部创建另一个类。这样理解的话，创建内部类的方法就很明确了。</p>
+<h2 id="内部类的作用是什么"><a href="#内部类的作用是什么" class="headerlink" title="内部类的作用是什么"></a>内部类的作用是什么</h2><p>内部类提供了更好的封装，除了该外围类，其他类都不能访问。</p>
+<h2 id="Anonymous-Inner-Class-匿名内部类-是否可以继承其它类？是否可以实现接口？"><a href="#Anonymous-Inner-Class-匿名内部类-是否可以继承其它类？是否可以实现接口？" class="headerlink" title="Anonymous Inner Class(匿名内部类)是否可以继承其它类？是否可以实现接口？"></a>Anonymous Inner Class(匿名内部类)是否可以继承其它类？是否可以实现接口？</h2><p>可以继承其他类或实现其他接口，在 Java 集合的流式操作中，我们常常这么干。</p>
+<h2 id="内部类可以引用它的包含类（外部类）的成员吗？有没有什么限制？"><a href="#内部类可以引用它的包含类（外部类）的成员吗？有没有什么限制？" class="headerlink" title="内部类可以引用它的包含类（外部类）的成员吗？有没有什么限制？"></a>内部类可以引用它的包含类（外部类）的成员吗？有没有什么限制？</h2><p>一个内部类对象可以访问创建它的外部类对象的成员，包括私有成员。</p>
+<h1 id="什么是-Java-IO-？"><a href="#什么是-Java-IO-？" class="headerlink" title="什么是 Java IO ？"></a>什么是 Java IO ？</h1><p>Java IO 相关的类，在 java.io 包下，具体操作分成面向字节(Byte)和面向字符(Character)两种方式。如下图所示：</p>
+<p><img src="https://files.catbox.moe/l03fl3.png"></p>
+<h1 id="什么是-Java-序列化？"><a href="#什么是-Java-序列化？" class="headerlink" title="什么是 Java 序列化？"></a>什么是 Java 序列化？</h1><p>序列化就是一种用来处理对象流的机制，所谓对象流也就是将对象的内容进行流化。</p>
+<ul>
+<li>可以对流化后的对象进行读写操作，也可将流化后的对象传输于网络之间。</li>
+<li>序列化是为了解决在对对象流进行读写操作时所引发的问题。</li>
+</ul>
+<p>反序列化的过程，则是和序列化相反的过程。</p>
+<p>另外，我们不能将序列化局限在 Java 对象转换成二进制数组，例如说，我们将一个 Java 对象，转换成 JSON 字符串，或者 XML 字符串，这也可以理解为是序列化。</p>
+<h2 id="如何实现-Java-序列化？"><a href="#如何实现-Java-序列化？" class="headerlink" title="如何实现 Java 序列化？"></a>如何实现 Java 序列化？</h2><p>如下的方式，就是 Java 内置的序列化方案，实际场景下，我们可以自定义序列化的方案，例如说 Google Protobuf 。</p>
+<p>将需要被序列化的类，实现 Serializable 接口，该接口没有需要实现的方法，implements Serializable 只是为了标注该对象是可被序列化的。</p>
+<ul>
+<li><p>序列化</p>
+</li>
+<li><ul>
+<li>然后，使用一个输出流(如：FileOutputStream)来构造一个 ObjectOutputStream(对象流)对象</li>
+<li>接着，使用 ObjectOutputStream 对象的 #writeObject(Object obj) 方法，就可以将参数为 obj 的对象写出(即保存其状态)。</li>
+</ul>
+</li>
+<li><p>反序列化</p>
+</li>
+<li><ul>
+<li>要恢复的话则用输入流。</li>
+</ul>
+</li>
+</ul>
+<h2 id="Java-序列话中，如果有些字段不想进行序列化怎么办？"><a href="#Java-序列话中，如果有些字段不想进行序列化怎么办？" class="headerlink" title="Java 序列话中，如果有些字段不想进行序列化怎么办？"></a>Java 序列话中，如果有些字段不想进行序列化怎么办？</h2><p>对于不想进行序列化的变量，使用 transient 关键字修饰。</p>
+<ul>
+<li>当对象被序列化时，阻止实例中那些用此关键字修饰的的变量序列化。</li>
+<li>当对象被反序列化时，被 transient 修饰的变量值不会被持久化和恢复。</li>
+<li>transient 只能修饰变量，不能修饰类和方法。</li>
+</ul>
+<h1 id="如何实现对象克隆？"><a href="#如何实现对象克隆？" class="headerlink" title="如何实现对象克隆？"></a>如何实现对象克隆？</h1><p>一般来说，有两种方式：</p>
+<ul>
+<li>1、实现 Cloneable 接口，并重写 Object 类中的 #clone() 方法。可以实现浅克隆，也可以实现深克隆。</li>
+<li>2、实现 Serializable 接口，通过对象的序列化和反序列化实现克隆。可以实现真正的深克隆。</li>
+</ul>
+<h1 id="error-和-exception-有什么区别？CheckedException-和-RuntimeException-有什么区别？"><a href="#error-和-exception-有什么区别？CheckedException-和-RuntimeException-有什么区别？" class="headerlink" title="error 和 exception 有什么区别？CheckedException 和 RuntimeException 有什么区别？"></a>error 和 exception 有什么区别？CheckedException 和 RuntimeException 有什么区别？</h1><p>ava 的异常体系，基于共同的祖先 java.lang.Throwable 类。如下图所示：</p>
+<p><img src="https://files.catbox.moe/yhuzvs.png"></p>
+<p>Throwable 类图</p>
+<ul>
+<li><p>Error（错误），表示系统级的错误和程序不必处理的异常，是 Java 运行环境中的内部错误或者硬件问题。</p>
+</li>
+<li><ul>
+<li>例如：内存资源不足等。</li>
+<li>对于这种错误，程序基本无能为力，除了退出运行外别无选择，它是由 Java 虚拟机抛出的。</li>
+</ul>
+</li>
+<li><p>Exception（异常），表示需要捕捉或者需要程序进行处理的异常，它处理的是因为程序设计的瑕疵而引起的问题或者在外的输入等引起的一般性问题，是程序必须处理的。Exception 又分为运行时异常，受检查异常。</p>
+</li>
+<li><ul>
+<li>RuntimeException(运行时异常)，表示无法让程序恢复的异常，导致的原因通常是因为执行了错误的操作，建议终止逻辑，因此，编译器不检查这些异常。</li>
+<li>CheckedException(受检查异常)，是表示程序可以处理的异常，也即表示程序可以修复（由程序自己接受异常并且做出处理），所以称之为受检查异常。</li>
+</ul>
+</li>
+</ul>
+<h2 id="异常的使用的注意地方？"><a href="#异常的使用的注意地方？" class="headerlink" title="异常的使用的注意地方？"></a>异常的使用的注意地方？</h2><p>神作《Effective Java》中对异常的使用给出了以下指导原则：</p>
+<ul>
+<li>不要将异常处理用于正常的控制流（设计良好的 API 不应该强迫它的调用者为了正常的控制流而使用异常）。</li>
+<li>对可以恢复的情况使用受检异常，对编程错误使用运行时异常。</li>
+<li>避免不必要的使用受检异常（可以通过一些状态检测手段来避免异常的发生）。</li>
+<li>优先使用标准的异常。</li>
+<li>每个方法抛出的异常都要有文档。</li>
+<li>保持异常的原子性</li>
+<li>不要在 catch 中忽略掉捕获到的异常。</li>
+</ul>
+<h2 id="Throwable-类常用方法？"><a href="#Throwable-类常用方法？" class="headerlink" title="Throwable 类常用方法？"></a>Throwable 类常用方法？</h2><ul>
+<li><p>getMessage() 方法：返回异常发生时的详细信息。</p>
+</li>
+<li><p>getCause() 方法：获得导致当前 Throwable 异常的 Throwable 异常。</p>
+</li>
+<li><p>getStackTrace()方法：获得 Throwable 对象封装的异常信息。</p>
+</li>
+<li><p>printStackTrace() 方法：在控制台上打印。</p>
+</li>
+</ul>
+<h2 id="请列出-5-个运行时异常？"><a href="#请列出-5-个运行时异常？" class="headerlink" title="请列出 5 个运行时异常？"></a>请列出 5 个运行时异常？</h2><ul>
+<li>NullPointerException</li>
+<li>IndexOutOfBoundsException</li>
+<li>ClassCastException</li>
+<li>ArrayStoreException</li>
+<li>BufferOverflowException</li>
+</ul>
+<h2 id="throw-与-throws-的区别-？"><a href="#throw-与-throws-的区别-？" class="headerlink" title="throw 与 throws 的区别 ？"></a>throw 与 throws 的区别 ？</h2><ul>
+<li>throw ，用于在程序中显式地抛出一个异常。</li>
+<li>throws ，用于指出在该方法中没有处理的异常。每个方法必须显式指明哪些异常没有处理，以便该方法的调用者可以预防可能发生的异常。最后，多个异常用逗号分隔。</li>
+</ul>
+<h2 id="异常处理中-finally-语句块的重要性"><a href="#异常处理中-finally-语句块的重要性" class="headerlink" title="异常处理中 finally 语句块的重要性?"></a>异常处理中 finally 语句块的重要性?</h2><p>不管程序是否发生了异常, finally 语句块都会被执行，甚至当没有catch 声明但抛出了一个异常时, finally 语句块也会被执行。</p>
+<p>finally 语句块通常用于释放资源, 如 I&#x2F;O 缓冲区, 数据库连接等等。</p>
+<h1 id="说说反射的用途及实现？"><a href="#说说反射的用途及实现？" class="headerlink" title="说说反射的用途及实现？"></a>说说反射的用途及实现？</h1><p>Java 反射机制主要提供了以下功能：</p>
+<ul>
+<li>在运行时构造一个类的对象。</li>
+<li>判断一个类所具有的成员变量和方法。</li>
+<li>调用一个对象的方法。</li>
+<li>生成动态代理。</li>
+</ul>
+<p>反射的应用很多，很多框架都有用到：</p>
+<ul>
+<li>Spring 框架的 IoC 基于反射创建对象和设置依赖属性。</li>
+<li>Spring MVC 的请求调用对应方法，也是通过反射。</li>
+<li>JDBC 的 Class#forName(String className) 方法，也是使用反射</li>
+</ul>
+<h2 id="反射中，Class-forName-和-ClassLoader-区别？"><a href="#反射中，Class-forName-和-ClassLoader-区别？" class="headerlink" title="反射中，Class.forName 和 ClassLoader 区别？"></a>反射中，Class.forName 和 ClassLoader 区别？</h2><p>这两者，都可用来对类进行加载。差别在于：</p>
+<ul>
+<li>Class.forName(…) 方法，除了将类的 .class 文件加载到JVM 中之外，还会对类进行解释，执行类中的 static 块。</li>
+<li>ClassLoader 只干一件事情，就是将 .class 文件加载到 JVM 中，不会执行 static 中的内容，只有在 newInstance 才会去执行 static 块。</li>
+</ul>
+<p>Class.forName(name, initialize, loader) 方法，带参函数也可控制是否加载 static 块，并且只有调用了newInstance 方法采用调用构造函数，创建类的对象。</p>
+<h2 id="UnsupportedOperationException-是什么？"><a href="#UnsupportedOperationException-是什么？" class="headerlink" title="UnsupportedOperationException 是什么？"></a>UnsupportedOperationException 是什么？</h2><p>UnsupportedOperationException ，是用于表明操作不支持的异常。</p>
+<p>在 JDK 类中已被大量运用，在集合框架java.util.Collections.UnmodifiableCollection 将会在所有 add 和 remove 操作中抛出这个异常。</p>
+<h1 id="什么时候用断言（assert）？"><a href="#什么时候用断言（assert）？" class="headerlink" title="什么时候用断言（assert）？"></a>什么时候用断言（assert）？</h1><p>断言，在软件开发中是一种常用的调试方式，很多开发语言中都支持这种机制。</p>
+<ul>
+<li>一般来说，断言用于保证程序最基本、关键的正确性。断言检查通常在开发和测试时开启。为了保证程序的执行效率，在软件发布后断言检查通常是关闭的。</li>
+<li>断言是一个包含布尔表达式的语句，在执行这个语句时假定该表达式为true；如果表达式的值为false，那么系统会报告一个AssertionError 错误。断言的使用如下面的代码所示：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">assert</span>(a &gt; <span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><ul>
+<li>断言可以有两种形式：</li>
+</ul>
+</li>
+<li><ul>
+<li><ul>
+<li>assert Expression1; 。</li>
+<li>assert Expression1 : Expression2; 。</li>
+<li>Expression1 应该总是产生一个布尔值。</li>
+<li>Expression2 可以是得出一个值的任意表达式；这个值用于生成显示更多调试信息的字符串消息。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>要在运行时启用断言，可以在启动 JVM 时使用 -enableassertions 或者 -ea 标记。要在运行时选择禁用断言，可以在启动 JVM 时使用 -da 或者 -disableassertions 标记。要在系统类中启用或禁用断言，可使用 -esa 或 -dsa 标记。还可以在包的基础上启用或者禁用断言。</p>
+</li>
+</ul>
+<p>当然，实际场景下，我们会在 Spring 的源码中看到，它自己封装了 Assert 类，实现更方便的断言功能，并且，在生产环境下也启用。</p>
+<p>另外，在单元测试中，也会使用自己封装的断言类，判断执行结果的正确与错误。</p>
+<h1 id="Java-对象创建的方式？"><a href="#Java-对象创建的方式？" class="headerlink" title="Java 对象创建的方式？"></a>Java 对象创建的方式？</h1><ol>
+<li>使用 new 关键字 创建对象。</li>
+<li>使用 Class 类的 newInstance 方法(反射机制)。</li>
+<li>使用 Constructor 类的 newInstance 方法(反射机制)。</li>
+<li>使用 clone 方法创建对象。</li>
+<li>使用(反)序列化机制创建对象。</li>
+</ol>
+]]></content>
+  </entry>
 </search>
