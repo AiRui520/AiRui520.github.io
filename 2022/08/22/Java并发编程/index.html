@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.2.0">
+
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="manifest" href="/manifest.json">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic%7CLobster+Two:300,300italic,400,400italic,700,700italic%7CAmita:300,300italic,400,400italic,700,700italic%7CMontserrat:300,300italic,400,400italic,700,700italic%7CPT+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"airui520.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":"true`","version":"8.12.1","exturl":false,"sidebar":{"position":"left","width":300,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta property="og:type" content="blog">
+<meta property="og:title" content="Java并发编程">
+<meta property="og:url" content="https://airui520.github.io/2022/08/22/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/index.html">
+<meta property="og:site_name" content="Fei的博客">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://files.catbox.moe/vakrmb.png">
+<meta property="og:image" content="https://files.catbox.moe/wfd5k1.png">
+<meta property="og:image" content="https://files.catbox.moe/pbfmlv.png">
+<meta property="og:image" content="https://files.catbox.moe/vw8itt.png">
+<meta property="og:image" content="https://files.catbox.moe/aofpug.png">
+<meta property="og:image" content="https://files.catbox.moe/u5c7tk.png">
+<meta property="og:image" content="https://files.catbox.moe/cluwqh.png">
+<meta property="og:image" content="https://files.catbox.moe/hkb5xd.png">
+<meta property="og:image" content="https://files.catbox.moe/vu8bx6.png">
+<meta property="og:image" content="https://files.catbox.moe/zaf8ms.png">
+<meta property="og:image" content="https://files.catbox.moe/abuq3a.png">
+<meta property="og:image" content="https://files.catbox.moe/xcekhg.png">
+<meta property="og:image" content="https://files.catbox.moe/0eo9nr.png">
+<meta property="og:image" content="https://files.catbox.moe/q9wkiy.png">
+<meta property="og:image" content="https://files.catbox.moe/dy11ld.png">
+<meta property="article:published_time" content="2022-08-22T10:41:13.000Z">
+<meta property="article:modified_time" content="2022-08-22T10:58:10.753Z">
+<meta property="article:author" content="Fei">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://files.catbox.moe/vakrmb.png">
+
+
+<link rel="canonical" href="https://airui520.github.io/2022/08/22/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://airui520.github.io/2022/08/22/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/","path":"2022/08/22/Java并发编程/","title":"Java并发编程"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Java并发编程 | Fei的博客</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXXX-X"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-XXXXXXXX-X","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Fei的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <img class="custom-logo-image" src="/images/bg.jpg" alt="Fei的博客">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">37</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java%E5%AF%B9%E8%B1%A1%E7%BB%93%E6%9E%84"><span class="nav-number">1.</span> <span class="nav-text">Java对象结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E7%BB%93%E6%9E%84%E4%B8%AD%E7%9A%84%E5%AD%97%E6%AE%B5%E9%95%BF%E5%BA%A6"><span class="nav-number">1.1.</span> <span class="nav-text">对象结构中的字段长度</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mark-Word%E7%9A%84%E7%BB%93%E6%9E%84%E4%BF%A1%E6%81%AF"><span class="nav-number">2.</span> <span class="nav-text">Mark Word的结构信息</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E5%90%8C%E9%94%81%E7%8A%B6%E6%80%81%E4%B8%8B%E5%BE%97Mark-Word%E5%AD%97%E6%AE%B5%E7%BB%93%E6%9E%84"><span class="nav-number">2.1.</span> <span class="nav-text">不同锁状态下得Mark Word字段结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%8DMark-Word%E7%9A%84%E6%9E%84%E6%88%90"><span class="nav-number">2.2.</span> <span class="nav-text">位Mark Word的构成</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%94%81%E5%8D%87%E7%BA%A7"><span class="nav-number">3.</span> <span class="nav-text">锁升级</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A0%E9%94%81%E7%8A%B6%E6%80%81"><span class="nav-number">3.1.</span> <span class="nav-text">无锁状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%81%8F%E5%90%91%E9%94%81%E7%8A%B6%E6%80%81"><span class="nav-number">3.2.</span> <span class="nav-text">偏向锁状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%BB%E9%87%8F%E7%BA%A7%E9%94%81%E7%8A%B6%E6%80%81"><span class="nav-number">3.3.</span> <span class="nav-text">轻量级锁状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E9%87%8F%E7%BA%A7%E9%94%81%E7%8A%B6%E6%80%81"><span class="nav-number">3.4.</span> <span class="nav-text">重量级锁状态</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%81%8F%E5%90%91%E9%94%81%E3%80%81%E8%BD%BB%E9%87%8F%E7%BA%A7%E9%94%81%E3%80%81%E9%87%8D%E9%87%8F%E7%BA%A7%E9%94%81%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="nav-number">4.</span> <span class="nav-text">偏向锁、轻量级锁、重量级锁的对比</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CAS%E7%AE%97%E6%B3%95"><span class="nav-number">5.</span> <span class="nav-text">CAS算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%94%81%E7%9A%84%E6%A6%82%E8%BF%B0"><span class="nav-number">6.</span> <span class="nav-text">锁的概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B9%90%E8%A7%82%E9%94%81%E4%B8%8E%E6%82%B2%E8%A7%82%E9%94%81"><span class="nav-number">6.1.</span> <span class="nav-text">乐观锁与悲观锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AC%E5%B9%B3%E9%94%81%E4%B8%8E%E9%9D%9E%E5%85%AC%E5%B9%B3%E9%94%81"><span class="nav-number">6.2.</span> <span class="nav-text">公平锁与非公平锁</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JUC%E5%AE%B9%E5%99%A8"><span class="nav-number">7.</span> <span class="nav-text">JUC容器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFJUC%E5%AE%B9%E5%99%A8"><span class="nav-number">7.1.</span> <span class="nav-text">什么是JUC容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CopyOnWriteArrayList%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">7.2.</span> <span class="nav-text">CopyOnWriteArrayList的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CopyOnWriteArrayList%E7%9A%84%E5%8E%9F%E7%90%86"><span class="nav-number">7.3.</span> <span class="nav-text">CopyOnWriteArrayList的原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ConcurrentHashMap-%EF%BC%88JDK-1-7%EF%BC%89%E5%8E%9F%E7%90%86"><span class="nav-number">7.4.</span> <span class="nav-text">ConcurrentHashMap （JDK 1.7）原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ConcurrentHashMap-%EF%BC%88JDK-1-8%EF%BC%89%E5%8E%9F%E7%90%86"><span class="nav-number">7.5.</span> <span class="nav-text">ConcurrentHashMap （JDK 1.8）原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#16-7-6-ConCurrentHashMap-1-7%E5%92%8C1-8%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">7.6.</span> <span class="nav-text">16.7.6 ConCurrentHashMap 1.7和1.8的区别</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Fei"
+      src="/images/head.jpg">
+  <p class="site-author-name" itemprop="name">Fei</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">37</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/AiRui520" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;AiRui520" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:2813764348@qq.com" title="E-Mail → mailto:2813764348@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://xiguayaaaaa.github.io/" title="https:&#x2F;&#x2F;xiguayaaaaa.github.io" rel="noopener" target="_blank">xigua</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://simon-yian.com/" title="https:&#x2F;&#x2F;simon-yian.com" rel="noopener" target="_blank">banana</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/AiRui520" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://airui520.github.io/2022/08/22/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.jpg">
+      <meta itemprop="name" content="Fei">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Fei的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Java并发编程 | Fei的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java并发编程<a href="https://github.com/AiRui520/next/edit/main/subdirectory-name/_posts/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-08-22 18:41:13 / 修改时间：18:58:10" itemprop="dateCreated datePublished" datetime="2022-08-22T18:41:13+08:00">2022-08-22</time>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>23k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>21 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><img src="https://files.catbox.moe/vakrmb.png"></p>
+<span id="more"></span>
+
+<p>在前面的内容中，学习了多线程相关的内容，在多线程环境下保证线程安全是首要考虑的问题，保证线程安全最简单的方式就是使用synchronized修饰方法或者代码片段，那么synchronized的底层原理是如何实现的，这就需要先深入了解对象在内存中的结构。在本章节中将详细学习synchronized关键字的原理及Java中的并发类。</p>
+<h2 id="Java对象结构"><a href="#Java对象结构" class="headerlink" title="Java对象结构"></a>Java对象结构</h2><p>Java对象结构包括三部分：对象头、对象体和对齐字节。 在本小节内将详细介绍Java的对象头。<br><strong>1.对象头</strong><br>对象头：对象头包括三个字段，第一个字段叫作Mark Word（标记字），用于存储自身运行时的数据，例如GC标志位、哈希码、锁状态等信息。<br>第二个字段叫作Class Pointer（类对象指针），用于存放方法区Class对象的地址，虚拟机通过这个指针来确定这个对象是哪个类的实例。<br>第三个字段叫作Array Length（数组长度）。如果对象是一个Java数组，那么此字段必须有，用于记录数组长度的数据；如果对象不是一个Java数组，那么此字段不存在，所以这是一个可选字段。<br><strong>2.对象体</strong><br>对象体包含对象的实例变量（成员变量），用于成员属性值，包括父类的成员属性值。这部分内存按4字节对齐。<br><strong>3.对齐字节</strong><br>对齐字节也叫作填充对齐，其作用是用来保证Java对象所占内存字节数为8的倍数HotSpot VM的内存管理要求对象起始地址必须是8字节的整数倍。对象头本身是8的倍数，当对象的实例变量数据不是8的倍数时，便需要填充数据来保证8字节的对齐。<br>接下来，对Object实例结构中几个重要的字段的作用做一下简要说明：</p>
+<ol>
+<li>Mark Word（标记字）字段主要用来表示对象的线程锁状态，另外还可以用来配合GC存放该对象的hashCode。</li>
+<li>Class Pointer（类对象指针），用于存放方法区Class对象的地址，虚拟机通过这个指针来确定这个对象是哪个类的实例。</li>
+<li>Array Length（数组长度）字段占用32位（在32位JVM中）字节，这是可选的，只有当本对象是一个数组对象时才会有这个部分。</li>
+<li>对象体用于保存对象属性值，是对象的主体部分，占用的内存空间大小取决于对象的属性数量和类型。</li>
+<li>对齐字节并不是必然存在的，也没有特别的含义，它仅仅起着占位符的作用。当对象实例数据部分没有对齐（8字节的整数倍）时，就需要通过对齐填充来补全。</li>
+</ol>
+<h3 id="对象结构中的字段长度"><a href="#对象结构中的字段长度" class="headerlink" title="对象结构中的字段长度"></a>对象结构中的字段长度</h3><p>Mark Word、Class Pointer、Array Length等字段的长度都与JVM的位数有关。Mark Word的长度为JVM的一个Word（字）大小，也就是说32位JVM的MarkWord为32位，64位JVM的Mark Word为64位。Class Pointer（类对象指针）字段的长度也为JVM的一个Word（字）大小，即32位JVM的Mark Word为32位，64位JVM的Mark Word为64位。<br>所以，在32位JVM虚拟机中，Mark Word和Class Pointer这两部分都是32位的；在64位JVM虚拟机中，Mark Word和Class Pointer这两部分都是64位的。<br>对于对象指针而言，如果JVM中的对象数量过多，使用64位的指针将浪费大量内存，通过简单统计，64位JVM将会比32位JVM多耗费50%的内存。为了节约内存可以使用选项+UseCompressedOops开启指针压缩。UseCompressedOops中的Oop为Ordinary object pointer（普通对象指针）的缩写。</p>
+<ul>
+<li>Class对象的属性指针（静态变量）。</li>
+<li>Object对象的属性指针（成员变量）。</li>
+<li>普通对象数组的元素指针。</li>
+</ul>
+<p>当然，也不是所有的指针都会压缩，一些特殊类型的指针不会压缩，比如指向PermGen（永久代）的Class对象指针（JDK 8中指向元空间的Class对象指针）、本地变量、堆栈元素、入参、返回值和NULL指针等。需要注意的是在堆内存小于32GB的情况下，64位虚拟机的UseCompressedOops选项是默认开启的，该选项表示开启Oop对象的指针压缩会将原来64位的Oop对象指针压缩为32位。<br>手动开启和关闭Oop对象指针压缩的Java指令为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -XX:+UseCompressedOops mainclass</span><br></pre></td></tr></table></figure>
+
+<p>如果对象是一个数组，那么对象头还需要有额外的空间用于存储数组的长度（Array Length字段）。Array Length字段的长度也随着JVM架构的不同而不同：在32位JVM上，长度为32位；在64位JVM上，长度为64位。64位JVM如果开启了Oop对象的指针压缩，Array Length字段的长度也将由64位压缩至32位。</p>
+<h2 id="Mark-Word的结构信息"><a href="#Mark-Word的结构信息" class="headerlink" title="Mark Word的结构信息"></a>Mark Word的结构信息</h2><p>Java内置锁涉及很多重要信息，这些都存放在对象结构中，并且存放于对象头的Mark Word字段中。Mark Word的位长度为JVM的一个Word大小，也就是说32位JVM的Mark Word为32位，64位JVM为64位。Mark Word的位长度不会受到Oop对象指针压缩选项的影响。<br><strong>Java内置锁的状态总共有4种，级别由低到高依次为：无锁、偏向锁、轻量级锁和重量级锁。</strong>其实在JDK 1.6之前，Java内置锁还是一个重量级锁，是一个效率比较低下的锁，在JDK 1.6之后，JVM为了提高锁的获取与释放效率，对synchronized的实现进行了优化，引入了偏向锁和轻量级锁，从此以后Java内置锁的状态就有了4种（无锁、偏向锁、轻量级锁和重量级锁），并且4种状态会随着竞争的情况逐渐升级，而且是不可逆的过程，即不可降级，也就是说只能进行锁升级（从低级别到高级别）。</p>
+<h3 id="不同锁状态下得Mark-Word字段结构"><a href="#不同锁状态下得Mark-Word字段结构" class="headerlink" title="不同锁状态下得Mark Word字段结构"></a>不同锁状态下得Mark Word字段结构</h3><p>Mark Word字段的结构与Java内置锁的状态强相关。为了让Mark Word字段存储更多的信息，JVM将Mark Word最低两个位设置为Java内置锁状态位，不同锁状态下的32位Mark Word结构如下表所示。</p>
+<p><img src="https://files.catbox.moe/wfd5k1.png"></p>
+<p>64位的Mark Word与32位的Mark Word结构相似，具体如下表所示。</p>
+<p><img src="https://files.catbox.moe/pbfmlv.png"></p>
+<h3 id="位Mark-Word的构成"><a href="#位Mark-Word的构成" class="headerlink" title="位Mark Word的构成"></a>位Mark Word的构成</h3><p>由于目前主流的JVM都是64位，因此我们使用64位的Mark Word。接下来对64位的Mark Word中各部分的内容进行具体介绍。</p>
+<ul>
+<li>lock：锁状态标记位，占两个二进制位，由于希望用尽可能少的二进制位表示尽可能多的信息，因此设置了lock标记。该标记的值不同，整个Mark Word表示的含义就不同。</li>
+<li>biased_lock：对象是否启用偏向锁标记，只占1个二进制位。为1时表示对象启用偏向锁，为0时表示对象没有偏向锁。lock和biased_lock两个标记位组合在一起共同表示Object实例处于什么样的锁状态。二者组合的含义具体如下表所示。 | <strong>biased_lock</strong> | <strong>lock</strong> | <strong>状态</strong> | | — | — | — | | 0 | 01 | 无锁 | | 1 | 01 | 偏向锁 | | 0 | 00 | 轻量级锁 | | 0 | 10 | 重量级锁 | | 0 | 11 | GC标记 |</li>
+<li>age：4位的Java对象分代年龄。在GC中，对象在Survivor区复制一次，年龄就增加1。当对象达到设定的阈值时，将会晋升到老年代。默认情况下，并行GC的年龄阈值为15，并发GC的年龄阈值为6。由于age只有4位，因此最大值为15，这就是-XX:MaxTenuringThreshold选项最大值为15的原因。</li>
+<li>identity_hashcode：31位的对象标识HashCode（哈希码）采用延迟加载技术，当调用Object.hashCode()方法或者System.identityHashCode()方法计算对象的HashCode后，其结果将被写到该对象头中。当对象被锁定时，该值会移动到Monitor（监视器）中。</li>
+<li>thread：54位的线程ID值为持有偏向锁的线程ID。</li>
+<li>epoch：偏向时间戳。</li>
+<li>ptr_to_lock_record：占62位，在轻量级锁的状态下指向栈帧中锁记录的指针。</li>
+<li>ptr_to_heavyweight_monitor：占62位，在重量级锁的状态下指向对象监视器的指针。</li>
+</ul>
+<h2 id="锁升级"><a href="#锁升级" class="headerlink" title="锁升级"></a>锁升级</h2><p>在JDK 1.6版本之前，所有的Java内置锁都是重量级锁。重量级锁会造成CPU在用户态和核心态之间频繁切换，所以代价高、效率低。JDK 1.6版本为了减少获得锁和释放锁所带来的性能消耗，引入了偏向锁和轻量级锁的实现。所以，在JDK 1.6版本中内置锁一共有4种状态：无锁状态、偏向锁状态、轻量级锁状态和重量级锁状态，这些状态随着竞争情况逐渐升级。内置锁可以升级但不能降级，意味着偏向锁升级成轻量级锁后不能再降级成偏向锁。这种能升级却不能降级的策略，其目的是提高获得锁和释放锁的效率。锁升级过程大致如下：</p>
+<p><img src="https://files.catbox.moe/vw8itt.png"></p>
+<h3 id="无锁状态"><a href="#无锁状态" class="headerlink" title="无锁状态"></a>无锁状态</h3><p>Java对象刚创建时还没有任何线程来竞争，说明该对象处于无锁状态（无线程竞争它），这时偏向锁标识位是0，锁状态是01。无锁状态下对象的Mark Word如下表所示。</p>
+<p><img src="https://files.catbox.moe/aofpug.png"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.bytecollege;</span><br><span class="line"><span class="keyword">import</span> org.openjdk.jol.info.ClassLayout;</span><br><span class="line"><span class="keyword">import</span> java.util.logging.Logger;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NoneLock</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line">        <span class="type">Logger</span> <span class="variable">log</span> <span class="operator">=</span> Logger.getLogger(<span class="string">&quot;NoneLock&quot;</span>);</span><br><span class="line">        <span class="type">Object</span> <span class="variable">o</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Object</span>();</span><br><span class="line">        log.info(<span class="string">&quot;未进入同步块，MarkWord 为：&quot;</span>);</span><br><span class="line">        log.info(ClassLayout.parseInstance(o).toPrintable());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="偏向锁状态"><a href="#偏向锁状态" class="headerlink" title="偏向锁状态"></a>偏向锁状态</h3><p>偏向锁是指一段同步代码一直被同一个线程所访问，那么该线程会自动获取锁，降低获取锁的代价。如果内置锁处于偏向状态，当有一个线程来竞争锁时，先用偏向锁，表示内置锁偏爱这个线程，这个线程要执行该锁关联的同步代码时，不需要再做任何检查和切换。偏向锁在竞争不激烈的情况下效率非常高。偏向锁状态的Mark Word会记录内置锁自己偏爱的线程ID，内置锁会将该线程当作自己的熟人。偏向锁状态下对象的Mark Word下表。</p>
+<p><img src="https://files.catbox.moe/u5c7tk.png"></p>
+<p>偏向锁的核心原理是：如果不存在线程竞争的一个线程获得了锁，那么锁就进入偏向状态，此时Mark Word的结构变为偏向锁结构，锁对象的锁标志位（lock）被改为01，偏向标志位（biased_lock）被改为1，然后线程的ID记录在锁对象的MarkWord中（使用CAS操作完成）。以后该线程获取锁时判断一下线程ID和标志位，就可以直接进入同步块，连CAS操作都不需要，这样就省去了大量有关锁申请的操作，从而也就提升了程序的性能。所以，在没有锁竞争的场合，偏向锁有很好的优化效果。但是，一旦有第二条线程需要竞争锁，那么偏向模式立即结束，进入轻量级锁的状态。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.bytecollege;</span><br><span class="line"><span class="keyword">import</span> org.openjdk.jol.info.ClassLayout;</span><br><span class="line"><span class="keyword">import</span> java.util.logging.Logger;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BiasableLock</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line">        Thread.sleep(<span class="number">5000</span>);</span><br><span class="line">        <span class="type">Logger</span> <span class="variable">log</span> <span class="operator">=</span> Logger.getLogger(<span class="string">&quot;BiasableLock&quot;</span>);</span><br><span class="line">        <span class="type">Object</span> <span class="variable">o</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Object</span>();</span><br><span class="line">        log.info(<span class="string">&quot;未进入同步块，MarkWord 为：&quot;</span>);</span><br><span class="line">        log.info(ClassLayout.parseInstance(o).toPrintable());</span><br><span class="line">        log.info(<span class="string">&quot;------------------------------------&quot;</span>);</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">t1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (o) &#123;</span><br><span class="line">                log.info((<span class="string">&quot;t1进入同步块，MarkWord 为：&quot;</span>));</span><br><span class="line">                log.info(ClassLayout.parseInstance(o).toPrintable());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, <span class="string">&quot;t1&quot;</span>);</span><br><span class="line">        t1.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>假如在大部分情况下同步块是没有竞争的，那么可以通过偏向来提高性能。即在无竞争时，之前获得锁的线程再次获得锁时会判断偏向锁的线程ID是否指向自己，如果是，那么该线程将不用再次获得锁，直接就可以进入同步块；如果未指向当前线程，当前线程就会采用CAS操作将Mark Word中的线程ID设置为当前线程ID，如果CAS操作成功，那么获取偏向锁成功，执行同步代码块，如果CAS操作失败，那么表示有竞争，抢锁线程被挂起，撤销占锁线程的偏向锁，然后将偏向锁膨胀为轻量级锁。<br>偏向锁的缺点：如果锁对象时常被多个线程竞争，偏向锁就是多余的，并且其撤销的过程会带来一些性能开销。<br>需要注意的是Java默认开始偏向锁，但是在JVM启动后延迟4秒才会启用偏向锁，因此在程序开始线程休眠了5秒就是保证偏向锁开启。</p>
+<h3 id="轻量级锁状态"><a href="#轻量级锁状态" class="headerlink" title="轻量级锁状态"></a>轻量级锁状态</h3><p>当有两个线程开始竞争这个锁对象时，情况就发生变化了，不再是偏向（独占）锁了，锁会升级为轻量级锁，两个线程公平竞争，哪个线程先占有锁对象，锁对象的Mark Word就指向哪个线程的栈帧中的锁记录。轻量级锁状态下对象的MarkWord如下表所示。</p>
+<p><img src="https://files.catbox.moe/cluwqh.png"></p>
+<p>当锁处于偏向锁，又被另一个线程企图抢占时，偏向锁就会升级为轻量级锁。企图抢占的线程会通过自旋的形式尝试获取锁，不会阻塞抢锁线程，以便提高性能。<br>自旋原理非常简单，如果持有锁的线程能在很短时间内释放锁资源，那么那些等待竞争锁的线程就不需要进行内核态和用户态之间的切换来进入阻塞挂起状态，它们只需要等一等（自旋），等持有锁的线程释放锁后即可立即获取锁，这样就避免了用户线程和内核切换的消耗。<br>但是，线程自旋是需要消耗CPU的，如果一直获取不到锁，那么线程也不能一直占用CPU自旋做无用功，所以需要设定一个自旋等待的最大时间。JVM对于自旋周期的选择，JDK 1.6之后引入了适应性自旋锁，适应性自旋锁意味着自旋的时间不是固定的，而是由前一次在同一个锁上的自旋时间以及锁的拥有者的状态来决定的。线程如果自旋成功了，下次自旋的次数就会更多，如果自旋失败了，自旋的次数就会减少。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.bytecollege;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.openjdk.jol.info.ClassLayout;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.logging.Logger;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ThinLock</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line">        Thread.sleep(<span class="number">5000</span>);</span><br><span class="line">        <span class="type">Logger</span> <span class="variable">log</span> <span class="operator">=</span> Logger.getLogger(<span class="string">&quot;App&quot;</span>);</span><br><span class="line">        <span class="type">Object</span> <span class="variable">o</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Object</span>();</span><br><span class="line">        log.info(<span class="string">&quot;未进入同步块，MarkWord 为：&quot;</span>);</span><br><span class="line">        log.info(ClassLayout.parseInstance(o).toPrintable());</span><br><span class="line">        log.info(<span class="string">&quot;------------------------------------&quot;</span>);</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">t1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (o) &#123;</span><br><span class="line">                log.info((<span class="string">&quot;t1进入同步块，MarkWord 为：&quot;</span>));</span><br><span class="line">                log.info(ClassLayout.parseInstance(o).toPrintable());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, <span class="string">&quot;t1&quot;</span>);</span><br><span class="line">        t1.start();</span><br><span class="line">        Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">t2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (o) &#123;</span><br><span class="line">                log.info((<span class="string">&quot;t2进入同步块，MarkWord 为：&quot;</span>));</span><br><span class="line">                log.info(ClassLayout.parseInstance(o).toPrintable());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, <span class="string">&quot;t1&quot;</span>);</span><br><span class="line">        t2.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果持有锁的线程执行的时间超过自旋等待的最大时间仍没有释放锁，就会导致其他争用锁的线程在最大等待时间内还是获取不到锁，自旋不会一直持续下去，这时争用线程会停止自旋进入阻塞状态，该锁膨胀为重量级锁。<br>轻量锁存在的目的是尽可能不动用操作系统层面的互斥锁，因为其性能比较差。线程的阻塞和唤醒需要CPU从用户态转为核心态，频繁地阻塞和唤醒对CPU来说是一件负担很重的工作。同时我们可以发现，很多对象锁的锁定状态只会持续很短的一段时间，例如整数的自加操作，在很短的时间内阻塞并唤醒线程显然不值得，为此引入了轻量级锁。轻量级锁是一种自旋锁，因为JVM本身就是一个应用，所以希望在应用层面上通过自旋解决线程同步问题。<br>轻量级锁的执行过程：在抢锁线程进入临界区之前，如果内置锁（临界区的同步对象）没有被锁定，JVM首先将在抢锁线程的栈帧中建立一个锁记录（LockRecord），用于存储锁对象当前 Mark Word 的拷贝（官方称为 Displaced Mark Word），owner 指针指向对象的 Mark Word。，这时的线程堆栈与内置锁对象头大致如下图所示：</p>
+<p><img src="https://files.catbox.moe/hkb5xd.png"></p>
+<p>然后抢锁线程将使用CAS自旋操作，尝试将内置锁对象头的Mark Word的ptr_to_lock_record（锁记录指针）更新为抢锁线程栈帧中锁记录的地址，如果这个更新执行成功了，这个线程就拥有了这个对象锁。然后JVM将Mark Word中的lock标记位改为00（轻量级锁标志），即表示该对象处于轻量级锁状态。抢锁成功之后，JVM会将Mark Word中原来的锁对象信息（如哈希码等）保存在抢锁线程锁记录的Displaced Mark Word（可以理解为放错地方的Mark Word）字段中，再将抢锁线程中锁记录的owner指针指向锁对象。</p>
+<p><img src="https://files.catbox.moe/vu8bx6.png"></p>
+<h4 id="轻量级锁的分类"><a href="#轻量级锁的分类" class="headerlink" title="轻量级锁的分类"></a>轻量级锁的分类</h4><p>轻量级锁主要有两种：普通自旋锁和自适应自旋锁。</p>
+<h5 id="普通自旋锁"><a href="#普通自旋锁" class="headerlink" title="普通自旋锁"></a>普通自旋锁</h5><p>所谓普通自旋锁，就是指当有线程来竞争锁时，抢锁线程会在原地循环等待，而不是被阻塞，直到那个占有锁的线程释放锁之后，这个抢锁线程才可以获得锁。</p>
+<h5 id="自适应自旋锁"><a href="#自适应自旋锁" class="headerlink" title="自适应自旋锁"></a>自适应自旋锁</h5><p>所谓自适应自旋锁，就是等待线程空循环的自旋次数并非是固定的，而是会动态地根据实际情况来改变自旋等待的次数，自旋次数由前一次在同一个锁上的自旋时间及锁的拥有者的状态来决定。自适应自旋锁的大概原理是：（1）如果抢锁线程在同一个锁对象上之前成功获得过锁，JVM就会认为这次自旋很有可能再次成功，因此允许自旋等待持续相对更长的时间。（2）如果对于某个锁，抢锁线程很少成功获得过，那么JVM将可能减少自旋时间甚至省略自旋过程，以避免浪费处理器资源。自适应自旋解决的是“锁竞争时间不确定”的问题。自适应自旋假定不同线程持有同一个锁对象的时间基本相当，竞争程度趋于稳定。总的思想是：根据上一次自旋的时间与结果调整下一次自旋的时间。<br>注意：JDK 1.6的轻量级锁使用的是普通自旋锁，且需要使用-XX:+UseSpinning选项手工开启。JDK 1.7后，轻量级锁使用自适应自旋锁，JVM启动时自动开启，且自旋时间由JVM自动控制。轻量级锁也被称为非阻塞同步、乐观锁，因为这个过程并没有把线程阻塞挂起，而是让线程空循环等待。</p>
+<h3 id="重量级锁状态"><a href="#重量级锁状态" class="headerlink" title="重量级锁状态"></a>重量级锁状态</h3><p>在JVM中，每个对象都关联一个监视器，这里的对象包含Object实例和Class实例。监视器是一个同步工具，相当于一个许可证，拿到许可证的线程即可进入临界区进行操作，没有拿到则需要阻塞等待。重量级锁通过监视器的方式保障了任何时间只允许一个线程通过受到监视器保护的临界区代码。<br>重量级锁会让其他申请的线程之间进入阻塞，性能降低。重量级锁也叫同步锁，这个锁对象Mark Word再次发生变化，会指向一个监视器对象，该监视器对象用集合的形式来登记和管理排队的线程。重量级锁状态下对象的Mark Word如下表所示。</p>
+<p><img src="https://files.catbox.moe/zaf8ms.png"></p>
+<p>总结起来，锁升级状态如下图所示：</p>
+<p><img src="https://files.catbox.moe/abuq3a.png"></p>
+<h2 id="偏向锁、轻量级锁、重量级锁的对比"><a href="#偏向锁、轻量级锁、重量级锁的对比" class="headerlink" title="偏向锁、轻量级锁、重量级锁的对比"></a>偏向锁、轻量级锁、重量级锁的对比</h2><p>总结一下synchronized的执行过程，大致如下：</p>
+<ol>
+<li>线程抢锁时，JVM首先检测内置锁对象Mark Word中的biased_lock（偏向锁标识）是否设置成1，lock（锁标志位）是否为01，如果都满足，确认内置锁对象为可偏向状态。</li>
+<li>在内置锁对象确认为可偏向状态之后，JVM检查Mark Word中的线程ID是否为抢锁线程ID，如果是，就表示抢锁线程处于偏向锁状态，抢锁线程快速获得锁，开始执行临界区代码。</li>
+<li>如果Mark Word中的线程ID并未指向抢锁线程，就通过CAS操作竞争锁。如果竞争成功，就将Mark Word中的线程ID设置为抢锁线程，偏向标志位设置为1，锁标志位设置为01，然后执行临界区代码，此时内置锁对象处于偏向锁状态。</li>
+<li>如果CAS操作竞争失败，就说明发生了竞争，撤销偏向锁，进而升级为轻量级锁。</li>
+<li>JVM使用CAS将锁对象的Mark Word替换为抢锁线程的锁记录指针，如果成功，抢锁线程就获得锁。如果替换失败，就表示其他线程竞争锁，JVM尝试使用CAS自旋替换抢锁线程的锁记录指针，如果自旋成功（抢锁成功），那么锁对象依然处于轻量级锁状态。</li>
+<li>如果JVM的CAS替换锁记录指针自旋失败，轻量级锁就膨胀为重量级锁，后面等待锁的线程也要进入阻塞状态。</li>
+</ol>
+<p>总体来说，偏向锁是在没有发生锁争用的情况下使用的；一旦有了第二个线程争用锁，偏向锁就会升级为轻量级锁；如果锁争用很激烈，轻量级锁的CAS自旋到达阈值后，轻量级锁就会升级为重量级锁。三种内置锁的对比如表所示。</p>
+<p><img src="https://files.catbox.moe/xcekhg.png"></p>
+<h2 id="CAS算法"><a href="#CAS算法" class="headerlink" title="CAS算法"></a>CAS算法</h2><p>CAS（Compare And Swap）是一种无锁算法，该算法关键依赖两个值——期望值（旧值）和新值，底层CPU利用原子操作判断内存原值与期望值是否相等，如果相等就给内存地址赋新值，否则不做任何操作。<br>使用CAS进行无锁编程的步骤大致如下：</p>
+<ol>
+<li>获得字段的期望值（oldValue）。</li>
+<li>计算出需要替换的新值（newValue）。</li>
+<li>通过CAS将新值（newValue）放在字段的内存地址上，如果CAS失败就重复第（1）步到第（2）步，一直到CAS成功，这种重复俗称CAS自旋。</li>
+</ol>
+<h2 id="锁的概述"><a href="#锁的概述" class="headerlink" title="锁的概述"></a>锁的概述</h2><h3 id="乐观锁与悲观锁"><a href="#乐观锁与悲观锁" class="headerlink" title="乐观锁与悲观锁"></a>乐观锁与悲观锁</h3><p>乐观锁和悲观锁是在数据库中引入的名词，但是在并发包锁里面也引入了类似的思想。<br>悲观锁指对数据被外界修改持保守态度，认为数据很容易就会被其他线程修改，所以在数据被处理前先对数据进行加锁，并在整个数据处理过程中，使数据处于锁定状态。悲观锁的实现往往依靠数据库提供的锁机制，即在数据库中，在对数据记录操作前给记录加排它锁。如果获取锁失败，则说明数据正在被其他线程修改，当前线程则等待或者抛出异常。如果获取锁成功，则对记录进行操作，然后提交事务后释放排它锁。在Java中synchronized便是一种悲观锁。<br>乐观锁是相对悲观锁来说的，它认为数据在一般情况下不会造成冲突，所以在访问记录前不会加排它锁，而是在进行数据提交更新时，才会正式对数据冲突与否进行检测。例如CAS算法就是一种乐观锁。</p>
+<h3 id="公平锁与非公平锁"><a href="#公平锁与非公平锁" class="headerlink" title="公平锁与非公平锁"></a>公平锁与非公平锁</h3><p>根据线程获取锁的抢占机制，锁可以分为公平锁和非公平锁，公平锁表示线程获取锁的顺序是按照线程请求锁的时间早晚来决定的，也就是最早请求锁的线程将最早获取到锁。而非公平锁则在运行时闯入，也就是先来不一定先得。<br>ReentrantLock提供了公平和非公平锁的实现。</p>
+<ul>
+<li>公平锁：ReentrantLock pairLock &#x3D; new ReentrantLock（true）。</li>
+<li>非公平锁：ReentrantLock pairLock &#x3D; new ReentrantLock（false）。如果构造函数不传递参数，则默认是非公平锁。</li>
+</ul>
+<p>例如，假设线程A已经持有了锁，这时候线程B请求该锁其将会被挂起。当线程A释放锁后，假如当前有线程C也需要获取该锁，如果采用非公平锁方式，则根据线程调度策略，线程B和线程C两者之一可能获取锁，这时候不需要任何其他干涉，而如果使用公平锁则需要把C挂起，让B获取当前锁。<br>在没有公平性需求的前提下尽量使用非公平锁，因为公平锁会带来性能开销。</p>
+<h2 id="JUC容器"><a href="#JUC容器" class="headerlink" title="JUC容器"></a>JUC容器</h2><p>Java同步容器类通过Synchronized（内置锁）来实现同步的容器，比如Vector、HashTable以及SynchronizedList等容器。线程安全的同步容器类主要有Vector、Stack、HashTable等。另外，Java还提供了一组包装方法，将一个普通的基础容器包装成一个线程安全的同步容器。例如通过Collections.synchronized包装方法能将一个普通的容器包装成一个线程安全的Sorted同步容器。</p>
+<h3 id="什么是JUC容器"><a href="#什么是JUC容器" class="headerlink" title="什么是JUC容器"></a>什么是JUC容器</h3><p>JUC基于非阻塞算法（Lock Free，无锁编程）提供了一组高并发容器，包括高并发的List、Set、Queue、Map容器。<br>JUC高并发容器是基于非阻塞算法（或者无锁编程算法）实现的容器类，无锁编程算法主要通过CAS（Compare And Swap）+Volatile组合实现，通过CAS保障操作的原子性，通过volatile保障变量内存的可见性。无锁编程算法的主要优点如下：</p>
+<ol>
+<li>开销较小：不需要在内核态和用户态之间切换进程。</li>
+<li>读写不互斥：只有写操作需要使用基于CAS机制的乐观锁，读读操作之间可以不用互斥。</li>
+</ol>
+<p>JUC包中提供了List、Set、Queue、Map各种类型的高并发容器，如ConcurrentHashMap、ConcurrentSkipListMap、ConcurrentSkipListSet、CopyOnWriteArrayList和CopyOnWriteArraySet。在性能上，ConcurrentHashMap通常优于同步的HashMap，ConcurrentSkipListMap通常优于同步的TreeMap。当读取和遍历操作远远大于列表的更新操作时，CopyOnWriteArrayList优于同步的ArrayList。<br><strong>1.List</strong><br>JUC包中的高并发List主要有CopyOnWriteArrayList，对应的基础容器为ArrayList。<br>CopyOnWriteArrayList相当于线程安全的ArrayList，它实现了List接口。在读多写少的场景中，其性能远远高于ArrayList的同步包装容器。<br><strong>2.Set</strong><br>JUC包中的Set主要有CopyOnWriteArraySet和ConcurrentSkipListSet。<br>CopyOnWriteArraySet继承自AbstractSet类，对应的基础容器为HashSet。其内部组合了一个CopyOnWriteArrayList对象，它的核心操作是基于CopyOnWriteArrayList实现的。<br>ConcurrentSkipListSet是线程安全的有序集合，对应的基础容器为TreeSet。它继承自AbstractSet，并实现了NavigableSet接口。ConcurrentSkipListSet是通过ConcurrentSkipListMap实现的。<br><strong>3.Map</strong><br>JUC包中Map主要有ConcurrentHashMap和ConcurrentSkipListMap。<br>ConcurrentHashMap对应的基础容器为HashMap。JDK 6中的ConcurrentHashMap采用一种更加细粒度的“分段锁”加锁机制，JDK 8中采用CAS无锁算法。<br>ConcurrentSkipListMap对应的基础容器为TreeMap。其内部的Skip List（跳表）结构是一种可以代替平衡树的数据结构，默认是按照Key值升序的。<br><strong>4.Queue</strong><br>JUC包中的Queue的实现类包括三类：单向队列、双向队列和阻塞队列。<br>ConcurrentLinkedQueue是基于列表实现的单向队列，按照FIFO（先进先出）原则对元素进行排序。新元素从队列尾部插入，而获取队列元素则需要从队列头部获取。<br>ConcurrentLinkedDeque是基于链表的双向队列，但是该队列不允许null元素。作为双向队列，ConcurrentLinkedDeque可以当作“栈”来使用，并且高效地支持并发环境。<br>除了提供普通的单向队列、双向队列外，JUC拓展了队列，增加了可阻塞的插入和获取等操作，提供了一组阻塞队列，具体如下：</p>
+<ul>
+<li>ArrayBlockingQueue：基于数组实现的可阻塞的FIFO队列。</li>
+<li>LinkedBlockingQueue：基于链表实现的可阻塞的FIFO队列。</li>
+<li>PriorityBlockingQueue：按优先级排序的队列。</li>
+<li>DelayQueue：按照元素的Delay时间进行排序的队列。</li>
+<li>SynchronousQueue：无缓冲等待队列。</li>
+</ul>
+<h3 id="CopyOnWriteArrayList的使用"><a href="#CopyOnWriteArrayList的使用" class="headerlink" title="CopyOnWriteArrayList的使用"></a>CopyOnWriteArrayList的使用</h3><p>从源码中可以看出CopyOnWriteArrayList同样继承了List接口，因此CopyOnWriteArrayList的使用和ArrayList基本一致：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.bytecollege;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.CopyOnWriteArrayList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CopyOnWriteListDemo</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        CopyOnWriteArrayList&lt;Integer&gt; list = <span class="keyword">new</span> <span class="title class_">CopyOnWriteArrayList</span>&lt;&gt;();</span><br><span class="line">        <span class="comment">//添加元素</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">            <span class="comment">//加锁——复制——添加</span></span><br><span class="line">            list.add(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//删除元素</span></span><br><span class="line">        <span class="comment">//加锁</span></span><br><span class="line">        list.remove(<span class="number">2</span>);</span><br><span class="line">        <span class="comment">//修改</span></span><br><span class="line">        <span class="comment">//加锁——复制——修改</span></span><br><span class="line">        list.set(<span class="number">0</span>,<span class="number">200</span>);</span><br><span class="line">        <span class="comment">//查询</span></span><br><span class="line">        <span class="comment">//不加锁</span></span><br><span class="line">        list.get(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="CopyOnWriteArrayList的原理"><a href="#CopyOnWriteArrayList的原理" class="headerlink" title="CopyOnWriteArrayList的原理"></a>CopyOnWriteArrayList的原理</h3><p>CopyOnWrite（写时复制）就是在修改器对一块内存进行修改时，不直接在原有内存块上进行写操作，而是将内存复制一份，在新的内存中进行写操作，写完之后，再将原来的指针（或者引用）指向新的内存，原来的内存被回收。CopyOnWriteArrayList是写时复制思想的一种典型实现，其含有一个指向操作内存的内部指针array，而可变操作（add、set等）是在array数组的副本上进行的。当元素需要被修改或者增加时，并不直接在array指向的原有数组上操作，而是首先对array进行一次复制，将修改的内容写入复制的副本中。写完之后，再将内部指针array指向新的副本，这样就可以确保修改操作不会影响访问器的读取操作。CopyOnWriteArrayList的原理如图所示。</p>
+<p><img src="https://files.catbox.moe/0eo9nr.png"></p>
+<h3 id="ConcurrentHashMap-（JDK-1-7）原理"><a href="#ConcurrentHashMap-（JDK-1-7）原理" class="headerlink" title="ConcurrentHashMap （JDK 1.7）原理"></a>ConcurrentHashMap （JDK 1.7）原理</h3><p>JDK 1.7的ConcurrentHashMap的锁机制基于粒度更小的分段锁，分段锁其实是一种锁的设计，并不是具体的一种锁，对于ConcurrentHashMap而言，分段锁技术将Key分成一个一个小Segment存储，然后给每一段数据配一把锁，当一个线程占用锁访问其中一段数据的时候，其他段的数据也能被其他线程访问，能够实现真正的并发访问。</p>
+<p><img src="https://files.catbox.moe/q9wkiy.png"></p>
+<p>ConcurrentHashMap的内部结构的组成部分具体如下：<br><strong>1.HashEntry</strong><br>HashEntry结构用于存储“Key-Value对”（即“键-值对”）数据，以及存储其后继节点的指针。<br><strong>2.Segment</strong><br>ConcurrentHashMap中的一个段称为Segment，Segment继承了ReentrantLock，所以一个段又是一个ReentrantLock。Segment内部拥有一个HashEntry数组类型的成员table，数组中的每个元素又是一个链表，这个由HashEntry链接起来的链表对应一个哈希表的桶，也就是说，table的一个元素对应哈希表的一个桶。Segment在ConcurrentHashMap中扮演锁的角色，每个Segment守护着一个HashEntry数组中的元素，当对HashEntry数组的数据进行修改时，必须首先获得它对应的Segment锁。<br><strong>3.ConcurrentHashMap</strong><br>ConcurrentHashMap在默认并发级别会创建包含16个Segment对象的数组，每个Segment大约守护整个哈希表中桶总数的1&#x2F;16，其中第N个哈希桶由第N mod 16个锁来保护。假设使用合理的哈希算法使关键字能够均匀地分部，那么这大约能使对锁的请求减少到原来的1&#x2F;16。默认并发级别的情况下，ConcurrentHashMap支持多达16个并发的写入线程。</p>
+<h4 id="ConCurrentHashMap核心源码解析"><a href="#ConCurrentHashMap核心源码解析" class="headerlink" title="ConCurrentHashMap核心源码解析"></a>ConCurrentHashMap核心源码解析</h4><p><strong>1.成员变量</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//segment默认初始容量</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">DEFAULT_INITIAL_CAPACITY</span> <span class="operator">=</span> <span class="number">16</span>;</span><br><span class="line"><span class="comment">//默认线程并发数</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">float</span> <span class="variable">DEFAULT_LOAD_FACTOR</span> <span class="operator">=</span> <span class="number">0.75f</span>;</span><br><span class="line"><span class="comment">//HashEntry数组最大容量</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">MAXIMUM_CAPACITY</span> <span class="operator">=</span> <span class="number">1</span> &lt;&lt; <span class="number">30</span>;</span><br><span class="line"><span class="comment">//Segment数组中HashEntry数组的最小容量</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">MIN_SEGMENT_TABLE_CAPACITY</span> <span class="operator">=</span> <span class="number">2</span>;</span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">MAX_SEGMENTS</span> <span class="operator">=</span> <span class="number">1</span> &lt;&lt; <span class="number">16</span>;</span><br><span class="line"><span class="comment">//加锁前的重试次数</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">RETRIES_BEFORE_LOCK</span> <span class="operator">=</span> <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+
+<p><strong>2.构造方法</strong><br>ConcurrentHashMap构造器和HashMap类似，都调用了重载的构造器，此处不一一讲解，只讲解被调用的核心构造方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">ConcurrentHashMap</span><span class="params">(<span class="type">int</span> initialCapacity,</span></span><br><span class="line"><span class="params">                             <span class="type">float</span> loadFactor, <span class="type">int</span> concurrencyLevel)</span> &#123;</span><br><span class="line">    	<span class="comment">//判断传入的参数是否合法，如果不合法</span></span><br><span class="line">        <span class="keyword">if</span> (!(loadFactor &gt; <span class="number">0</span>) || initialCapacity &lt; <span class="number">0</span> || concurrencyLevel &lt;= <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>();</span><br><span class="line">    	<span class="comment">//如果最大并发数超出最大并发数则赋值为最大并发数</span></span><br><span class="line">        <span class="keyword">if</span> (concurrencyLevel &gt; MAX_SEGMENTS)</span><br><span class="line">            concurrencyLevel = MAX_SEGMENTS;</span><br><span class="line">        <span class="comment">// Find power-of-two sizes best matching arguments</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">sshift</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">ssize</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">    	<span class="comment">//左移ssize使它成为2的N次方，concurrencyLevel是16，因此ssift是4</span></span><br><span class="line">        <span class="keyword">while</span> (ssize &lt; concurrencyLevel) &#123;</span><br><span class="line">            ++sshift;</span><br><span class="line">            ssize &lt;&lt;= <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    	segmentShift和segmentMask都是用于定位segment和HashEntry数组中的元素</span><br><span class="line">        <span class="built_in">this</span>.segmentShift = <span class="number">32</span> - sshift;</span><br><span class="line">        <span class="built_in">this</span>.segmentMask = ssize - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (initialCapacity &gt; MAXIMUM_CAPACITY)</span><br><span class="line">            initialCapacity = MAXIMUM_CAPACITY;</span><br><span class="line">    	<span class="comment">//计算每个segment数组的大小</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">c</span> <span class="operator">=</span> initialCapacity / ssize;</span><br><span class="line">        <span class="keyword">if</span> (c * ssize &lt; initialCapacity)</span><br><span class="line">            ++c;</span><br><span class="line">        <span class="type">int</span> <span class="variable">cap</span> <span class="operator">=</span> MIN_SEGMENT_TABLE_CAPACITY;</span><br><span class="line">    	<span class="comment">//使得HashEntry[]的最小容量为2，作用是让segment添加第二个元素时才扩容</span></span><br><span class="line">        <span class="keyword">while</span> (cap &lt; c)</span><br><span class="line">            cap &lt;&lt;= <span class="number">1</span>;</span><br><span class="line">        <span class="comment">// 创建segment数组，并创建segment[0]加入数组中</span></span><br><span class="line">        Segment&lt;K,V&gt; s0 =</span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">Segment</span>&lt;K,V&gt;(loadFactor, (<span class="type">int</span>)(cap * loadFactor),</span><br><span class="line">                             (HashEntry&lt;K,V&gt;[])<span class="keyword">new</span> <span class="title class_">HashEntry</span>[cap]);</span><br><span class="line">        Segment&lt;K,V&gt;[] ss = (Segment&lt;K,V&gt;[])<span class="keyword">new</span> <span class="title class_">Segment</span>[ssize];</span><br><span class="line">        UNSAFE.putOrderedObject(ss, SBASE, s0); <span class="comment">// ordered write of segments[0]</span></span><br><span class="line">        <span class="built_in">this</span>.segments = ss;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//Segment构造方法</span></span><br><span class="line">Segment(<span class="type">float</span> lf, <span class="type">int</span> threshold, HashEntry&lt;K,V&gt;[] tab) &#123;</span><br><span class="line">            <span class="built_in">this</span>.loadFactor = lf;</span><br><span class="line">            <span class="built_in">this</span>.threshold = threshold;</span><br><span class="line">            <span class="built_in">this</span>.table = tab;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>总结上述代码可以看出在构造方法内主要做了以下4件事情：</p>
+<ol>
+<li>创建了Segment数组，初始长度为16，并且不可扩容</li>
+<li>初始化Segment数组中HashEntry数组，初始长度为2，因为负载因子是0.75，因此扩容的阈值的1.5，也就是说在HashEntry数组中添加第一个元素时并不会扩容，添加第二个元素时才会扩容。</li>
+<li>初始化Segment[0]，其他位置还是null。</li>
+<li>计算处segmentShift值为32-4&#x3D;8，segmentMask为16-1&#x3D;15</li>
+</ol>
+<p><strong>3.put()</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> V <span class="title function_">put</span><span class="params">(K key, V value)</span> &#123;</span><br><span class="line">    Segment&lt;K,V&gt; s;</span><br><span class="line">    <span class="keyword">if</span> (value == <span class="literal">null</span>)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">NullPointerException</span>();</span><br><span class="line">    <span class="comment">// 1. 计算 key 的 hash 值</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">hash</span> <span class="operator">=</span> hash(key);</span><br><span class="line">    <span class="comment">// 2. 根据 hash 值找到 Segment 数组中的位置 j</span></span><br><span class="line">    <span class="comment">//    hash 是 32 位，无符号右移 segmentShift(28) 位，剩下高 4 位，</span></span><br><span class="line">    <span class="comment">//    然后和 segmentMask(15) 做一次与操作，也就是说 j 是 hash 值的高 4 位，也就是槽的数组下标</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> (hash &gt;&gt;&gt; segmentShift) &amp; segmentMask;</span><br><span class="line">    <span class="comment">// 由于初始化的时候初始化了 segment[0]，其他位置还是 null，</span></span><br><span class="line">    <span class="comment">// ensureSegment(j) 对 segment[j] 进行初始化</span></span><br><span class="line">    <span class="keyword">if</span> ((s = (Segment&lt;K,V&gt;)UNSAFE.getObject          <span class="comment">// nonvolatile; recheck</span></span><br><span class="line">         (segments, (j &lt;&lt; SSHIFT) + SBASE)) == <span class="literal">null</span>) <span class="comment">//  in ensureSegment</span></span><br><span class="line">        s = ensureSegment(j);</span><br><span class="line">    <span class="comment">// 3. 插入新值到 槽 s 中</span></span><br><span class="line">    <span class="keyword">return</span> s.put(key, hash, value, <span class="literal">false</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>此处的put()方法较为简单，即通过计算得出对应位置的Segment，并在Segment内部进行put操作。接下来查看在Segment中put的流程。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> V <span class="title function_">put</span><span class="params">(K key, <span class="type">int</span> hash, V value, <span class="type">boolean</span> onlyIfAbsent)</span> &#123;</span><br><span class="line">    		<span class="comment">//获取Segment独占锁</span></span><br><span class="line">            HashEntry&lt;K,V&gt; node = tryLock() ? <span class="literal">null</span> :</span><br><span class="line">                scanAndLockForPut(key, hash, value);</span><br><span class="line">            V oldValue;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">//获取Segment内部HashEntry数组</span></span><br><span class="line">                HashEntry&lt;K,V&gt;[] tab = table;</span><br><span class="line">                <span class="comment">//利用key的hash计算存放的位置</span></span><br><span class="line">                <span class="type">int</span> <span class="variable">index</span> <span class="operator">=</span> (tab.length - <span class="number">1</span>) &amp; hash;</span><br><span class="line">                <span class="comment">//获取链表的头结点</span></span><br><span class="line">                HashEntry&lt;K,V&gt; first = entryAt(tab, index);</span><br><span class="line">                <span class="comment">//遍历链表</span></span><br><span class="line">                <span class="keyword">for</span> (HashEntry&lt;K,V&gt; e = first;;) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (e != <span class="literal">null</span>) &#123;</span><br><span class="line">                        K k;</span><br><span class="line">                        <span class="comment">//如果遍历过程中发现存放元素的key和链表中已有元素的key相等，则直接覆盖</span></span><br><span class="line">                        <span class="keyword">if</span> ((k = e.key) == key ||</span><br><span class="line">                            (e.hash == hash &amp;&amp; key.equals(k))) &#123;</span><br><span class="line">                            oldValue = e.value;</span><br><span class="line">                            <span class="keyword">if</span> (!onlyIfAbsent) &#123;</span><br><span class="line">                                e.value = value;</span><br><span class="line">                                ++modCount;</span><br><span class="line">                            &#125;</span><br><span class="line">                            <span class="keyword">break</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                        e = e.next;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">else</span> &#123;</span><br><span class="line">                        <span class="comment">//如果不为null，则直接将元素设置为表头，如果是null,初始化并设置为链表表头</span></span><br><span class="line">                        <span class="keyword">if</span> (node != <span class="literal">null</span>)</span><br><span class="line">                            node.setNext(first);</span><br><span class="line">                        <span class="keyword">else</span></span><br><span class="line">                            node = <span class="keyword">new</span> <span class="title class_">HashEntry</span>&lt;K,V&gt;(hash, key, value, first);</span><br><span class="line">                        <span class="type">int</span> <span class="variable">c</span> <span class="operator">=</span> count + <span class="number">1</span>;</span><br><span class="line">                        <span class="comment">//如果超过了该Segment中HashEntry的阈值，则对HashEntry扩容</span></span><br><span class="line">                        <span class="keyword">if</span> (c &gt; threshold &amp;&amp; tab.length &lt; MAXIMUM_CAPACITY)</span><br><span class="line">                            rehash(node);</span><br><span class="line">                        <span class="keyword">else</span></span><br><span class="line">                            <span class="comment">//如果没有达到，则放置到tab的index位置</span></span><br><span class="line">                            setEntryAt(tab, index, node);</span><br><span class="line">                        ++modCount;</span><br><span class="line">                        count = c;</span><br><span class="line">                        oldValue = <span class="literal">null</span>;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                <span class="comment">//解锁</span></span><br><span class="line">                unlock();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> oldValue;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="ConcurrentHashMap-（JDK-1-8）原理"><a href="#ConcurrentHashMap-（JDK-1-8）原理" class="headerlink" title="ConcurrentHashMap （JDK 1.8）原理"></a>ConcurrentHashMap （JDK 1.8）原理</h3><p>JDK 1.8对ConcurrentHashMap的内部结构进行了改进，改采用数组+链表或红黑树来实现，但是从Segment（分段锁）技术角度来说，其原理是类似的。<br>JDK 1.7的ConcurrentHashMap为了进行并发热点的分离，默认情况下将一个table分裂成16个小的table（Segment表示），从而在Segment维度进行比较细粒度的并发控制。实际上，如果并发线程多，这种粒度还是不够细。所以，JDK 1.8的ConcurrentHashMap将并发控制的粒度进一步细化，也就是进一步进行并发热点的分离，将并发粒度细化到每一个桶。既然如此，比较粗粒度的Segment已经没有存在的必要，每一个桶已经变化成实质意义的Segment，所以该结构直接被丢弃。<br>JDK 1.7的ConcurrentHashMap每一个桶都为链表结构，为了提升节点的访问性能，JDK 1.8引入了红黑树的结构，当桶的节点数超过一定的阈值（默认为64）时，JDK 1.8将链表结构自动转换成红黑树的结构，可以理解为将链式桶转换成树状桶。<br>ConcurrentHashMap的内部结构的层次关系为ConcurrentHashMap→链式桶&#x2F;树状桶。这样设计的好处在于，每次访问的时候只需对一个桶进行锁定，而不需要将整个Map集合都进行粗粒度的锁定。<br>JDK 1.8的ConcurrentHashMap引入红黑树的原因是：链表查询的时间复杂度为O(n)，红黑树查询的时间复杂度为O(log(n))，所以在节点比较多的情况下，使用红黑树可以大大提升性能。<br>一个JDK 1.8版本ConcurrentHashMap实例的内部结构示例如图所示。从图示来看ConcurrentHashMap的数据结构和HashMap的基本一致。</p>
+<p><img src="https://files.catbox.moe/dy11ld.png"></p>
+<p><strong>1.Node</strong><br>此结构为ConcurrentHashMap的核心内部类，它包装了“Key-Value对”，所有插入ConcurrentHashMap的数据都包装在其中。<br><strong>2.TreeBin(Node子类)</strong><br>当数据链表（链式桶）长度大于8时，会转换为TreeBin（树状桶）。TreeBin作为根节点，可以认为是红黑树对象。在ConcurrentHashMap的table“数组”中，存放的就是TreeBin对象，而不是TreeNode对象。<br><strong>3.TreeNode</strong><br>树状桶节点类<br>JDK 1.8版本的ConcurrentHashMap中通过一个Node&lt;K,V&gt;[]数组table来保存添加到哈希表中的桶，而在同一个Bucket位置是通过链表和红黑树的形式来保存的。但是数组table是懒加载的，只有在第一次添加元素的时候才会初始化。</p>
+<h4 id="ConcurrentHashMap核心源码解析"><a href="#ConcurrentHashMap核心源码解析" class="headerlink" title="ConcurrentHashMap核心源码解析"></a>ConcurrentHashMap核心源码解析</h4><p><strong>1.成员变量</strong><br>JDK 1.8版本ConcurrentHashMap的主要成员属性大致如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//最大容量</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">MAXIMUM_CAPACITY</span> <span class="operator">=</span> <span class="number">1</span> &lt;&lt; <span class="number">30</span>;</span><br><span class="line"><span class="comment">//默认容量</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">DEFAULT_CAPACITY</span> <span class="operator">=</span> <span class="number">16</span>;</span><br><span class="line"><span class="comment">//最大数组容量</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">MAX_ARRAY_SIZE</span> <span class="operator">=</span> Integer.MAX_VALUE - <span class="number">8</span>;</span><br><span class="line"><span class="comment">//最大并发数</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">DEFAULT_CONCURRENCY_LEVEL</span> <span class="operator">=</span> <span class="number">16</span>;</span><br><span class="line"><span class="comment">//链表转红黑树阈值</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">TREEIFY_THRESHOLD</span> <span class="operator">=</span> <span class="number">8</span>;</span><br><span class="line"><span class="comment">//红黑树蜕化会为链表的的节点数阈值</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">UNTREEIFY_THRESHOLD</span> <span class="operator">=</span> <span class="number">6</span>;</span><br><span class="line"><span class="comment">//链表转红黑树的数组容量阈值</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">MIN_TREEIFY_CAPACITY</span> <span class="operator">=</span> <span class="number">64</span>;</span><br><span class="line"><span class="comment">//常量：表示正则转移</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">MOVED</span>     <span class="operator">=</span> -<span class="number">1</span>; <span class="comment">// hash for forwarding nodes</span></span><br><span class="line"><span class="comment">//常量：表示已经转换为树</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">TREEBIN</span>   <span class="operator">=</span> -<span class="number">2</span>; <span class="comment">// hash for roots of trees</span></span><br><span class="line"><span class="comment">//用于保存元素的数组</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">transient</span> <span class="keyword">volatile</span> Node&lt;K,V&gt;[] nextTable;</span><br><span class="line"><span class="comment">//用于控制表初始化和扩容的控制属性</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">transient</span> <span class="keyword">volatile</span> <span class="type">int</span> sizeCtl;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>table：table用于保存添加到哈希表中的桶。</li>
+<li>DEFAULT_CAPACITY：table的默认长度。默认初期长度为16，在第一次添加元素时，会将table初始化成16个元素的数组。</li>
+<li>MIN_TREEIFY_CAPACITY：链式桶转成红黑树桶的阈值。在增加“Key-Value对”时，当链表长度大于该值时，将链表转换成红黑树。</li>
+<li>UNTREEIFY_THRESHOLD：红黑树桶还原回链式桶的阈值，也就是红黑树转为链表的阈值，当在容量变动时重新计算存储位置后，当原有的红黑树内节点数量小于6时，将红黑树转换成链表。</li>
+<li>MIN_TREEIFY_CAPACITY：链式桶转换成红黑树桶还有一个要求，table的容量达到最小树形化容量的阈值，只有当哈希表中的table容量大于该值时，才允许树将链表转换成红黑树的操作。否则，尽管单个桶内的元素太多，仍然选择直接扩容，而不是将桶树形化。</li>
+<li>sizeCtl：sizeCtl用来控制table的初始化和扩容操作的过程，其值大致如下：<ol>
+<li>-1代表table正在初始化，其他线程应该交出CPU时间片</li>
+<li>-N表示有N-1个线程正在进行扩容操作，严格来说，当其为负数时，只用到其低16位，如果其低16位数值为M，此时有M-1个线程进行扩容。</li>
+<li>大于0分两种情况：如果table未初始化，sizeCtl表示table需要初始化的大小；如果table初始化完成，sizeCtl表示table的容量，默认是table大小的0.75倍。</li>
+</ol>
+</li>
+</ol>
+<p><strong>2.构造器</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这构造函数里，什么都不干</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">ConcurrentHashMap</span><span class="params">()</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">ConcurrentHashMap</span><span class="params">(<span class="type">int</span> initialCapacity)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (initialCapacity &lt; <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>();</span><br><span class="line">    <span class="type">int</span> <span class="variable">cap</span> <span class="operator">=</span> ((initialCapacity &gt;= (MAXIMUM_CAPACITY &gt;&gt;&gt; <span class="number">1</span>)) ?</span><br><span class="line">               MAXIMUM_CAPACITY :</span><br><span class="line">               tableSizeFor(initialCapacity + (initialCapacity &gt;&gt;&gt; <span class="number">1</span>) + <span class="number">1</span>));</span><br><span class="line">    <span class="built_in">this</span>.sizeCtl = cap;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>该构造器相对比较简单，主要作用就是计算初始容量及sizeCtl，其中sizeCtl&#x3D;(1.5+initialCapacity+1)，目的是向上去最近的2的n次方。如果initialCapacity为10，则sizeCtl为16。<br><strong>3.put()</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> V <span class="title function_">put</span><span class="params">(K key, V value)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> putVal(key, value, <span class="literal">false</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> V <span class="title function_">putVal</span><span class="params">(K key, V value, <span class="type">boolean</span> onlyIfAbsent)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (key == <span class="literal">null</span> || value == <span class="literal">null</span>) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">NullPointerException</span>();</span><br><span class="line">    <span class="comment">// 得到 hash 值</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">hash</span> <span class="operator">=</span> spread(key.hashCode());</span><br><span class="line">    <span class="comment">// 用于记录相应链表的长度</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">binCount</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (Node&lt;K,V&gt;[] tab = table;;) &#123;</span><br><span class="line">        Node&lt;K,V&gt; f; <span class="type">int</span> n, i, fh;</span><br><span class="line">        <span class="comment">// 如果数组&quot;空&quot;，进行数组初始化</span></span><br><span class="line">        <span class="keyword">if</span> (tab == <span class="literal">null</span> || (n = tab.length) == <span class="number">0</span>)</span><br><span class="line">            <span class="comment">// 初始化数组</span></span><br><span class="line">            tab = initTable();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 找该 hash 值对应的数组下标，得到第一个节点 f</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> ((f = tabAt(tab, i = (n - <span class="number">1</span>) &amp; hash)) == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="comment">// 如果数组该位置为空，</span></span><br><span class="line">            <span class="comment">// 用一次 CAS 操作将这个新值放入其中即可</span></span><br><span class="line">            <span class="comment">// 如果 CAS 失败，那就是有并发操作，进到下一个循环</span></span><br><span class="line">            <span class="keyword">if</span> (casTabAt(tab, i, <span class="literal">null</span>,</span><br><span class="line">                         <span class="keyword">new</span> <span class="title class_">Node</span>&lt;K,V&gt;(hash, key, value, <span class="literal">null</span>)))</span><br><span class="line">                <span class="keyword">break</span>;                   <span class="comment">// no lock when adding to empty bin</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// hash可以等于 MOVED，此处需要到后面才能看明白，从字面意思也可以看出，肯定是因为在扩容</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> ((fh = f.hash) == MOVED)</span><br><span class="line">            <span class="comment">// 帮助数据迁移</span></span><br><span class="line">            tab = helpTransfer(tab, f);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">else</span> &#123; </span><br><span class="line">			<span class="comment">// 代码执行到此处，说明f 是该位置的头结点，而且不为空</span></span><br><span class="line">            <span class="type">V</span> <span class="variable">oldVal</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">            <span class="comment">// 获取数组该位置的头结点的监视器锁</span></span><br><span class="line">            <span class="keyword">synchronized</span> (f) &#123;</span><br><span class="line">                <span class="keyword">if</span> (tabAt(tab, i) == f) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (fh &gt;= <span class="number">0</span>) &#123; <span class="comment">// 头结点的 hash 值大于 0，说明是链表</span></span><br><span class="line">                        <span class="comment">// 用于累加，记录链表的长度</span></span><br><span class="line">                        binCount = <span class="number">1</span>;</span><br><span class="line">                        <span class="comment">// 遍历链表</span></span><br><span class="line">                        <span class="keyword">for</span> (Node&lt;K,V&gt; e = f;; ++binCount) &#123;</span><br><span class="line">                            K ek;</span><br><span class="line">                            <span class="comment">// 如果发现了&quot;相等&quot;的 key，判断是否要进行值覆盖，然后也就可以 break 了</span></span><br><span class="line">                            <span class="keyword">if</span> (e.hash == hash &amp;&amp;</span><br><span class="line">                                ((ek = e.key) == key ||</span><br><span class="line">                                 (ek != <span class="literal">null</span> &amp;&amp; key.equals(ek)))) &#123;</span><br><span class="line">                                oldVal = e.val;</span><br><span class="line">                                <span class="keyword">if</span> (!onlyIfAbsent)</span><br><span class="line">                                    e.val = value;</span><br><span class="line">                                <span class="keyword">break</span>;</span><br><span class="line">                            &#125;</span><br><span class="line">                            <span class="comment">// 到了链表的最末端，将这个新值放到链表的最后面</span></span><br><span class="line">                            Node&lt;K,V&gt; pred = e;</span><br><span class="line">                            <span class="keyword">if</span> ((e = e.next) == <span class="literal">null</span>) &#123;</span><br><span class="line">                                pred.next = <span class="keyword">new</span> <span class="title class_">Node</span>&lt;K,V&gt;(hash, key,</span><br><span class="line">                                                          value, <span class="literal">null</span>);</span><br><span class="line">                                <span class="keyword">break</span>;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">else</span> <span class="keyword">if</span> (f <span class="keyword">instanceof</span> TreeBin) &#123; <span class="comment">// 红黑树</span></span><br><span class="line">                        Node&lt;K,V&gt; p;</span><br><span class="line">                        binCount = <span class="number">2</span>;</span><br><span class="line">                        <span class="comment">// 调用红黑树的插值方法插入新节点</span></span><br><span class="line">                        <span class="keyword">if</span> ((p = ((TreeBin&lt;K,V&gt;)f).putTreeVal(hash, key,</span><br><span class="line">                                                       value)) != <span class="literal">null</span>) &#123;</span><br><span class="line">                            oldVal = p.val;</span><br><span class="line">                            <span class="keyword">if</span> (!onlyIfAbsent)</span><br><span class="line">                                p.val = value;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (binCount != <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="comment">// 判断是否要将链表转换为红黑树，临界值和 HashMap 一样，也是 8</span></span><br><span class="line">                <span class="keyword">if</span> (binCount &gt;= TREEIFY_THRESHOLD)</span><br><span class="line">                    <span class="comment">// 这个方法和 HashMap 中稍微有一点点不同，那就是它不是一定会进行红黑树转换，</span></span><br><span class="line">                    <span class="comment">// 如果当前数组的长度小于 64，那么会选择进行数组扩容，而不是转换为红黑树</span></span><br><span class="line">                    <span class="comment">//    具体源码我们就不看了，扩容部分后面说</span></span><br><span class="line">                    treeifyBin(tab, i);</span><br><span class="line">                <span class="keyword">if</span> (oldVal != <span class="literal">null</span>)</span><br><span class="line">                    <span class="keyword">return</span> oldVal;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// </span></span><br><span class="line">    addCount(<span class="number">1L</span>, binCount);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>从代码可以看出，ConcurrentHashMap的put的流程基本和HashMap一致，只是在ConcurrentHashMap中通过CAS和Synchronized来保证线程安全。</p>
+<h3 id="16-7-6-ConCurrentHashMap-1-7和1-8的区别"><a href="#16-7-6-ConCurrentHashMap-1-7和1-8的区别" class="headerlink" title="16.7.6 ConCurrentHashMap 1.7和1.8的区别"></a>16.7.6 ConCurrentHashMap 1.7和1.8的区别</h3><p>两者主要区别如下：</p>
+<ol>
+<li>数据结构不同：Java7中使用了Segment+HashEntry实现，Java8中则使用哈希表+链表+红黑树实现</li>
+<li>加锁方式不同：Java7中使用了分段锁，但是锁力度相对较大（因为锁住的是整个HashEntry数组），Java8中使用了Synchronized和CAS代替分段锁，这样降低了锁粒度，并且只有在CAS失败以后才尝试加锁。</li>
+<li>初始化数组时，在Java8中不需要加锁，因为使用了sizeCtl作为标志位，当其值为-1时，则表明正则有线程初始化。</li>
+<li>在Java7中寻找元素需要2次定位，第一次定位到Segment数组元素，第二次定位到HashEntry数组。</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Fei
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://airui520.github.io/2022/08/22/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" title="Java并发编程">https://airui520.github.io/2022/08/22/Java并发编程/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/08/17/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="prev" title="Java多线程">
+                  <i class="fa fa-chevron-left"></i> Java多线程
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/08/22/Java%E5%8F%8D%E5%B0%84%E4%B8%8E%E6%B3%A8%E8%A7%A3/" rel="next" title="Java反射与注解">
+                  Java反射与注解 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2001 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fei</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">443k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">6:43</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=your_add_this_id" async="async"></script>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+<script class="next-config" data-name="chatra" type="application/json">{"enable":true,"async":true,"id":null}</script>
+<script src="/js/third-party/chat/chatra.js"></script>
+<script async src="https://call.chatra.io/chatra.js"></script>
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
