@@ -13478,4 +13478,71 @@
 <p>另外，建议G友们可以看看京东的 <a href="https://gitee.com/jd-platform-opensource/asyncTool">asyncToolopen in new window</a> 这个并发框架，里面大量使用到了 <code>CompletableFuture</code> 。</p>
 ]]></content>
   </entry>
+  <entry>
+    <title>MySQL卸载与安装;</title>
+    <url>/2022/09/06/MySQL%E5%8D%B8%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85/</url>
+    <content><![CDATA[<p><img src="https://files.catbox.moe/vakrmb.png"></p>
+<span id="more"></span>
+
+<h1 id="MySQL卸载与安装"><a href="#MySQL卸载与安装" class="headerlink" title="MySQL卸载与安装"></a>MySQL卸载与安装</h1><h2 id="MySQL如何卸载干净"><a href="#MySQL如何卸载干净" class="headerlink" title="MySQL如何卸载干净"></a>MySQL如何卸载干净</h2><p>卸载干净MySQL的步骤：首先关闭MySQL服务；然后卸载MySQL软件；接着删除MySQL在电脑中的残存文件；最后删除MySQL注册表信息即可。</p>
+<p><strong>步骤1：关闭MySQL服务</strong></p>
+<p>右击【计算机】，选择【管理】，打开“计算机管理”界面</p>
+<p>选择【服务和应用程序】中的【服务】，在右侧找到【mysql】，右键，选择【停止】</p>
+<p><strong>步骤2：卸载mysql软件</strong></p>
+<p>可以在控制面板中卸载，或者找到它的安装目录删除文件夹</p>
+<p><strong>步骤3：删除MySQL在电脑硬盘上物理位置上的所有文件</strong></p>
+<p>1、卸载过后删除C:\Program Files (x86)\MySQL该目录下剩余了所有文件，把mysql文件夹也删了</p>
+<p>2、删除HKEY_LOCAL_MACHINE\SYSTEM\ControlSet002\Services\Eventlog\Application\MySQL文件夹，如果没有可以不用删除了。</p>
+<p>3、删除C盘下的C:\ProgramData\MySQL 所有文件，如果删除不了则用360粉碎掉即可，该programData文件是隐藏的默认，设置显示后即可见</p>
+<p>4、删除C:\Documents and Settings\All Users\Application Data\MySQL下的文件夹，一定要删（可选）</p>
+<p>可以通过window系统自带的关键字查找功能来查找相关联的文件</p>
+<p><strong>步骤4：MySQL的注册表信息</strong></p>
+<p>注：这步是最繁琐的也是最为关键的，很多人就是因为在这步骤中没有清理干净注册表信息，从而不能重新安装成功。</p>
+<p>1、windows+R运行“regedit”文件，打开注册表</p>
+<p>2、删除注册表：HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\Eventlog\Application\MySQL文件夹</p>
+<p><strong>mysql:【完美解决】The service already exists! The current server installed:……</strong></p>
+<p>这个情况毫无疑问是之前下载的MySQL没有卸载干净，接下来将它卸载干净<br>首先以<code>管理员身份</code>运行命令提示符，输入：<strong>sc query mysql</strong><br>查看是否存在，若存在<br>继续输入：<strong>sc delete mysql</strong></p>
+<h2 id="MySQL如何安装"><a href="#MySQL如何安装" class="headerlink" title="MySQL如何安装"></a>MySQL如何安装</h2><h2 id="一-进入MySQL官网下载安装"><a href="#一-进入MySQL官网下载安装" class="headerlink" title="一.进入MySQL官网下载安装"></a>一.进入<a href="https://cloud.tencent.com/product/cdb?from=10680">MySQL</a>官网下载安装</h2><ol>
+<li>进入Mysql官网<a href="https://www.mysql.com/">MySQL</a>，下载后并解压到目标文件夹（一定要记住路径） </li>
+<li>使用管理员身份运行cmd，打开后首先输入D:(记住加冒号) 从C盘到其他盘必须先转到其他盘以后才能使用cd命令</li>
+</ol>
+<p>再输入</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd D:\mysql-8.0.26-winx64\mysql-8.0.26-winx64\bin（bin文件的路径）</span><br></pre></td></tr></table></figure>
+
+<p> 在MySQL目录下的bin目录下输入</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mysqld --initialize --console</span><br></pre></td></tr></table></figure>
+
+<p> 运行结束后记住root@localhost:之后的密码后面会用(将密码右键复制下来，之后还要右键复制回来！！！)</p>
+<p>随后开启MySQL服务并修改密码</p>
+<p>接着输入 mysqld –install</p>
+<p> 出现红线字样即安装成功(Service successfully installcd.)</p>
+<p>再输入</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">net start mysql</span><br></pre></td></tr></table></figure>
+
+<p> 启动MySQL</p>
+<p>再输入</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mysql -uroot -p</span><br></pre></td></tr></table></figure>
+
+<p> 此时输入刚才保存的密码粘贴到命令台上</p>
+<p>输入正确密码后我们输入</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ALTER USER &#x27;root&#x27;@&#x27;localhost&#x27; IDENTIFIED BY &#x27;你想改新的密码&#x27;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>配置环境变量</strong></p>
+<p>打开控制面板找到高级系统设置并打开环境变量,在path变量下，输入mysql的安装路径，到bin目录。</p>
+<p><strong>检验是否安装成功</strong></p>
+<p>如上面的步骤打开cmd输入cd+空格+自己的bin文件路径，再输入mysql -h localhost -u root -p登录<a href="https://cloud.tencent.com/solution/database?from=10680">数据库</a>，再输入数据库密码，查看信息。</p>
+<p>输入 status 命令可以查看 MySQL的 版本信息，说明安装成功!</p>
+<p><img src="https://files.catbox.moe/z1fkd6.png"></p>
+<h2 id="mysql8-0版本连接navicat，出现连接错误，报1251-error"><a href="#mysql8-0版本连接navicat，出现连接错误，报1251-error" class="headerlink" title="mysql8.0版本连接navicat，出现连接错误，报1251 error"></a>mysql8.0版本连接navicat，出现连接错误，报1251 error</h2><p><img src="C:\Users\QARHPF\AppData\Local\Temp\1662446328706.png" alt="66244632870"></p>
+<p>这是因为mysql8.0版本和5.0版本加密方式不一样，所以会报错</p>
+<p><strong>解决方法：</strong></p>
+<p>1.打开Win+R，输入cmd启动控制台</p>
+<p>2.找到你安装mysql8.0的bin目录，在控制台上输入cd D:\mysql\mysql8.0\bin(具体为你安装路径)</p>
+<p>3.在自己安装的磁盘下输入bin目录后，接着输入 mysql -h localhost -P3307 -uroot -p(这里的3307是自己设置的端口号，自己设置是什么就填什么)</p>
+<p>4.输入密码</p>
+<p>5.输入 ALTER USER ‘root’@‘localhost’ IDENTIFIED WITH mysql_native_password BY ‘X’;（这里的X写的是你的密码）</p>
+<p>6.输入 FLUSH PRIVILEGES;</p>
+<p>7.关闭，重新去navicat连接可以了</p>
+]]></content>
+  </entry>
 </search>
