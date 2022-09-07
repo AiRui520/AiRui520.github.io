@@ -13545,4 +13545,566 @@
 <p>7.关闭，重新去navicat连接可以了</p>
 ]]></content>
   </entry>
+  <entry>
+    <title>MySQL基础操作;</title>
+    <url>/2022/09/07/MySQL%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/</url>
+    <content><![CDATA[<p><img src="https://files.catbox.moe/vakrmb.png"></p>
+<span id="more"></span>
+
+<h1 id="数据库基础与MySQL安装"><a href="#数据库基础与MySQL安装" class="headerlink" title="数据库基础与MySQL安装"></a>数据库基础与MySQL安装</h1><h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><p>数据库是“按照数据结构来组织、存储和管理数据的仓库”。是一个长期存储在计算机内的、有组织的、可共享的、统一管理的大量数据的集合。这些数据被存放在结构化的数据表里。数据表之间相互关联，反映了客观事物间的本质联系。<br>数据库种类大概有3种：层次式数据库、网络式数据库和关系式数据库。不同种类的数据库按不同的数据结构来联系和组织。</p>
+<h2 id="表"><a href="#表" class="headerlink" title="表"></a>表</h2><p>在关系数据库中，数据库表是一系列二维数组的集合，用来存储数据和操作数据的逻辑结构。它由纵向的列和横向的行组成。行被称为记录，是组织数据的单位；列被称为字段，每一列表示记录的一个属性，有相应的描述信息，如数据类型、数据宽度等。<br>一个有关学生信息的名为students的表中，每列包含所有学生某个特定类型的信息，比如“姓名”，而每行则包含了某个特定学生的所有信息</p>
+<table>
+<thead>
+<tr>
+<th>学号</th>
+<th>姓名</th>
+<th>性别</th>
+<th>年龄</th>
+<th>专业</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>20100803050130</td>
+<td>张三</td>
+<td>男</td>
+<td>18</td>
+<td>计算机科学与技术</td>
+</tr>
+<tr>
+<td>20100803050131</td>
+<td>李四</td>
+<td>女</td>
+<td>18</td>
+<td>软件工程</td>
+</tr>
+</tbody></table>
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><p>数据类型决定了数据在计算机中的存储格式，代表不同的信息类型。常用的数据类型有整数数据类型、浮点数数据类型、精确小数类型、二进制数据类型、日期&#x2F;时间数据类型、字符串数据类型。</p>
+<h2 id="主键"><a href="#主键" class="headerlink" title="主键"></a>主键</h2><p>主键（Primary Key）又称主码，用于唯一地标识表中的每一条记录。可以定义表中的一列或多列为主键，主键列上既不能有两行相同的值，也不能为空值。例如students表中的学号，每个学生都有属于自己的学号，并且学号唯一，此时学号就可以作为主键。姓名不能做主键的原因是有可能多个人具有相同的姓名，这违反了主键的唯一性，因此不能作为主键</p>
+<h2 id="SQL语言"><a href="#SQL语言" class="headerlink" title="SQL语言"></a>SQL语言</h2><p>对数据库进行查询和修改操作的语言叫作SQL。SQL的含义是结构化查询语言（Structured Query Language）。SQL有许多不同的类型，有3个主要的标准：ANSI（美国国家标准机构）SQL；对ANSI SQL修改后在1992年采纳的标准，称为SQL-92或SQL2；最近的SQL-99标准，从SQL2扩充而来，并增加了对象关系特征和许多其他新功能。各大数据库厂商提供不同版本的SQL，这些版本的SQL不但能包括原始的ANSI标准，而且在很大程度上支持SQL-92标准。</p>
+<p>SQL语言包含以下4部分。</p>
+<ol>
+<li>数据定义语言（DDL）：DROP、CREATE、ALTER等语句。</li>
+<li>数据操作语言（DML）：INSERT（插入）、UPDATE（修改）、DELETE（删除）语句。</li>
+<li>数据查询语言（DQL）：SELECT语句。</li>
+<li>数据控制语言（DCL）：GRANT、REVOKE、COMMIT、ROLLBACK等语句。</li>
+</ol>
+<h2 id="数据库访问接口"><a href="#数据库访问接口" class="headerlink" title="数据库访问接口"></a>数据库访问接口</h2><p>不同的编程语言会为不同的数据库提供访问接口，程序通过这些接口执行SQL语句，进行数据库管理，主要的数据库访问接口有ODBC，JDBC，ADO.NET和PDO。</p>
+<h3 id="ODBC"><a href="#ODBC" class="headerlink" title="ODBC"></a>ODBC</h3><p>ODBC（Open Database Connectivity，开放数据库连接）技术为访问不同的SQL数据库提供了一个共同的接口。ODBC使用SQL作为访问数据的标准。</p>
+<h3 id="JDBC"><a href="#JDBC" class="headerlink" title="JDBC"></a>JDBC</h3><p>JDBC（Java Data Base Connectivity，Java数据库连接）用于Java应用程序连接数据库的标准方法，是一种用于执行SQL语句的Java API，可以为多种关系数据库提供统一访问，由一组用Java语言编写的类和接口组成。</p>
+<h3 id="ADO-NET"><a href="#ADO-NET" class="headerlink" title="ADO.NET"></a>ADO.NET</h3><p>ADO.NET是微软在.NET框架下开发设计的一组用于和数据源进行交互的面向对象类&#x3D;库。</p>
+<h3 id="PDO"><a href="#PDO" class="headerlink" title="PDO"></a>PDO</h3><p>PDO（PHP Data Object）为PHP访问数据库定义了一个轻量级的、一致性的接口，提供了一个数据访问抽象层。这样，无论使用什么数据库，都可以通过一致的函数执行查询和获取数据。</p>
+<h2 id="MySQL简介"><a href="#MySQL简介" class="headerlink" title="MySQL简介"></a>MySQL简介</h2><p>MySQL是一个小型关系数据库管理系统。与其他大型数据库管理系统（例如Oracle、DB2、SQL Server等）相比，MySQL规模小、功能有限，但是它体积小、速度快、成本低，并且提供的功能对稍微复杂的应用来说已经够用，这些特性使得MySQL成为世界上最受欢迎的开放源代码数据库。</p>
+<h3 id="MySQL特点"><a href="#MySQL特点" class="headerlink" title="MySQL特点"></a>MySQL特点</h3><ol>
+<li>速度：运行速度快。</li>
+<li>价格：MySQL对多数个人来说是免费的。</li>
+<li>容易使用：与其他大型数据库的设置和管理相比，其复杂程度较低，易于学习。</li>
+<li>可移植性：能够工作在众多不同的系统平台上，例如Windows、Linux、UNIX、Mac OS等。</li>
+<li>丰富的接口：提供了用于C、C++、Eiffel、Java、Perl、PHP、Python、Ruby和Tcl等语言的API。</li>
+<li>支持查询语言：MySQL可以利用标准SQL语法和支持ODBC的应用程序。</li>
+<li>安全性和连接性：十分灵活和安全的权限和密码系统，允许基于主机的验证。连接到服务器时，所有的密码传输均采用加密形式，从而保证了密码安全。由于MySQL是网络化的，因此可以在因特网上的任何地方访问，提高数据共享的效率。</li>
+</ol>
+<h3 id="MySQL命令简介"><a href="#MySQL命令简介" class="headerlink" title="MySQL命令简介"></a>MySQL命令简介</h3><p>MySQL服务端提供了一些命令工具，这些工具都放在MySQL安装目录下的bin目录中：</p>
+<ol>
+<li><p>mysqld：SQL后台程序（MySQL服务器进程）。必须在该程序运行之后，客户端才能通过连接服务器来访问数据库。</p>
+</li>
+<li><p>mysqld_safe：服务器启动脚本。在UNIX和NetWare中推荐使用mysqld_safe来启动mysqld服务器。mysqld_safe增加了一些安全特性，例如当出现错误时重启服务器并向错误日志文件写入运行时间信息。</p>
+</li>
+<li><p>mysql.server：服务器启动脚本。该脚本用于使用包含为特定级别的、运行启动服务的脚本的、运行目录的系统。它调用mysqld_safe来启动MySQL服务器。</p>
+</li>
+<li><p>mysql_multi：服务器启动脚本，可以启动或停止系统上安装的多个服务器。</p>
+</li>
+<li><p>myisamchk：用来描述、检查、优化和维护MyISAM表的实用工具。</p>
+</li>
+<li><p>mysqlbug：MySQL缺陷报告脚本。它可以用来向MySQL邮件系统发送缺陷报告。</p>
+</li>
+<li><p>mysql_install_db：该脚本用默认权限创建MySQL授权表。通常只是在系统上首次安装MySQL时执行一次。同样，MySQL也提供了客户度的一些命令工具，这些工具也放在MySQL安装目录下的bin目录中：</p>
+</li>
+<li><p>myisampack：压缩MyISAM表，以产生更小的只读表的一个工具。</p>
+</li>
+<li><p>mysql：交互式输入SQL语句或从文件以批处理模式执行它们的命令行工具。</p>
+</li>
+<li><p>mysqlaccess：检查访问主机名、用户名和数据库组合的权限的脚本。</p>
+</li>
+<li><p>mysqladmin：执行管理操作的客户程序，例如创建或删除数据库、重载授权表、将表刷新到硬盘上以及重新打开日志文件。mysqladmin还可以用来检索版本、进程，以及服务器的状态信息。</p>
+</li>
+<li><p>mysqlbinlog：从二进制日志读取语句的工具。在二进制日志文件中包含执行过的语句，可用来帮助系统从崩溃中恢复。</p>
+</li>
+<li><p>mysqlcheck：检查、修复、分析以及优化表的表维护客户程序。</p>
+</li>
+<li><p>mysqldump：将MySQL数据库转储到一个文件（例如SQL语句或tab分隔符文本文件）的客户程序。</p>
+</li>
+<li><p>mysqlhotcopy：当服务器在运行时，快速备份MyISAM或ISAM表的工具。</p>
+</li>
+<li><p>mysqlimport：使用LOAD DATA INFILE将文本文件导入相关表的客户程序。</p>
+</li>
+<li><p>mysqlshow：显示数据库、表、列以及索引相关信息的客户程序。</p>
+</li>
+<li><p>perror：显示系统或MySQL错误代码含义的工具。</p>
+</li>
+</ol>
+<h1 id="数据库操作"><a href="#数据库操作" class="headerlink" title="数据库操作"></a>数据库操作</h1><p>MySQL安装完成后，会自动创建几个必须的数据库，可以使用show databases;查看当前已经存在或者创建的数据库。</p>
+<h2 id="创建和删除数据库"><a href="#创建和删除数据库" class="headerlink" title="创建和删除数据库"></a>创建和删除数据库</h2><p>数据库可以想象为一个仓库，仓库内存放着所需的数据。</p>
+<h3 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h3><p>创建数据库就是在硬盘上划分一块区域用于数据的存储和管理，创建数据库的语法格式如下</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">CREATE DATABASE DATABASE_NAME;</span><br></pre></td></tr></table></figure>
+
+<p>例如：创建名称为students_manage的数据库，命令如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">CREATE DATABASE STUDENTS_MANAGE;</span><br></pre></td></tr></table></figure>
+
+<p>当数据库创建成功后会显示Query OK, 1 row affected (0.05 sec)，表明语句执行成功，影响了1行，并输出执行该语句的消耗时长。</p>
+<h3 id="删除数据库"><a href="#删除数据库" class="headerlink" title="删除数据库"></a>删除数据库</h3><p>删除数据库使用DROP命令，如果要删除某个数据库命令格式如下：<br>DROP DATABASE DATABASE_NAME;</p>
+<p>接下来，删除刚才创建的数据库STUDENTS_MANAGE。命令如下<br>DROP DATABASES STUDENTS_MANAGE;</p>
+<h2 id="数据表的创建和删除"><a href="#数据表的创建和删除" class="headerlink" title="数据表的创建和删除"></a>数据表的创建和删除</h2><p>在创建完数据库之后，接下来的工作就是创建数据表。所谓创建数据表，指的是在已经创建好的数据库中建立新表。创建数据表的过程是规定数据列的属性的过程，同时也是实施数据完整性（包括实体完整性、引用完整性和域完整性等）约束的过程</p>
+<h3 id="创建表"><a href="#创建表" class="headerlink" title="创建表"></a>创建表</h3><p>数据库相当于仓库，而表则相当于数据库中不同的存储货物的区域，也就是说数据表数属于仓库的，因此在创建表之前，应该先明确这张表数据哪个数据库。确定数据库可以使用USE语句，例如使用名称为test的数据库，则语句如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">USE TEST;</span><br></pre></td></tr></table></figure>
+
+<p>如果没有选择数据库则会出现“No database selected”的错误。</p>
+<p>在选择好要使用的数据库后就可以创建表了，创建表的语法格式如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">CREATE TABLE TABLE_NAME(</span><br><span class="line">    字段名1 数据类型 [约束] [默认值],</span><br><span class="line">    字段名2 数据类型 [约束] [默认值],</span><br><span class="line">    ....</span><br><span class="line">  	[表级别约束]</span><br><span class="line"> );</span><br></pre></td></tr></table></figure>
+
+<p>在创建表时需要注意以下信息：</p>
+<ol>
+<li>要创建的表的名称，不区分大小写，不能使用SQL语言中的关键字，如DROP、ALTER、INSERT等。</li>
+<li>数据表中每一列（字段）的名称和数据类型，如果创建多列，就要用逗号隔开。</li>
+<li>创建表语句结束后末尾要加“;”，表明该命令已经结束。</li>
+</ol>
+<p>例如，创建学生信息表：（关于MySQL数据类型会在第3章详解介绍）</p>
+<table>
+<thead>
+<tr>
+<th>字段名称</th>
+<th>数据类型</th>
+<th>注释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>id</td>
+<td>INT(11)</td>
+<td>学生编号</td>
+</tr>
+<tr>
+<td>student_name</td>
+<td>VARCHAR(30)</td>
+<td>学生姓名</td>
+</tr>
+<tr>
+<td>student_age</td>
+<td>INT(3)</td>
+<td>学生年龄</td>
+</tr>
+<tr>
+<td>student_gender</td>
+<td>CHAR(2)</td>
+<td>学生性别</td>
+</tr>
+</tbody></table>
+<p>下面，通过示例来创建数据库和表</p>
+<ol>
+<li>创建测试数据库</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">CREATE DATABASE TEST_DB;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>使用数据库</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">USE TEST_DB;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>创建数据表</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">CREATE TABLE STUDENT_INFO(</span><br><span class="line">  ID INT(11),</span><br><span class="line">  STUDENT_NAME VARCHAR(25),</span><br><span class="line">  STUDENT_AGE VARCHAR(11),</span><br><span class="line">  STUDENT_GENDER CHAR(2)</span><br><span class="line"> );</span><br></pre></td></tr></table></figure>
+
+<p>依次执行上述SQL语句即可创建好数据表。使用<code>SHOW TABLES;</code>即可查看创建好的表。</p>
+<h3 id="数据表基本操作"><a href="#数据表基本操作" class="headerlink" title="数据表基本操作"></a>数据表基本操作</h3><h4 id="新增数据"><a href="#新增数据" class="headerlink" title="新增数据"></a>新增数据</h4><p>在表中新增数据可以使用INSERT语句。语法格式如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">INSERT INTO TABLE_NAME (FIELD1,FIELD2,...FIELDN) VALUES (VALUE1,VALUES2,...VALUEN);</span><br></pre></td></tr></table></figure>
+
+<p>上述语句中table_name指表名，FILED则是指要插入值的字段名称，VALUE指要插入数据库的值。例如在上述表中插入数据：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">INSERT INTO STUDENT_INFO (ID,STUDENT_NAME,STUDENT_AGE,STUDENT_GENDER) VALUES (1,&#x27;张三&#x27;,18,&#x27;男&#x27;);</span><br></pre></td></tr></table></figure>
+
+<p>运行上面的语句后对数据库进行查询</p>
+<p>在上面的语句中，对表中的所有字段都插入了值，需要注意的是使用该语句是字段列的值和数据值的数量必须相同。如果确定是向表中的所有字段新增值，还有另外一种写法，此种写法可以省略所有的字段名称，但是值的顺序必须和创建表时书写的字段顺序保持一致，示例如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">INSERT INTO STUDENT_INFO VALUES (1,&#x27;张三&#x27;,18,&#x27;男&#x27;);</span><br></pre></td></tr></table></figure>
+
+<p>需要注意的是，此种写法只能是所有字段都插入值的时候才能使用。</p>
+<p>通常情况下，新增数据会向表中的所有字段插入值，但是也有一些特殊情况，只向数据表中的某几个字段添加值，此时，只需要写明要新增值的字段名称和对应的值即可(不能省略字段名称)，例如，新增一条数据，学生姓名为李四，性别为女。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">INSERT INTO STUDENT_INFO (STUDENT_NAME,STUDENT_GENDER) VALUES (&#x27;李四&#x27;,&#x27;女&#x27;);</span><br></pre></td></tr></table></figure>
+
+<p>执行该语句后对数据库进行查询，结果如图所示，可以看出没有新增值的字段使用NULL值填充。</p>
+<h4 id="删除数据"><a href="#删除数据" class="headerlink" title="删除数据"></a>删除数据</h4><p>从数据表中删除数据使用DELETE语句，DELETE语句允许WHERE子句指定删除条件，DELETE语句基本格式如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">DELETE FROM TABLE_NAME WHERE...</span><br></pre></td></tr></table></figure>
+
+<p>table_name指定要执行删除操作的表；“[WHERE &lt;condition&gt;]”为可选参数，指定删除条件，如果没有WHERE子句，DELETE语句将删除表中的所有记录。</p>
+<p>例如，删除数据表中姓名为李四的数据：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">DELETE FROM STUDENT_INFO WHERE STUDENT_NAME = &quot;李四&quot;;</span><br></pre></td></tr></table></figure>
+
+<p>执行SQL语句后查询数据库，结果如图所示：</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2745416/1630911441041-22fb31d7-f808-4988-9c86-a683fe3a5b0c.png" alt="img"></p>
+<p>注意：如果想删除表中的所有记录，还可以使用 TRUNCATE  TABLE语句。TRUNCATE将直接删除原来的表，并重新创建一个表，其语法结构为TRUNCATE TABLE table_name。TRUNCATE直接删除表而不是删除记录，因此执行速度比DELETE快。执行DELETE操作时，一定要限定条件，如果不限定条件则会导致整张表中的记录被删除。</p>
+<h4 id="修改数据"><a href="#修改数据" class="headerlink" title="修改数据"></a>修改数据</h4><p>表中有数据后，还可以对数据进行修改，MySQL中使用UPDATA语句更新表中的记录，可以更新特定的行或者同时更新所有的行。基本语法格式如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">UPDATE TABLE_NAME SET COLUMN_NAME1 = VALUE1,CONLUMN_NAME2=VALUE2,...COLUMNN_NAMEN = VALUEN</span><br><span class="line">WHERE ...</span><br></pre></td></tr></table></figure>
+
+<p>column_name1,column_name2,……,column_namen为指定更新的字段的名称；value1, value2,……,valuen为相对应的指定字段的更新值；condition指定更新的记录需要满足的条件。更新多列时，每个“列-值”对之间用逗号隔开，最后一列之后不需要逗号。</p>
+<p>例如将表中的张三年龄修改为19：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">UPDATE STUDENT_INFO SET STUDENT_AGE = 19 WHERE STUDENT_NAME = &#x27;张三&#x27;;</span><br></pre></td></tr></table></figure>
+
+<p>修改完毕后查询数据表：</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2745416/1630911121887-093a20b6-63d1-48b6-b8c8-6cbe78920d60.png" alt="img"></p>
+<p><strong>保证UPDATE以WHERE子句结束，通过WHERE子句指定被更新的记录所需要满足的条件，如果忽略WHERE子句，MySQL将更新表中所有的行。</strong></p>
+<h3 id="删除数据表"><a href="#删除数据表" class="headerlink" title="删除数据表"></a>删除数据表</h3><p>如果要删除数据表也可以使用DROP命令。命令如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">DROP TABLE TABLE_NAME;</span><br></pre></td></tr></table></figure>
+
+<p>接下来删除刚才创建的数据库：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">DROP TABLE STUDENT_INFO;</span><br></pre></td></tr></table></figure>
+
+<p>删除完数据库后，再次运行<code>SHOW TABLES;</code>命令显示如下：</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2745416/1630899092991-627b725d-92b1-4c44-9e02-8dc0fe99050d.png" alt="img"></p>
+<h2 id="修改表"><a href="#修改表" class="headerlink" title="修改表"></a>修改表</h2><p>修改表指的是修改数据库中已经存在的数据表的结构。MySQL使用ALTER TABLE语句修改表。常用的修改表的操作有修改表名、修改字段数据类型或字段名、增加和删除字段等。</p>
+<h3 id="修改表名"><a href="#修改表名" class="headerlink" title="修改表名"></a>修改表名</h3><p>MySQL是通过ALTER TABLE语句来实现表名的修改的，具体的语法规则如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ALTER TBALE OLD_TABLE_NAME RENAME TO NEW_TABLE_NAME;</span><br></pre></td></tr></table></figure>
+
+<p>例如，将上述内容中STUDENT_INFO表名修改为STUDENT。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ALTER TABLE STUDENT_INFO RENAME TO STUDENT;</span><br></pre></td></tr></table></figure>
+
+<p>修改结束后，执行<code>SHOW TABLES;</code>查看修改结果：</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2745416/1630912401371-d30c41a6-0182-4adc-b058-e6fa3b87d4f6.png" alt="img"></p>
+<h3 id="修改字段的数据类型"><a href="#修改字段的数据类型" class="headerlink" title="修改字段的数据类型"></a>修改字段的数据类型</h3><p>修改字段的数据类型就是把字段的数据类型修改为另一种类型，例如，通常情况下会用字符“男”，“女”表示性别，但是也可以使用整型，用0和1表示，修改字段数据类型的语法规则如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ALTER TABLE TABLE_NAME MODIFY FIELD_NAME DATATYPE;</span><br></pre></td></tr></table></figure>
+
+<p>其中TABLE_NAME是指修改字段所属的表名，FIELD_NAME是被修改的字段名称，DATATYPE则是指修改后的数据类型。</p>
+<p>例如将上述STUDENT表中的SUTDENT_GENDER字段数据类型由char类型修改为int类型：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ALTER TABLE STUDENT MODIFY STUDENT_GENDER INT(2);</span><br></pre></td></tr></table></figure>
+
+<p>需要注意的，修改字段数据类型时如果已有数据的数据类型和修改后的数据类型不兼容，则会报错。如图所示</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2745416/1630912802444-218dbabb-b9fe-4ca6-a998-fdea81f37f7d.png" alt="img"></p>
+<p>针对这种情况，可以先删除表中的数据，再进行修改。</p>
+<p>删除表中数据后再次进行修改，结果如图</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2745416/1630912864471-638506dd-1c1f-4307-8e3a-b75fb9ad37d6.png" alt="img"></p>
+<p>修改结束后可以运行<code>DESC TABLE;</code>命令查看表结构，运行<code>DESC STUDENT;</code>结果如图：</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2745416/1630912979523-6470250e-99c7-4c5c-a5a0-ceaf1b1fe310.png" alt="img"></p>
+<p>从图中可以看出成功修改了字段STUDENT_GENDER的数据类型。</p>
+<h3 id="修改字段名"><a href="#修改字段名" class="headerlink" title="修改字段名"></a>修改字段名</h3><p>MySQL修改字段名的语法规则如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ALTER TABLE &lt;TABLE_NAME&gt; CHANGE &lt;OLD_FIELD_NAME&gt; &lt;NEW_FIELD_NAME&gt; &lt;NEW_DATA_TYPE&gt;</span><br></pre></td></tr></table></figure>
+
+<p>将上表中的STUDENT_GENDER字段名称修改为GENDER。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ALTER TABLE STUDENT CHANGE STUDENT_GENDER GENDER CHAR(2);</span><br></pre></td></tr></table></figure>
+
+<p>修改完毕后，执行DESC查看表结构</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2745416/1630913397078-677a43c7-6da5-4f09-a82e-3efc922426ef.png" alt="img"></p>
+<p>从图中可以看出，上述语句不但可以修改字段名称，还可以修改字段数据类型。</p>
+<p>CHANGE也可以只修改数据类型，实现和MODIFY同样的效果，方法是将SQL语句中的“新字段名”和“旧字段名”设置为相同的名称，只改变“数据类型”。由于不同类型的数据在机器中存储的方式及长度并不相同，修改数据类型可能会影响到数据表中已有的数据记录，因此当数据库表中已经有数据时，不要轻易修改数据类型。</p>
+<h3 id="添加字段"><a href="#添加字段" class="headerlink" title="添加字段"></a>添加字段</h3><p>有时在创建完数据库后或者随着业务的变化，需要在已经存在表中添加新的字段，一个完整字段包括字段名、数据类型、完整性约束。添加字段的语法格式如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ALTER TABLE &lt;TABLE_NAME&gt; ADD &lt;FIELD_NAME&gt; &lt;DATA_TYPE&gt; [约束] [FIRST|AFTER 已存在字段]</span><br></pre></td></tr></table></figure>
+
+<p>新字段名为需要添加的字段的名称；“FIRST”为可选参数，其作用是将新添加的字段设置为表的第一个字段；“AFTER”为可选参数，其作用是将新添加的字段添加到指定的“已存在字段名”的后面。</p>
+<p>“FIRST”或“AFTER已存在字段名”用于指定新增字段在表中的位置，如果SQL语句中没有这两个参数，则默认将新添加的字段设置为数据表的最后列。</p>
+<p>接下来，为STUDENT表新增字段STUDENT_HEIGHT。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ALTER TABLE STUDENT ADD STUDENT_HEIGHT FLOAT AFTER GENDER;</span><br></pre></td></tr></table></figure>
+
+<p>执行完上述语句后，查看表结构，如图所示：</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2745416/1630915355208-ec7f705f-7704-4ac7-b8d2-ae6800479f76.png" alt="img"></p>
+<p>可以看出在GENDER字段后添加了数据类型为FLOAT的STUDENT_HEIGHT字段。</p>
+<h3 id="删除字段"><a href="#删除字段" class="headerlink" title="删除字段"></a>删除字段</h3><p>删除字段即将数据表中的某个字段从表中移除。语法格式如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ALTER TABLE TABLE_NAME DROP FIELD_NAME;</span><br></pre></td></tr></table></figure>
+
+<p>例如，删除表中的STUDENT_HEIGTHT字段。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ALTER TABLE STUDENT DROP STUDENT_HEIGTHT;</span><br></pre></td></tr></table></figure>
+
+<p>执行上述语句后查看表结构，如图所示，可以看出已经删除了STUDENT_HEIGHT字段</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2745416/1630915313506-b93c849d-1f5f-4e91-876c-6fcbc3fe89e4.png" alt="img"></p>
+<h2 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h2><p>数据库完整性（Database Integrity）是指数据库中数据在逻辑上的一致性、正确性、有效性和相容性。数据库完整性由各种各样的完整性约束来保证，因此可以说数据库完整性设计就是数据库完整性约束的设计。在数据库中包含了以下4个完整性：</p>
+<ol>
+<li>实体完整性：实体完整性指表中行的完整性。主要用于保证操作的数据（记录）非空、唯一且不重复。即实体完整性要求每个关系（表）有且仅有一个主键，每一个主键值必须唯一，而且不允许为“空”（NULL）或重复。</li>
+<li>域完整性：是指数据库表中的列必须满足某种特定的数据类型或约束。其中约束又包括取值范围、精度等规定。表中的CHECK、FOREIGN KEY 约束和DEFAULT、 NOT NULL定义都属于域完整性的范畴。</li>
+<li>参照完整性：属于表间规则。对于永久关系的相关表，在更新、插入或删除记录时，如果只改其一，就会影响数据的完整性。如删除父表的某记录后，子表的相应记录未删除，致使这些记录称为孤立记录。对于更新、插入或删除表间数据的完整性，统称为参照完整性。</li>
+<li>自定义完整性：对数据表中字段属性的约束，<strong>用户定义完整性规则</strong>（User-defined integrity）也称<strong>域完整性规则</strong>。包括字段的值域、字段的类型和字段的有效规则（如小数位数）等约束，是由确定关系结构时所定义的字段的属性决定的。如，百分制成绩的取值范围在0~100之间等。</li>
+</ol>
+<h3 id="主键约束"><a href="#主键约束" class="headerlink" title="主键约束"></a>主键约束</h3><p>主键，又称主码，是表中一列或多列的组合。主键约束（Primary KeyConstraint）要求主键列的数据唯一，并且不允许为空。主键能够唯一地标识表中的一条记录，可以结合外键来定义不同数据表之间的关系，并且可以加快数据库查询的速度。主键和记录之间的关系如同身份证和人之间的关系，它们之间是一一对应的。主键分为两种类型：单字段主键和多字段联合主键。</p>
+<h4 id="单字段主键"><a href="#单字段主键" class="headerlink" title="单字段主键"></a>单字段主键</h4><p>主键由一个字段组成，SQL语句格式分为以下3种情况。</p>
+<ol>
+<li>在定义列的同时指定主键，语法规则如下：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">字段名 数据类型 PRIMARY KEY;</span><br></pre></td></tr></table></figure>
+
+<p>新建表并添加主键</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">CREATE TABLE TEMP11(</span><br><span class="line">	ID INT PRIMARY KEY,</span><br><span class="line">  NAME VARCHAR(20)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>定义完所有列后指定主键</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">CREATE TABLE TEMP11(</span><br><span class="line">	ID INT,</span><br><span class="line">  NAME VARCHAR(20),</span><br><span class="line">  PRIMARY KEY(ID)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>在创建完表后添加主键，语法格式如下</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ALTER TABLE 表名 ADD CONSTRAINT 约束名 PRIMARY KEY(列名);</span><br></pre></td></tr></table></figure>
+
+<h4 id="联合主键"><a href="#联合主键" class="headerlink" title="联合主键"></a>联合主键</h4><p>主键由多个字段联合组成，语法规则如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">PRIMARY KEY [FIELD1,FIELD2,...FIELDN]</span><br></pre></td></tr></table></figure>
+
+<p>例如，将上表中ID和NAME作为联合主键：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">CREATE TABLE TEMP11(</span><br><span class="line">  ID INT,</span><br><span class="line">  NAME VARCHAR(20),</span><br><span class="line">  PRIMARY KEY(ID,NAME)</span><br><span class="line"> )</span><br></pre></td></tr></table></figure>
+
+<h3 id="外键约束"><a href="#外键约束" class="headerlink" title="外键约束"></a>外键约束</h3><p>外键用来在两个表的数据之间建立连接，可以是一列或者多列。一个表可以有一个或多个外键。外键对应的是参照完整性，一个表的外键可以为空值，若不为空值，则每一个外键值必须等于另一个表中主键的某个值。</p>
+<p>外键：首先它是表中的一个字段，虽可以不是本表的主键，但要对应另外一个表的主键。外键的主要作用是保证数据引用的完整性，定义外键后，不允许删除在另一个表中具有关联关系的行。外键的作用是保持数据的一致性、完整性。</p>
+<p>主表：具有关联关系的多张表中，被引用主键所在的表叫主表，又叫做父表。</p>
+<p>从表：具有关联关系的多张表中，引用某张表主键表叫从表（外键所在的表），又叫做子表。</p>
+<p>创建外键的语法规则如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[CONSTRAINT &lt;外键名&gt;] FOREIGN KEY 字段名1,[字段名2...] REFERENCES &lt;主表名&gt; 主键列1,[主键列2...]</span><br></pre></td></tr></table></figure>
+
+<p>“外键名”为定义的外键约束的名称，一个表中不能有相同名称的外键；“字段名”表示子表需要添加外键约束的字段列；“主表名”即被子表外键所依赖的表的名称；“主键列”表示主表中定义的主键列，或者列组合。</p>
+<p>添加外键约束有两种方式：</p>
+<ol>
+<li>在创建表时添加</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">CREATE TABLE TB_STUDENT(</span><br><span class="line">  ID INT PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">  USERANEM VARCHAR(20),</span><br><span class="line">  USERPASS VARCHAR(50)</span><br><span class="line">  )</span><br><span class="line">CREATE TABLE TB_STUDENT_INFO(</span><br><span class="line">	ID INT PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">	NAME VARCHAR(20) NOT NULL,</span><br><span class="line">	TELPHONE VARCHAR(14) NOT NULL,</span><br><span class="line">	ADDRESS VARCHAR(30),</span><br><span class="line">	STUDENT_ID INT,</span><br><span class="line">	CONSTRAINT FK_STUDENT_ID FOREIGN KEY(STUDENT_ID) REFERENCES TB_STUDENT(ID)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>表创建结束后添加外键约束</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ALTER TABLE 表名 ADD CONSTRAINT 外键名 FOREIGN KEY (列名) REFERENCES 被引用表(列名);</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：当主表的记录被从表记录参照时，主表记录不允许被删除，必须先把从表里参照该记录的所有记录全部删除后，才可以删除主表的该记录。还有一种方式，删除主表记录时级联删除从表中所有参照该记录的从表记录，通过触发器可以实现第二种方式。</strong></p>
+<h3 id="非空约束"><a href="#非空约束" class="headerlink" title="非空约束"></a>非空约束</h3><p>非空约束（Not Null Constraint）指字段的值不能为空。对于使用了非空约束的字段，如果用户在添加数据时没有指定值，数据库系统会报错。</p>
+<p>非空约束语法规则如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">字段名 数据类型 not null</span><br></pre></td></tr></table></figure>
+
+<p>添加非空约束的方式有两种：</p>
+<ol>
+<li>在创建表时添加</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">CREATE TABLE TEMP11(</span><br><span class="line">	ID INT,</span><br><span class="line">	NAME VARCHAR(20) NOT NULL</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>创建表结束后添加</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ALTER TABLE TABLENAME MODIFY COLUMN_NAME DATATYPE NOT NULL ;</span><br></pre></td></tr></table></figure>
+
+<p>从上述代码可以看出，第2种方式其实本质上就是在修改列。</p>
+<h3 id="唯一约束"><a href="#唯一约束" class="headerlink" title="唯一约束"></a>唯一约束</h3><p>唯一性约束（Unique Constraint）要求该列唯一，允许为空，但只能出现一个空值。唯一约束可以确保一列或者几列不出现重复值。</p>
+<p>唯一约束的语法规则如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">字段名 数据类型 UNIQUE</span><br></pre></td></tr></table></figure>
+
+<p>添加唯一约束的方式有两种：</p>
+<ol>
+<li>在创建表时添加：</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> TEMP11(</span><br><span class="line">	ID <span class="type">INT</span>,</span><br><span class="line">	NAME <span class="type">VARCHAR</span>(<span class="number">20</span>) <span class="keyword">UNIQUE</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>当某个字段添加唯一约束后该字段的值唯一即不能重复。<br>2.表创建完成以后添加</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> TBALE TABLENAME <span class="keyword">ADD</span> <span class="keyword">CONSTRAINT</span> 约束名 <span class="keyword">UNIQUE</span>(列名)</span><br></pre></td></tr></table></figure>
+
+<h3 id="默认约束"><a href="#默认约束" class="headerlink" title="默认约束"></a>默认约束</h3><p>默认约束（Default Constraint）指定某列的默认值。如男性同学较多，性别就可以默认为‘男’。如果插入一条新的记录时没有为这个字段赋值，那么系统会自动为这个字段赋值为‘男’。</p>
+<p>默认约束的语法规则如下：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">字段名 数据类型 <span class="keyword">DEFAULT</span> 默认值</span><br></pre></td></tr></table></figure>
+
+<p>添加默认约束的方式有2种：</p>
+<ol>
+<li>创建表时添加</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> TEMP11(</span><br><span class="line">	ID <span class="type">INT</span> ,</span><br><span class="line">	NAME <span class="type">VARCHAR</span>(<span class="number">20</span>),</span><br><span class="line">  #该字段默认值是当前时间</span><br><span class="line">	<span class="keyword">DAY</span> DATETIME <span class="keyword">DEFAULT</span> NOW() </span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>创建表结束时添加</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> 表名 CHANGE 旧列名 新列名 DATATYPE DEFAULTE 默认值</span><br></pre></td></tr></table></figure>
+
+<p>从代码中可以看出，第2种添加默认约束的方式和修改列名的语法一致。</p>
+<h3 id="删除约束"><a href="#删除约束" class="headerlink" title="删除约束"></a>删除约束</h3><p>当不再需要约束时，可以删除约束，删除约束的语法格式如下：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> 表名 <span class="keyword">DROP</span>  <span class="keyword">primary</span> key; <span class="operator">/</span><span class="operator">/</span>删除主键</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> 表名 <span class="keyword">drop</span> index 字段名;  <span class="operator">/</span><span class="operator">/</span>删除唯一约束</span><br></pre></td></tr></table></figure>
+
+<h2 id="设置字段自增加"><a href="#设置字段自增加" class="headerlink" title="设置字段自增加"></a>设置字段自增加</h2><p>在数据库应用中，经常希望在每次插入新记录时，系统自动生成字段的主键值。可以通过为表主键添加AUTO_INCREMENT关键字来实现。默认的，在MySQL中AUTO_INCREMENT的初始值是1，每新增一条记录，字段值自动加1。一个表只能有一个字段使用AUTO_INCREMENT约束，且该字段必须为主键的一部分。AUTO_INCREMENT约束的字段可以是任何整数类型（TINYINT、SMALLIN、INT、BIGINT等）。</p>
+<p>设置表的属性值自动增加的语法规则如下：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">字段名 数据类型 AUTO_INCERMENT;</span><br></pre></td></tr></table></figure>
+
+<p>定义数据表temp1,指定字段ID为自增长：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> TEMP1(</span><br><span class="line">  ID <span class="type">INT</span>(<span class="number">11</span>) <span class="keyword">PRIMARY</span> KEY AUTO_INCREMENT,</span><br><span class="line">  NAME <span class="type">VARCHAR</span>(<span class="number">20</span>)</span><br><span class="line"> );</span><br></pre></td></tr></table></figure>
+
+<p>在数据库中创建好表，并新增两条数据：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> TEMP1 (NAME) <span class="keyword">VALUES</span> (&quot;张三&quot;);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> TEMP1 (NAME) <span class="keyword">VALUES</span> (&quot;李四&quot;);</span><br></pre></td></tr></table></figure>
+
+<p>执行结束后查询数据库：</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2745416/1630920540845-1f5aa850-b796-49f9-8ac3-5fc1be6b7d00.png" alt="img"></p>
+<p>在插入数据时，并没有为ID设置值，ID值为数据库自动生成并插入。每条数据的ID都比前一条数据的值大1.</p>
+<h2 id="查看表结构"><a href="#查看表结构" class="headerlink" title="查看表结构"></a>查看表结构</h2><p>DESCRIBE&#x2F;DESC语句可以查看表的字段信息，其中包括字段名、字段数据类型、是否为主键、是否有默认值等。语法规则如下：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">DESC</span> 表名;</span><br></pre></td></tr></table></figure>
+
+<p>例如，查看temp1的表结构</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/2745416/1630920707146-fd63f7be-7a87-4385-bd72-ec8131c9f928.png" alt="img"></p>
+<p>其中，各个字段的含义分别解释如下：</p>
+<ul>
+<li>NULL：表示该列是否可以存储NULL值。</li>
+<li>Key：表示该列是否已编制索引。PRI表示该列是表主键的一部分；UNI表示该列是UNIQUE索引的一部分；MUL表示在列中某个给定值允许出现多次。</li>
+<li>Default：表示该列是否有默认值，有的话指定值是多少。</li>
+<li>Extra：表示可以获取的与给定列有关的附加信息，例如AUTO_INCREMENT等。</li>
+</ul>
+<h2 id="数据库备份与恢复"><a href="#数据库备份与恢复" class="headerlink" title="数据库备份与恢复"></a>数据库备份与恢复</h2><p>数据备份是数据库管理员非常重要的工作之一。系统意外崩溃或者硬件的损坏都可能导致数据库的丢失，因此MySQL管理员应该定期地备份数据库，使得在意外情况发生时，尽可能减少损失。</p>
+<h3 id="使用MySQLdump命令备份"><a href="#使用MySQLdump命令备份" class="headerlink" title="使用MySQLdump命令备份"></a>使用MySQLdump命令备份</h3><p>MySQLdump是MySQL提供的一个非常有用的数据库备份工具。MySQLdump命令执行时，可以将数据库备份成一个文本文件，该文件中实际包含了多个CREATE和INSERT语句，使用这些语句可以重新创建表和插入数据。MySQLdump备份数据库语句的基本语法格式如下：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysqldump <span class="operator">-</span>u <span class="keyword">user</span> <span class="operator">-</span>p dbname tbname1 tbname2 ... tbnamen <span class="operator">&gt;</span>filename.sql; </span><br></pre></td></tr></table></figure>
+
+<p>user表示用户名称；password为登录密码；dbname为需要备份的数据库名称；tbname为dbname数据库中需要备份的数据表，可以指定多个需要备份的表，多个表之间用空格分隔；右箭头符号“&gt;”告诉MySQLdump将备份数据表的定义和数据写入备份文件；filename.sql为备份文件的名称。如果要备份整个数据库则省略表名即可。</p>
+<p>注意：要保证保存文件的路径存在，否则会提示错误。</p>
+<h3 id="恢复数据"><a href="#恢复数据" class="headerlink" title="恢复数据"></a>恢复数据</h3><p>对于已经备份的包含CREATE、INSERT语句的文本文件，可以使用MySQL命令导入到数据库中。本小节将介绍MySQL命令导入sql文件的方法。备份的sql文件中包含CREATE、INSERT语句（有时也会有DROP语句）。MySQL命令可以直接执行文件中的这些语句。其语法如下：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">mysql <span class="operator">-</span>u <span class="keyword">user</span> <span class="operator">-</span>p dbname <span class="operator">&lt;</span> filename.sql</span><br></pre></td></tr></table></figure>
+
+<p>user是执行backup.sql中语句的用户名；-p表示输入用户密码；dbname是数据库名。</p>
+<p>如果已经登录MySQL服务器，还可以使用source命令导入sql文件。source语句语法如下：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">source filename;</span><br></pre></td></tr></table></figure>
+
+<h2 id="数据库设计范式"><a href="#数据库设计范式" class="headerlink" title="数据库设计范式"></a>数据库设计范式</h2><p>设计出性能良好、结构合理且符合业务的需求的数据库及数据表是需要具备一定经验及技巧的，并且还需要遵循一定的规则，在关系型数据库中这种规则就叫做范式，数据库设计总共有6大范式，一般设计数据库满足三大范式即可。</p>
+<h3 id="第一范式"><a href="#第一范式" class="headerlink" title="第一范式"></a>第一范式</h3><p>第一范式是最基本的范式，指在关系模型中，所有的列都应该是原子列，即数据库表的每一列都是不可分割的原子数据项。</p>
+<p>例如下面的数据表就是一个反例。</p>
+<table>
+<thead>
+<tr>
+<th>student_id</th>
+<th>student_name</th>
+<th>student_age</th>
+<th>address</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>张三</td>
+<td>18</td>
+<td>陕西省西安市未央区明光路11号</td>
+</tr>
+<tr>
+<td>2</td>
+<td>李四</td>
+<td>20</td>
+<td>陕西省西安市未央区明光路21号</td>
+</tr>
+</tbody></table>
+<h3 id="第二范式"><a href="#第二范式" class="headerlink" title="第二范式"></a>第二范式</h3><p>第二范式是指在满足第一范式的基础上，实体的属性完全依赖于主键列，而不能只能与主键的某一部分相关（这种情况一般出现在表中有联合主键的情况）。即在一个数据库表中只能保存一种数据，不可以把多种数据保存在同一张数据库表中。例如下表就违反了第二范式：</p>
+<table>
+<thead>
+<tr>
+<th>student_num</th>
+<th>student_name</th>
+<th>course_num</th>
+<th>course_name</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>20181101</td>
+<td>张三</td>
+<td>09001</td>
+<td>Java</td>
+</tr>
+<tr>
+<td>20181101</td>
+<td>张三</td>
+<td>09002</td>
+<td>MySQL</td>
+</tr>
+<tr>
+<td>20181102</td>
+<td>李四</td>
+<td>09001</td>
+<td>Java</td>
+</tr>
+<tr>
+<td>20181104</td>
+<td>赵六</td>
+<td>09002</td>
+<td>MySQL</td>
+</tr>
+</tbody></table>
+<p>在上表中需要学生编号和课程编号作为联合主键，课程名称值依赖于课程编号，而和学号没有关系，随着数据的增加，会产生大量的冗余数据。</p>
+<p>可以对上表进行分割：</p>
+<p>表1：学生表</p>
+<table>
+<thead>
+<tr>
+<th>student_num</th>
+<th>student_name</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>20181101</td>
+<td>张三</td>
+</tr>
+<tr>
+<td>20181102</td>
+<td>李四</td>
+</tr>
+<tr>
+<td>20181103</td>
+<td>王五</td>
+</tr>
+<tr>
+<td>20181104</td>
+<td>赵六</td>
+</tr>
+</tbody></table>
+<p>表2：课程表</p>
+<table>
+<thead>
+<tr>
+<th>course_num</th>
+<th>course_name</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>09001</td>
+<td>Java</td>
+</tr>
+<tr>
+<td>09002</td>
+<td>MySQL</td>
+</tr>
+</tbody></table>
+<p>表3：选课表</p>
+<table>
+<thead>
+<tr>
+<th>student_num</th>
+<th>course_num</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>20181101</td>
+<td>09001</td>
+</tr>
+<tr>
+<td>20181101</td>
+<td>09002</td>
+</tr>
+<tr>
+<td>20181102</td>
+<td>09001</td>
+</tr>
+<tr>
+<td>20181103</td>
+<td>09002</td>
+</tr>
+</tbody></table>
+<p>2.8.3 第三范式<br>第三范式是在满足第二范式的基础上，任何非主键列都与主键列直接相关，不能间接相关，例如下表：</p>
+<table>
+<thead>
+<tr>
+<th>order_num</th>
+<th>good_id</th>
+<th>good_price</th>
+<th>good_count</th>
+<th>good_total_price</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>20201001002</td>
+<td>1001</td>
+<td>18.0</td>
+<td>2</td>
+<td>36</td>
+</tr>
+<tr>
+<td>20201001003</td>
+<td>1002</td>
+<td>18.0</td>
+<td>3</td>
+<td>54</td>
+</tr>
+</tbody></table>
+<p>上表是一个订单表，每行数据是一个订单，表中的good_total_price和订单主键订单号没有直接关键，因为该字段是依赖good_price和good_count计算而来的，所以违反了第三范式。对上表进行修改。</p>
+]]></content>
+  </entry>
 </search>
