@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.2.0">
+
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="manifest" href="/manifest.json">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic%7CLobster+Two:300,300italic,400,400italic,700,700italic%7CAmita:300,300italic,400,400italic,700,700italic%7CMontserrat:300,300italic,400,400italic,700,700italic%7CPT+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"airui520.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":"true`","version":"8.12.1","exturl":false,"sidebar":{"position":"left","width":300,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta property="og:type" content="blog">
+<meta property="og:title" content="MySQL查询数据;">
+<meta property="og:url" content="https://airui520.github.io/2022/09/08/MySQL%E6%9F%A5%E8%AF%A2%E6%95%B0%E6%8D%AE/index.html">
+<meta property="og:site_name" content="Fei的博客">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://files.catbox.moe/vakrmb.png">
+<meta property="og:image" content="https://files.catbox.moe/mqrd9b.png">
+<meta property="og:image" content="https://files.catbox.moe/jkutbj.png">
+<meta property="og:image" content="https://files.catbox.moe/r5sln3.png">
+<meta property="og:image" content="https://files.catbox.moe/apth6c.png">
+<meta property="og:image" content="https://files.catbox.moe/2i8ggx.png">
+<meta property="og:image" content="https://files.catbox.moe/pnwxm2.png">
+<meta property="article:published_time" content="2022-09-08T09:13:12.000Z">
+<meta property="article:modified_time" content="2022-09-08T10:50:40.047Z">
+<meta property="article:author" content="Fei">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://files.catbox.moe/vakrmb.png">
+
+
+<link rel="canonical" href="https://airui520.github.io/2022/09/08/MySQL%E6%9F%A5%E8%AF%A2%E6%95%B0%E6%8D%AE/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://airui520.github.io/2022/09/08/MySQL%E6%9F%A5%E8%AF%A2%E6%95%B0%E6%8D%AE/","path":"2022/09/08/MySQL查询数据/","title":"MySQL查询数据;"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>MySQL查询数据; | Fei的博客</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXXX-X"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-XXXXXXXX-X","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Fei的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <img class="custom-logo-image" src="/images/bg.jpg" alt="Fei的博客">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">52</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E6%95%B0%E6%8D%AE"><span class="nav-number">1.</span> <span class="nav-text">查询数据</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5"><span class="nav-number">1.1.</span> <span class="nav-text">基本查询语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E8%A1%A8%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.2.</span> <span class="nav-text">单表查询</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E6%8C%87%E5%AE%9A%E8%AE%B0%E5%BD%95"><span class="nav-number">1.2.1.</span> <span class="nav-text">查询指定记录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.2.2.</span> <span class="nav-text">模糊查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E7%A9%BA%E5%80%BC"><span class="nav-number">1.2.3.</span> <span class="nav-text">查询空值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%9E%E7%A9%BA%E5%80%BC%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.2.4.</span> <span class="nav-text">非空值查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AND%E5%A4%9A%E6%9D%A1%E4%BB%B6%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.2.5.</span> <span class="nav-text">AND多条件查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OR%E5%A4%9A%E6%9D%A1%E4%BB%B6%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.2.6.</span> <span class="nav-text">OR多条件查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E5%8E%BB%E9%87%8D"><span class="nav-number">1.2.7.</span> <span class="nav-text">查询去重</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%92%E5%BA%8F"><span class="nav-number">1.2.8.</span> <span class="nav-text">排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E7%BB%84%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.2.9.</span> <span class="nav-text">分组查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.2.10.</span> <span class="nav-text">分页查询</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.3.</span> <span class="nav-text">连接查询</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E8%BF%9E%E6%8E%A5"><span class="nav-number">1.3.1.</span> <span class="nav-text">内连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%96%E8%BF%9E%E6%8E%A5"><span class="nav-number">1.3.2.</span> <span class="nav-text">外连接</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%90%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.4.</span> <span class="nav-text">子查询</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ANY%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">1.4.1.</span> <span class="nav-text">ANY关键字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ALL%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">1.4.2.</span> <span class="nav-text">ALL关键字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EXISTS%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">1.4.3.</span> <span class="nav-text">EXISTS关键字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IN%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">1.4.4.</span> <span class="nav-text">IN关键字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AF%94%E8%BE%83%E8%BF%90%E7%AE%97%E7%AC%A6%E7%9A%84%E5%AD%90%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.4.5.</span> <span class="nav-text">比较运算符的子查询</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL%E8%AF%AD%E5%8F%A5%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F"><span class="nav-number">1.5.</span> <span class="nav-text">SQL语句执行顺序</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Fei"
+      src="/images/head.jpg">
+  <p class="site-author-name" itemprop="name">Fei</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">52</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/AiRui520" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;AiRui520" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:2813764348@qq.com" title="E-Mail → mailto:2813764348@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://xiguayaaaaa.github.io/" title="https:&#x2F;&#x2F;xiguayaaaaa.github.io" rel="noopener" target="_blank">xigua</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://simon-yian.com/" title="https:&#x2F;&#x2F;simon-yian.com" rel="noopener" target="_blank">banana</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/AiRui520" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://airui520.github.io/2022/09/08/MySQL%E6%9F%A5%E8%AF%A2%E6%95%B0%E6%8D%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.jpg">
+      <meta itemprop="name" content="Fei">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Fei的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="MySQL查询数据; | Fei的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          MySQL查询数据;<a href="https://github.com/AiRui520/next/edit/main/subdirectory-name/_posts/MySQL%E6%9F%A5%E8%AF%A2%E6%95%B0%E6%8D%AE.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-09-08 17:13:12 / 修改时间：18:50:40" itemprop="dateCreated datePublished" datetime="2022-09-08T17:13:12+08:00">2022-09-08</time>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>12k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>11 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><img src="https://files.catbox.moe/vakrmb.png"></p>
+<span id="more"></span>
+
+<h1 id="查询数据"><a href="#查询数据" class="headerlink" title="查询数据"></a>查询数据</h1><p>数据库管理系统的一个重要功能就是数据查询，数据查询不应只是简单返回数据库中存储的数据，还应该根据需要对数据进行筛选以及确定数据以什么样的格式显示。MySQL提供了功能强大、灵活的语句来实现这些操作，本章将介绍如何使用SELECT语句查询数据表中的一列或多列数据、使用集合函数显示查询结果、连接查询、子查询</p>
+<h2 id="基本查询语句"><a href="#基本查询语句" class="headerlink" title="基本查询语句"></a>基本查询语句</h2><p>MySQL从数据表中查询数据的基本语句为SELECT语句。SELECT语句的基本格式是：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> </span><br><span class="line">&#123; <span class="operator">*</span> <span class="operator">|</span> 字段列表</span><br><span class="line">  [<span class="keyword">FROM</span> table1,table2...</span><br><span class="line">  [<span class="keyword">WHERE</span> <span class="operator">&lt;</span>exp<span class="operator">&gt;</span></span><br><span class="line">  [<span class="keyword">GROUP</span> <span class="keyword">BY</span> 字段]</span><br><span class="line">  [<span class="keyword">HAVING</span> <span class="operator">&lt;</span>EXP<span class="operator">&gt;</span>]</span><br><span class="line">  [<span class="keyword">ORDER</span> <span class="keyword">BY</span> 字段]</span><br><span class="line">  [LIMIT <span class="keyword">START</span>,<span class="keyword">END</span>]</span><br><span class="line"> ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中，各条子句的含义如下：</p>
+<ul>
+<li>{* | &lt;字段列表&gt;}包含星号通配符和字段列表，表示查询的字段。其中，字段列表至少包含一个字段名称，如果要查询多个字段，多个字段之间用逗号隔开，最后一个字段后不加逗号。</li>
+<li>FROM &lt;表1&gt;,&lt;表2&gt;…，表1和表2表示查询数据的来源，可以是单个或者多个。</li>
+<li>WHERE子句是可选项，如果选择该项，将限定查询行必须满足的查询条件。</li>
+<li>GROUP BY &lt;字段&gt;，该子句告诉MySQL如何显示查询出来的数据，并按照指定的字段分组。</li>
+<li>[ORDER BY &lt;字段&gt;]，该子句告诉MySQL按什么样的顺序显示查询出来的数据，可以进行的排序有升序（ASC）、降序（DESC）。</li>
+<li>[LIMIT [&lt;offset&gt;,] &lt;row count&gt;]，该子句告诉MySQL每次显示查询出来的数据条数</li>
+</ul>
+<p>下面，我们通过示例来学习，先建一张表。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> DATABASE DB_STUDENT;</span><br><span class="line">USE DB_STUDENT;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> STUDENT(</span><br><span class="line">	ID <span class="type">INT</span> <span class="keyword">PRIMARY</span> KEY AUTO_INCREMENT,</span><br><span class="line">  STUDENT_NAME <span class="type">VARCHAR</span>(<span class="number">20</span>),</span><br><span class="line">  STUDENT_AGE TINYINT,</span><br><span class="line">  STUDENT_GENDER <span class="type">CHAR</span>(<span class="number">4</span>)</span><br><span class="line"> );</span><br><span class="line"> <span class="keyword">INSERT</span> <span class="keyword">INTO</span> STUDENT <span class="keyword">VALUES</span> (<span class="number">1</span>,<span class="string">&#x27;李信&#x27;</span>,<span class="number">18</span>,<span class="string">&#x27;男&#x27;</span>);</span><br><span class="line"> <span class="keyword">INSERT</span> <span class="keyword">INTO</span> STUDENT <span class="keyword">VALUES</span> (<span class="number">2</span>,<span class="string">&#x27;周瑜&#x27;</span>,<span class="number">19</span>,<span class="string">&#x27;男&#x27;</span>);</span><br><span class="line"> <span class="keyword">INSERT</span> <span class="keyword">INTO</span> STUDENT <span class="keyword">VALUES</span> (<span class="number">3</span>,<span class="string">&#x27;安其拉&#x27;</span>,<span class="number">20</span>,<span class="string">&#x27;女&#x27;</span>);</span><br><span class="line"> <span class="keyword">INSERT</span> <span class="keyword">INTO</span> STUDENT <span class="keyword">VALUES</span> (<span class="number">4</span>,<span class="string">&#x27;妲己&#x27;</span>,<span class="number">18</span>,<span class="string">&#x27;女&#x27;</span>);</span><br><span class="line"> <span class="keyword">INSERT</span> <span class="keyword">INTO</span> STUDENT <span class="keyword">VALUES</span> (<span class="number">5</span>,<span class="string">&#x27;花木兰&#x27;</span>,<span class="number">18</span>,<span class="string">&#x27;女&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>首先，我们对表内所有的数据进行查询。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ID,STUDENT_NAME,STUDENT_AGE,STUDENT_GENDER <span class="keyword">FROM</span> STUDENT;</span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> STUDENT;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://files.catbox.moe/mqrd9b.png"></p>
+<p>上面的两种写法都可以查询出表内的所有字段，在第一种写法中，查询多个字段，那么字段间使用”,”进行分割，第二种写法可以使用”*”代替所有的字段，但是一般不推荐第二种写法，因为如果表中字段过多的话，并且有些字段不是所必需的，使用第二种写法会大大降低查询效率，因此在查询中我们应该遵循一个原则就是：用什么，查什么。例如：现在需要查询所有学生的姓名和性别，sql语句就可按照以下方式书写。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> STUDENT_NAME,STUDENT_GENDER <span class="keyword">FROM</span> STUDENT;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://files.catbox.moe/jkutbj.png"></p>
+<h2 id="单表查询"><a href="#单表查询" class="headerlink" title="单表查询"></a>单表查询</h2><h3 id="查询指定记录"><a href="#查询指定记录" class="headerlink" title="查询指定记录"></a>查询指定记录</h3><p>数据库中包含大量的数据，根据特殊要求，可能只需要查询表中的指定数据，即对数据进行过滤。在SELECT语句中，通过WHERE子句可以对数据进行过滤，语法格式为：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> 字段<span class="number">1</span>,字段<span class="number">2.</span>...字段n <span class="keyword">FROM</span> <span class="keyword">TABLE</span> <span class="keyword">WHERE</span> EXP;</span><br></pre></td></tr></table></figure>
+
+<p>WHERE子句中，MySQL提供了一系列的条件判断符，查询结果如表</p>
+<table>
+<thead>
+<tr>
+<th>操作符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&#x3D;</td>
+<td>相等</td>
+</tr>
+<tr>
+<td>&lt;&gt;,!&#x3D;</td>
+<td>不相等</td>
+</tr>
+<tr>
+<td>&lt;</td>
+<td>小于</td>
+</tr>
+<tr>
+<td>&lt;&#x3D;</td>
+<td>小于等于</td>
+</tr>
+<tr>
+<td>&gt;</td>
+<td>大于</td>
+</tr>
+<tr>
+<td>&gt;&#x3D;</td>
+<td>大于等于</td>
+</tr>
+<tr>
+<td>BETWEEN   AND</td>
+<td>位于两个值之间</td>
+</tr>
+</tbody></table>
+<p>查询18岁的学生的姓名和年龄。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> STUDENT_NAME,STUDENT_AGE <span class="keyword">FROM</span> STUDENT;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://files.catbox.moe/r5sln3.png"></p>
+<p>从查询结果可以看出只有张三和赵六两人年龄是18岁，不满足此条件的数据被过滤。<br>查询姓名为张三的所有信息。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ID,STUDENT_NAME,STUDENT_AGE,STUDENT_GENDER <span class="keyword">FROM</span> STUDENT WHRER STUDENT_NAME <span class="operator">=</span> <span class="string">&#x27;张三&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://files.catbox.moe/apth6c.png"></p>
+<p>查询年龄大于18岁的学生信息。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ID,STUDENT_NAME,STUDENT_AGE,STUDENT_GENDER <span class="keyword">FROM</span> STUDENT <span class="keyword">WHERE</span> STUDENT_AGE <span class="operator">&gt;</span> <span class="number">18</span>;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://files.catbox.moe/2i8ggx.png"></p>
+<p>查询年龄在18到20之间的同学。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ID,STUDENT_NAME,STUDENT_AGE,STUDENT_GENDER <span class="keyword">FROM</span> STUDENT <span class="keyword">WHERE</span> STUDENT_AGE <span class="keyword">BETWEEN</span> <span class="number">18</span></span><br><span class="line"><span class="keyword">AND</span> <span class="number">20</span>;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://files.catbox.moe/pnwxm2.png"></p>
+<p>从结果可以看出查询出的数据包含了年龄为18和20的同学，说明使用BTWEEN时是一个左闭右闭区间。</p>
+<h3 id="模糊查询"><a href="#模糊查询" class="headerlink" title="模糊查询"></a>模糊查询</h3><h4 id="LIKE关键字"><a href="#LIKE关键字" class="headerlink" title="LIKE关键字"></a>LIKE关键字</h4><p>在前面的检索操作中讲述了如何查询多个字段的记录，如何进行比较查询或者是查询一个条件范围内的记录，如果要查找姓张的所有同学，该如何查找呢？简单的比较操作在这里已经行不通了，需要使用通配符进行匹配查找，通过创建查找模式对表中的数据进行比较。执行这个任务的关键字是LIKE。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ID,STUDENT_NAME,STUDENT_AGE,STUDENT_GENDER <span class="keyword">FROM</span> STUDENT <span class="keyword">WHERE</span> STUDENT_NAME <span class="keyword">LIKE</span> <span class="string">&#x27;张%&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>从查询结果可以看出，使用like查询出了所有张姓同学，这里需要注意的是，%是通配符，匹配任意长度的字符。也就是说%告诉MySQL，返回所有以张开头的记录，不管张后面有多少个字符。<br>在搜索匹配时通配符‘%’可以放在不同位置，例如：查询姓名中包含“三”的学生信息。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ID,STUDENT_NAME,STUDENT_AGE,STUDENT_GENDER <span class="keyword">FROM</span> STUDENT <span class="keyword">WHERE</span> STUDENT_NAME <span class="keyword">LIKE</span> <span class="string">&#x27;%三%&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>我们知道%是指通配符，可以匹配任意个字符，但是如果要查询的字段当中包含%，并且需要筛选出包含了%的数据，就需要对%进行转义。MySQL中默认的转义字符是“\”,即在%前加“\”即可，当然也可是使用ESCAPE字句自定义转义字符。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ID,STUDENT_NAME,STUDENT_AGE,STUDENT_GENDER <span class="keyword">FROM</span> STUDENT <span class="keyword">WHERE</span> STUDENT_NAM <span class="keyword">LIKE</span> <span class="string">&#x27;%\%%&#x27;</span>;</span><br><span class="line"><span class="comment">--或者自定义转义字符</span></span><br><span class="line"><span class="keyword">SELECT</span> ID,STUDENT_NAME,STUDENT_AGE,STUDENT_GENDER <span class="keyword">FROM</span> STUDENT <span class="keyword">WHERE</span> STUDENT_NAM <span class="keyword">LIKE</span> <span class="string">&#x27;%1%%&#x27;</span> <span class="keyword">ESCAPE</span> <span class="string">&#x27;1&#x27;</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>上例中第一条SQL 语句使用了默认的转义字符，第二条则使用ESCAPE字句自定义1为转义字符</p>
+<h4 id="通配符"><a href="#通配符" class="headerlink" title="_通配符"></a>_通配符</h4><p>“_”通配符和“%”的不同之处就是，%可以匹配多个字符，但是“_”能且只能匹配一个字符。<br>例如：查询表中所有张某同学的信息。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ID,STUDENT_NAME,STUDENT_AGE,STUDENT_GENDER <span class="keyword">FROM</span> STUDENT <span class="keyword">WHERE</span> STUDENT_NAM <span class="keyword">LIKE</span> &quot;张_&quot;;</span><br></pre></td></tr></table></figure>
+
+<p>同理，如果要查询张某某同学的信息，则使用两个“_”即可</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ID,STUDENT_NAME,STUDENT_AGE,STUDENT_GENDER <span class="keyword">FROM</span> STUDENT <span class="keyword">WHERE</span> STUDENT_NAM <span class="keyword">LIKE</span> &quot;张__&quot;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="查询空值"><a href="#查询空值" class="headerlink" title="查询空值"></a>查询空值</h3><p>在数据表中，有可能某些字段的值为NULL，如果要筛选出这些数据，并不是说在where字句后添加字段名&#x3D;NULL，测试发现，这种写法并不能查询出数据。如果要判断某个字段是否为NULL，要使用关键字IS.</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ID,STUDENT_NAME,STUDENT_AGE,STUDENT_GENDER <span class="keyword">FROM</span> STUDENT <span class="keyword">WHERE</span> STUDENT_GENDER <span class="keyword">IS</span> <span class="keyword">NULL</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="非空值查询"><a href="#非空值查询" class="headerlink" title="非空值查询"></a>非空值查询</h3><p>在上一小节我们使用IS关键字判断某个字段值是否为null，但是非空该如何判断呢？在这里，我们需要使用关键字NOT来判断字段是否为null</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ID,STUDENT_NAME,STUDENT_AGE,STUDENT_GENDER <span class="keyword">FROM</span> STUDENT <span class="keyword">WHERE</span> STUDENT_GENDER <span class="keyword">IS</span> <span class="keyword">NOT</span>  <span class="keyword">NULL</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="AND多条件查询"><a href="#AND多条件查询" class="headerlink" title="AND多条件查询"></a>AND多条件查询</h3><p>在大多数查询时可能会存在多个条件同时成立时的过滤，例如查看所有大于18岁的男生的信息，或者查看所有大于18岁女生的信息，再或者在电商系统中查询订单金额大于1000元并且已经支付的订单，这时就需要用到and关键字，也就是告诉数据库，我只查询and前后的条件都成立的数据，数据库会根据条件进行过滤。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ID,STUDENT_NAME,STUDENT_AGE,STUDENT_GENDER <span class="keyword">FROM</span> STUDENT <span class="keyword">WHERE</span> STUDENT_AGE <span class="operator">&gt;</span> <span class="number">18</span> <span class="keyword">AND</span> STUDENT_GENDER <span class="operator">=</span> <span class="string">&#x27;男&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>在上面的示例中，我们查询了两个条件同时成立的数据，使用and也可以查询多个条件同时成立的数据。例如：查询年龄大于18岁，性别为女，姓名为王五的学生信息。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ID,STUDENT_NAME,STUDENT_AGE,STUDENT_GENDER <span class="keyword">FROM</span> STUDENT <span class="keyword">WHERE</span> STUDENT_AGE <span class="operator">=</span> <span class="number">18</span> <span class="keyword">AND</span> STUDENT_GENDER <span class="operator">=</span> <span class="string">&#x27;女&#x27;</span> <span class="keyword">AND</span> STUDENT_NAME <span class="operator">=</span> <span class="string">&#x27;王五&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>需要注意的是，使用and连接查询条件时，条件表达式的顺序并不是固定的，可以在and前后任意位置。</p>
+<h3 id="OR多条件查询"><a href="#OR多条件查询" class="headerlink" title="OR多条件查询"></a>OR多条件查询</h3><p>有时查询数据时可能存在多个过滤条件，但是这些条件符合至少1个即可，此时就需要用关键字OR。表示OR前后的条件满意任意一个即可。同样，OR也可以查询多个条件，和上述一致只需要满足任意一个条件即可。<br>例如：查询年龄为18岁或者19岁的同学</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ID,STUDENT_NAME,STUDENT_AGE,STUDENT_GENDER <span class="keyword">FROM</span> STUDENT <span class="keyword">WHERE</span> STUDENT_AGE <span class="operator">&gt;</span><span class="number">18</span> <span class="keyword">OR</span> STUDENT_AGE<span class="operator">&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="查询去重"><a href="#查询去重" class="headerlink" title="查询去重"></a>查询去重</h3><p>使用DISTINCT可以将重复的值过滤，只保留一个,例如：对学生进行性别去重</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> STUDENT_GENDER <span class="keyword">FROM</span> STUDENT;</span><br></pre></td></tr></table></figure>
+
+<h3 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h3><h4 id="单列排序"><a href="#单列排序" class="headerlink" title="单列排序"></a>单列排序</h4><p>在查询过程中经常需要根据某个字段进行升序或者降序查询，此时就需要用到关键字ORDER BY，例如根据成绩进行升序处理。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ID,STUDENT_NAME,STUDENT_AGE,STUDENT_GENDER,SCORE <span class="keyword">FROM</span> STUDENT <span class="keyword">ORDER</span> <span class="keyword">BY</span> SCORE ;</span><br></pre></td></tr></table></figure>
+
+<p>从查询结果来看，数据库默认是按照升序进行数据显示。</p>
+<h4 id="升序和降序"><a href="#升序和降序" class="headerlink" title="升序和降序"></a>升序和降序</h4><p>上小节我们对成绩进行了升序排序，也可以使用关键字ASC，ASC写在GROUP BY后的字段名称以后，由于数据库默认是按照升序显示数据，因此ASC可以省略。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ID,STUDENT_NAME,STUDENT_AGE,STUDENT_GENDER,SCORE <span class="keyword">FROM</span> STUDENT <span class="keyword">ORDER</span> <span class="keyword">BY</span> SCORE <span class="keyword">ASC</span>;</span><br></pre></td></tr></table></figure>
+
+<p>从结果可以看出，添加ASC和默认排序的结果是一致的。</p>
+<p>如果我们要进行降序显示，我们只需要将关键字ASC更换为DESC即可，例如：对所有同学的分数进行降序排序。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ID,STUDENT_NAME,STUDENT_AGE,STUDENT_GENDER,SCORE <span class="keyword">FROM</span> STUDENT <span class="keyword">ORDER</span> <span class="keyword">BY</span> SCORE <span class="keyword">DESC</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="分组查询"><a href="#分组查询" class="headerlink" title="分组查询"></a>分组查询</h3><h4 id="GROUP-BY分组"><a href="#GROUP-BY分组" class="headerlink" title="GROUP BY分组"></a>GROUP BY分组</h4><p>分组在数据库查询中也是出现频率比较高的需求，如果要对数据分组就要用到关键字GROUP BY，例如：对学生性别进行分组。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> STUDENT_GENDER <span class="keyword">FROM</span> STUDENT <span class="keyword">GROUP</span> <span class="keyword">BY</span> STUDENT_GENDER;</span><br></pre></td></tr></table></figure>
+
+<h4 id="HAVING-过滤分组"><a href="#HAVING-过滤分组" class="headerlink" title="HAVING 过滤分组"></a>HAVING 过滤分组</h4><p>如果要对分组后的数据进行筛选，那么我们就要使用HAVING关键字，HAVING关键字是指对分组后的结果进行筛选，在前面的内容中，我们使用了WHERE对数据进行筛选，需要注意的是WHERE筛选的数据是分组前进行筛选，而HAVING则是分组后进行筛选。例如：查询分组查询出男生的平均成绩和女生的平均成绩，并筛选出大于60分的分组。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> STUDENT_GENDER,<span class="built_in">AVG</span>(SCORE) <span class="keyword">FROM</span> STUDENT <span class="keyword">GROUP</span> <span class="keyword">BY</span> STUDENT_GENDER <span class="keyword">HAVING</span> (<span class="built_in">AVG</span>(SCORE)<span class="operator">&gt;</span><span class="number">80</span>);</span><br></pre></td></tr></table></figure>
+
+<p>上面的示例中，出现了avg()函数，这个函数是一个聚合函数，用于求平均值。</p>
+<h5 id="分组后排序"><a href="#分组后排序" class="headerlink" title="分组后排序"></a>分组后排序</h5><p>例如：对上例中的结果进行降序处理。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> STUDENT_GENDER,<span class="built_in">AVG</span>(SCORE) <span class="keyword">FROM</span> STUDENT <span class="keyword">GROUP</span> <span class="keyword">BY</span> STUDENT_GENDER <span class="keyword">HAVING</span> (<span class="built_in">AVG</span>(SCORE)<span class="operator">&gt;</span><span class="number">80</span>) <span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="built_in">AVG</span>(SCORE) <span class="keyword">DESC</span>;</span><br></pre></td></tr></table></figure>
+
+<h5 id="聚合函数"><a href="#聚合函数" class="headerlink" title="聚合函数"></a>聚合函数</h5><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>COUNT()</td>
+<td>计算总条数</td>
+</tr>
+<tr>
+<td>AVG()</td>
+<td>求字段的平均值</td>
+</tr>
+<tr>
+<td>SUM()</td>
+<td>求字段总和</td>
+</tr>
+<tr>
+<td>MAX()</td>
+<td>求最大值</td>
+</tr>
+<tr>
+<td>MIN()</td>
+<td>求最小值</td>
+</tr>
+</tbody></table>
+<p>例如：查询数据表中总共有多少条数据。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="keyword">FROM</span> STUDENT;</span><br></pre></td></tr></table></figure>
+
+<p>在上面的结果中，我们可以看出查询出数据库总共有10条记录，需要注意的是当COUNT()函数的参数为*时，会统计该表中总共的记录数，但是，如果参数传的是某个字段的话，则统计该字段有多少条数据，如果该字段中存在NULL值，则会忽略该行。我们在表中新增一条数据，将该条数据的SCORE字段置为NULL，然后使用COUNT()函数进行统计。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(SCORE) <span class="keyword">FROM</span> STUDENT;</span><br></pre></td></tr></table></figure>
+
+<p>从结果中可以看到，统计时忽略了NULL值，并没有将该条记录统计在内。</p>
+<p>AVG()函数则是用来统计平均值，例如上例中对学生根据性别进行分组，分组后统计男女同学的平均成绩，现在我们可以使用该函数统计所有同学的平均值。注意：如果传入的字段中存在NULL值，则忽略该行</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">AVG</span>(SCORE) <span class="keyword">FROM</span> STUDENT;</span><br></pre></td></tr></table></figure>
+
+<p>SUM()函数则是对某个字段计算总和。例如求出所有同学的总成绩。注意：如果传入的字段中存在NULL值，则忽略该行</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">SUM</span>(SCORE) <span class="keyword">FROM</span> STUDENT;</span><br></pre></td></tr></table></figure>
+
+<p>MAX()函数和MIN()函数则是获取某个字段的最大值和最小值，例如我们获取学生的最高成绩和最低成绩。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">MAX</span>(SCORE),<span class="built_in">MIN</span>(SCORE) <span class="keyword">FROM</span> STUDENT;</span><br></pre></td></tr></table></figure>
+
+<p>查询男生的最高成绩和最低成绩，以及女生的最高成绩和最低成绩。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">MAX</span>(SCORE),<span class="built_in">MIN</span>(SCORE) <span class="keyword">FROM</span> STUDENT <span class="keyword">GROUP</span> <span class="keyword">BY</span> STUDENT_GENDER;</span><br></pre></td></tr></table></figure>
+
+<h3 id="分页查询"><a href="#分页查询" class="headerlink" title="分页查询"></a>分页查询</h3><p>我们在查询过程中发现，有些数据量比较大的表，通常不是一次性显示所有数据，而是分页显示，如果要对查询结果进行分页，就要使用LIMIT关键字<br>例如：显示所有学生的5条数据。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ID,STUDENT_NAME,STUDENT_AGE,STUDENT_GENDER <span class="keyword">FROM</span> STUDENT LIMIT <span class="number">5</span>;</span><br></pre></td></tr></table></figure>
+
+<p>此时，我们在LIMIT后只写了一个参数，代表查询出数据表中前5条数据。LIMIT也可以传入2个参数，第一个参数代表从第几条数据开始，第二个参数代表显示几条数据。需要注意的是，MySQL中第一条数据的编号是0.<br>例如：查询数据库中前三条数据</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ID,STUDENT_NAME,STUDENT_AGE,STUDENT_GENDER <span class="keyword">FROM</span> STUDENT LIMIT <span class="number">0</span>,<span class="number">3</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="连接查询"><a href="#连接查询" class="headerlink" title="连接查询"></a>连接查询</h2><p>在开发过程中绝大多数情况都需要操作2张或者2张以上的表，因此在查询中就需要多表联查或者说多张表进行连接，在MySQL中连接查询分为内连接和外连接，其中外连接又分为左外连接和右外连接。<br>首先我先创建一张学生信息表。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> STUDENT_INFO (</span><br><span class="line">  ID <span class="type">INT</span> <span class="keyword">PRIMARY</span> KEY AUTO_INCREMENT,</span><br><span class="line">  ADDRESS <span class="type">VARCHAR</span>(<span class="number">50</span>),</span><br><span class="line">  TELPHONE <span class="type">VARCHAR</span>(<span class="number">14</span>),</span><br><span class="line">  STUDENT_ID <span class="type">INT</span></span><br><span class="line"> );</span><br><span class="line"> <span class="keyword">INSERT</span> <span class="keyword">INTO</span> STUDENT_INFO (ADDRESS,TELPHONE,STUDENT_ID) <span class="keyword">VALUES</span> (<span class="string">&#x27;河南&#x27;</span>,<span class="string">&#x27;1999999999&#x27;</span>,<span class="number">1</span>),(<span class="string">&#x27;河北&#x27;</span>,<span class="string">&#x27;1999999999&#x27;</span>,<span class="number">2</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="内连接"><a href="#内连接" class="headerlink" title="内连接"></a>内连接</h3><p>当我们要连接查询的表存在1对1的关系时，我们就可以使用内连接，使用INNER JOIN将两张表进行连接，通常INNER可以省略，需要注意的是，如果要添加条件是用关键字ON，而不是使用WHERE.<br>例如：查询所有学生的基本信息及详细信息。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> STUDENT <span class="keyword">JOIN</span> STUDENT_INFO <span class="keyword">ON</span> STUDENT.ID <span class="operator">=</span> STUDENT_INFO.ID;</span><br></pre></td></tr></table></figure>
+
+<h3 id="外连接"><a href="#外连接" class="headerlink" title="外连接"></a>外连接</h3><p>在大多数情况下我们遇到的查询时一个对多或者多对多的情况，这时简单的内连接已经无法满足查询数据的需要了，这时就要用到外连接，外连接又分为左外连接和右外连接，关键字分别是LEFT JOIN 和RINGHT JOIN。其中，JOIN左边的表叫左表，JOIN右边的表叫右表。</p>
+<h4 id="LEFT-JOIN左连接"><a href="#LEFT-JOIN左连接" class="headerlink" title="LEFT JOIN左连接"></a>LEFT JOIN左连接</h4><p>在左连接中，左表中的数据会全部显示，右表中的数据符合过滤条件的显示。不符合过滤条件的数据则以NULL填充</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> Student(SId <span class="type">varchar</span>(<span class="number">10</span>),Sname <span class="type">varchar</span>(<span class="number">10</span>),Sage <span class="type">date</span>,Ssex <span class="type">varchar</span>(<span class="number">10</span>));</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> Student <span class="keyword">values</span>(<span class="string">&#x27;01&#x27;</span> , <span class="string">&#x27;赵雷&#x27;</span> , <span class="string">&#x27;1990-01-01&#x27;</span> , <span class="string">&#x27;男&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> Student <span class="keyword">values</span>(<span class="string">&#x27;02&#x27;</span> , <span class="string">&#x27;钱电&#x27;</span> , <span class="string">&#x27;1990-12-21&#x27;</span> , <span class="string">&#x27;男&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> Student <span class="keyword">values</span>(<span class="string">&#x27;03&#x27;</span> , <span class="string">&#x27;孙风&#x27;</span> , <span class="string">&#x27;1990-12-20&#x27;</span> , <span class="string">&#x27;男&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> Student <span class="keyword">values</span>(<span class="string">&#x27;04&#x27;</span> , <span class="string">&#x27;李云&#x27;</span> , <span class="string">&#x27;1990-12-06&#x27;</span> , <span class="string">&#x27;男&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> Student <span class="keyword">values</span>(<span class="string">&#x27;05&#x27;</span> , <span class="string">&#x27;周梅&#x27;</span> , <span class="string">&#x27;1991-12-01&#x27;</span> , <span class="string">&#x27;女&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> Student <span class="keyword">values</span>(<span class="string">&#x27;06&#x27;</span> , <span class="string">&#x27;吴兰&#x27;</span> , <span class="string">&#x27;1992-01-01&#x27;</span> , <span class="string">&#x27;女&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> Student <span class="keyword">values</span>(<span class="string">&#x27;07&#x27;</span> , <span class="string">&#x27;郑竹&#x27;</span> , <span class="string">&#x27;1989-01-01&#x27;</span> , <span class="string">&#x27;女&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> Student <span class="keyword">values</span>(<span class="string">&#x27;09&#x27;</span> , <span class="string">&#x27;张三&#x27;</span> , <span class="string">&#x27;2017-12-20&#x27;</span> , <span class="string">&#x27;女&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> Student <span class="keyword">values</span>(<span class="string">&#x27;10&#x27;</span> , <span class="string">&#x27;李四&#x27;</span> , <span class="string">&#x27;2017-12-25&#x27;</span> , <span class="string">&#x27;女&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> Student <span class="keyword">values</span>(<span class="string">&#x27;11&#x27;</span> , <span class="string">&#x27;李四&#x27;</span> , <span class="string">&#x27;2012-06-06&#x27;</span> , <span class="string">&#x27;女&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> Student <span class="keyword">values</span>(<span class="string">&#x27;12&#x27;</span> , <span class="string">&#x27;赵六&#x27;</span> , <span class="string">&#x27;2013-06-13&#x27;</span> , <span class="string">&#x27;女&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> Student <span class="keyword">values</span>(<span class="string">&#x27;13&#x27;</span> , <span class="string">&#x27;孙七&#x27;</span> , <span class="string">&#x27;2014-06-01&#x27;</span> , <span class="string">&#x27;女&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> Course(CId <span class="type">varchar</span>(<span class="number">10</span>),Cname <span class="type">varchar</span>(<span class="number">10</span>),TId <span class="type">varchar</span>(<span class="number">10</span>));</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> Course <span class="keyword">values</span>(<span class="string">&#x27;01&#x27;</span> , <span class="string">&#x27;语文&#x27;</span> , <span class="string">&#x27;02&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> Course <span class="keyword">values</span>(<span class="string">&#x27;02&#x27;</span> , <span class="string">&#x27;数学&#x27;</span> , <span class="string">&#x27;01&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> Course <span class="keyword">values</span>(<span class="string">&#x27;03&#x27;</span> , <span class="string">&#x27;英语&#x27;</span> , <span class="string">&#x27;03&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> Teacher(TId <span class="type">varchar</span>(<span class="number">10</span>),Tname <span class="type">varchar</span>(<span class="number">10</span>));</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> Teacher <span class="keyword">values</span>(<span class="string">&#x27;01&#x27;</span> , <span class="string">&#x27;张三&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> Teacher <span class="keyword">values</span>(<span class="string">&#x27;02&#x27;</span> , <span class="string">&#x27;李四&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> Teacher <span class="keyword">values</span>(<span class="string">&#x27;03&#x27;</span> , <span class="string">&#x27;王五&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> SC(SId <span class="type">varchar</span>(<span class="number">10</span>),CId <span class="type">varchar</span>(<span class="number">10</span>),score <span class="type">DEC</span>(<span class="number">18</span>,<span class="number">1</span>));</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> SC <span class="keyword">values</span>(<span class="string">&#x27;01&#x27;</span> , <span class="string">&#x27;01&#x27;</span> , <span class="number">80</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> SC <span class="keyword">values</span>(<span class="string">&#x27;01&#x27;</span> , <span class="string">&#x27;02&#x27;</span> , <span class="number">90</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> SC <span class="keyword">values</span>(<span class="string">&#x27;01&#x27;</span> , <span class="string">&#x27;03&#x27;</span> , <span class="number">99</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> SC <span class="keyword">values</span>(<span class="string">&#x27;02&#x27;</span> , <span class="string">&#x27;01&#x27;</span> , <span class="number">70</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> SC <span class="keyword">values</span>(<span class="string">&#x27;02&#x27;</span> , <span class="string">&#x27;02&#x27;</span> , <span class="number">60</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> SC <span class="keyword">values</span>(<span class="string">&#x27;02&#x27;</span> , <span class="string">&#x27;03&#x27;</span> , <span class="number">80</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> SC <span class="keyword">values</span>(<span class="string">&#x27;03&#x27;</span> , <span class="string">&#x27;01&#x27;</span> , <span class="number">80</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> SC <span class="keyword">values</span>(<span class="string">&#x27;03&#x27;</span> , <span class="string">&#x27;02&#x27;</span> , <span class="number">80</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> SC <span class="keyword">values</span>(<span class="string">&#x27;03&#x27;</span> , <span class="string">&#x27;03&#x27;</span> , <span class="number">80</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> SC <span class="keyword">values</span>(<span class="string">&#x27;04&#x27;</span> , <span class="string">&#x27;01&#x27;</span> , <span class="number">50</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> SC <span class="keyword">values</span>(<span class="string">&#x27;04&#x27;</span> , <span class="string">&#x27;02&#x27;</span> , <span class="number">30</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> SC <span class="keyword">values</span>(<span class="string">&#x27;04&#x27;</span> , <span class="string">&#x27;03&#x27;</span> , <span class="number">20</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> SC <span class="keyword">values</span>(<span class="string">&#x27;05&#x27;</span> , <span class="string">&#x27;01&#x27;</span> , <span class="number">76</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> SC <span class="keyword">values</span>(<span class="string">&#x27;05&#x27;</span> , <span class="string">&#x27;02&#x27;</span> , <span class="number">87</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> SC <span class="keyword">values</span>(<span class="string">&#x27;06&#x27;</span> , <span class="string">&#x27;01&#x27;</span> , <span class="number">31</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> SC <span class="keyword">values</span>(<span class="string">&#x27;06&#x27;</span> , <span class="string">&#x27;03&#x27;</span> , <span class="number">34</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> SC <span class="keyword">values</span>(<span class="string">&#x27;07&#x27;</span> , <span class="string">&#x27;02&#x27;</span> , <span class="number">89</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> SC <span class="keyword">values</span>(<span class="string">&#x27;07&#x27;</span> , <span class="string">&#x27;03&#x27;</span> , <span class="number">98</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> SC <span class="keyword">values</span>(<span class="string">&#x27;09&#x27;</span> , <span class="string">&#x27;01&#x27;</span> , <span class="keyword">null</span>);</span><br></pre></td></tr></table></figure>
+
+<p>例如：查询所有同学学习的课程成绩，因为学生和学习的课程是一对多的关系，所以我们在这里选用左外连接</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> STUDENT <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> SC  <span class="keyword">ON</span> STUDENT.SID <span class="operator">=</span> SC.SID;</span><br></pre></td></tr></table></figure>
+
+<p>从结果中可以看出，学生表中的所有信息都显示了，但是由于张三，李四，李四，赵六，孙七没有学习课程，所以在SC表中没有相关记录，因为使用了左外连接，所以，右表中的数据不满足筛选条件的全部以NULL值填充。</p>
+<h4 id="RIGHT-JOIN-右连接"><a href="#RIGHT-JOIN-右连接" class="headerlink" title="RIGHT JOIN 右连接"></a>RIGHT JOIN 右连接</h4><p>右连接和左连接的规则相反，是指右表的数据全部显示，左表中的数据满足筛选条件的显示，不满足的则以NULL值填充。<br>我们在SC表中删除任意一条数据的SID来进行验证。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> STUDENT <span class="keyword">RIGHT</span> <span class="keyword">JOIN</span> SC <span class="keyword">ON</span> STUDENT.SID <span class="operator">=</span> SC.SID;</span><br></pre></td></tr></table></figure>
+
+<p>从结果中可以看出，删除了一个SID后，在左表中无法找到对应的学生信息，因此该条数据的左表字段全部以NULL填充。</p>
+<h2 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">CREATE</span> <span class="keyword">TABLE</span> STUDENT2(</span><br><span class="line">    ID <span class="type">INT</span> <span class="keyword">PRIMARY</span> KEY AUTO_INCREMENT,</span><br><span class="line">    STUDENT_NAME <span class="type">VARCHAR</span>(<span class="number">20</span>),</span><br><span class="line">    STUDENT_AGE TINYINT,</span><br><span class="line">    STUDENT_GENDER <span class="type">CHAR</span>(<span class="number">4</span>)</span><br><span class="line">    );</span><br><span class="line">    </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> STUDENT2 <span class="keyword">VALUES</span> (<span class="number">1</span>,<span class="string">&#x27;李信&#x27;</span>,<span class="number">18</span>,<span class="string">&#x27;男&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> STUDENT2 <span class="keyword">VALUES</span> (<span class="number">2</span>,<span class="string">&#x27;周瑜&#x27;</span>,<span class="number">19</span>,<span class="string">&#x27;男&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> STUDENT2 <span class="keyword">VALUES</span> (<span class="number">3</span>,<span class="string">&#x27;安其拉&#x27;</span>,<span class="number">22</span>,<span class="string">&#x27;女&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> STUDENT2 <span class="keyword">VALUES</span> (<span class="number">4</span>,<span class="string">&#x27;妲己&#x27;</span>,<span class="number">18</span>,<span class="string">&#x27;女&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> STUDENT2 <span class="keyword">VALUES</span> (<span class="number">5</span>,<span class="string">&#x27;花木兰&#x27;</span>,<span class="number">18</span>,<span class="string">&#x27;女&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="ANY关键字"><a href="#ANY关键字" class="headerlink" title="ANY关键字"></a>ANY关键字</h3><p>满足ANY子查询中任意一个即可,也可以理解为满足ANY子查询中最小的一个即可。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> STUDENT <span class="keyword">WHERE</span> STUDENT_AGE<span class="operator">&gt;</span><span class="keyword">ANY</span>(<span class="keyword">SELECT</span> STUDENT_AGE <span class="keyword">FROM</span> STUDENT2);</span><br></pre></td></tr></table></figure>
+
+<h3 id="ALL关键字"><a href="#ALL关键字" class="headerlink" title="ALL关键字"></a>ALL关键字</h3><p>满足ALL子查询中所有的条件。或者满足ALL子查询中最大的即可</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> STUDENT2 <span class="keyword">WHERE</span> STUDENT_AGE<span class="operator">&gt;</span><span class="keyword">ALL</span>(<span class="keyword">SELECT</span> STUDENT_AGE <span class="keyword">FROM</span> STUDENT);</span><br></pre></td></tr></table></figure>
+
+<h3 id="EXISTS关键字"><a href="#EXISTS关键字" class="headerlink" title="EXISTS关键字"></a>EXISTS关键字</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> STUDENT <span class="keyword">WHERE</span> <span class="keyword">EXISTS</span>(<span class="keyword">SELECT</span> ID <span class="keyword">FROM</span> STUDENT2 <span class="keyword">WHERE</span> STUDENT2.STUDENT_AGE<span class="operator">=</span>STUDENT.STUDENT_AGE);</span><br></pre></td></tr></table></figure>
+
+<h3 id="IN关键字"><a href="#IN关键字" class="headerlink" title="IN关键字"></a>IN关键字</h3><p>IN关键字可以理解为OR，即满足括号中的A条件，或者B条件，或者C条件</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> STUDENT <span class="keyword">WHERE</span> STUDENT_AGE <span class="keyword">IN</span>(<span class="keyword">SELECT</span> STUDENT_AGE <span class="keyword">FROM</span> STUDENT2);</span><br></pre></td></tr></table></figure>
+
+<h3 id="比较运算符的子查询"><a href="#比较运算符的子查询" class="headerlink" title="比较运算符的子查询"></a>比较运算符的子查询</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> STUDENT2 <span class="keyword">WHERE</span> STUDENT_AGE<span class="operator">&gt;</span>(<span class="keyword">SELECT</span> STUDENT_AGE <span class="keyword">FROM</span> STUDENT <span class="keyword">WHERE</span> STUDENT_AGE<span class="operator">=</span><span class="number">20</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="SQL语句执行顺序"><a href="#SQL语句执行顺序" class="headerlink" title="SQL语句执行顺序"></a>SQL语句执行顺序</h2><ol>
+<li>FROM</li>
+<li>ON</li>
+<li>JOIN</li>
+<li>WHERE</li>
+<li>GROUP BY</li>
+<li>HAVING</li>
+<li>SELECT </li>
+<li>DISTINCT</li>
+<li>ORDER BY</li>
+<li>LIMIT</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Fei
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://airui520.github.io/2022/09/08/MySQL%E6%9F%A5%E8%AF%A2%E6%95%B0%E6%8D%AE/" title="MySQL查询数据;">https://airui520.github.io/2022/09/08/MySQL查询数据/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/09/08/MySQL%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" rel="prev" title="MySQL数据类型;">
+                  <i class="fa fa-chevron-left"></i> MySQL数据类型;
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/09/08/JDBC%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="next" title="JDBC连接数据库;">
+                  JDBC连接数据库; <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2001 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fei</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">927k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">14:03</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=your_add_this_id" async="async"></script>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+<script class="next-config" data-name="chatra" type="application/json">{"enable":true,"async":true,"id":null}</script>
+<script src="/js/third-party/chat/chatra.js"></script>
+<script async src="https://call.chatra.io/chatra.js"></script>
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

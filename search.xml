@@ -16601,4 +16601,429 @@
 <p><img src="https://files.catbox.moe/2lqxwi.png"></p>
 ]]></content>
   </entry>
+  <entry>
+    <title>JDBC连接数据库;</title>
+    <url>/2022/09/08/JDBC%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93/</url>
+    <content><![CDATA[<p><img src="https://files.catbox.moe/vakrmb.png"></p>
+<span id="more"></span>
+
+<h1 id="JDBC"><a href="#JDBC" class="headerlink" title="JDBC"></a>JDBC</h1><p>在前面的学习，通过CMD命令窗口或者图形界面工具连接并使用MySQL数据库，在一款软件的开发过程中，我们一般使用命令窗口或者图形界面工具调试或者测试数据，用不同的语言去连接数据库，进行数据操作，以Java为例，Java为我们提供并封装了一系列操作数据库的接口（这里的数据库不单单指MySQL，也包括其他关系型数据库例如:SqlServer或者oracle等）。在本章节内，我们将详细学习如果使用。</p>
+<h2 id="JDBC简介"><a href="#JDBC简介" class="headerlink" title="JDBC简介"></a>JDBC简介</h2><p>JDBC 的全称是 Java Database Connectivity，即 Java 数据库连接，它是一种可以执行 SQL 语句的 Java API。程序可通过 JDBC API 连接到关系数据库，并使用结构化查询语言（SOL，数据库标准的查询语言）来完成对数据库的查询、更新。 与其他数据库编程环境相比，JDBC 为数据库开发提供了标准的 API，所以使用 JDBC 开发的数据库应用可以跨平台运行，而且可以跨数据库（如果全部使用标准的 SQL）。也就是说，如果使用 JDBC开发一个数据库应用，则该应用既可以在 Windows 平台上运行，也可以在 UNIX 等其他平台上运行;既可以使用 MySQL 数据库，也可以使用 Oracle 等数据库，而程序无须进行任何修改。</p>
+<p>Java 语言的各种跨平台特性，都采用相似的结构，因为它们都需要让相同的程序在不同的平台上运行，所以都需要中间的转换程序（为了实现 Java 程序的跨平台性，Java为不同的操作系统提供了不同的虚拟机）。同样，为了使JDBC程序可以跨平台，则需要不同的数据库厂商提供相应的驱动程序。</p>
+<p><img src="https://files.catbox.moe/0j9zo2.png"></p>
+<p>上图显示了JDBC驱动示意图。 正是通过 JDBC驱动的转换，才使得使用相同 JDBC API 编写的程序，在不同的数据库系统上运行良好。</p>
+<p>Sun 提供的 JDBC 可以完成以下三个基本工作。  </p>
+<ol>
+<li>建立与数据库的连接</li>
+<li>执行SQL语句</li>
+<li>获取SQL语句的执行结果</li>
+</ol>
+<h2 id="JDBC常用接口和类"><a href="#JDBC常用接口和类" class="headerlink" title="JDBC常用接口和类"></a>JDBC常用接口和类</h2><p>学习JDBC之前需要先了解常用的接口和类，了解完这些接口和类以后就可以使用JDBC连接并操作数据库。</p>
+<h3 id="DriverManager类"><a href="#DriverManager类" class="headerlink" title="DriverManager类"></a>DriverManager类</h3><p>该接口用于管理JDBC驱动的服务类，该类的主要作用是获取Java与数据库连接的Connection对象，Connection对象可以想象成Java与数据库通信的桥梁。DriverManager的主要方法如下：</p>
+<ul>
+<li>public static Connection getConnection(String url,String user, String password) throws SQLException：该方法用于获取url对应的数据库连接，user指数据库的用户名，password指数据库的用户密码</li>
+</ul>
+<h3 id="Connection接口"><a href="#Connection接口" class="headerlink" title="Connection接口"></a>Connection接口</h3><p>该接口代表数据库的连接对象，每个Connection代表一个物理连接会话，要想访问数据库，必须先获得数据库连接。该接口的常用方法如下：</p>
+<ul>
+<li>Statement createStatement（） throws SQLExcetpion∶ 该方法返回一个 Statement 对象。 </li>
+<li>PreparedStatement prepareStatement（String sql）throws SQLExcetpion∶ 该方法返回预编译的 Statement 对象，即将 SOL 语句提交到数据库进行预编译。 </li>
+<li>CallableStatement prepareCall（String sql） throws SQLExcetpion∶ 该方法返回 CallableStatement 对象，该对象用于调用存储过程。</li>
+</ul>
+<p>  </p>
+<p>上面三个方法都返回用于执行 SQL 语句的 Statement 对象，PreparedStatement、CallableStatement是 Statement 的子类，只有获得了 Statement 之后才可执行 SQL 语句。</p>
+<p>除此之外，Connection 还有如下几个用于控制事务的方法。</p>
+<ul>
+<li>Savepoint setSavepoint（）∶创建一个保存点。</li>
+<li>Savepoint setSavepoint（String name）∶ 以指定名字来创建一个保存点。</li>
+<li>void setTransactionIsolation（int level）∶ 设置事务的隔离级别。</li>
+<li>void rollback（）∶ 回滚事务。 &gt; void rollback（Savepoint savepoint）∶ 将事务回滚到指定的保存点。</li>
+<li>void setAutoCommit（boolean autoCommit）∶关闭自动提交，打开事务。&gt; void commit（）∶提交事务。</li>
+</ul>
+<h3 id="Statement接口"><a href="#Statement接口" class="headerlink" title="Statement接口"></a>Statement接口</h3><p>Statement∶用于执行 SQL 语句的工具接口。该对象既可用于执行DDL、DCL 语句，也可用于 执行 DML 语句，还可用于执行 SQL 查询。当执行 SQL 查询时，返回查询到的结果集。它的常用方法如下。 </p>
+<ul>
+<li>ResultSet executeQuery（String sql）throws SQLException∶该方法用于执行查询语句，并返回查 询结果对应的 ResultSet 对象。该方法只能用于执行查询语句。 </li>
+<li>int executeUpdate（String sql）throws SQLExcetion∶ 该方法用于执行 DML 语句，并返回受影响 的行数; 该方法也可用于执行 DDL 语句，执行 DDL 语句将返回 0。 </li>
+<li>boolean execute（String sql）throws SOLException∶ 该方法可执行任何 SOL 语句。如果执行后 第一个结果为 ResultSet 对象，则返回 true; 如果执行后第一个结果为受影响的行数或没有任何结果，则返回 false。</li>
+</ul>
+<p>PreparedStatement：预编译的 Statement 对象。PreparedStatement 是 Statement 的子接口，它允 许数据库预编译 SOL 语句（这些 SOL 语句通常带有参数），以后每次只改变 SOL 命令的参数，避免数据库每次都需要编译 SQL 语句，因此性能更好。相对于 Statement 而言，使用 PreparedStatement 执行 SOL 语句时，无须再传入 SOL 语句，只要为预编译的 SOL 语句传入参数值即可。所以它比 Statement 多了如下方法。 </p>
+<ul>
+<li>void setXxx（int parameterlndex，Xxx value）∶该方法根据传入参数值的类型不同，需要使用不 同的方法。传入的值根据索引传给 SQL 语句中指定位置的参数。</li>
+</ul>
+<h3 id="ResultSet接口"><a href="#ResultSet接口" class="headerlink" title="ResultSet接口"></a>ResultSet接口</h3><p>ResultSet：结果集对象。该对象包含访问查询结果的方法，ResultSet 可以通过列索引或列名获 得列数据。它包含了如下常用方法来移动记录指针。</p>
+<ul>
+<li>void close()：释放 ResultSet 对象。 </li>
+<li>boolean absolute(int row)：将结果集的记录指针移动到第 row 行，如果 row 是负数，则移动 到倒数第 row 行。如果移动后的记录指针指向一条有效记录，则该方法返回 true。 </li>
+<li>void beforeFirst()：将 ResultSet 的记录指针定位到首行之前，这是 ResultSet 结果集记录指针 的初始状态——记录指针的起始位置位于第一行之前。 </li>
+<li>boolean first()：将 ResultSet 的记录指针定位到首行。如果移动后的记录指针指向一条有效记 录，则该方法返回 true。 </li>
+<li>boolean previous()：将 ResultSet 的记录指针定位到上一行。如果移动后的记录指针指向一条 有效记录，则该方法返回 true。 </li>
+<li>boolean next()：将 ResultSet 的记录指针定位到下一行，如果移动后的记录指针指向一条有效 记录，则该方法返回 true。 </li>
+<li>boolean last()：将 ResultSet 的记录指针定位到最后一行，如果移动后的记录指针指向一条有 效记录，则该方法返回 true。 ·</li>
+<li>void afterLast()： 将 ResultSet 的记录指针定位到最后一行之后。</li>
+</ul>
+<p> </p>
+<p>当把记录指针移动到指定行之后，ResultSet 可通过 getXxx（int columnIndex）或 getXxx（String columnLabel）方法来获取当前行、指定列的值，前者根据列索引获取值，后者根据列名获取值。Java 7新增了<T>T getObject（int columnIndex，Class<T> type）和<T>T getObject（String columnLabel， Class<T> type）两个泛型方法，它们可以获取任意类型的值。 </p>
+<h2 id="JDBC编程步骤"><a href="#JDBC编程步骤" class="headerlink" title="JDBC编程步骤"></a>JDBC编程步骤</h2><p>大致了解了JDBC API的相关接口和类之后，下面就可以进行 JDBC 编程了，JDBC编程大致按如下步骤进行。</p>
+<ol>
+<li>加载驱动</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//加载MySQL驱动</span></span><br><span class="line">Class.forName(<span class="string">&quot;com.mysql.cj.jdbc.Driver&quot;</span>);</span><br><span class="line"><span class="comment">//如果要加载Oracle驱动</span></span><br><span class="line">Class.forName(<span class="string">&quot;Oracle.jdbc.driver.OracleDriver&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>获取连接</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//获取连接</span></span><br><span class="line">DriverManager.getConnection(String url,String user,String pass);</span><br></pre></td></tr></table></figure>
+
+<p>当使用 DriverManager 获取数据库连接时，通常需要传入三个参数;数据库 URL、登录数据库的用户名和密码。这三个参数中用户名和密码通常由 DBA（数据库管理员）分配，而且该用户还应该具有相应的权限，才可以执行相应的 SQL 语句。 数据库 URL通常遵循如下写法∶</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">jdbc:subprotoclo:othre stuff</span><br></pre></td></tr></table></figure>
+
+<p>上面 URL 写法中的 jdbc 是固定的，而 subprotocol 指定连接到特定数据库的驱动，而后面的 other和 stuff也是不固定的——也没有较强的规律，不同数据库的 URL 写法可能存在较大差异。例如，MySQL数据库的 URL写法如下∶ </p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">jdbc:mysql:<span class="comment">//hostname:port/databasename</span></span><br></pre></td></tr></table></figure>
+
+<p>在上面的链接中hostname指的是数据库所在主机的IP或者域名，如果要连接本机则可以写作“localhost”或者“127.0.0.1”，port则是指数据库的端口号，MySQL的端口号默认是3306，database则是只要连接数据库的名称。</p>
+<p>Oracle数据库的URL写法如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">jdbc:oracle:thin:<span class="meta">@hostname</span>:port:databasename</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>通过Connection获取Statement对象</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">Statement</span> <span class="variable">statement</span> <span class="operator">=</span> connection.createStatemen();</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>使用Statement对象执行SQL语句</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;INSERT INTO STUDENT VALUES(1,&#x27;张三&#x27;,18,&#x27;男&#x27;)&quot;</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">k</span> <span class="operator">=</span> statement.executeUpdate(sql);</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>获取结果，此处使用的是Statement对象的executeUpdate方法，该方法返回的是影响的行数，如果要调用executeQuery方法，则返回值是一个ResultSet对象。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">ResultSet</span> <span class="variable">rs</span> <span class="operator">=</span> statement.executeQuery(sql);</span><br><span class="line"><span class="keyword">while</span>(rs.next()) &#123;</span><br><span class="line">	System.out.println(rs.getInt(<span class="string">&quot;id&quot;</span>));</span><br><span class="line">	System.out.println(rs.getString(<span class="string">&quot;student_name&quot;</span>));</span><br><span class="line">	System.out.println(rs.getInt(<span class="string">&quot;student_age&quot;</span>));</span><br><span class="line">	System.out.println(rs.getInt(<span class="string">&quot;gender&quot;</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>释放资源</li>
+</ol>
+<p>下面，将上述步骤进行整合，示范JDBC编程步骤：</p>
+<p>首先创建数据库和数据表：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">--创建数据库</span><br><span class="line">CREATE DATABASE TEST_DB;</span><br><span class="line">--切换数据库</span><br><span class="line">USE TEST_DB;</span><br><span class="line">--创建表</span><br><span class="line">CREATE TABLE <span class="title function_">STUDENT</span><span class="params">(</span></span><br><span class="line"><span class="params">  ID INT(<span class="number">11</span>)</span>,</span><br><span class="line">  STUDENT_NAME <span class="title function_">VARCHAR</span><span class="params">(<span class="number">25</span>)</span>,</span><br><span class="line">  STUDENT_AGE <span class="title function_">VARCHAR</span><span class="params">(<span class="number">11</span>)</span>,</span><br><span class="line">  STUDENT_GENDER <span class="title function_">CHAR</span><span class="params">(<span class="number">2</span>)</span></span><br><span class="line">);</span><br><span class="line">--插入数据</span><br><span class="line">INSERT INTO STUDENT <span class="title function_">VALUES</span> <span class="params">(<span class="number">1</span>,<span class="string">&quot;张三&quot;</span>,<span class="number">18</span>,<span class="string">&#x27;男&#x27;</span>)</span>;</span><br><span class="line">INSERT INTO STUDENT <span class="title function_">VALUES</span> <span class="params">(<span class="number">2</span>,<span class="string">&quot;李四&quot;</span>,<span class="number">18</span>,<span class="string">&#x27;男&#x27;</span>)</span>;</span><br><span class="line"><span class="keyword">package</span> cn.bytecollege;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.sql.Connection;</span><br><span class="line"><span class="keyword">import</span> java.sql.DriverManager;</span><br><span class="line"><span class="keyword">import</span> java.sql.ResultSet;</span><br><span class="line"><span class="keyword">import</span> java.sql.SQLException;</span><br><span class="line"><span class="keyword">import</span> java.sql.Statement;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JDBCDemo</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">String</span> <span class="variable">url</span> <span class="operator">=</span> <span class="string">&quot;jdbc:mysql://localhost:3306/test_db?serverTimezone=Asia/Shanghai&quot;</span>;</span><br><span class="line">		<span class="type">String</span> <span class="variable">user</span> <span class="operator">=</span> <span class="string">&quot;root&quot;</span>;</span><br><span class="line">		<span class="type">String</span> <span class="variable">password</span> <span class="operator">=</span> <span class="string">&quot;root&quot;</span>;</span><br><span class="line">		<span class="comment">//1.加载驱动</span></span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			Class.forName(<span class="string">&quot;com.mysql.cj.jdbc.Driver&quot;</span>);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">			System.out.println(<span class="string">&quot;驱动未加载&quot;</span>);</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//2.获取连接</span></span><br><span class="line">		<span class="type">Connection</span> <span class="variable">connection</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">		<span class="type">Statement</span> <span class="variable">statement</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			connection = DriverManager.getConnection(url, user, password);</span><br><span class="line">			<span class="comment">//3.获取Statement</span></span><br><span class="line">			statement = connection.createStatement();</span><br><span class="line">			<span class="comment">//4.执行SQL语句</span></span><br><span class="line"><span class="comment">//			String sql = &quot;INSERT INTO STUDENT (1,&#x27;张三&#x27;,18,&#x27;男&#x27;)&quot;;</span></span><br><span class="line"><span class="comment">//			int k = statement.executeUpdate(sql);</span></span><br><span class="line">			<span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;SELECT * FROM STUDENT&quot;</span>;</span><br><span class="line">			<span class="comment">//5.获取结果</span></span><br><span class="line">			<span class="type">ResultSet</span> <span class="variable">rs</span> <span class="operator">=</span> statement.executeQuery(sql);</span><br><span class="line">			<span class="keyword">while</span>(rs.next()) &#123;</span><br><span class="line">				System.out.print(rs.getInt(<span class="string">&quot;id&quot;</span>));</span><br><span class="line">				System.out.print(rs.getString(<span class="string">&quot;student_name&quot;</span>));</span><br><span class="line">				System.out.print(rs.getInt(<span class="string">&quot;student_age&quot;</span>));</span><br><span class="line">				System.out.print(rs.getString(<span class="string">&quot;gender&quot;</span>));</span><br><span class="line">				System.out.println();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">			<span class="keyword">try</span> &#123;</span><br><span class="line">				statement.close();</span><br><span class="line">				connection.close();</span><br><span class="line">			&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">				<span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">				e.printStackTrace();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行上面的程序，结果如下图：</p>
+<p><img src="https://files.catbox.moe/lv8m1j.png"></p>
+<h2 id="使用PrepareStatement执行SQL语句"><a href="#使用PrepareStatement执行SQL语句" class="headerlink" title="使用PrepareStatement执行SQL语句"></a>使用PrepareStatement执行SQL语句</h2><p>如果经常需要反复执行一条结构相似的 SQL 语句，例如如下两条 SQL 语句∶ </p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">INSERT INTO STUDENT <span class="title function_">VALUES</span> <span class="params">(<span class="number">1</span>,<span class="string">&quot;张三&quot;</span>,<span class="number">18</span>,<span class="string">&#x27;男&#x27;</span>)</span>;</span><br><span class="line">INSERT INTO STUDENT <span class="title function_">VALUES</span> <span class="params">(<span class="number">2</span>,<span class="string">&quot;李四&quot;</span>,<span class="number">18</span>,<span class="string">&#x27;男&#x27;</span>)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>对于这两条 SOL 语句而言，它们的结构基本相似，只是执行插入时插入的值不同而已。对于这种情况，可以使用带占位符（?）参数的 SOL语句来代替它; </p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">INSERT INTO STUDENT <span class="title function_">VALUES</span> <span class="params">(?,?,?,?)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>但 Statement 执行 SOL 语句时不允许使用问号占位符参数，而且这个问号占位符参数必须获得值后才可以执行。为了满足这种功能，JDBC提供了PreparedStatement接口，它是 Statement接口的子接口，它可以预编译 SQL 语句，预编译后的 SQL 语句被存储在 PreparedStatement 对象中，然后可以使用该对象多次高效地执行该语句。简而言之，使用 PreparedStatement 比使用 Statement 的效率要高。 创建 PreparedStatement 对象使用 Connection 的 prepareStatement()方法，该方法需要传入一个 SQL字符串，该 SQL 字符串可以包含占位符参数。如下代码所示∶ </p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;INSERT INTO STUDENT (?,?,?,?)&quot;</span>;</span><br><span class="line"><span class="type">PreparedStatement</span> <span class="variable">ps</span> <span class="operator">=</span> connection.prepareStatement(sql);</span><br></pre></td></tr></table></figure>
+
+<p>PreparedStatement 也提供了execute()、executeUpdate()、executeQuery()三个方法来执行 SQL 语句，不过这三个方法无须参数，因为 PreparedStatement 已存储了预编译的 SOL 语句。 使用 PreparedStatement 预编译 SOL 语句时，该 SOL 语句可以带占位符参数，因此在执行 SOL 语句之前必须为这些参数传入参数值，PreparedStatement 提供了一系列的 setXxx（int index，Xxx value）方法来传入参数值。</p>
+<p>下面通过示例学习PrepareStatement的用法：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.bytecollege;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.sql.Connection;</span><br><span class="line"><span class="keyword">import</span> java.sql.DriverManager;</span><br><span class="line"><span class="keyword">import</span> java.sql.PreparedStatement;</span><br><span class="line"><span class="keyword">import</span> java.sql.ResultSet;</span><br><span class="line"><span class="keyword">import</span> java.sql.SQLException;</span><br><span class="line"><span class="keyword">import</span> java.sql.Statement;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JDBCDemo2</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">String</span> <span class="variable">url</span> <span class="operator">=</span> <span class="string">&quot;jdbc:mysql://localhost:3306/test_db?serverTimezone=Asia/Shanghai&quot;</span>;</span><br><span class="line">		<span class="type">String</span> <span class="variable">user</span> <span class="operator">=</span> <span class="string">&quot;root&quot;</span>;</span><br><span class="line">		<span class="type">String</span> <span class="variable">password</span> <span class="operator">=</span> <span class="string">&quot;root&quot;</span>;</span><br><span class="line">		<span class="comment">//1.加载驱动</span></span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			Class.forName(<span class="string">&quot;com.mysql.cj.jdbc.Driver&quot;</span>);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">			System.out.println(<span class="string">&quot;驱动未加载&quot;</span>);</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//2.获取连接</span></span><br><span class="line">		<span class="type">Connection</span> <span class="variable">connection</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">		<span class="type">PreparedStatement</span> <span class="variable">ps</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			connection = DriverManager.getConnection(url, user, password);</span><br><span class="line">			<span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;INSERT INTO STUDENT VALUES (?,?,?,?)&quot;</span>;</span><br><span class="line">			ps = connection.prepareStatement(sql);</span><br><span class="line">			ps.setInt(<span class="number">1</span>, <span class="number">3</span>);</span><br><span class="line">			ps.setString(<span class="number">2</span>, <span class="string">&quot;王五&quot;</span>);</span><br><span class="line">			ps.setInt(<span class="number">3</span>, <span class="number">20</span>);</span><br><span class="line">			ps.setString(<span class="number">4</span>, <span class="string">&quot;女&quot;</span>);</span><br><span class="line">			<span class="type">int</span> <span class="variable">k</span> <span class="operator">=</span> ps.executeUpdate();</span><br><span class="line">			System.out.println(k);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">			<span class="keyword">try</span> &#123;</span><br><span class="line">				ps.close();</span><br><span class="line">				connection.close();</span><br><span class="line">			&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">				<span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">				e.printStackTrace();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>需要注意的是使用PrepareStatement的setXxx()方法时，第一个参数是占位符的索引，第二个参数是占位符的真实值，占位符的索引是从1开始。</p>
+<p>总体来看，使用 PreparedStatement 比使用 Statement 多了如下三个好处。</p>
+<ol>
+<li>PreparedStatement 预编译 SQL 语句，性能更好。</li>
+<li>PreparedStatement 无须拼接SQL 语句，编程更简单。</li>
+<li>PreparedStatement 可以防止 SQL 注入，安全性更好。</li>
+</ol>
+<p> 基于以上三点，通常推荐避免使用 Statement 来执行 SQL 语句，改为使用 PreparedStatement 执行 SQL语句。</p>
+<h2 id="可滚动的结果集"><a href="#可滚动的结果集" class="headerlink" title="可滚动的结果集"></a>可滚动的结果集</h2><p>前面提到，ResultSet 定位记录指针的方法有 absolute（O）、previous（等方法，但前面程序自始至终都只用了 next（）方法来移动记录指针，实际上也可以使用 absoluteO、previousO、lastO）等方法来移动记录 指针。可以使用 absolute（）、previous（、afterLast（）等方法自由移动记录指针的 ResultSet 被称为可滚动的结果集。  </p>
+<p>在 JDK 1.4 以前，默认打开的 ResultSet 是不可滚动的，必须在创建 Statement 或 PreparedStatement 时传入额外的参数。从 Java 5.0 以后，默认打开的 ResultSet 就是可滚动的，无须传入额外的参数。 </p>
+<p>以默认方式打开的 ResultSet 是不可更新的，如果希望创建可更新的 ResultSet，则必须在创建 Statement 或 PreparedStatement 时传入额外的参数。Connection 在创建 Statement 或 PreparedStatement 时还可额外传入如下两个参数。 </p>
+<ol>
+<li>resultSetType∶ 控制 ResultSet 的类型，该参数可以取如下三个值：</li>
+</ol>
+<ul>
+<li><ul>
+<li> ResultSet.TYPE FORWARD ONLY∶该常量控制记录指针只能向前移动。这是 JDK1.4 以前 的默认值。 </li>
+<li>ResultSet.TYPE SCROLL INSENSITIVE∶该常量控制记录指针可以自由移动（可滚动结果 集），但底层数据的改变不会影响 ResultSet 的内容。 </li>
+<li>ResultSet.TYPE SCROLL SENSITIVE∶该常量控制记录指针可以自由移动（可滚动结果集）， 而且底层数据的改变会影响 ResultSet 的内容。</li>
+</ul>
+</li>
+</ul>
+<p> </p>
+<ol>
+<li>resultSetConcurrency∶控制 ResultSet 的并发类型，该参数可以接收如下两个值 ·：</li>
+</ol>
+<ul>
+<li><ul>
+<li>ResultSet.CONCUR_READ_ONLY∶该常量指示 ResultSet 是只读的并发模式（默认）。·</li>
+<li>ResultSet.CONCUR UPDATABLE∶该常量指示 ResultSet是可更新的并发模式。</li>
+</ul>
+</li>
+</ul>
+<p>注意：TYPE SCROLL INSENSITIVE、TYPE SCROLL SENSITIVE 两个常量的作用需要底层数据库驱动的支持，对于有些数据库驱动来说，这两个常量并没有太大的区别。 </p>
+<p>需要指出的是，可更新的结果集还需要满足如下两个条件。</p>
+<ol>
+<li>所有数据都应该来自一个表。</li>
+<li>选出的数据集必须包含主键列。</li>
+</ol>
+<p> </p>
+<p>通过该 PreparedStatement 创建的 ResultSet 就是可滚动、可更新的，程序可调用 ResultSet 的 updateXxx（int columnIndex，Xxx value）方法来修改记录指针所指记录、特定列的值，最后调用 ResultSet的 updateRow()方法来提交修改。</p>
+<p>下面通过示例来学习可滚动的结果集。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.bytecollege;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.sql.Connection;</span><br><span class="line"><span class="keyword">import</span> java.sql.DriverManager;</span><br><span class="line"><span class="keyword">import</span> java.sql.PreparedStatement;</span><br><span class="line"><span class="keyword">import</span> java.sql.ResultSet;</span><br><span class="line"><span class="keyword">import</span> java.sql.SQLException;</span><br><span class="line"><span class="keyword">import</span> java.sql.Statement;</span><br><span class="line"><span class="keyword">import</span> java.util.Iterator;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JDBCDemo2</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">String</span> <span class="variable">url</span> <span class="operator">=</span> <span class="string">&quot;jdbc:mysql://localhost:3306/test_db?serverTimezone=Asia/Shanghai&quot;</span>;</span><br><span class="line">		<span class="type">String</span> <span class="variable">user</span> <span class="operator">=</span> <span class="string">&quot;root&quot;</span>;</span><br><span class="line">		<span class="type">String</span> <span class="variable">password</span> <span class="operator">=</span> <span class="string">&quot;root&quot;</span>;</span><br><span class="line">		<span class="comment">//1.加载驱动</span></span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			Class.forName(<span class="string">&quot;com.mysql.cj.jdbc.Driver&quot;</span>);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">			System.out.println(<span class="string">&quot;驱动未加载&quot;</span>);</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//2.获取连接</span></span><br><span class="line">		<span class="type">Connection</span> <span class="variable">connection</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">		<span class="type">PreparedStatement</span> <span class="variable">ps</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			connection = DriverManager.getConnection(url, user, password);</span><br><span class="line">			<span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;SELECT * FROM STUDENT&quot;</span>;</span><br><span class="line">			ps = connection.prepareStatement(sql,ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);</span><br><span class="line">			<span class="type">ResultSet</span> <span class="variable">rs</span> <span class="operator">=</span> ps.executeQuery();</span><br><span class="line">			<span class="comment">//将游标定位到最后一行</span></span><br><span class="line">			rs.last();</span><br><span class="line">			<span class="comment">//获取总行数</span></span><br><span class="line">			<span class="type">int</span> <span class="variable">row</span> <span class="operator">=</span> rs.getRow();</span><br><span class="line">			<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> row; i &gt;<span class="number">0</span>; i--) &#123;</span><br><span class="line">				<span class="comment">//定位读取的行数</span></span><br><span class="line">				rs.absolute(i);</span><br><span class="line">				System.out.print(rs.getInt(<span class="string">&quot;id&quot;</span>)+<span class="string">&quot;\t&quot;</span>);</span><br><span class="line">				System.out.print(rs.getString(<span class="string">&quot;student_name&quot;</span>)+<span class="string">&quot;\t&quot;</span>);</span><br><span class="line">				System.out.print(rs.getInt(<span class="string">&quot;student_age&quot;</span>)+<span class="string">&quot;\t&quot;</span>);</span><br><span class="line">				System.out.print(rs.getString(<span class="string">&quot;gender&quot;</span>)+<span class="string">&quot;\t&quot;</span>);</span><br><span class="line">				System.out.println();</span><br><span class="line">				<span class="comment">//更新第二列，即学生姓名</span></span><br><span class="line">				rs.updateString(<span class="number">2</span>, <span class="string">&quot;姓名&quot;</span>+i);</span><br><span class="line">				rs.updateRow();</span><br><span class="line">				System.out.println();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">			<span class="keyword">try</span> &#123;</span><br><span class="line">				ps.close();</span><br><span class="line">				connection.close();</span><br><span class="line">			&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">				<span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">				e.printStackTrace();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行上面的程序结果如下图：</p>
+<p><img src="https://files.catbox.moe/tqdw0i.png"></p>
+<p>从运算结果可以看出输入数据时是倒序输出的，这是因为在程序中先将游标定位到了最后一行，然后倒序循环，通过absolute()定位到每一行数据并读取。读取完数据后，将数据表中的第2列数据进行了修改，此时查询数据库如下图：</p>
+<p><img src="https://files.catbox.moe/bb73ur.png"></p>
+<h2 id="使用ResultSetMetaData分析结果集"><a href="#使用ResultSetMetaData分析结果集" class="headerlink" title="使用ResultSetMetaData分析结果集"></a>使用ResultSetMetaData分析结果集</h2><p>当执行 SOL 查询后可以通过移动记录指针来遍历 ResultSet 的每条记录，但程序可能不清楚该 ResultSet 里包含哪些数据列，以及每个数据列的数据类型，那么可以通过 ResultSetMetaData 来获取关于 ResultSet 的描述信息。</p>
+<p>ResultSet 里包含一个 getMetaData()方法，该方法返回该 ResultSet 对应的 ResultSetMetaData 对象。一旦获得了 ResultSetMetaData 对象，就可通过 ResultSetMetaData 提供的大量方法来返回 ResultSet 的描述信息。常用的方法有如下三个。 </p>
+<ul>
+<li>int getColumnCount()∶ 返回该 ResultSet 的列数量。</li>
+<li>String getColumnName(int column)∶返回指定索引的列名。</li>
+<li>String getColumnClassName（int column）∶返回指定索引的列类型。</li>
+</ul>
+<p> </p>
+<p>下面通过示例来学习ResultSetMetaData的用法</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.bytecollege;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.sql.Connection;</span><br><span class="line"><span class="keyword">import</span> java.sql.DriverManager;</span><br><span class="line"><span class="keyword">import</span> java.sql.PreparedStatement;</span><br><span class="line"><span class="keyword">import</span> java.sql.ResultSet;</span><br><span class="line"><span class="keyword">import</span> java.sql.ResultSetMetaData;</span><br><span class="line"><span class="keyword">import</span> java.sql.SQLException;</span><br><span class="line"><span class="keyword">import</span> java.sql.Statement;</span><br><span class="line"><span class="keyword">import</span> java.util.Iterator;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ResultSetMetaDataDemo</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">String</span> <span class="variable">url</span> <span class="operator">=</span> <span class="string">&quot;jdbc:mysql://localhost:3306/test_db?serverTimezone=Asia/Shanghai&quot;</span>;</span><br><span class="line">		<span class="type">String</span> <span class="variable">user</span> <span class="operator">=</span> <span class="string">&quot;root&quot;</span>;</span><br><span class="line">		<span class="type">String</span> <span class="variable">password</span> <span class="operator">=</span> <span class="string">&quot;root&quot;</span>;</span><br><span class="line">		<span class="comment">//1.加载驱动</span></span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			Class.forName(<span class="string">&quot;com.mysql.cj.jdbc.Driver&quot;</span>);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">			System.out.println(<span class="string">&quot;驱动未加载&quot;</span>);</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//2.获取连接</span></span><br><span class="line">		<span class="type">Connection</span> <span class="variable">connection</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">		<span class="type">PreparedStatement</span> <span class="variable">ps</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			connection = DriverManager.getConnection(url, user, password);</span><br><span class="line">			<span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;SELECT * FROM STUDENT&quot;</span>;</span><br><span class="line">			ps = connection.prepareStatement(sql);</span><br><span class="line">			<span class="type">ResultSet</span> <span class="variable">rs</span> <span class="operator">=</span> ps.executeQuery();</span><br><span class="line">			<span class="comment">//获取结果集元数据</span></span><br><span class="line">			<span class="type">ResultSetMetaData</span> <span class="variable">metaData</span> <span class="operator">=</span> rs.getMetaData();</span><br><span class="line">			<span class="comment">//获取结果集列数</span></span><br><span class="line">			<span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> metaData.getColumnCount();</span><br><span class="line">			<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= count; i++) &#123;</span><br><span class="line">				<span class="comment">//获取每列的字段名</span></span><br><span class="line">				System.out.print(metaData.getColumnName(i)+<span class="string">&quot;\t\t&quot;</span>);</span><br><span class="line">				<span class="comment">//获取每列的数据类型</span></span><br><span class="line">				System.out.print(metaData.getColumnTypeName(i)+<span class="string">&quot;\t\t&quot;</span>);</span><br><span class="line">				<span class="comment">//获取每列对应的Java数据类型</span></span><br><span class="line">				System.out.print(metaData.getColumnClassName(i)+<span class="string">&quot;\t\t&quot;</span>);</span><br><span class="line">				System.out.println();</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">		&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">			<span class="keyword">try</span> &#123;</span><br><span class="line">				ps.close();</span><br><span class="line">				connection.close();</span><br><span class="line">			&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">				<span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">				e.printStackTrace();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行上面的程序，结果如下</p>
+<p><img src="https://files.catbox.moe/j2v6oe.png"></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>MySQL查询数据;</title>
+    <url>/2022/09/08/MySQL%E6%9F%A5%E8%AF%A2%E6%95%B0%E6%8D%AE/</url>
+    <content><![CDATA[<p><img src="https://files.catbox.moe/vakrmb.png"></p>
+<span id="more"></span>
+
+<h1 id="查询数据"><a href="#查询数据" class="headerlink" title="查询数据"></a>查询数据</h1><p>数据库管理系统的一个重要功能就是数据查询，数据查询不应只是简单返回数据库中存储的数据，还应该根据需要对数据进行筛选以及确定数据以什么样的格式显示。MySQL提供了功能强大、灵活的语句来实现这些操作，本章将介绍如何使用SELECT语句查询数据表中的一列或多列数据、使用集合函数显示查询结果、连接查询、子查询</p>
+<h2 id="基本查询语句"><a href="#基本查询语句" class="headerlink" title="基本查询语句"></a>基本查询语句</h2><p>MySQL从数据表中查询数据的基本语句为SELECT语句。SELECT语句的基本格式是：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> </span><br><span class="line">&#123; <span class="operator">*</span> <span class="operator">|</span> 字段列表</span><br><span class="line">  [<span class="keyword">FROM</span> table1,table2...</span><br><span class="line">  [<span class="keyword">WHERE</span> <span class="operator">&lt;</span>exp<span class="operator">&gt;</span></span><br><span class="line">  [<span class="keyword">GROUP</span> <span class="keyword">BY</span> 字段]</span><br><span class="line">  [<span class="keyword">HAVING</span> <span class="operator">&lt;</span>EXP<span class="operator">&gt;</span>]</span><br><span class="line">  [<span class="keyword">ORDER</span> <span class="keyword">BY</span> 字段]</span><br><span class="line">  [LIMIT <span class="keyword">START</span>,<span class="keyword">END</span>]</span><br><span class="line"> ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中，各条子句的含义如下：</p>
+<ul>
+<li>{* | &lt;字段列表&gt;}包含星号通配符和字段列表，表示查询的字段。其中，字段列表至少包含一个字段名称，如果要查询多个字段，多个字段之间用逗号隔开，最后一个字段后不加逗号。</li>
+<li>FROM &lt;表1&gt;,&lt;表2&gt;…，表1和表2表示查询数据的来源，可以是单个或者多个。</li>
+<li>WHERE子句是可选项，如果选择该项，将限定查询行必须满足的查询条件。</li>
+<li>GROUP BY &lt;字段&gt;，该子句告诉MySQL如何显示查询出来的数据，并按照指定的字段分组。</li>
+<li>[ORDER BY &lt;字段&gt;]，该子句告诉MySQL按什么样的顺序显示查询出来的数据，可以进行的排序有升序（ASC）、降序（DESC）。</li>
+<li>[LIMIT [&lt;offset&gt;,] &lt;row count&gt;]，该子句告诉MySQL每次显示查询出来的数据条数</li>
+</ul>
+<p>下面，我们通过示例来学习，先建一张表。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> DATABASE DB_STUDENT;</span><br><span class="line">USE DB_STUDENT;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> STUDENT(</span><br><span class="line">	ID <span class="type">INT</span> <span class="keyword">PRIMARY</span> KEY AUTO_INCREMENT,</span><br><span class="line">  STUDENT_NAME <span class="type">VARCHAR</span>(<span class="number">20</span>),</span><br><span class="line">  STUDENT_AGE TINYINT,</span><br><span class="line">  STUDENT_GENDER <span class="type">CHAR</span>(<span class="number">4</span>)</span><br><span class="line"> );</span><br><span class="line"> <span class="keyword">INSERT</span> <span class="keyword">INTO</span> STUDENT <span class="keyword">VALUES</span> (<span class="number">1</span>,<span class="string">&#x27;李信&#x27;</span>,<span class="number">18</span>,<span class="string">&#x27;男&#x27;</span>);</span><br><span class="line"> <span class="keyword">INSERT</span> <span class="keyword">INTO</span> STUDENT <span class="keyword">VALUES</span> (<span class="number">2</span>,<span class="string">&#x27;周瑜&#x27;</span>,<span class="number">19</span>,<span class="string">&#x27;男&#x27;</span>);</span><br><span class="line"> <span class="keyword">INSERT</span> <span class="keyword">INTO</span> STUDENT <span class="keyword">VALUES</span> (<span class="number">3</span>,<span class="string">&#x27;安其拉&#x27;</span>,<span class="number">20</span>,<span class="string">&#x27;女&#x27;</span>);</span><br><span class="line"> <span class="keyword">INSERT</span> <span class="keyword">INTO</span> STUDENT <span class="keyword">VALUES</span> (<span class="number">4</span>,<span class="string">&#x27;妲己&#x27;</span>,<span class="number">18</span>,<span class="string">&#x27;女&#x27;</span>);</span><br><span class="line"> <span class="keyword">INSERT</span> <span class="keyword">INTO</span> STUDENT <span class="keyword">VALUES</span> (<span class="number">5</span>,<span class="string">&#x27;花木兰&#x27;</span>,<span class="number">18</span>,<span class="string">&#x27;女&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>首先，我们对表内所有的数据进行查询。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ID,STUDENT_NAME,STUDENT_AGE,STUDENT_GENDER <span class="keyword">FROM</span> STUDENT;</span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> STUDENT;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://files.catbox.moe/mqrd9b.png"></p>
+<p>上面的两种写法都可以查询出表内的所有字段，在第一种写法中，查询多个字段，那么字段间使用”,”进行分割，第二种写法可以使用”*”代替所有的字段，但是一般不推荐第二种写法，因为如果表中字段过多的话，并且有些字段不是所必需的，使用第二种写法会大大降低查询效率，因此在查询中我们应该遵循一个原则就是：用什么，查什么。例如：现在需要查询所有学生的姓名和性别，sql语句就可按照以下方式书写。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> STUDENT_NAME,STUDENT_GENDER <span class="keyword">FROM</span> STUDENT;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://files.catbox.moe/jkutbj.png"></p>
+<h2 id="单表查询"><a href="#单表查询" class="headerlink" title="单表查询"></a>单表查询</h2><h3 id="查询指定记录"><a href="#查询指定记录" class="headerlink" title="查询指定记录"></a>查询指定记录</h3><p>数据库中包含大量的数据，根据特殊要求，可能只需要查询表中的指定数据，即对数据进行过滤。在SELECT语句中，通过WHERE子句可以对数据进行过滤，语法格式为：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> 字段<span class="number">1</span>,字段<span class="number">2.</span>...字段n <span class="keyword">FROM</span> <span class="keyword">TABLE</span> <span class="keyword">WHERE</span> EXP;</span><br></pre></td></tr></table></figure>
+
+<p>WHERE子句中，MySQL提供了一系列的条件判断符，查询结果如表</p>
+<table>
+<thead>
+<tr>
+<th>操作符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&#x3D;</td>
+<td>相等</td>
+</tr>
+<tr>
+<td>&lt;&gt;,!&#x3D;</td>
+<td>不相等</td>
+</tr>
+<tr>
+<td>&lt;</td>
+<td>小于</td>
+</tr>
+<tr>
+<td>&lt;&#x3D;</td>
+<td>小于等于</td>
+</tr>
+<tr>
+<td>&gt;</td>
+<td>大于</td>
+</tr>
+<tr>
+<td>&gt;&#x3D;</td>
+<td>大于等于</td>
+</tr>
+<tr>
+<td>BETWEEN   AND</td>
+<td>位于两个值之间</td>
+</tr>
+</tbody></table>
+<p>查询18岁的学生的姓名和年龄。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> STUDENT_NAME,STUDENT_AGE <span class="keyword">FROM</span> STUDENT;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://files.catbox.moe/r5sln3.png"></p>
+<p>从查询结果可以看出只有张三和赵六两人年龄是18岁，不满足此条件的数据被过滤。<br>查询姓名为张三的所有信息。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ID,STUDENT_NAME,STUDENT_AGE,STUDENT_GENDER <span class="keyword">FROM</span> STUDENT WHRER STUDENT_NAME <span class="operator">=</span> <span class="string">&#x27;张三&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://files.catbox.moe/apth6c.png"></p>
+<p>查询年龄大于18岁的学生信息。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ID,STUDENT_NAME,STUDENT_AGE,STUDENT_GENDER <span class="keyword">FROM</span> STUDENT <span class="keyword">WHERE</span> STUDENT_AGE <span class="operator">&gt;</span> <span class="number">18</span>;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://files.catbox.moe/2i8ggx.png"></p>
+<p>查询年龄在18到20之间的同学。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ID,STUDENT_NAME,STUDENT_AGE,STUDENT_GENDER <span class="keyword">FROM</span> STUDENT <span class="keyword">WHERE</span> STUDENT_AGE <span class="keyword">BETWEEN</span> <span class="number">18</span></span><br><span class="line"><span class="keyword">AND</span> <span class="number">20</span>;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://files.catbox.moe/pnwxm2.png"></p>
+<p>从结果可以看出查询出的数据包含了年龄为18和20的同学，说明使用BTWEEN时是一个左闭右闭区间。</p>
+<h3 id="模糊查询"><a href="#模糊查询" class="headerlink" title="模糊查询"></a>模糊查询</h3><h4 id="LIKE关键字"><a href="#LIKE关键字" class="headerlink" title="LIKE关键字"></a>LIKE关键字</h4><p>在前面的检索操作中讲述了如何查询多个字段的记录，如何进行比较查询或者是查询一个条件范围内的记录，如果要查找姓张的所有同学，该如何查找呢？简单的比较操作在这里已经行不通了，需要使用通配符进行匹配查找，通过创建查找模式对表中的数据进行比较。执行这个任务的关键字是LIKE。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ID,STUDENT_NAME,STUDENT_AGE,STUDENT_GENDER <span class="keyword">FROM</span> STUDENT <span class="keyword">WHERE</span> STUDENT_NAME <span class="keyword">LIKE</span> <span class="string">&#x27;张%&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>从查询结果可以看出，使用like查询出了所有张姓同学，这里需要注意的是，%是通配符，匹配任意长度的字符。也就是说%告诉MySQL，返回所有以张开头的记录，不管张后面有多少个字符。<br>在搜索匹配时通配符‘%’可以放在不同位置，例如：查询姓名中包含“三”的学生信息。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ID,STUDENT_NAME,STUDENT_AGE,STUDENT_GENDER <span class="keyword">FROM</span> STUDENT <span class="keyword">WHERE</span> STUDENT_NAME <span class="keyword">LIKE</span> <span class="string">&#x27;%三%&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>我们知道%是指通配符，可以匹配任意个字符，但是如果要查询的字段当中包含%，并且需要筛选出包含了%的数据，就需要对%进行转义。MySQL中默认的转义字符是“\”,即在%前加“\”即可，当然也可是使用ESCAPE字句自定义转义字符。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ID,STUDENT_NAME,STUDENT_AGE,STUDENT_GENDER <span class="keyword">FROM</span> STUDENT <span class="keyword">WHERE</span> STUDENT_NAM <span class="keyword">LIKE</span> <span class="string">&#x27;%\%%&#x27;</span>;</span><br><span class="line"><span class="comment">--或者自定义转义字符</span></span><br><span class="line"><span class="keyword">SELECT</span> ID,STUDENT_NAME,STUDENT_AGE,STUDENT_GENDER <span class="keyword">FROM</span> STUDENT <span class="keyword">WHERE</span> STUDENT_NAM <span class="keyword">LIKE</span> <span class="string">&#x27;%1%%&#x27;</span> <span class="keyword">ESCAPE</span> <span class="string">&#x27;1&#x27;</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>上例中第一条SQL 语句使用了默认的转义字符，第二条则使用ESCAPE字句自定义1为转义字符</p>
+<h4 id="通配符"><a href="#通配符" class="headerlink" title="_通配符"></a>_通配符</h4><p>“_”通配符和“%”的不同之处就是，%可以匹配多个字符，但是“_”能且只能匹配一个字符。<br>例如：查询表中所有张某同学的信息。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ID,STUDENT_NAME,STUDENT_AGE,STUDENT_GENDER <span class="keyword">FROM</span> STUDENT <span class="keyword">WHERE</span> STUDENT_NAM <span class="keyword">LIKE</span> &quot;张_&quot;;</span><br></pre></td></tr></table></figure>
+
+<p>同理，如果要查询张某某同学的信息，则使用两个“_”即可</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ID,STUDENT_NAME,STUDENT_AGE,STUDENT_GENDER <span class="keyword">FROM</span> STUDENT <span class="keyword">WHERE</span> STUDENT_NAM <span class="keyword">LIKE</span> &quot;张__&quot;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="查询空值"><a href="#查询空值" class="headerlink" title="查询空值"></a>查询空值</h3><p>在数据表中，有可能某些字段的值为NULL，如果要筛选出这些数据，并不是说在where字句后添加字段名&#x3D;NULL，测试发现，这种写法并不能查询出数据。如果要判断某个字段是否为NULL，要使用关键字IS.</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ID,STUDENT_NAME,STUDENT_AGE,STUDENT_GENDER <span class="keyword">FROM</span> STUDENT <span class="keyword">WHERE</span> STUDENT_GENDER <span class="keyword">IS</span> <span class="keyword">NULL</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="非空值查询"><a href="#非空值查询" class="headerlink" title="非空值查询"></a>非空值查询</h3><p>在上一小节我们使用IS关键字判断某个字段值是否为null，但是非空该如何判断呢？在这里，我们需要使用关键字NOT来判断字段是否为null</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ID,STUDENT_NAME,STUDENT_AGE,STUDENT_GENDER <span class="keyword">FROM</span> STUDENT <span class="keyword">WHERE</span> STUDENT_GENDER <span class="keyword">IS</span> <span class="keyword">NOT</span>  <span class="keyword">NULL</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="AND多条件查询"><a href="#AND多条件查询" class="headerlink" title="AND多条件查询"></a>AND多条件查询</h3><p>在大多数查询时可能会存在多个条件同时成立时的过滤，例如查看所有大于18岁的男生的信息，或者查看所有大于18岁女生的信息，再或者在电商系统中查询订单金额大于1000元并且已经支付的订单，这时就需要用到and关键字，也就是告诉数据库，我只查询and前后的条件都成立的数据，数据库会根据条件进行过滤。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ID,STUDENT_NAME,STUDENT_AGE,STUDENT_GENDER <span class="keyword">FROM</span> STUDENT <span class="keyword">WHERE</span> STUDENT_AGE <span class="operator">&gt;</span> <span class="number">18</span> <span class="keyword">AND</span> STUDENT_GENDER <span class="operator">=</span> <span class="string">&#x27;男&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>在上面的示例中，我们查询了两个条件同时成立的数据，使用and也可以查询多个条件同时成立的数据。例如：查询年龄大于18岁，性别为女，姓名为王五的学生信息。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ID,STUDENT_NAME,STUDENT_AGE,STUDENT_GENDER <span class="keyword">FROM</span> STUDENT <span class="keyword">WHERE</span> STUDENT_AGE <span class="operator">=</span> <span class="number">18</span> <span class="keyword">AND</span> STUDENT_GENDER <span class="operator">=</span> <span class="string">&#x27;女&#x27;</span> <span class="keyword">AND</span> STUDENT_NAME <span class="operator">=</span> <span class="string">&#x27;王五&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>需要注意的是，使用and连接查询条件时，条件表达式的顺序并不是固定的，可以在and前后任意位置。</p>
+<h3 id="OR多条件查询"><a href="#OR多条件查询" class="headerlink" title="OR多条件查询"></a>OR多条件查询</h3><p>有时查询数据时可能存在多个过滤条件，但是这些条件符合至少1个即可，此时就需要用关键字OR。表示OR前后的条件满意任意一个即可。同样，OR也可以查询多个条件，和上述一致只需要满足任意一个条件即可。<br>例如：查询年龄为18岁或者19岁的同学</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ID,STUDENT_NAME,STUDENT_AGE,STUDENT_GENDER <span class="keyword">FROM</span> STUDENT <span class="keyword">WHERE</span> STUDENT_AGE <span class="operator">&gt;</span><span class="number">18</span> <span class="keyword">OR</span> STUDENT_AGE<span class="operator">&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="查询去重"><a href="#查询去重" class="headerlink" title="查询去重"></a>查询去重</h3><p>使用DISTINCT可以将重复的值过滤，只保留一个,例如：对学生进行性别去重</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> STUDENT_GENDER <span class="keyword">FROM</span> STUDENT;</span><br></pre></td></tr></table></figure>
+
+<h3 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h3><h4 id="单列排序"><a href="#单列排序" class="headerlink" title="单列排序"></a>单列排序</h4><p>在查询过程中经常需要根据某个字段进行升序或者降序查询，此时就需要用到关键字ORDER BY，例如根据成绩进行升序处理。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ID,STUDENT_NAME,STUDENT_AGE,STUDENT_GENDER,SCORE <span class="keyword">FROM</span> STUDENT <span class="keyword">ORDER</span> <span class="keyword">BY</span> SCORE ;</span><br></pre></td></tr></table></figure>
+
+<p>从查询结果来看，数据库默认是按照升序进行数据显示。</p>
+<h4 id="升序和降序"><a href="#升序和降序" class="headerlink" title="升序和降序"></a>升序和降序</h4><p>上小节我们对成绩进行了升序排序，也可以使用关键字ASC，ASC写在GROUP BY后的字段名称以后，由于数据库默认是按照升序显示数据，因此ASC可以省略。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ID,STUDENT_NAME,STUDENT_AGE,STUDENT_GENDER,SCORE <span class="keyword">FROM</span> STUDENT <span class="keyword">ORDER</span> <span class="keyword">BY</span> SCORE <span class="keyword">ASC</span>;</span><br></pre></td></tr></table></figure>
+
+<p>从结果可以看出，添加ASC和默认排序的结果是一致的。</p>
+<p>如果我们要进行降序显示，我们只需要将关键字ASC更换为DESC即可，例如：对所有同学的分数进行降序排序。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ID,STUDENT_NAME,STUDENT_AGE,STUDENT_GENDER,SCORE <span class="keyword">FROM</span> STUDENT <span class="keyword">ORDER</span> <span class="keyword">BY</span> SCORE <span class="keyword">DESC</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="分组查询"><a href="#分组查询" class="headerlink" title="分组查询"></a>分组查询</h3><h4 id="GROUP-BY分组"><a href="#GROUP-BY分组" class="headerlink" title="GROUP BY分组"></a>GROUP BY分组</h4><p>分组在数据库查询中也是出现频率比较高的需求，如果要对数据分组就要用到关键字GROUP BY，例如：对学生性别进行分组。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> STUDENT_GENDER <span class="keyword">FROM</span> STUDENT <span class="keyword">GROUP</span> <span class="keyword">BY</span> STUDENT_GENDER;</span><br></pre></td></tr></table></figure>
+
+<h4 id="HAVING-过滤分组"><a href="#HAVING-过滤分组" class="headerlink" title="HAVING 过滤分组"></a>HAVING 过滤分组</h4><p>如果要对分组后的数据进行筛选，那么我们就要使用HAVING关键字，HAVING关键字是指对分组后的结果进行筛选，在前面的内容中，我们使用了WHERE对数据进行筛选，需要注意的是WHERE筛选的数据是分组前进行筛选，而HAVING则是分组后进行筛选。例如：查询分组查询出男生的平均成绩和女生的平均成绩，并筛选出大于60分的分组。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> STUDENT_GENDER,<span class="built_in">AVG</span>(SCORE) <span class="keyword">FROM</span> STUDENT <span class="keyword">GROUP</span> <span class="keyword">BY</span> STUDENT_GENDER <span class="keyword">HAVING</span> (<span class="built_in">AVG</span>(SCORE)<span class="operator">&gt;</span><span class="number">80</span>);</span><br></pre></td></tr></table></figure>
+
+<p>上面的示例中，出现了avg()函数，这个函数是一个聚合函数，用于求平均值。</p>
+<h5 id="分组后排序"><a href="#分组后排序" class="headerlink" title="分组后排序"></a>分组后排序</h5><p>例如：对上例中的结果进行降序处理。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> STUDENT_GENDER,<span class="built_in">AVG</span>(SCORE) <span class="keyword">FROM</span> STUDENT <span class="keyword">GROUP</span> <span class="keyword">BY</span> STUDENT_GENDER <span class="keyword">HAVING</span> (<span class="built_in">AVG</span>(SCORE)<span class="operator">&gt;</span><span class="number">80</span>) <span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="built_in">AVG</span>(SCORE) <span class="keyword">DESC</span>;</span><br></pre></td></tr></table></figure>
+
+<h5 id="聚合函数"><a href="#聚合函数" class="headerlink" title="聚合函数"></a>聚合函数</h5><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>COUNT()</td>
+<td>计算总条数</td>
+</tr>
+<tr>
+<td>AVG()</td>
+<td>求字段的平均值</td>
+</tr>
+<tr>
+<td>SUM()</td>
+<td>求字段总和</td>
+</tr>
+<tr>
+<td>MAX()</td>
+<td>求最大值</td>
+</tr>
+<tr>
+<td>MIN()</td>
+<td>求最小值</td>
+</tr>
+</tbody></table>
+<p>例如：查询数据表中总共有多少条数据。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="keyword">FROM</span> STUDENT;</span><br></pre></td></tr></table></figure>
+
+<p>在上面的结果中，我们可以看出查询出数据库总共有10条记录，需要注意的是当COUNT()函数的参数为*时，会统计该表中总共的记录数，但是，如果参数传的是某个字段的话，则统计该字段有多少条数据，如果该字段中存在NULL值，则会忽略该行。我们在表中新增一条数据，将该条数据的SCORE字段置为NULL，然后使用COUNT()函数进行统计。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(SCORE) <span class="keyword">FROM</span> STUDENT;</span><br></pre></td></tr></table></figure>
+
+<p>从结果中可以看到，统计时忽略了NULL值，并没有将该条记录统计在内。</p>
+<p>AVG()函数则是用来统计平均值，例如上例中对学生根据性别进行分组，分组后统计男女同学的平均成绩，现在我们可以使用该函数统计所有同学的平均值。注意：如果传入的字段中存在NULL值，则忽略该行</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">AVG</span>(SCORE) <span class="keyword">FROM</span> STUDENT;</span><br></pre></td></tr></table></figure>
+
+<p>SUM()函数则是对某个字段计算总和。例如求出所有同学的总成绩。注意：如果传入的字段中存在NULL值，则忽略该行</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">SUM</span>(SCORE) <span class="keyword">FROM</span> STUDENT;</span><br></pre></td></tr></table></figure>
+
+<p>MAX()函数和MIN()函数则是获取某个字段的最大值和最小值，例如我们获取学生的最高成绩和最低成绩。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">MAX</span>(SCORE),<span class="built_in">MIN</span>(SCORE) <span class="keyword">FROM</span> STUDENT;</span><br></pre></td></tr></table></figure>
+
+<p>查询男生的最高成绩和最低成绩，以及女生的最高成绩和最低成绩。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">MAX</span>(SCORE),<span class="built_in">MIN</span>(SCORE) <span class="keyword">FROM</span> STUDENT <span class="keyword">GROUP</span> <span class="keyword">BY</span> STUDENT_GENDER;</span><br></pre></td></tr></table></figure>
+
+<h3 id="分页查询"><a href="#分页查询" class="headerlink" title="分页查询"></a>分页查询</h3><p>我们在查询过程中发现，有些数据量比较大的表，通常不是一次性显示所有数据，而是分页显示，如果要对查询结果进行分页，就要使用LIMIT关键字<br>例如：显示所有学生的5条数据。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ID,STUDENT_NAME,STUDENT_AGE,STUDENT_GENDER <span class="keyword">FROM</span> STUDENT LIMIT <span class="number">5</span>;</span><br></pre></td></tr></table></figure>
+
+<p>此时，我们在LIMIT后只写了一个参数，代表查询出数据表中前5条数据。LIMIT也可以传入2个参数，第一个参数代表从第几条数据开始，第二个参数代表显示几条数据。需要注意的是，MySQL中第一条数据的编号是0.<br>例如：查询数据库中前三条数据</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ID,STUDENT_NAME,STUDENT_AGE,STUDENT_GENDER <span class="keyword">FROM</span> STUDENT LIMIT <span class="number">0</span>,<span class="number">3</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="连接查询"><a href="#连接查询" class="headerlink" title="连接查询"></a>连接查询</h2><p>在开发过程中绝大多数情况都需要操作2张或者2张以上的表，因此在查询中就需要多表联查或者说多张表进行连接，在MySQL中连接查询分为内连接和外连接，其中外连接又分为左外连接和右外连接。<br>首先我先创建一张学生信息表。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> STUDENT_INFO (</span><br><span class="line">  ID <span class="type">INT</span> <span class="keyword">PRIMARY</span> KEY AUTO_INCREMENT,</span><br><span class="line">  ADDRESS <span class="type">VARCHAR</span>(<span class="number">50</span>),</span><br><span class="line">  TELPHONE <span class="type">VARCHAR</span>(<span class="number">14</span>),</span><br><span class="line">  STUDENT_ID <span class="type">INT</span></span><br><span class="line"> );</span><br><span class="line"> <span class="keyword">INSERT</span> <span class="keyword">INTO</span> STUDENT_INFO (ADDRESS,TELPHONE,STUDENT_ID) <span class="keyword">VALUES</span> (<span class="string">&#x27;河南&#x27;</span>,<span class="string">&#x27;1999999999&#x27;</span>,<span class="number">1</span>),(<span class="string">&#x27;河北&#x27;</span>,<span class="string">&#x27;1999999999&#x27;</span>,<span class="number">2</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="内连接"><a href="#内连接" class="headerlink" title="内连接"></a>内连接</h3><p>当我们要连接查询的表存在1对1的关系时，我们就可以使用内连接，使用INNER JOIN将两张表进行连接，通常INNER可以省略，需要注意的是，如果要添加条件是用关键字ON，而不是使用WHERE.<br>例如：查询所有学生的基本信息及详细信息。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> STUDENT <span class="keyword">JOIN</span> STUDENT_INFO <span class="keyword">ON</span> STUDENT.ID <span class="operator">=</span> STUDENT_INFO.ID;</span><br></pre></td></tr></table></figure>
+
+<h3 id="外连接"><a href="#外连接" class="headerlink" title="外连接"></a>外连接</h3><p>在大多数情况下我们遇到的查询时一个对多或者多对多的情况，这时简单的内连接已经无法满足查询数据的需要了，这时就要用到外连接，外连接又分为左外连接和右外连接，关键字分别是LEFT JOIN 和RINGHT JOIN。其中，JOIN左边的表叫左表，JOIN右边的表叫右表。</p>
+<h4 id="LEFT-JOIN左连接"><a href="#LEFT-JOIN左连接" class="headerlink" title="LEFT JOIN左连接"></a>LEFT JOIN左连接</h4><p>在左连接中，左表中的数据会全部显示，右表中的数据符合过滤条件的显示。不符合过滤条件的数据则以NULL填充</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> Student(SId <span class="type">varchar</span>(<span class="number">10</span>),Sname <span class="type">varchar</span>(<span class="number">10</span>),Sage <span class="type">date</span>,Ssex <span class="type">varchar</span>(<span class="number">10</span>));</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> Student <span class="keyword">values</span>(<span class="string">&#x27;01&#x27;</span> , <span class="string">&#x27;赵雷&#x27;</span> , <span class="string">&#x27;1990-01-01&#x27;</span> , <span class="string">&#x27;男&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> Student <span class="keyword">values</span>(<span class="string">&#x27;02&#x27;</span> , <span class="string">&#x27;钱电&#x27;</span> , <span class="string">&#x27;1990-12-21&#x27;</span> , <span class="string">&#x27;男&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> Student <span class="keyword">values</span>(<span class="string">&#x27;03&#x27;</span> , <span class="string">&#x27;孙风&#x27;</span> , <span class="string">&#x27;1990-12-20&#x27;</span> , <span class="string">&#x27;男&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> Student <span class="keyword">values</span>(<span class="string">&#x27;04&#x27;</span> , <span class="string">&#x27;李云&#x27;</span> , <span class="string">&#x27;1990-12-06&#x27;</span> , <span class="string">&#x27;男&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> Student <span class="keyword">values</span>(<span class="string">&#x27;05&#x27;</span> , <span class="string">&#x27;周梅&#x27;</span> , <span class="string">&#x27;1991-12-01&#x27;</span> , <span class="string">&#x27;女&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> Student <span class="keyword">values</span>(<span class="string">&#x27;06&#x27;</span> , <span class="string">&#x27;吴兰&#x27;</span> , <span class="string">&#x27;1992-01-01&#x27;</span> , <span class="string">&#x27;女&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> Student <span class="keyword">values</span>(<span class="string">&#x27;07&#x27;</span> , <span class="string">&#x27;郑竹&#x27;</span> , <span class="string">&#x27;1989-01-01&#x27;</span> , <span class="string">&#x27;女&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> Student <span class="keyword">values</span>(<span class="string">&#x27;09&#x27;</span> , <span class="string">&#x27;张三&#x27;</span> , <span class="string">&#x27;2017-12-20&#x27;</span> , <span class="string">&#x27;女&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> Student <span class="keyword">values</span>(<span class="string">&#x27;10&#x27;</span> , <span class="string">&#x27;李四&#x27;</span> , <span class="string">&#x27;2017-12-25&#x27;</span> , <span class="string">&#x27;女&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> Student <span class="keyword">values</span>(<span class="string">&#x27;11&#x27;</span> , <span class="string">&#x27;李四&#x27;</span> , <span class="string">&#x27;2012-06-06&#x27;</span> , <span class="string">&#x27;女&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> Student <span class="keyword">values</span>(<span class="string">&#x27;12&#x27;</span> , <span class="string">&#x27;赵六&#x27;</span> , <span class="string">&#x27;2013-06-13&#x27;</span> , <span class="string">&#x27;女&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> Student <span class="keyword">values</span>(<span class="string">&#x27;13&#x27;</span> , <span class="string">&#x27;孙七&#x27;</span> , <span class="string">&#x27;2014-06-01&#x27;</span> , <span class="string">&#x27;女&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> Course(CId <span class="type">varchar</span>(<span class="number">10</span>),Cname <span class="type">varchar</span>(<span class="number">10</span>),TId <span class="type">varchar</span>(<span class="number">10</span>));</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> Course <span class="keyword">values</span>(<span class="string">&#x27;01&#x27;</span> , <span class="string">&#x27;语文&#x27;</span> , <span class="string">&#x27;02&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> Course <span class="keyword">values</span>(<span class="string">&#x27;02&#x27;</span> , <span class="string">&#x27;数学&#x27;</span> , <span class="string">&#x27;01&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> Course <span class="keyword">values</span>(<span class="string">&#x27;03&#x27;</span> , <span class="string">&#x27;英语&#x27;</span> , <span class="string">&#x27;03&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> Teacher(TId <span class="type">varchar</span>(<span class="number">10</span>),Tname <span class="type">varchar</span>(<span class="number">10</span>));</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> Teacher <span class="keyword">values</span>(<span class="string">&#x27;01&#x27;</span> , <span class="string">&#x27;张三&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> Teacher <span class="keyword">values</span>(<span class="string">&#x27;02&#x27;</span> , <span class="string">&#x27;李四&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> Teacher <span class="keyword">values</span>(<span class="string">&#x27;03&#x27;</span> , <span class="string">&#x27;王五&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> SC(SId <span class="type">varchar</span>(<span class="number">10</span>),CId <span class="type">varchar</span>(<span class="number">10</span>),score <span class="type">DEC</span>(<span class="number">18</span>,<span class="number">1</span>));</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> SC <span class="keyword">values</span>(<span class="string">&#x27;01&#x27;</span> , <span class="string">&#x27;01&#x27;</span> , <span class="number">80</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> SC <span class="keyword">values</span>(<span class="string">&#x27;01&#x27;</span> , <span class="string">&#x27;02&#x27;</span> , <span class="number">90</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> SC <span class="keyword">values</span>(<span class="string">&#x27;01&#x27;</span> , <span class="string">&#x27;03&#x27;</span> , <span class="number">99</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> SC <span class="keyword">values</span>(<span class="string">&#x27;02&#x27;</span> , <span class="string">&#x27;01&#x27;</span> , <span class="number">70</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> SC <span class="keyword">values</span>(<span class="string">&#x27;02&#x27;</span> , <span class="string">&#x27;02&#x27;</span> , <span class="number">60</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> SC <span class="keyword">values</span>(<span class="string">&#x27;02&#x27;</span> , <span class="string">&#x27;03&#x27;</span> , <span class="number">80</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> SC <span class="keyword">values</span>(<span class="string">&#x27;03&#x27;</span> , <span class="string">&#x27;01&#x27;</span> , <span class="number">80</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> SC <span class="keyword">values</span>(<span class="string">&#x27;03&#x27;</span> , <span class="string">&#x27;02&#x27;</span> , <span class="number">80</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> SC <span class="keyword">values</span>(<span class="string">&#x27;03&#x27;</span> , <span class="string">&#x27;03&#x27;</span> , <span class="number">80</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> SC <span class="keyword">values</span>(<span class="string">&#x27;04&#x27;</span> , <span class="string">&#x27;01&#x27;</span> , <span class="number">50</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> SC <span class="keyword">values</span>(<span class="string">&#x27;04&#x27;</span> , <span class="string">&#x27;02&#x27;</span> , <span class="number">30</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> SC <span class="keyword">values</span>(<span class="string">&#x27;04&#x27;</span> , <span class="string">&#x27;03&#x27;</span> , <span class="number">20</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> SC <span class="keyword">values</span>(<span class="string">&#x27;05&#x27;</span> , <span class="string">&#x27;01&#x27;</span> , <span class="number">76</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> SC <span class="keyword">values</span>(<span class="string">&#x27;05&#x27;</span> , <span class="string">&#x27;02&#x27;</span> , <span class="number">87</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> SC <span class="keyword">values</span>(<span class="string">&#x27;06&#x27;</span> , <span class="string">&#x27;01&#x27;</span> , <span class="number">31</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> SC <span class="keyword">values</span>(<span class="string">&#x27;06&#x27;</span> , <span class="string">&#x27;03&#x27;</span> , <span class="number">34</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> SC <span class="keyword">values</span>(<span class="string">&#x27;07&#x27;</span> , <span class="string">&#x27;02&#x27;</span> , <span class="number">89</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> SC <span class="keyword">values</span>(<span class="string">&#x27;07&#x27;</span> , <span class="string">&#x27;03&#x27;</span> , <span class="number">98</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> SC <span class="keyword">values</span>(<span class="string">&#x27;09&#x27;</span> , <span class="string">&#x27;01&#x27;</span> , <span class="keyword">null</span>);</span><br></pre></td></tr></table></figure>
+
+<p>例如：查询所有同学学习的课程成绩，因为学生和学习的课程是一对多的关系，所以我们在这里选用左外连接</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> STUDENT <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> SC  <span class="keyword">ON</span> STUDENT.SID <span class="operator">=</span> SC.SID;</span><br></pre></td></tr></table></figure>
+
+<p>从结果中可以看出，学生表中的所有信息都显示了，但是由于张三，李四，李四，赵六，孙七没有学习课程，所以在SC表中没有相关记录，因为使用了左外连接，所以，右表中的数据不满足筛选条件的全部以NULL值填充。</p>
+<h4 id="RIGHT-JOIN-右连接"><a href="#RIGHT-JOIN-右连接" class="headerlink" title="RIGHT JOIN 右连接"></a>RIGHT JOIN 右连接</h4><p>右连接和左连接的规则相反，是指右表的数据全部显示，左表中的数据满足筛选条件的显示，不满足的则以NULL值填充。<br>我们在SC表中删除任意一条数据的SID来进行验证。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> STUDENT <span class="keyword">RIGHT</span> <span class="keyword">JOIN</span> SC <span class="keyword">ON</span> STUDENT.SID <span class="operator">=</span> SC.SID;</span><br></pre></td></tr></table></figure>
+
+<p>从结果中可以看出，删除了一个SID后，在左表中无法找到对应的学生信息，因此该条数据的左表字段全部以NULL填充。</p>
+<h2 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"> <span class="keyword">CREATE</span> <span class="keyword">TABLE</span> STUDENT2(</span><br><span class="line">    ID <span class="type">INT</span> <span class="keyword">PRIMARY</span> KEY AUTO_INCREMENT,</span><br><span class="line">    STUDENT_NAME <span class="type">VARCHAR</span>(<span class="number">20</span>),</span><br><span class="line">    STUDENT_AGE TINYINT,</span><br><span class="line">    STUDENT_GENDER <span class="type">CHAR</span>(<span class="number">4</span>)</span><br><span class="line">    );</span><br><span class="line">    </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> STUDENT2 <span class="keyword">VALUES</span> (<span class="number">1</span>,<span class="string">&#x27;李信&#x27;</span>,<span class="number">18</span>,<span class="string">&#x27;男&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> STUDENT2 <span class="keyword">VALUES</span> (<span class="number">2</span>,<span class="string">&#x27;周瑜&#x27;</span>,<span class="number">19</span>,<span class="string">&#x27;男&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> STUDENT2 <span class="keyword">VALUES</span> (<span class="number">3</span>,<span class="string">&#x27;安其拉&#x27;</span>,<span class="number">22</span>,<span class="string">&#x27;女&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> STUDENT2 <span class="keyword">VALUES</span> (<span class="number">4</span>,<span class="string">&#x27;妲己&#x27;</span>,<span class="number">18</span>,<span class="string">&#x27;女&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> STUDENT2 <span class="keyword">VALUES</span> (<span class="number">5</span>,<span class="string">&#x27;花木兰&#x27;</span>,<span class="number">18</span>,<span class="string">&#x27;女&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="ANY关键字"><a href="#ANY关键字" class="headerlink" title="ANY关键字"></a>ANY关键字</h3><p>满足ANY子查询中任意一个即可,也可以理解为满足ANY子查询中最小的一个即可。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> STUDENT <span class="keyword">WHERE</span> STUDENT_AGE<span class="operator">&gt;</span><span class="keyword">ANY</span>(<span class="keyword">SELECT</span> STUDENT_AGE <span class="keyword">FROM</span> STUDENT2);</span><br></pre></td></tr></table></figure>
+
+<h3 id="ALL关键字"><a href="#ALL关键字" class="headerlink" title="ALL关键字"></a>ALL关键字</h3><p>满足ALL子查询中所有的条件。或者满足ALL子查询中最大的即可</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> STUDENT2 <span class="keyword">WHERE</span> STUDENT_AGE<span class="operator">&gt;</span><span class="keyword">ALL</span>(<span class="keyword">SELECT</span> STUDENT_AGE <span class="keyword">FROM</span> STUDENT);</span><br></pre></td></tr></table></figure>
+
+<h3 id="EXISTS关键字"><a href="#EXISTS关键字" class="headerlink" title="EXISTS关键字"></a>EXISTS关键字</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> STUDENT <span class="keyword">WHERE</span> <span class="keyword">EXISTS</span>(<span class="keyword">SELECT</span> ID <span class="keyword">FROM</span> STUDENT2 <span class="keyword">WHERE</span> STUDENT2.STUDENT_AGE<span class="operator">=</span>STUDENT.STUDENT_AGE);</span><br></pre></td></tr></table></figure>
+
+<h3 id="IN关键字"><a href="#IN关键字" class="headerlink" title="IN关键字"></a>IN关键字</h3><p>IN关键字可以理解为OR，即满足括号中的A条件，或者B条件，或者C条件</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> STUDENT <span class="keyword">WHERE</span> STUDENT_AGE <span class="keyword">IN</span>(<span class="keyword">SELECT</span> STUDENT_AGE <span class="keyword">FROM</span> STUDENT2);</span><br></pre></td></tr></table></figure>
+
+<h3 id="比较运算符的子查询"><a href="#比较运算符的子查询" class="headerlink" title="比较运算符的子查询"></a>比较运算符的子查询</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> STUDENT2 <span class="keyword">WHERE</span> STUDENT_AGE<span class="operator">&gt;</span>(<span class="keyword">SELECT</span> STUDENT_AGE <span class="keyword">FROM</span> STUDENT <span class="keyword">WHERE</span> STUDENT_AGE<span class="operator">=</span><span class="number">20</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="SQL语句执行顺序"><a href="#SQL语句执行顺序" class="headerlink" title="SQL语句执行顺序"></a>SQL语句执行顺序</h2><ol>
+<li>FROM</li>
+<li>ON</li>
+<li>JOIN</li>
+<li>WHERE</li>
+<li>GROUP BY</li>
+<li>HAVING</li>
+<li>SELECT </li>
+<li>DISTINCT</li>
+<li>ORDER BY</li>
+<li>LIMIT</li>
+</ol>
+]]></content>
+  </entry>
 </search>
