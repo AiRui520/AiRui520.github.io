@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.2.0">
+
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="manifest" href="/manifest.json">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic%7CLobster+Two:300,300italic,400,400italic,700,700italic%7CAmita:300,300italic,400,400italic,700,700italic%7CMontserrat:300,300italic,400,400italic,700,700italic%7CPT+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"airui520.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":"true`","version":"8.12.1","exturl":false,"sidebar":{"position":"left","width":300,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta property="og:type" content="blog">
+<meta property="og:title" content="MySQL数据类型;">
+<meta property="og:url" content="https://airui520.github.io/2022/09/08/MySQL%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/index.html">
+<meta property="og:site_name" content="Fei的博客">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://files.catbox.moe/vakrmb.png">
+<meta property="og:image" content="https://files.catbox.moe/96yopo.png">
+<meta property="og:image" content="https://files.catbox.moe/uire1v.png">
+<meta property="og:image" content="https://files.catbox.moe/yqz7yz.png">
+<meta property="og:image" content="https://files.catbox.moe/dryijd.png">
+<meta property="og:image" content="https://files.catbox.moe/vaf0mh.png">
+<meta property="og:image" content="https://files.catbox.moe/oj4ipa.png">
+<meta property="og:image" content="https://files.catbox.moe/n05ffh.png">
+<meta property="og:image" content="https://files.catbox.moe/yj1myx.png">
+<meta property="og:image" content="https://files.catbox.moe/mk4esv.png">
+<meta property="og:image" content="https://files.catbox.moe/08jsqe.png">
+<meta property="og:image" content="https://files.catbox.moe/2lqxwi.png">
+<meta property="article:published_time" content="2022-09-08T03:13:08.000Z">
+<meta property="article:modified_time" content="2022-09-08T03:27:28.195Z">
+<meta property="article:author" content="Fei">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://files.catbox.moe/vakrmb.png">
+
+
+<link rel="canonical" href="https://airui520.github.io/2022/09/08/MySQL%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://airui520.github.io/2022/09/08/MySQL%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/","path":"2022/09/08/MySQL数据类型/","title":"MySQL数据类型;"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>MySQL数据类型; | Fei的博客</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXXX-X"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-XXXXXXXX-X","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Fei的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <img class="custom-logo-image" src="/images/bg.jpg" alt="Fei的博客">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">50</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.</span> <span class="nav-text">数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.1.</span> <span class="nav-text">MySQL数据类型介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B4%E6%95%B0%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.2.</span> <span class="nav-text">整数类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%AE%E7%82%B9%E6%95%B0%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%AE%9A%E7%82%B9%E6%95%B0%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.3.</span> <span class="nav-text">浮点数类型和定点数类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A5%E6%9C%9F%E4%B8%8E%E6%97%B6%E9%97%B4%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.4.</span> <span class="nav-text">日期与时间类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#YEAR"><span class="nav-number">1.4.1.</span> <span class="nav-text">YEAR</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TIME"><span class="nav-number">1.4.2.</span> <span class="nav-text">TIME</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DATE"><span class="nav-number">1.4.3.</span> <span class="nav-text">DATE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DATETIME"><span class="nav-number">1.4.4.</span> <span class="nav-text">DATETIME</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TIMESTAMP"><span class="nav-number">1.4.5.</span> <span class="nav-text">TIMESTAMP</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E6%9C%AC%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.5.</span> <span class="nav-text">文本类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CHAR%E5%92%8CVARCHAR%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.5.1.</span> <span class="nav-text">CHAR和VARCHAR类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TEXT%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.5.2.</span> <span class="nav-text">TEXT类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ENUM%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.5.3.</span> <span class="nav-text">ENUM类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.6.</span> <span class="nav-text">二进制字符串类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#BIT%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.6.1.</span> <span class="nav-text">BIT类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BINARY%E5%92%8CVARBINARY%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.6.2.</span> <span class="nav-text">BINARY和VARBINARY类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.6.3.</span> <span class="nav-text">算术运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.6.4.</span> <span class="nav-text">逻辑运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%8D%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.6.5.</span> <span class="nav-text">位运算符</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Fei"
+      src="/images/head.jpg">
+  <p class="site-author-name" itemprop="name">Fei</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/AiRui520" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;AiRui520" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:2813764348@qq.com" title="E-Mail → mailto:2813764348@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://xiguayaaaaa.github.io/" title="https:&#x2F;&#x2F;xiguayaaaaa.github.io" rel="noopener" target="_blank">xigua</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://simon-yian.com/" title="https:&#x2F;&#x2F;simon-yian.com" rel="noopener" target="_blank">banana</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/AiRui520" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://airui520.github.io/2022/09/08/MySQL%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.jpg">
+      <meta itemprop="name" content="Fei">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Fei的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="MySQL数据类型; | Fei的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          MySQL数据类型;<a href="https://github.com/AiRui520/next/edit/main/subdirectory-name/_posts/MySQL%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-09-08 11:13:08 / 修改时间：11:27:28" itemprop="dateCreated datePublished" datetime="2022-09-08T11:13:08+08:00">2022-09-08</time>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>11k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>10 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><img src="https://files.catbox.moe/vakrmb.png"></p>
+<span id="more"></span>
+
+<h1 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h1><p>数据库表由多列字段构成，每一个字段指定了不同的数据类型。指定字段的数据类型之后，也就决定了向字段插入的数据内容，例如，当要插入数值的时候，可以将它们存储为整数类型，也可以将它们存储为字符串类型。不同的数据类型也决定了MySQL在存储它们的时候使用的方式，以及在使用它们的时候选择什么运算符号进行运算。</p>
+<h2 id="MySQL数据类型介绍"><a href="#MySQL数据类型介绍" class="headerlink" title="MySQL数据类型介绍"></a>MySQL数据类型介绍</h2><ol>
+<li>数值类型：包括整数类型TINYINT、SMALLINT、MEDIUMINT、INT、BIGINT、浮点小数数据类型FLOAT和DOUBLE，定点小数类型DECIMAL。</li>
+<li>日期&#x2F;时间类型：包括YEAR、TIME、DATE、DATETIME和TIMESTAMP。</li>
+<li>字符串类型：包括CHAR、VARCHAR、BINARY、BLOB、TEXT、ENUM和SET等。字符串类型又分为文本字符串和二进制字符串。</li>
+</ol>
+<h2 id="整数类型"><a href="#整数类型" class="headerlink" title="整数类型"></a>整数类型</h2><p>数值型数据类型主要用来存储数字，MySQL提供了多种数值数据类型，不同的数据类型提供不同的取值范围，可以存储的值范围越大，其所需要的存储空间也会越大。MySQL主要提供的整数类型有TINYINT、SMALLINT、MEDIUMINT、INT（INTEGER）、BIGINT。整数类型的属性字段可以添加AUTO_INCREMENT自增约束条件。下面列出了MySQL中的数值类型。</p>
+<table>
+<thead>
+<tr>
+<th>类型名称</th>
+<th>说明</th>
+<th>存储需求</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>TINYINT</td>
+<td>很小的整数</td>
+<td>1字节</td>
+</tr>
+<tr>
+<td>SMALLINT</td>
+<td>小的整数</td>
+<td>2字节</td>
+</tr>
+<tr>
+<td>MEDIUMINT</td>
+<td>中等大小的整数</td>
+<td>3字节</td>
+</tr>
+<tr>
+<td>INT</td>
+<td>普通大小的整数</td>
+<td>4字节</td>
+</tr>
+<tr>
+<td>BIGINT</td>
+<td>大整数</td>
+<td>8字节</td>
+</tr>
+</tbody></table>
+<p>从表中可以看到，不同类型整数存储所需的字节数是不同的，占用字节数最小的是TINYINT类型，占用字节最大的是BIGINT类型，相应的占用字节越多的类型所能表示的数值范围越大。根据占用字节数可以求出每一种数据类型的取值范围。例如，TINYINT需要1字节（8 bits）来存储，那么TINYINT无符号数的最大值为-2^7，最大值为2^7-1，其他类型的整数的取值范围计算方法相同。</p>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>有符号</th>
+<th>无符号</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>TINYINT</td>
+<td>-128-127</td>
+<td>0-255</td>
+</tr>
+<tr>
+<td>SMALLINT</td>
+<td>-32768-32767</td>
+<td>0-65535</td>
+</tr>
+<tr>
+<td>MEDIUMINT</td>
+<td>-8388608-8388607</td>
+<td>0-16777215</td>
+</tr>
+<tr>
+<td>INT</td>
+<td>-2147483648-2147483647</td>
+<td>0-4294967295</td>
+</tr>
+<tr>
+<td>BIGINT</td>
+<td>-923372036854775808-923372036854775808</td>
+<td>0-18446744073709551615</td>
+</tr>
+</tbody></table>
+<p>例如，有如下建表语句</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> test(</span><br><span class="line">	id <span class="type">int</span>(<span class="number">4</span>)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>id字段的数据类型为INT(4)，注意后面的数字4，它表示的是该数据类型指定的显示宽度，即能够显示的数值中数字的个数。<br>在这里要注意：显示宽度和数据类型的取值范围是无关的。显示宽度只是指明MySQL最大可能显示的数字个数，数值的位数小于指定的宽度时会由空格填充；如果插入了大于显示宽度的值，只要该值不超过该类型整数的取值范围，数值依然可以插入，而且能够显示出来。例如，向id字段插入一个数值19999，当使用SELECT查询该列值的时候，MySQL显示的将是完整的带有5位数字的19999，而不是4位数字的值。<br>其他整型数据类型也可以在定义表结构时指定所需要的显示宽度，如果不指定，则系统为每一种类型指定默认的宽度值。<br>例如，创建表tmp1，其中字段x、y、z、m、n数据类型依次为TINYINT、SMALLINT、MEDIUMINT、INT、BIGINT，SQL语句如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> TEMP1(</span><br><span class="line">	x TINYINT, y <span class="type">SMALLINT</span>, Z MEDIUMINT, M <span class="type">INT</span> , N <span class="type">BIGINT</span> </span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>执行成功之后，使用DESC查看表结构</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DESC TEMP1;</span><br></pre></td></tr></table></figure>
+
+<p>+——-+————–+——+—–+———+——-+</p>
+<p>| Field | Type         | Null | Key | Default | Extra |</p>
+<p>+——-+————–+——+—–+———+——-+</p>
+<p>| X     | tinyint(4)    | YES  |     | NULL    |       |</p>
+<p>| Y     | smallint(6)  | YES  |     | NULL    |       |</p>
+<p>| Z     | mediumint(9) | YES  |     | NULL    |       |</p>
+<p>| M    | int(11)      | YES  |     | NULL    |       |</p>
+<p>| N    | bigint(20)   | YES  |     | NULL    |       |</p>
+<p>+——-+————–+——+—–+———+——-+</p>
+<p>可以看到，系统将添加不同的默认显示宽度。这些显示宽度能够保证显示每一种数据类型可以取到取值范围内的所有值。例如，TINYINT有符号数和无符号数的取值范围分别为-128127和0255，由于负号占了一个数字位，因此TINYINT默认的显示宽度为4。同理，其他整数类型的默认显示宽度与其有符号数的最小值的宽度相同。不同的整数类型有不同的取值范围，并且需要不同的存储空间，因此应该根据实际需要选择最合适的类型，这样有利于提高查询的效率和节省存储空间。整数类型是不带小数部分的数值，现实生活中很多地方需要用到带小数的数值，下面将介绍MySQL中支持的小数类型。</p>
+<h2 id="浮点数类型和定点数类型"><a href="#浮点数类型和定点数类型" class="headerlink" title="浮点数类型和定点数类型"></a>浮点数类型和定点数类型</h2><p>MySQL中使用浮点数和定点数来表示小数。浮点数类型有两种：单精度浮点类型（FLOAT）和双精度浮点类型（DOUBLE）。定点数类型只有一种：DECIMAL。浮点数类型和定点数类型都可以用（M，N）来表示。其中，M称为精度，表示总共的位数；N称为标度，表示小数的位数。列出了MySQL中的小数类型和存储需求。</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>说明</th>
+<th>存储需求</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>FLOAT</td>
+<td>单精度浮点数</td>
+<td>4字节</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td>双精度浮点数</td>
+<td>8字节</td>
+</tr>
+<tr>
+<td>DECIMAL(M,N)</td>
+<td>定点数</td>
+<td>M+2字节</td>
+</tr>
+</tbody></table>
+<p>DECIMAL类型不同于FLOAT和DOUBLE，DECIMAL实际是以串存放的，可能的最大取值范围与DOUBLE一样，但是其有效的取值范围由M和D的值决定。如果改变M而固定D，则其取值范围将随M的变大而变大。从可以看到，DECIMAL的存储空间并不是固定的，而由其精度值M决定的，占用M+2字节。<br>FLOAT类型的取值范围如下：<br>●有符号的取值范围：-3.402823466E+38 ~ -1.175494351E-38。<br>●无符号的取值范围：0和1.175494351E-38 ~ 3.402823466E+38。<br>DOUBLE类型的取值范围如下：<br>●有符号的取值范围：-1.7976931348623157E+308 ~-2.2250738585072014E-308。<br>●无符号的取值范围：0和2.2250738585072014E-308 ~1.7976931348623157E+308。<br>不论是定点数还是浮点数类型，如果用户指定的精度超出精度范围，则会四舍五入。<br>创建表tmp2，其中字段x、y、z的数据类型依次为FLOAT(5,1)、DOUBLE(5,1)和DECIMAL(5,1)，向表中插入数据5.12、5.15和5.123，SQL语句如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> TEMP2(</span><br><span class="line">	x <span class="type">FLOAT</span>(<span class="number">5</span>,<span class="number">1</span>),</span><br><span class="line">	y <span class="keyword">DOUBLE</span>(<span class="number">5</span>,<span class="number">1</span>),</span><br><span class="line">	z <span class="type">DECIMAL</span>(<span class="number">5</span>,<span class="number">3</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>向表中插入数据：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> TEMP2 <span class="keyword">VALUES</span> (<span class="number">5.12</span>,<span class="number">5.16</span>,<span class="number">5.123</span>);</span><br></pre></td></tr></table></figure>
+
+<p>可以看到在插入数据时，MySQL给出了一个警告信息，使用SHOW WARNINGS;语句查看警告信息：</p>
+<p>可以看到，FLOAT和DOUBLE在进行四舍五入时没有给出警告，只给出z字段数值被截断的警告。查看结果：</p>
+<p>FLOAT和DOUBLE在不指定精度时，默认会按照实际的精度（由计算机硬件和操作系统决定），DECIMAL若不指定精度则默认为(10,0)。浮点数相对于定点数的优点是在长度一定的情况下，浮点数能够表示更大的数据范围；它的缺点是会引起精度问题。</p>
+<p>在MySQL中，定点数以字符串形式存储，在对精度要求比较高的时候（如货币、科学数据等）使用DECIMAL的类型比较好，另外两个浮点数进行减法和比较运算时容易出问题，所以在使用浮点数时需要注意，并尽量避免做浮点数比较。</p>
+<h2 id="日期与时间类型"><a href="#日期与时间类型" class="headerlink" title="日期与时间类型"></a>日期与时间类型</h2><p>MySQL中有多种表示日期的数据类型，主要有DATETIME、DATE、TIMESTAMP、TIME和YEAR。例如，当只记录年信息的时候，可以只使用YEAR类型，而没有必要使用DATE。每一个类型都有合法的取值范围，当指定确实不合法的值时系统将“零”值插入到数据库中。本节将介绍MySQL日期和时间类型的使用方法。</p>
+<table>
+<thead>
+<tr>
+<th>类型名称</th>
+<th>日期格式</th>
+<th>日期范围</th>
+<th>存储需求</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>YEAR</td>
+<td>YYYY</td>
+<td>1901-2155</td>
+<td>1字节</td>
+</tr>
+<tr>
+<td>TIME</td>
+<td>HH:MM:SS</td>
+<td>-838:59:59-838:59:59</td>
+<td>3字节</td>
+</tr>
+<tr>
+<td>DATE</td>
+<td>YYYY-MM-DD</td>
+<td>1000-01-01~9999-12-3</td>
+<td>3字节</td>
+</tr>
+<tr>
+<td>DATETIME</td>
+<td>YYYY-MM-DD  HH:MM:SS</td>
+<td>1000-01-01 00:00:00~9999-12-3 00:00:00</td>
+<td>8字节</td>
+</tr>
+<tr>
+<td>TIMESTAMP</td>
+<td>YYYY-MM-DD  HH:MM:SS</td>
+<td></td>
+<td>4字节</td>
+</tr>
+</tbody></table>
+<h3 id="YEAR"><a href="#YEAR" class="headerlink" title="YEAR"></a>YEAR</h3><p>YEAR类型是一个单字节类型，用于表示年，在存储时只需要1字节。可以使用各种格式指定YEAR值，如下所示：</p>
+<ol>
+<li>以4位字符串或者4位数字格式表示的YEAR，范围为‘1901’～‘2155’。输入格式为‘YYYY’或者YYYY。例如，输入‘2010’或2010，插入到数据库的值均为2010。</li>
+<li>以2位字符串格式表示的YEAR，范围为‘00’到‘99’。‘00’～‘69’和‘70’～‘99’范围的值分别被转换为2000～2069和1970～1999范围的YEAR值。‘0’与‘00’的作用相同。插入超过取值范围的值将被转换为2000。</li>
+<li>以2位数字表示的YEAR，范围为1～99。1～69和70～99范围的值分别被转换为2001～2069和1970～1999范围的YEAR值。注意：在这里0值将被转换为0000，而不是2000。</li>
+</ol>
+<p>两位整数范围与两位字符串范围稍有不同。例如：插入2000年，可能会使用数字格式的0表示YEAR，实际上，插入数据库的值为0000，而不是所希望的2000。只有使用字符串格式的’0’或’00’，才可以被正确地解释为2000。非法YEAR值将被转换为0000。</p>
+<h3 id="TIME"><a href="#TIME" class="headerlink" title="TIME"></a>TIME</h3><p>TIME类型用在只需要时间信息的值，在存储时需要3字节，格式为‘HH:MM:SS’。其中，HH表示小时，MM表示分钟，SS表示秒。TIME类型的取值范围为-838:59:59 ～838:59:59，小时部分会如此大的原因是TIME类型不仅可以用于表示一天的时间（必须小于24小时），还可能是某个事件过去的时间或两个事件之间的时间间隔（可以大于24小时，或者甚至为负）。可以使用各种格式指定TIME值。</p>
+<ol>
+<li>‘D HH:MM:SS’格式的字符串。可以使用下面任何一种“非严格”的语法：‘HH:MM:SS’、‘HH:MM’、‘D HH:MM’、‘D HH’或‘SS’。这里的D表示日，可以取0~34之间的值。在插入数据库时，D被转换为小时保存，格式为“D*24+HH”。</li>
+<li>‘HHMMSS’格式的、没有间隔符的字符串或者HHMMSS格式的数值，假定是有意义的时间。例如：‘101112’被理解为‘10:11:12’，但‘109712’是不合法的（它有一个没有意义的分钟部分），存储时将变为00:00:00。</li>
+</ol>
+<p>为TIME列分配简写值时应注意：如果没有冒号，MySQL解释值时，假定最右边的两位表示秒。（MySQL解释TIME值为过去的时间而不是当天的时间。）例如，读者可能认为‘1112’和1112表示11:12:00（11点12分），但MySQL将它们解释为00:11:12（11分12秒）。同样‘12’和12被解释为00:00:12。相反，TIME值中如果使用冒号则肯定被看作当天的时间。也就是说，‘11:12’表示11:12:00，而不是00:11:12。</p>
+<h3 id="DATE"><a href="#DATE" class="headerlink" title="DATE"></a>DATE</h3><p>DATE类型用在仅需要日期值时，没有时间部分，在存储时需要3字节。日期格式为‘YYYY-MM-DD’。其中，YYYY表示年，MM表示月，DD表示日。在给DATE类型的字段赋值时，可以使用字符串类型或者数字类型的数据插入，只要符合DATE的日期格式即可。</p>
+<ol>
+<li>以‘YYYY-MM-DD’或者‘YYYYMMDD’字符串格式表示的日期，取值范围为‘1000-01-01’～‘9999-12-3’。例如，输入‘2012-12-31’或者‘20121231’，插入数据库的日期都为2012-12-31。</li>
+<li>以‘YY-MM-DD’或者‘YYMMDD’字符串格式表示的日期，在这里YY表示两位的年值。包含两位年值的日期会令人模糊，因为不知道世纪。MySQL使用以下规则解释两位年值：‘00～69’范围的年值转换为‘2000～2069’；‘70～99’范围的年值转换为‘1970～1999’。例如，输入‘12-12-31’，插入数据库的日期为2012-12-31；输入‘981231’，插入数据的日期为1998-12-31。</li>
+<li>以YY-MM-DD或者YYMMDD数字格式表示的日期，与前面相似，00~69范围的年值转换为2000～2069，70～99范围的年值转换为1970～1999。例如，输入12-12-31插入数据库的日期为2012-12-31；输入981231，插入数据的日期为1998-12-31。</li>
+<li>使用CURRENT_DATE或者NOW()，插入当前系统日期。</li>
+</ol>
+<h3 id="DATETIME"><a href="#DATETIME" class="headerlink" title="DATETIME"></a>DATETIME</h3><p>DATETIME类型用于需要同时包含日期和时间信息的值，在存储时需要8字节。日期格式为‘YYYY-MM-DD HH:MM:SS’。其中，YYYY表示年，MM表示月，DD表示日，HH表示小时，MM表示分钟，SS表示秒。在给DATETIME类型的字段赋值时，可以使用字符串类型或者数字类型的数据插入，只要符合DATETIME的日期格式即可。</p>
+<ol>
+<li>以‘YYYY-MM-DD HH:MM:SS’或者‘YYYYMMDDHHMMSS’字符串格式表示的值，取值范围为‘1000-01-01 00:00:00’～‘9999-12-3 23:59:59’。例如，输入‘2012-12-31 05: 05: 05’或者‘20121231050505’，插入数据库的DATETIME值都为2012-12-31 05: 05: 05。</li>
+<li>以‘YY-MM-DD HH:MM:SS’或者‘YYMMDDHHMMSS’字符串格式表示的日期，在这里YY表示两位的年值。与前面相同，‘00～69’范围的年值转换为‘2000～2069’，‘70～99’范围的年值转换为‘1970～1999’。例如，输入‘12-12-31 05: 05: 05’，插入数据库的DATETIME为2012-12-31 05: 05:05；输入‘980505050505’，插入数据库的DATETIME为1998-05-05 05: 05:05。</li>
+<li>以YYYYMMDDHHMMSS或者YYMMDDHHMMSS数字格式表示的日期和时间。例如，输入20121231050505，插入数据库的DATETIME为2012-12-3105:05:05；输入981231050505，插入数据的DATETIME为1998-12-31 05: 05:05。</li>
+</ol>
+<p>MySQL允许“不严格”语法：任何标点符号都可以用作日期部分或时间部分之间的间隔符。例如，‘98-12-31 11:30:45’、‘98.12.3111+30+45’、‘98&#x2F;12&#x2F;31 11<em>30</em>45’和‘98@12@31 113045’是等价的，这些值都可以正确地插入数据库。</p>
+<h3 id="TIMESTAMP"><a href="#TIMESTAMP" class="headerlink" title="TIMESTAMP"></a>TIMESTAMP</h3><p>TIMESTAMP的显示格式与DATETIME相同，显示宽度固定在19个字符，日期格式为YYYY-MM-DD HH:MM:SS，在存储时需要4字节。TIMESTAMP列的取值范围小于DATETIME的取值范围，为‘1970-01-01 00:00:01’UTC～‘2038-01-1903:14:07’UTC。其中，UTC（Coordinated Universal Time）为世界标准时间，因此在插入数据时，要保证在合法的取值范围内。</p>
+<p>TIMESTAMP与DATETIME除了存储字节和支持的范围不同外，还有一个最大的区别就是：DATETIME在存储日期数据时，按实际输入的格式存储，即输入什么就存储什么，与时区无关；而TIMESTAMP值的存储是以UTC（世界标准时间）格式保存的，存储时对当前时区进行转换，检索时再转换回当前时区。查询时，不同时区显示的时间值是不同的。</p>
+<h2 id="文本类型"><a href="#文本类型" class="headerlink" title="文本类型"></a>文本类型</h2><p>字符串类型用来存储字符串数据，除了可以存储字符串数据之外，还可以存储其他数据，比如图片和声音的二进制数据。MySQL支持两类字符型数据：文本字符串和二进制字符串。本小节主要讲解文本字符串类型。文本字符串可以进行区分或者不区分大小写的串比较，还可以进行模式匹配查找。在MySQL中，文本字符串类型是指CHAR、VARCHAR、TEXT、ENUM和SET。列出了MySQL中的文本字符串数据类型。</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>说明</th>
+<th>存储需求</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CHAR(M)</td>
+<td>固定长度非二进制字符串</td>
+<td>M字节，1≤M≤255</td>
+</tr>
+<tr>
+<td>VARCHAR(M)</td>
+<td>变长非二进制字符串</td>
+<td>L+1字节，在此L≤M和1≤M≤255</td>
+</tr>
+<tr>
+<td>TINYTEXT</td>
+<td>非常小的非二进制字符串</td>
+<td>L+1字节，在此L&lt;2^8</td>
+</tr>
+<tr>
+<td>TEXT</td>
+<td>小的非二进制字符串</td>
+<td>L+2字节，在此L&lt;2^16</td>
+</tr>
+<tr>
+<td>MEDIUMTEXT</td>
+<td>中等大小的非二进制字符串</td>
+<td>L+3字节，在此L&lt;2^24</td>
+</tr>
+<tr>
+<td>LONGTEXT</td>
+<td>大的非二进制字符串</td>
+<td>L+4字节，在此L&lt;2^32</td>
+</tr>
+<tr>
+<td>ENUM</td>
+<td>枚举类型，只能有一个枚举字符串值</td>
+<td>1或2字节，取决于枚举值的数目（最大值为65535）</td>
+</tr>
+<tr>
+<td>SET</td>
+<td>一个设置，字符串对象可以有0个或者多个SET成员</td>
+<td>1、2、3、4或8字节，取决于集合成员的数量（最多为64个成员）</td>
+</tr>
+</tbody></table>
+<h3 id="CHAR和VARCHAR类型"><a href="#CHAR和VARCHAR类型" class="headerlink" title="CHAR和VARCHAR类型"></a>CHAR和VARCHAR类型</h3><p>CHAR(M)为固定长度字符串，在定义时指定字符串列长。当保存时在右侧填充空格，以达到指定的长度。M表示列长度，M的范围是0-255个字符。例如，CHAR(4)定义了一个固定长度的字符串列，其包含的字符个数最大为4。当检索到CHAR值时，尾部的空格将被删除。VARCHAR(M)是长度可变的字符串，M表示最大列长度。M的范围是0-65535。VARCHAR的最大实际长度由最长的行的大小和使用的字符集确定，而其实际占用的空间为字符串的实际长度加1。例如，VARCHAR(50)定义了一个最大长度为50的字符串，如果插入的字符串只有10个字符，则实际存储的字符串为10个字符和一个字符串结束字符。VARCHAR在值检索时尾部的空格仍保留。</p>
+<h3 id="TEXT类型"><a href="#TEXT类型" class="headerlink" title="TEXT类型"></a>TEXT类型</h3><p>TEXT列保存非二进制字符串，如文章内容、评论等。当保存或查询TEXT列的值时，不删除尾部空格。Text类型分为4种：TINYTEXT、TEXT、MEDIUMTEXT和LONGTEXT。不同的TEXT类型的存储空间和数据长度不同。</p>
+<ol>
+<li>TINYTEXT最大长度为255（2^8–1）字符的TEXT列。</li>
+<li>TEXT最大长度为65535（2^16–1）字符的TEXT列。</li>
+<li>MEDIUMTEXT最大长度为16777215（2^24–1）字符的TEXT列。</li>
+<li>LONGTEXT最大长度为4294967295（2^32–1）或4GB字符的TEXT列。</li>
+</ol>
+<h3 id="ENUM类型"><a href="#ENUM类型" class="headerlink" title="ENUM类型"></a>ENUM类型</h3><p>ENUM是一个字符串对象，其值为表创建时在列规定中枚举的一列值。语法格式如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">字段名 ENUM (<span class="string">&#x27;值1&#x27;</span>,<span class="string">&#x27;值2&#x27;</span>....<span class="string">&#x27;值3&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>其中，“字段名”指将要定义的字段，“值n”指枚举列表中的第n个值。ENUM类型的字段在取值时，只能在指定的枚举列表中取，而且一次只能取一个。创建的成员中有空格时，其尾部的空格将自动被删除。ENUM值在内部用整数表示，并且每个枚举值均有一个索引值：列表值所允许的成员值从1开始编号，MySQL存储的就是这个索引编号。枚举最多可以有65535个元素。<br>例如，定义ENUM类型的列(‘first’，’second’，’third’)。<br>3.4.4 SET类型<br>SET是一个字符串对象，可以有零或多个值。SET列最多可以有64个成员，其值为表创建时规定的一列值。指定包括多个SET成员的SET列值时，各成员之间用逗号(,)间隔开。语法格式如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">字段名 <span class="keyword">SET</span> (<span class="string">&#x27;值1&#x27;</span>,<span class="string">&#x27;值2&#x27;</span>....<span class="string">&#x27;值3&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="二进制字符串类型"><a href="#二进制字符串类型" class="headerlink" title="二进制字符串类型"></a>二进制字符串类型</h2><p>前面讲解了存储文本的字符串类型，这一小节将讲解MySQL中存储二进制数据的字符串类型。MySQL中的二进制数据类型有BIT、BINARY、VARBINARY、TINYBLOB、BLOB、MEDIUMBLOB和LONGBLOB。本节将讲解各类二进制字符串类型的特点和使用方法。</p>
+<h3 id="BIT类型"><a href="#BIT类型" class="headerlink" title="BIT类型"></a>BIT类型</h3><p>BIT类型是位字段类型。M表示每个值的位数，范围为1~64。如果M被省略，默认为1。如果为BIT(M)列分配的值的长度小于M位，就在值的左边用0填充。例如，为BIT(6)列分配一个值b’101’，其效果与分配b’000101’相同。BIT数据类型用来保存位字段值。例如，以二进制的形式保存数据13（13的二进制形式为1101），在这里需要位数至少为4位的BIT类型，即可以定义列类型为BIT(4)，大于二进制1111的数据是不能插入BIT(4)类型的字段中的。</p>
+<p>默认情况下，MySQL不可以插入超出该列允许范围的值，因而插入的数据要确保插入的值在指定的范围内。</p>
+<h3 id="BINARY和VARBINARY类型"><a href="#BINARY和VARBINARY类型" class="headerlink" title="BINARY和VARBINARY类型"></a>BINARY和VARBINARY类型</h3><p>BINARY和VARBINARY类型类似于CHAR和VARCHAR，不同的是它们包含二进制字节字符串。其使用的语法格式如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">列名称 <span class="type">BINARY</span>(M) 或者<span class="type">VARBINARY</span>(M)</span><br></pre></td></tr></table></figure>
+
+<p>BINARY类型的长度是固定的，指定长度之后，不足最大长度的，将在它们右边填充‘\0’补齐以达到指定长度。例如：指定列数据类型为BINARY(3)，当插入‘a’时，存储的内容实际为“a\0\0”，当插入“ab”时，实际存储的内容为“ab\0”，不管存储的内容是否达到指定的长度，其存储空间均为指定的值M。VARBINARY类型的长度是可变的，指定好长度之后，其长度可以在0到最大值之间。例如：指定列数据类型为VARBINARY(20)，如果插入的值的长度只有10，则实际存储空间为10加1，即实际占用的空间为字符串的实际长度加1。<br>3.5.3 BLOB类型<br>BLOB是一个二进制大对象，用来存储可变数量的数据。BLOB类型分为4种：TINYBLOB、BLOB、MEDIUMBLOB和LONGBLOB，它们可容纳值的最大长度不同<br>BLOB列存储的是二进制字符串（字节字符串），TEXT列存储的是非二进制字符串（字符字符串）。BLOB列没有字符集，并且排序和比较基于列值字节的数值；TEXT列有一个字符集，并且根据字符集对值进行排序和比较。<br>3.6 运算符<br>运算符连接表达式中的各个操作数，其作用是用来指明对操作数所进行的运算。运用运算符可以更加灵活地使用表中的数据，常见的运算符类型有算术运算符、比较运算符、逻辑运算符和位运算符。本节将介绍各种运算符的特点和使用方法。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> A(</span><br><span class="line">   AGE <span class="type">INT</span>(<span class="number">3</span>)</span><br><span class="line">   );</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> A <span class="keyword">VALUES</span>(<span class="number">20</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="算术运算符"><a href="#算术运算符" class="headerlink" title="算术运算符"></a>算术运算符</h3><p>算术运算符用于各类数值运算，包括加（+）、减（-）、乘（*）、除（&#x2F;）、求余（或称模运算，%）。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> AGE<span class="operator">+</span><span class="number">100</span> <span class="keyword">FROM</span> A;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://files.catbox.moe/96yopo.png"></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> AGE<span class="number">-10</span> <span class="keyword">FROM</span> A;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://files.catbox.moe/uire1v.png"></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> AGE<span class="operator">*</span><span class="number">10</span> <span class="keyword">FROM</span> A;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://files.catbox.moe/yqz7yz.png"></p>
+<p><img src="https://files.catbox.moe/dryijd.png"></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> AGE<span class="operator">/</span><span class="number">5</span> <span class="keyword">FROM</span> A;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://files.catbox.moe/vaf0mh.png"></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> AGE<span class="operator">%</span><span class="number">3</span> <span class="keyword">FROM</span> A;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://files.catbox.moe/oj4ipa.png"></p>
+<p>3.6.2 比较运算符</p>
+<p>比较运算符用于比较运算，包括大于（&gt;）、小于（&lt;）、等于（&#x3D;）、大于等于（&gt;&#x3D;）、小于等于（&lt;&#x3D;）、不等于（!&#x3D;），以及IN、BETWEEN AND、ISNULL、GREATEST、LEAST等。<br>LEAST:语法格式为：LEAST(值1，值2，…，值n)。在有两个或多个参数的情况下，返回最小值。假如任意一个自变量为NULL，则LEAST()的返回值为NULL。<br>GREATEST:语法格式为：LEAST(值1，值2，…，值n)。当有两个或多个参数时，返回值为最大值。假如任意一个自变量为NULL，则GREATEST()的返回值为NULL。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> A <span class="keyword">WHERE</span> AGE<span class="operator">&gt;</span><span class="number">30</span>;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://files.catbox.moe/n05ffh.png"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM A WHERE AGE&lt;<span class="number">23</span>;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://files.catbox.moe/yj1myx.png"></p>
+<h3 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h3><p>逻辑运算符的求值所得结果均为1（TRUE）、0（FALSE），这类运算符有逻辑非（NOT或者!）、逻辑与（AND或者&amp;&amp;）、逻辑或（OR或者||）、逻辑异或（XOR）。</p>
+<p>逻辑非运算符NOT或者！表示当操作数为0时，所得值为1；当操作数为非零值时，所得值为0；当操作数为NULL时，所得的返回值为NULL。</p>
+<p>逻辑与运算符AND或者&amp;&amp;表示当所有操作数均为非零值并且不为NULL时，计算所得结果为1；当一个或多个操作数为0时，所得结果为0；其余情况返回值为NULL。</p>
+<p>逻辑或运算符OR或者||表示当两个操作数均为非NULL值且任意一个操作数为非零值时，结果为1，否则结果为0；当有一个操作数为NULL，且另一个操作数为非零值时，则结果为1，否则结果为NULL；当两个操作数均为NULL时，则所得结果为NULL。</p>
+<p>逻辑异或运算符XOR表示当任意一个操作数为NULL时，返回值为NULL；对于非NULL的操作数，如果两个操作数都是非0值或者都是0值，则返回结果为0；如果一个为0值、另一个为非0值，返回结果为1。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> AGE<span class="operator">&gt;</span><span class="number">20</span><span class="operator">&amp;&amp;</span>AGE<span class="operator">&lt;</span><span class="number">30</span> <span class="keyword">FROM</span> A;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://files.catbox.moe/mk4esv.png"></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> AGE<span class="operator">=</span><span class="number">20</span><span class="operator">||</span>AGE<span class="operator">=</span><span class="number">30</span> <span class="keyword">FROM</span> A;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://files.catbox.moe/08jsqe.png"></p>
+<h3 id="位运算符"><a href="#位运算符" class="headerlink" title="位运算符"></a>位运算符</h3><p>位运算符参与运算的操作数按二进制位进行运算，包括位与（&amp;）、位或（|）、位非（~）、位异或（^）、左移（&lt;&lt;）、右移（&gt;&gt;）6种。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> AGE<span class="operator">^</span><span class="number">5</span> <span class="keyword">FROM</span> A;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://files.catbox.moe/2lqxwi.png"></p>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Fei
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://airui520.github.io/2022/09/08/MySQL%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="MySQL数据类型;">https://airui520.github.io/2022/09/08/MySQL数据类型/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/09/07/%E9%9D%A2%E8%AF%95%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AF%87/" rel="prev" title="面试虚拟机篇;">
+                  <i class="fa fa-chevron-left"></i> 面试虚拟机篇;
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2001 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fei</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">901k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">13:40</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=your_add_this_id" async="async"></script>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+<script class="next-config" data-name="chatra" type="application/json">{"enable":true,"async":true,"id":null}</script>
+<script src="/js/third-party/chat/chatra.js"></script>
+<script async src="https://call.chatra.io/chatra.js"></script>
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
