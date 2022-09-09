@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.2.0">
+
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="manifest" href="/manifest.json">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic%7CLobster+Two:300,300italic,400,400italic,700,700italic%7CAmita:300,300italic,400,400italic,700,700italic%7CMontserrat:300,300italic,400,400italic,700,700italic%7CPT+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"airui520.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":"true`","version":"8.12.1","exturl":false,"sidebar":{"position":"left","width":300,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta property="og:type" content="blog">
+<meta property="og:title" content="Sql代码练习">
+<meta property="og:url" content="https://airui520.github.io/2022/09/09/Sql%E4%BB%A3%E7%A0%81%E7%BB%83%E4%B9%A0/index.html">
+<meta property="og:site_name" content="Fei的博客">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://files.catbox.moe/vakrmb.png">
+<meta property="article:published_time" content="2022-09-09T07:01:04.000Z">
+<meta property="article:modified_time" content="2022-09-09T07:03:02.271Z">
+<meta property="article:author" content="Fei">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://files.catbox.moe/vakrmb.png">
+
+
+<link rel="canonical" href="https://airui520.github.io/2022/09/09/Sql%E4%BB%A3%E7%A0%81%E7%BB%83%E4%B9%A0/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://airui520.github.io/2022/09/09/Sql%E4%BB%A3%E7%A0%81%E7%BB%83%E4%B9%A0/","path":"2022/09/09/Sql代码练习/","title":"Sql代码练习"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Sql代码练习 | Fei的博客</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXXX-X"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-XXXXXXXX-X","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Fei的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <img class="custom-logo-image" src="/images/bg.jpg" alt="Fei的博客">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">54</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SQL%E9%A2%98%E4%B8%80"><span class="nav-number">1.</span> <span class="nav-text">SQL题一</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SQL%E9%A2%98%E4%BA%8C"><span class="nav-number">2.</span> <span class="nav-text">SQL题二</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Fei"
+      src="/images/head.jpg">
+  <p class="site-author-name" itemprop="name">Fei</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">54</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/AiRui520" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;AiRui520" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:2813764348@qq.com" title="E-Mail → mailto:2813764348@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://xiguayaaaaa.github.io/" title="https:&#x2F;&#x2F;xiguayaaaaa.github.io" rel="noopener" target="_blank">xigua</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://simon-yian.com/" title="https:&#x2F;&#x2F;simon-yian.com" rel="noopener" target="_blank">banana</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/AiRui520" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://airui520.github.io/2022/09/09/Sql%E4%BB%A3%E7%A0%81%E7%BB%83%E4%B9%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.jpg">
+      <meta itemprop="name" content="Fei">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Fei的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Sql代码练习 | Fei的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Sql代码练习<a href="https://github.com/AiRui520/next/edit/main/subdirectory-name/_posts/Sql%E4%BB%A3%E7%A0%81%E7%BB%83%E4%B9%A0.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-09-09 15:01:04 / 修改时间：15:03:02" itemprop="dateCreated datePublished" datetime="2022-09-09T15:01:04+08:00">2022-09-09</time>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>8.6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>8 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><img src="https://files.catbox.moe/vakrmb.png"></p>
+<span id="more"></span>
+
+<h1 id="SQL题一"><a href="#SQL题一" class="headerlink" title="SQL题一"></a>SQL题一</h1><h5 id="表字段"><a href="#表字段" class="headerlink" title="表字段"></a>表字段</h5><ol>
+<li><p>学生表<br>Student(SId,Sname,Sage,Ssex)</p>
+<p>SId 学生编号,<br>Sname 学生姓名,<br>Sage 出生年月,<br>Ssex 学生性别</p>
+</li>
+<li><p>课程表<br>Course(CId,Cname,TId)</p>
+<p>CId 课程编号,</p>
+<p>Cname 课程名称,</p>
+</li>
+<li><p>教师表<br>Teacher(TId,Tname)</p>
+<p>TId 教师编号,<br>Tname 教师姓名</p>
+</li>
+<li><p>成绩表<br>SC(SId,CId,score)</p>
+<p>SId 学生编号,CId 课程编号,<br>score 分数</p>
+</li>
+</ol>
+<h5 id="初始化数据"><a href="#初始化数据" class="headerlink" title="初始化数据"></a>初始化数据</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">create table Student(SId varchar2(10),Sname varchar2(10),Sage date,Ssex varchar2(10));</span><br><span class="line">insert into Student values(&#x27;01&#x27; , &#x27;赵雷&#x27; , to_date(&#x27;1990-01-01&#x27;,&#x27;YYYY-MM-DD&#x27;) , &#x27;男&#x27;);</span><br><span class="line">insert into Student values(&#x27;02&#x27; , &#x27;钱电&#x27; , to_date(&#x27;1990-12-21&#x27;,&#x27;YYYY-MM-DD&#x27;) , &#x27;男&#x27;);</span><br><span class="line">insert into Student values(&#x27;03&#x27; , &#x27;孙风&#x27; , to_date(&#x27;1990-12-20&#x27;,&#x27;YYYY-MM-DD&#x27;) , &#x27;男&#x27;);</span><br><span class="line">insert into Student values(&#x27;04&#x27; , &#x27;李云&#x27; , to_date(&#x27;1990-12-06&#x27;,&#x27;YYYY-MM-DD&#x27;) , &#x27;男&#x27;);</span><br><span class="line">insert into Student values(&#x27;05&#x27; , &#x27;周梅&#x27; , to_date(&#x27;1991-12-01&#x27;,&#x27;YYYY-MM-DD&#x27;) , &#x27;女&#x27;);</span><br><span class="line">insert into Student values(&#x27;06&#x27; , &#x27;吴兰&#x27; , to_date(&#x27;1992-01-01&#x27;,&#x27;YYYY-MM-DD&#x27;) , &#x27;女&#x27;);</span><br><span class="line">insert into Student values(&#x27;07&#x27; , &#x27;郑竹&#x27; , to_date(&#x27;1989-01-01&#x27;,&#x27;YYYY-MM-DD&#x27;) , &#x27;女&#x27;);</span><br><span class="line">insert into Student values(&#x27;09&#x27; , &#x27;张三&#x27; , to_date(&#x27;2017-12-20&#x27;,&#x27;YYYY-MM-DD&#x27;) , &#x27;女&#x27;);</span><br><span class="line">insert into Student values(&#x27;10&#x27; , &#x27;李四&#x27; , to_date(&#x27;2017-12-25&#x27;,&#x27;YYYY-MM-DD&#x27;) , &#x27;女&#x27;);</span><br><span class="line">insert into Student values(&#x27;11&#x27; , &#x27;李四&#x27; , to_date(&#x27;2012-06-06&#x27;,&#x27;YYYY-MM-DD&#x27;) , &#x27;女&#x27;);</span><br><span class="line">insert into Student values(&#x27;12&#x27; , &#x27;赵六&#x27; , to_date(&#x27;2013-06-13&#x27;,&#x27;YYYY-MM-DD&#x27;) , &#x27;女&#x27;);</span><br><span class="line">insert into Student values(&#x27;13&#x27; , &#x27;孙七&#x27; , to_date(&#x27;2014-06-01&#x27;,&#x27;YYYY-MM-DD&#x27;) , &#x27;女&#x27;);</span><br><span class="line"></span><br><span class="line">create table Course(CId varchar2(10),Cname varchar2(10),TId varchar2(10));</span><br><span class="line">insert into Course values(&#x27;01&#x27; , &#x27;语文&#x27; , &#x27;02&#x27;);</span><br><span class="line">insert into Course values(&#x27;02&#x27; , &#x27;数学&#x27; , &#x27;01&#x27;);</span><br><span class="line">insert into Course values(&#x27;03&#x27; , &#x27;英语&#x27; , &#x27;03&#x27;);</span><br><span class="line"></span><br><span class="line">create table Teacher(TId varchar2(10),Tname varchar2(10));</span><br><span class="line">insert into Teacher values(&#x27;01&#x27; , &#x27;张三&#x27;);</span><br><span class="line">insert into Teacher values(&#x27;02&#x27; , &#x27;李四&#x27;);</span><br><span class="line">insert into Teacher values(&#x27;03&#x27; , &#x27;王五&#x27;);</span><br><span class="line"></span><br><span class="line">create table SC(SId varchar2(10),CId varchar2(10),score NUMBER(18,1));</span><br><span class="line">insert into SC values(&#x27;01&#x27; , &#x27;01&#x27; , 80);</span><br><span class="line">insert into SC values(&#x27;01&#x27; , &#x27;02&#x27; , 90);</span><br><span class="line">insert into SC values(&#x27;01&#x27; , &#x27;03&#x27; , 99);</span><br><span class="line">insert into SC values(&#x27;02&#x27; , &#x27;01&#x27; , 70);</span><br><span class="line">insert into SC values(&#x27;02&#x27; , &#x27;02&#x27; , 60);</span><br><span class="line">insert into SC values(&#x27;02&#x27; , &#x27;03&#x27; , 80);</span><br><span class="line">insert into SC values(&#x27;03&#x27; , &#x27;01&#x27; , 80);</span><br><span class="line">insert into SC values(&#x27;03&#x27; , &#x27;02&#x27; , 80);</span><br><span class="line">insert into SC values(&#x27;03&#x27; , &#x27;03&#x27; , 80);</span><br><span class="line">insert into SC values(&#x27;04&#x27; , &#x27;01&#x27; , 50);</span><br><span class="line">insert into SC values(&#x27;04&#x27; , &#x27;02&#x27; , 30);</span><br><span class="line">insert into SC values(&#x27;04&#x27; , &#x27;03&#x27; , 20);</span><br><span class="line">insert into SC values(&#x27;05&#x27; , &#x27;01&#x27; , 76);</span><br><span class="line">insert into SC values(&#x27;05&#x27; , &#x27;02&#x27; , 87);</span><br><span class="line">insert into SC values(&#x27;06&#x27; , &#x27;01&#x27; , 31);</span><br><span class="line">insert into SC values(&#x27;06&#x27; , &#x27;03&#x27; , 34);</span><br><span class="line">insert into SC values(&#x27;07&#x27; , &#x27;02&#x27; , 89);</span><br><span class="line">insert into SC values(&#x27;07&#x27; , &#x27;03&#x27; , 98);</span><br></pre></td></tr></table></figure>
+
+<h5 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">--1查询&quot; 01 &quot;课程比&quot; 02 &quot;课程成绩高的学生的信息及课程分数</span><br><span class="line">--2.查询同时存在&quot; 01 &quot;课程和&quot; 02 &quot;课程的情况</span><br><span class="line">--3.查询存在&quot; 01 &quot;课程但可能不存在&quot; 02 &quot;课程的情况(不存在时显示为 </span><br><span class="line">--4.查询不存在&quot; 01 &quot;课程但存在&quot; 02 &quot;课程的情况(考了02但是没考01)</span><br><span class="line">--5.查询平均成绩大于等于 60 分的同学的学生编号和学生姓名和平均成绩</span><br><span class="line">--6.查询在 SC 表存在成绩的学生信息</span><br><span class="line">--7.查询所有同学的学生编号、学生姓名、选课总数、所有课程的总成绩(没成绩的显示为 null )</span><br><span class="line">--8.查有成绩的学生信息</span><br><span class="line">--9.查询「李」姓老师的数量</span><br><span class="line">--10.查询学过「张三」老师授课的同学的信息</span><br><span class="line">	--1.TEACHER表中查询出张三老师的TID    </span><br><span class="line">	--2.COURSE表中根据1中的TID查询出张老师的CID</span><br><span class="line">	--3.SC表中查询出有CID = 2的同学SID</span><br><span class="line">	--4.STUDENT表中查询学生信息</span><br><span class="line">--11.查询没有学全所有课程的同学的信息</span><br><span class="line">	--1.获取所有的课程数量</span><br><span class="line">	--2.根据SID分组，并统计每个学生学习的课程数</span><br><span class="line">	--3.分组后筛选，课程数小于总课程数的同学</span><br><span class="line">--12.查询至少有一门课与学号为&quot; 01 &quot;的同学所学相同的同学的信息</span><br><span class="line">	--1.先查询出01同学学了的课</span><br><span class="line">	--2.找出和01同学学相同课的同学</span><br><span class="line">--13.查询和&quot; 01 &quot;号的同学学习的课程完全相同的其他同学的信息</span><br><span class="line">    --1.查询01同学的所有的课程</span><br><span class="line">    --2.查询课程和01同学所有课程都一样的同学SID</span><br><span class="line">    --3.查询学生信息</span><br><span class="line">--13.查询和&quot; 05 &quot;号的同学学习的课程完全相同的其他同学的信息</span><br><span class="line">    --1查学生5的所学科目</span><br><span class="line">    --2查找和5所学科目不相等的SID</span><br><span class="line">    --3在2的基础上not in排除和5不是相同科目的学生</span><br><span class="line">--14.查询没学过&quot;张三&quot;老师讲授的任一门课程的学生姓名</span><br><span class="line">--15.查询两门及其以上不及格课程的同学的学号，姓名及其平均成绩</span><br><span class="line">--15.查询出同学所有成绩的平均值，然后筛选出有两门及以上不及格</span><br><span class="line">--16.检索&quot; 01 &quot;课程分数小于 60，按分数降序排列的学生信息</span><br><span class="line">--17.按平均成绩从高到低显示所有学生的所有课程的成绩以及平均成绩</span><br><span class="line">--18.查询各科成绩最高分、最低分和平均分</span><br><span class="line">--如下形式显示：课程 ID，课程 name，最高分，最低分，平均分，及格率，中等率，优良率</span><br><span class="line">--优秀率及格为&gt;=60，</span><br><span class="line">--中等为：70-80，</span><br><span class="line">--优良为：80-90，</span><br><span class="line">--优秀为：&gt;=90</span><br><span class="line">--要求输出课程号和选修人数，查询结果按人数降序排列，若人数相同，按课程号升序排列</span><br><span class="line"></span><br><span class="line">--及格率</span><br><span class="line"></span><br><span class="line">--中等率</span><br><span class="line"></span><br><span class="line">--优良率</span><br><span class="line"></span><br><span class="line">--优秀率</span><br><span class="line"></span><br><span class="line">--19.按各科成绩进行排序，并显示排名， Score 重复时保留名次空缺</span><br><span class="line">--语文成绩排序</span><br><span class="line"></span><br><span class="line">--数学</span><br><span class="line"></span><br><span class="line">--英语</span><br><span class="line"> </span><br><span class="line">--20.按各科成绩进行排序，并显示排名， Score 重复时合并名次</span><br><span class="line">--21.查询学生的总成绩，并进行排名，总分重复时保留名次空缺</span><br><span class="line">--22.查询学生的总成绩，并进行排名，总分重复时不保留名次空缺</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">--缓冲区</span><br><span class="line">SELECT MAX(SCORE),MIN(SCORE),AVG(SCORE) FROM SC GROUP BY CID;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>统计各科成绩各分数段人数：课程编号，课程名称，[100-85]，[85-70]，[70-60]，[60-0] 及所占百分比<ol>
+<li>查询各科成绩前三名的记录<br>.	查询每门课程被选修的学生数<br>.	查询出只选修两门课程的学生学号和姓名<br>.	查询男生、女生人数<br>.	查询名字中含有「风」字的学生信息<br>.	查询同名同性学生名单，并统计同名人数<br>.	查询 1990 年出生的学生名单<br>.	查询每门课程的平均成绩，结果按平均成绩降序排列，平均成绩相同时，按课程编号升序排列<br>.	查询平均成绩大于等于 85 的所有学生的学号、姓名和平均成绩<br>.	查询课程名称为「数学」，且分数低于 60 的学生姓名和分数<br>.	查询所有学生的课程及分数情况（存在学生没成绩，没选课的情况）<br>.	查询任何一门课程成绩在 70 分以上的姓名、课程名称和分数<br>.	查询不及格的课程<br>.	查询课程编号为 01 且课程成绩在 80 分以上的学生的学号和姓名<br>.	求每门课程的学生人数<br>.	成绩不重复，查询选修「张三」老师所授课程的学生中，成绩最高的学生信息及其成绩<br>.	成绩有重复的情况下，查询选修「张三」老师所授课程的学生中，成绩最高的学生信息及其成绩<br>.	查询不同课程成绩相同的学生的学生编号、课程编号、学生成绩<br>.	查询每门功成绩最好的前两名<br>.	统计每门课程的学生选修人数（超过 5 人的课程才统计）。<br>.	检索至少选修两门课程的学生学号<br>.	查询选修了全部课程的学生信息<br>.	查询各学生的年龄，只按年份来算<br>.	按照出生日期来算，当前月日 &lt; 出生年月的月日则，年龄减一<br>.	查询本周过生日的学生<br>.	查询下周过生日的学生<br>.	查询本月过生日的学生<br>.	查询下月过生日的学生</li>
+</ol>
+</li>
+</ol>
+<h1 id="SQL题二"><a href="#SQL题二" class="headerlink" title="SQL题二"></a>SQL题二</h1><h5 id="初始化数据-1"><a href="#初始化数据-1" class="headerlink" title="初始化数据"></a>初始化数据</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">--班级表</span><br><span class="line">--classid 班级id</span><br><span class="line">--classname 班级名称</span><br><span class="line">create table class          </span><br><span class="line">(</span><br><span class="line">	classid number(5),</span><br><span class="line">	classname varchar2(20)</span><br><span class="line">)</span><br><span class="line">insert into class values(1,&#x27;G1T01&#x27;);</span><br><span class="line">insert into class values(2,&#x27;G1T02&#x27;);</span><br><span class="line">insert into class values(3,&#x27;G1T03&#x27;);</span><br><span class="line">insert into class values(4,&#x27;G1T04&#x27;);</span><br><span class="line">insert into class values(5,&#x27;G1T05&#x27;);</span><br><span class="line">insert into class values(6,&#x27;G1T06&#x27;);</span><br><span class="line">insert into class values(7,&#x27;G1T07&#x27;);</span><br><span class="line">--学生表</span><br><span class="line">--studentid 学生ID</span><br><span class="line">--studentname 学生姓名</span><br><span class="line">--studentage 学生年龄</span><br><span class="line">--studentsex 学生性别</span><br><span class="line">--studentaddress 学生地址</span><br><span class="line">--classid 学生id</span><br><span class="line">create table student</span><br><span class="line">(</span><br><span class="line">	studentid varchar2(20) ,</span><br><span class="line">	studentname varchar2(20),</span><br><span class="line">	studentage number(5),</span><br><span class="line">	studentsex char(10),</span><br><span class="line">	studentaddress varchar2(50),</span><br><span class="line">	classid number(5)</span><br><span class="line">)</span><br><span class="line">insert into student values(&#x27;2010001&#x27;,&#x27;Jack&#x27;,21,&#x27;男&#x27;,&#x27;湖北襄樊&#x27;,1);  </span><br><span class="line">insert into student values(&#x27;2010002&#x27;,&#x27;Scott&#x27;,22,&#x27;男&#x27;,&#x27;湖北武汉&#x27;,2);  </span><br><span class="line">insert into student values(&#x27;2010003&#x27;,&#x27;Lucy&#x27;,23,&#x27;女&#x27;,&#x27;湖北武汉&#x27;,3);   </span><br><span class="line">insert into student values(&#x27;2010004&#x27;,&#x27;Alan&#x27;,19,&#x27;女&#x27;,&#x27;湖北襄樊&#x27;,4);   </span><br><span class="line">insert into student values(&#x27;2010005&#x27;,&#x27;Bill&#x27;,20,&#x27;男&#x27;,&#x27;湖北襄樊&#x27;,5);   </span><br><span class="line">insert into student values(&#x27;2010006&#x27;,&#x27;Bob&#x27;,21,&#x27;男&#x27;,&#x27;湖北宜昌&#x27;,6);    </span><br><span class="line">insert into student values(&#x27;2010007&#x27;,&#x27;Colin&#x27;,22,&#x27;女&#x27;,&#x27;湖北襄樊&#x27;,6);</span><br><span class="line">insert into student values(&#x27;2010008&#x27;,&#x27;Fred&#x27;,19,&#x27;男&#x27;,&#x27;湖北宜昌&#x27;,5);</span><br><span class="line">insert into student values(&#x27;2010009&#x27;,&#x27;Hunk&#x27;,19,&#x27;男&#x27;,&#x27;湖北武汉&#x27;,4);</span><br><span class="line">insert into student values(&#x27;2010010&#x27;,&#x27;Jim&#x27;,18,&#x27;男&#x27;,&#x27;湖北襄樊&#x27;,3);</span><br><span class="line">--计算机课成绩</span><br><span class="line">--studentid 学生id</span><br><span class="line">--score 学生成绩</span><br><span class="line">create table computer</span><br><span class="line">(</span><br><span class="line">	studentid varchar2(20),</span><br><span class="line">	score number(3,1)</span><br><span class="line">)</span><br><span class="line">insert into computer values(&#x27;2010001&#x27;,90);</span><br><span class="line">insert into computer values(&#x27;2010002&#x27;,80);</span><br><span class="line">insert into computer values(&#x27;2010003&#x27;,70);</span><br><span class="line">insert into computer values(&#x27;2010004&#x27;,60);</span><br><span class="line">insert into computer values(&#x27;2010005&#x27;,75);</span><br><span class="line">insert into computer values(&#x27;2010006&#x27;,85);</span><br><span class="line">insert into computer values(&#x27;2010007&#x27;,70);</span><br><span class="line">insert into computer values(&#x27;2010008&#x27;,60);</span><br><span class="line">insert into computer values(&#x27;2010009&#x27;,75);</span><br><span class="line">insert into computer values(&#x27;2010010&#x27;,85);</span><br><span class="line"></span><br><span class="line">select * from class;</span><br><span class="line">select * from computer;</span><br><span class="line">select * from student;</span><br></pre></td></tr></table></figure>
+
+<p>题目</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">--1查询出学生的编号，姓名，计算机成绩</span><br><span class="line"></span><br><span class="line">--2查询参加过考试的学生信息</span><br><span class="line"></span><br><span class="line">--3查询出学生的编号、姓名、所在班级名称、计算机成绩</span><br><span class="line"></span><br><span class="line">--4查询出年龄大于19岁的学生编号、姓名、计算机成绩</span><br><span class="line"></span><br><span class="line">--5查询出姓名中包含有c的学生编号、姓名、计算机成绩</span><br><span class="line"></span><br><span class="line">--6查询出计算机成绩大于80分的学生编号、姓名、班级名称</span><br><span class="line"></span><br><span class="line">--7查询出所有学生的信息和计算机成绩信息</span><br><span class="line"></span><br><span class="line">--8查询出每个班的学生的计算机成绩的平均分，最高分，最低分</span><br><span class="line"></span><br><span class="line">--9查询显示出班级的计算机平均分大于80的班级名称、平均分信息，并按照平均分降序显示</span><br><span class="line"></span><br><span class="line">--10查询出和Jim住在同一个地方的学生的基本信息</span><br><span class="line"></span><br><span class="line">--11查询出班级编号大于3的学生基本信息</span><br><span class="line"></span><br><span class="line">--12查询出班级编号大于3的学生的计算机平均分信息  </span><br><span class="line"></span><br><span class="line">--13查询出班级编号大于3的男生的学生信息</span><br><span class="line"></span><br><span class="line">--14查询男、女生的计算机平均成绩、最高分、最低分</span><br><span class="line"></span><br><span class="line">--15将参加过考试的学生的年龄更改为20</span><br><span class="line"></span><br><span class="line">--16查询出每个班级的学生的平均分（查询的结果中包含平均分和班级名称）</span><br><span class="line"></span><br><span class="line">--17删除姓名包含“c”字符的学生计算机成绩</span><br><span class="line"></span><br><span class="line">--18查询出G1T07班学生的编号、姓名、班级名称、计算机成绩</span><br><span class="line"></span><br><span class="line">--19查询出年龄在20-25之间的学生的编号、姓名、年龄、计算机成绩</span><br><span class="line"></span><br><span class="line">--20查询出成绩最高的学生的编号、姓名、计算机成绩、所在班级名称</span><br><span class="line">--先查询最大值</span><br><span class="line">--再查询最大值的学生ID</span><br><span class="line"></span><br><span class="line">--21查询统计出每个班的平均分、显示平均分超过70分的信息、并按照降序显示信息</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Fei
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://airui520.github.io/2022/09/09/Sql%E4%BB%A3%E7%A0%81%E7%BB%83%E4%B9%A0/" title="Sql代码练习">https://airui520.github.io/2022/09/09/Sql代码练习/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/09/09/MySQL%E5%87%BD%E6%95%B0/" rel="prev" title="MySQL函数">
+                  <i class="fa fa-chevron-left"></i> MySQL函数
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2001 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fei</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">943k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">14:17</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=your_add_this_id" async="async"></script>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+<script class="next-config" data-name="chatra" type="application/json">{"enable":true,"async":true,"id":null}</script>
+<script src="/js/third-party/chat/chatra.js"></script>
+<script async src="https://call.chatra.io/chatra.js"></script>
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

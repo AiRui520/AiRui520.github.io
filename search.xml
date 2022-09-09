@@ -13479,7 +13479,7 @@
 ]]></content>
   </entry>
   <entry>
-    <title>MySQL卸载与安装;</title>
+    <title>MySQL卸载与安装</title>
     <url>/2022/09/06/MySQL%E5%8D%B8%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85/</url>
     <content><![CDATA[<p><img src="https://files.catbox.moe/vakrmb.png"></p>
 <span id="more"></span>
@@ -13546,7 +13546,7 @@
 ]]></content>
   </entry>
   <entry>
-    <title>MySQL基础操作;</title>
+    <title>MySQL基础操作</title>
     <url>/2022/09/07/MySQL%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/</url>
     <content><![CDATA[<p><img src="https://files.catbox.moe/vakrmb.png"></p>
 <span id="more"></span>
@@ -14108,7 +14108,7 @@
 ]]></content>
   </entry>
   <entry>
-    <title>面试并发篇;</title>
+    <title>面试并发篇</title>
     <url>/2022/09/07/%E9%9D%A2%E8%AF%95%E5%B9%B6%E5%8F%91%E7%AF%87/</url>
     <content><![CDATA[<p><img src="https://files.catbox.moe/vakrmb.png"></p>
 <span id="more"></span>
@@ -15346,7 +15346,7 @@
 ]]></content>
   </entry>
   <entry>
-    <title>面试虚拟机篇;</title>
+    <title>面试虚拟机篇</title>
     <url>/2022/09/07/%E9%9D%A2%E8%AF%95%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AF%87/</url>
     <content><![CDATA[<p><img src="https://files.catbox.moe/vakrmb.png"></p>
 <span id="more"></span>
@@ -16281,7 +16281,7 @@
 ]]></content>
   </entry>
   <entry>
-    <title>MySQL数据类型;</title>
+    <title>MySQL数据类型</title>
     <url>/2022/09/08/MySQL%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</url>
     <content><![CDATA[<p><img src="https://files.catbox.moe/vakrmb.png"></p>
 <span id="more"></span>
@@ -16602,7 +16602,7 @@
 ]]></content>
   </entry>
   <entry>
-    <title>JDBC连接数据库;</title>
+    <title>JDBC连接数据库</title>
     <url>/2022/09/08/JDBC%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93/</url>
     <content><![CDATA[<p><img src="https://files.catbox.moe/vakrmb.png"></p>
 <span id="more"></span>
@@ -16784,7 +16784,7 @@
 ]]></content>
   </entry>
   <entry>
-    <title>MySQL查询数据;</title>
+    <title>MySQL查询数据</title>
     <url>/2022/09/08/MySQL%E6%9F%A5%E8%AF%A2%E6%95%B0%E6%8D%AE/</url>
     <content><![CDATA[<p><img src="https://files.catbox.moe/vakrmb.png"></p>
 <span id="more"></span>
@@ -17024,6 +17024,201 @@
 <li>ORDER BY</li>
 <li>LIMIT</li>
 </ol>
+]]></content>
+  </entry>
+  <entry>
+    <title>MySQL函数</title>
+    <url>/2022/09/09/MySQL%E5%87%BD%E6%95%B0/</url>
+    <content><![CDATA[<p><img src="https://files.catbox.moe/vakrmb.png"></p>
+<span id="more"></span>
+
+<h1 id="MySQL函数"><a href="#MySQL函数" class="headerlink" title="MySQL函数"></a>MySQL函数</h1><p>MySQL为我们提供了丰富的函数，所谓函数是对输入值返回一个特定运算结果的值，在数据管理和数据操作过程中不同场景下通常要使用不同的函数，例如：计算一个班级的平均成绩，统计电商平台的总金额等等，通过使用这些函数使得数据库的功能变的更加强大，MySQL提供了不同功能的函数，大致有以下几类：数学函数、字符串函数、日期时间函数、条件判断函数、系统信息函数、加密函数等其他函数。</p>
+<h2 id="数学函数"><a href="#数学函数" class="headerlink" title="数学函数"></a>数学函数</h2><p>在本小节我们将学习数学函数。</p>
+<h3 id="获取绝对值"><a href="#获取绝对值" class="headerlink" title="获取绝对值"></a>获取绝对值</h3><p>ABS(X):返回X的绝对值<br>SELECT ABS(-3.14);</p>
+<p>运行SQL语句后我们可以发现结果输出了3.14，获取了-3.14的绝对值。</p>
+<p>我们也可以在数据表中的字段上使用此函数。我们创建表测试该函数。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">#创建表并添加测试数据</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> TEMP1(ID <span class="type">INT</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> TEMP1 (ID) <span class="keyword">VALUES</span> (<span class="number">10</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> TEMP2 (ID) <span class="keyword">VALUES</span> (<span class="number">-20</span>);</span><br><span class="line">#测试ABS函数</span><br><span class="line"><span class="keyword">SELECT</span> <span class="built_in">ABS</span>(ID) <span class="keyword">FROM</span> TEMP1;</span><br></pre></td></tr></table></figure>
+
+<h3 id="三角函数和获取圆周率"><a href="#三角函数和获取圆周率" class="headerlink" title="三角函数和获取圆周率"></a>三角函数和获取圆周率</h3><p>PI():返回圆周率</p>
+<p>SIN(X):返回X的正弦值，其中X为弧度制</p>
+<p>COS(X):返回X的余弦值，其中X为弧度制</p>
+<p>TAN(X):返回X的正切，其中X为弧度制</p>
+<p>COT(X):返回X的余切，其中X为弧度制</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> PI(),<span class="built_in">SIN</span>(PI()),<span class="built_in">COS</span>(PI()),<span class="built_in">TAN</span>(PI()),COT(PI());</span><br></pre></td></tr></table></figure>
+
+<h3 id="平方根函数和求余函数"><a href="#平方根函数和求余函数" class="headerlink" title="平方根函数和求余函数"></a>平方根函数和求余函数</h3><p>SQRT(X):返回非负数X的二次方根，如果X为负数则会返回NULL</p>
+<p>MOD(X,Y):返回X被Y除后的余数，MOD()对于带小数部分的数值也起作用，返回除法运算后的余数</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">SQRT</span>(<span class="number">4</span>),<span class="built_in">SQRT</span>(<span class="number">-4</span>),<span class="built_in">MOD</span>(<span class="number">5</span>,<span class="number">3</span>),<span class="built_in">MOD</span>(<span class="number">5.3</span>,<span class="number">3</span>);</span><br></pre></td></tr></table></figure>
+
+<h4 id=""><a href="#" class="headerlink" title=""></a><img src="https://cdn.nlark.com/yuque/0/2021/png/2745416/1617605648301-48dbc0b9-288d-478e-af84-ccb479df09c1.png" alt="img"></h4><h3 id="向上取整和向下取整"><a href="#向上取整和向下取整" class="headerlink" title="向上取整和向下取整"></a>向上取整和向下取整</h3><p>CEIL(X):返回不小于X(或者说大于X)的最小整数值，即向上取整</p>
+<p>CEILING(X):作用同上</p>
+<p>FLOOR(X):返回不大于X(或者说小于)的最大整数值，即向下取整</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">CEIL</span>(<span class="number">3.14</span>),<span class="built_in">CEIL</span>(<span class="number">-3.14</span>),<span class="built_in">FLOOR</span>(<span class="number">3.14</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="获取随机数"><a href="#获取随机数" class="headerlink" title="获取随机数"></a>获取随机数</h3><p>RAND(x)返回一个随机浮点值v，范围在0到1之间（0 ≤ v ≤ 1.0）。若已指定一个整数参数x，则它被用作种子值，用来产生重复序列。</p>
+<p>使用RAND()获取随机数时，可以发现每次获得的随机数都不相同</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> rand(),rand(),rand();</span><br></pre></td></tr></table></figure>
+
+<p>下面我们使用RAND(x)来获取随机数，从结果可以发现当参数相同时，产生的随机数是相同的。不同的参数产生的随机数不同。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> rand(<span class="number">10</span>),rand(<span class="number">10</span>),rand(<span class="number">10</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="近似值函数"><a href="#近似值函数" class="headerlink" title="近似值函数"></a>近似值函数</h3><p>ROUND(x)返回最接近于参数x的整数，对x值进行四舍五入。<br>使用ROUND(x)对浮点数进行四舍五入取整</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ROUND(<span class="number">-3.14</span>),ROUND(<span class="number">2.56</span>),ROUND(<span class="number">1.14</span>);</span><br></pre></td></tr></table></figure>
+
+<p>从结果可以看出，四舍五入处理后，只保留了各个值的整数部分。<br>ROUND(x,y)返回最接近于参数x的数，其值保留到小数点后面y位，若y为负值，则将保留x值到小数点左边y位，并且会四舍五入。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ROUND(<span class="number">1.28</span>,<span class="number">1</span>),ROUND(<span class="number">1.38</span>,<span class="number">0</span>),ROUND(<span class="number">223.3</span>,<span class="number">-1</span>),ROUND(<span class="number">-1118.56</span>,<span class="number">-2</span>);</span><br></pre></td></tr></table></figure>
+
+<p>TRUNCATE(x,y)返回被舍去至小数点后y位的数字x。若y的值为0，则结果不带有小数点或不带有小数部分。若y设为负数，则截去（归零）x小数点左起第y位开始后面所有低位的值。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">TRUNCATE</span>(<span class="number">1.31</span>,<span class="number">1</span>),<span class="keyword">TRUNCATE</span>(<span class="number">1.99</span>,<span class="number">1</span>),<span class="keyword">TRUNCATE</span>(<span class="number">1.99</span>,<span class="number">0</span>),<span class="keyword">TRUNCATE</span>(<span class="number">19.99</span>,<span class="number">-1</span>);</span><br></pre></td></tr></table></figure>
+
+<p>TRUNCATE(1.31,1)和TRUNCATE(1.99,1)都保留小数点后1位数字，返回值分别为1.3和1.9；TRUNCATE(1.99,0)返回整数部分值1；TRUNCATE(19.99,-1)截去小数点左边第1位后面的值，并将整数部分的1位数字置0，结果为10。<br>需要注意的是：y为负数时，保留小数点左边相应位数直接保存为0，不会四舍五入。</p>
+<h3 id="幂运算函数"><a href="#幂运算函数" class="headerlink" title="幂运算函数"></a>幂运算函数</h3><p>POW(x,y)或者POWER(x,y)函数返回x的y次乘方的结果值。<br>SELECT POW(2,5);</p>
+<h3 id="弧度函数与角度函数"><a href="#弧度函数与角度函数" class="headerlink" title="弧度函数与角度函数"></a>弧度函数与角度函数</h3><p>RADIANS(x)将参数x由角度转化为弧度。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> RADIANS(<span class="number">90</span>);</span><br></pre></td></tr></table></figure>
+
+<p>DEGREES(x)将参数x由弧度转化为角度。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> DEGREES(<span class="number">3.14</span>);<span class="number">3.141592653589793238462643</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="字符串函数"><a href="#字符串函数" class="headerlink" title="字符串函数"></a>字符串函数</h2><p>字符串函数主要用来处理数据库中的字符串数据。MySQL中的字符串函数有计算字符串长度函数、字符串合并函数、字符串替换函数、字符串比较函数、查找指定字符串位置函数等。本节将介绍各种字符串函数的功能和用法。</p>
+<h3 id="获取字符串字符数"><a href="#获取字符串字符数" class="headerlink" title="获取字符串字符数"></a>获取字符串字符数</h3><p>CHAR_LENGTH(str)返回值为字符串str所包含的字符个数。一个多字节字符算作一个单字符。LENGTH(str)返回值为字符串的字节长度，使用utf8（UNICODE的一种变长字符编码，又称万国码）编码字符集时，一个汉字是2字节，一个数字或字母算1字节。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">CHAR_LENGTH</span>(<span class="string">&#x27;张&#x27;</span>),<span class="keyword">CHAR_LENGTH</span>(<span class="string">&#x27;DATE&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="拼接字符串"><a href="#拼接字符串" class="headerlink" title="拼接字符串"></a>拼接字符串</h3><p>CONCAT(s1,s2,…)返回结果为连接参数产生的字符串，或许有一个或多个参数。如有任何一个参数为NULL，则返回值为NULL。如果所有参数均为非二进制字符串，则结果为非二进制字符串。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> CONCAT(<span class="string">&#x27;Hello&#x27;</span>,<span class="string">&#x27;World&#x27;</span>),CONCAT(<span class="string">&#x27;MY&#x27;</span>,<span class="keyword">NULL</span>,<span class="string">&#x27;SQL&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>在CONCAT_WS(x,s1,s2,…)中，CONCAT_WS代表CONCAT With Separator，是CONCAT()的特殊形式。第一个参数x是其他参数的分隔符，分隔符的位置放在要连接的两个字符串之间。分隔符可以是一个字符串，也可以是其他参数。如果分隔符为NULL，则结果为NULL。函数会忽略任何分隔符参数后的NULL值。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> CONCAT_WS(&quot;-&quot;,&quot;HELLO&quot;,&quot;WORLD&quot;),CONCAT_WS(<span class="keyword">NULL</span>,&quot;HELLO&quot;,&quot;WORLD&quot;),CONCAT_WS(&quot;,&quot;,&quot;HELLO&quot;,<span class="keyword">NULL</span>,&quot;WORLD&quot;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="大小写字母转换"><a href="#大小写字母转换" class="headerlink" title="大小写字母转换"></a>大小写字母转换</h3><p>LOWER (str)或者LCASE (str)可以将字符串str中的字母字符全部转换成小写字母。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">LOWER</span>(<span class="string">&#x27;HELLO&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>使用UPPER函数或者UCASE函数将字符串中所有字母字符转换为大写</p>
+<h3 id="删除空格"><a href="#删除空格" class="headerlink" title="删除空格"></a>删除空格</h3><p>LTRIM(s)返回字符串s，字符串左侧空格字符被删除。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> CONCAT(<span class="string">&#x27;(&#x27;</span>,LTRIM(<span class="string">&#x27;   BOOK    &#x27;</span>),<span class="string">&#x27;)&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>RTRIM(s)返回字符串s，字符串右侧空格字符被删除。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> CONCAT(<span class="string">&#x27;(&#x27;</span>,RTRIM(<span class="string">&#x27;   BOOK    &#x27;</span>),<span class="string">&#x27;)&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>TRIM(s1 FROM s)删除字符串s中两端所有的子字符串s1。s1为可选项，在未指定情况下，删除空格。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> CONCAT(<span class="string">&#x27;(&#x27;</span>,<span class="built_in">TRIM</span>(<span class="string">&#x27;  BOOK  &#x27;</span>),<span class="string">&#x27;)&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>从结果中可以看出当未指定参数s时，删除了 两端的空格。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">TRIM</span>(<span class="string">&#x27;123&#x27;</span> <span class="keyword">FROM</span> <span class="string">&#x27;1234512345123&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>从结果可以看出函数删除了两端的重复字符串123，并没有删除中间的重复字符串</p>
+<h3 id="替换函数"><a href="#替换函数" class="headerlink" title="替换函数"></a>替换函数</h3><p>REPLACE(s,s1,s2)使用字符串s2替代字符串s中所有的字符串s1。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> REPLACE(<span class="string">&#x27;xxx.bytecollege.cn&#x27;</span>,<span class="string">&#x27;x&#x27;</span>,<span class="string">&#x27;w&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>REPLACE()函数将字符串中的”x”，全部替换成了”w”;</p>
+<h3 id="截取字符串"><a href="#截取字符串" class="headerlink" title="截取字符串"></a>截取字符串</h3><p>SUBSTRING(s,n,len)带有len参数的格式，从字符串s返回一个长度与len字符相同的子字符串，起始于位置n。也可能对n使用一个负值。假若这样，则子字符串的位置起始于字符串结尾的n字符，即倒数第n个字符，而不是字符串的开头位置。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">SUBSTRING</span>(<span class="string">&#x27;HELLOWORLD&#x27;</span>,<span class="number">5</span>),<span class="built_in">SUBSTRING</span>(<span class="string">&#x27;HELLOWORLD&#x27;</span>,<span class="number">2</span>,<span class="number">5</span>),<span class="built_in">SUBSTRING</span>(<span class="string">&#x27;HELLO&#x27;</span>,<span class="number">-3</span>),<span class="built_in">SUBSTRING</span>(<span class="string">&#x27;HELLOWORLD&#x27;</span>,<span class="number">-3</span>,<span class="number">2</span>);</span><br></pre></td></tr></table></figure>
+
+<p>MID(s,n,len)与SUBSTRING(s,n,len)的作用相同。<br>如果对len使用的是一个小于1的值，则结果始终为空字符串。</p>
+<h3 id="字符串逆序"><a href="#字符串逆序" class="headerlink" title="字符串逆序"></a>字符串逆序</h3><p>REVERSE(s)将字符串s反转，返回的字符串的顺序和s字符串顺序相反。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> REVERSE(<span class="string">&#x27;HELLO&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="日期和时间函数"><a href="#日期和时间函数" class="headerlink" title="日期和时间函数"></a>日期和时间函数</h2><p>日期和时间函数主要用来处理日期和时间值，一般的日期函数除了使用DATE类型的参数外，也可以使用DATETIME或者TIMESTAMP类型的参数，但会忽略这些值的时间部分。相同的，以TIME类型值为参数的函数，可以接受TIMESTAMP类型的参数，但会忽略日期部分，许多日期函数可以同时接受数字和字符串类型的两种参数，本节将介绍各种日期和时间函数的功能和用法。</p>
+<h3 id="获取当前日期"><a href="#获取当前日期" class="headerlink" title="获取当前日期"></a>获取当前日期</h3><p>CURDATE()和CURRENT_DATE()函数的作用相同，将当前日期按照‘YYYY-MM-DD’或YYYYMMDD格式的值返回</p>
+<h3 id="获取当前时间"><a href="#获取当前时间" class="headerlink" title="获取当前时间"></a>获取当前时间</h3><p>CURRENT_TIMESTAMP()、LOCALTIME()、NOW()和SYSDATE() 4个函数的作用相同，均返回当前日期和时间值，格式为‘YYYY-MM-DD HH:MM:SS’或YYYYMMDDHHMMSS</p>
+<h3 id="获取月份"><a href="#获取月份" class="headerlink" title="获取月份"></a>获取月份</h3><p>MONTH(date)函数返回date对应的月份，范围值为1~12。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">MONTH</span>(<span class="string">&#x27;2020-02-13&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="获取星期"><a href="#获取星期" class="headerlink" title="获取星期"></a>获取星期</h3><p>WEEK(d)计算日期d是一年中的第几周，取值范围是0-52；按周日为第一天。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> WEEK(<span class="string">&#x27;2018-02-11&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>WEEKOFYEAR(d)计算某天位于一年中的第几周，范围是1~53，周一为第一天。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span>  WEEKOFYEAR(<span class="string">&#x27;2018-02-11&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="获取天数"><a href="#获取天数" class="headerlink" title="获取天数"></a>获取天数</h3><p>DAYOFYEAR(d)函数返回d是一年中的第几天，范围是1~366。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> DAYOFYEAR(<span class="string">&#x27;2018-02-11&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>DAYOFMONTH(d)函数返回是d时间月份中的第几天。</p>
+<h3 id="获取年份、小时、分钟和秒钟的函数"><a href="#获取年份、小时、分钟和秒钟的函数" class="headerlink" title="获取年份、小时、分钟和秒钟的函数"></a>获取年份、小时、分钟和秒钟的函数</h3><p>YEAR(date)返回date对应的年份，范围是1970~2069。</p>
+<p>HOUR(time)返回time对应的小时，范围是0-23；</p>
+<p>MINUTE(time)返回time对应的分钟数，范围是0~59。</p>
+<p>SECOND(time)返回time对应的秒数，范围是0~59。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">YEAR</span>(<span class="string">&#x27;2018-02-11 10:11:11&#x27;</span>),<span class="keyword">MINUTE</span>(<span class="string">&#x27;2018-02-11 10:11:11&#x27;</span>),<span class="keyword">SECOND</span>(<span class="string">&#x27;2018-02-11 10:11:11&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="计算日期和时间的函数"><a href="#计算日期和时间的函数" class="headerlink" title="计算日期和时间的函数"></a>计算日期和时间的函数</h3><p>计算日期和时间的函数有DATE_ADD()、ADDDATE()、DATE_SUB()、SUBDATE()、ADDTIME()</p>
+<p>在DATE_ADD(date,INTERVAL expr type)和DATE_SUB(date,INTERVAL exprtype)中，date是一个DATETIME或DATE值，用来指定起始时间。expr是一个表达式，用来指定从起始日期添加或减去的时间间隔值。对于负值的时间间隔，expr可以以一个负号‘-’开头。type为关键词，指示了表达式被解释的方式。</p>
+<h3 id="将日期和时间格式化的函数"><a href="#将日期和时间格式化的函数" class="headerlink" title="将日期和时间格式化的函数"></a>将日期和时间格式化的函数</h3><p>DATE_FORMAT(date,format)根据format指定的格式显示date值，主要format格式如表</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> DATE_FORMAT(NOW(),<span class="string">&#x27;%Y-%m-%d %H:%i:%s&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="条件判断函数"><a href="#条件判断函数" class="headerlink" title="条件判断函数"></a>条件判断函数</h2><p>条件判断函数也称为控制流程函数，根据满足的不同条件，执行相应的流程。MySQL中进行条件判断的函数有IF、IFNULL和CASE。本节将分别介绍各个函数的用法。</p>
+<h3 id="IF-expr-v1-v2-函数"><a href="#IF-expr-v1-v2-函数" class="headerlink" title="IF(expr,v1,v2)函数"></a>IF(expr,v1,v2)函数</h3><p>IF(expr, v1, v2)：如果表达式expr是TRUE(expr &lt;&gt; 0 and expr &lt;&gt; NULL)，则返回值为v1；否则返回值为v2。IF()的返回值为数字值或字符串值</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> IF(<span class="number">1</span><span class="operator">&gt;</span><span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>),IF(<span class="number">1</span><span class="operator">&lt;</span><span class="number">2</span>,<span class="string">&#x27;YES&#x27;</span>,<span class="string">&#x27;NO&#x27;</span>),IF(<span class="string">&#x27;TEST&#x27;</span><span class="operator">=</span><span class="string">&#x27;TEST1&#x27;</span>,<span class="string">&#x27;YES&#x27;</span>,<span class="string">&#x27;NO&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="IFNULL-v1-v2-函数"><a href="#IFNULL-v1-v2-函数" class="headerlink" title="IFNULL(v1,v2)函数"></a>IFNULL(v1,v2)函数</h3><p>IFNULL(v1,v2)：假如v1不为NULL，则IFNULL()的返回值为v1；否则其返回值为v2。IFNULL()的返回值是数字或者字符串根据实际情况决定</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> IFNULL(<span class="number">1</span>,<span class="number">10</span>),IFNULL(<span class="keyword">NULL</span>,<span class="number">10</span>),IF(<span class="number">1</span><span class="operator">/</span><span class="number">0</span>,<span class="string">&#x27;WRONG&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>IFNULL(1,2)虽然第二个值也不为空，但返回结果依然是第一个值；IFNULL(NULL,10)第一个值为空，因此返回10；“1&#x2F;0”的结果为空，因此IFNULL(1&#x2F;0, ‘wrong’)返回字符串“wrong”。</p>
+<h3 id="CASE函数"><a href="#CASE函数" class="headerlink" title="CASE函数"></a>CASE函数</h3><p>CASE expr WHEN v1 THEN r1 [WHEN v2 THEN r2]…[ELSE rn+1] END：如果expr值等于某个vn，则返回对应位置THEN后面的结果；如果与所有值都不相等，则返回ELSE后面的rn+1。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">CASE</span> <span class="number">2</span> <span class="keyword">WHEN</span> <span class="number">1</span> <span class="keyword">THEN</span> <span class="string">&#x27;一&#x27;</span> <span class="keyword">WHEN</span> <span class="number">2</span> <span class="keyword">THEN</span> <span class="string">&#x27;二&#x27;</span> <span class="keyword">ELSE</span> <span class="string">&#x27;WRONG&#x27;</span> <span class="keyword">END</span>;</span><br></pre></td></tr></table></figure>
+
+<p>CASE后面的值为2，与第二条分支语句WHEN后面的值相等，因此返回结果为“二”。CASE　WHEN v1 THEN r1 [WHEN v2 THEN r2]… ELSE rn+1] END：某个vn值为TRUE时，返回对应位置THEN后面的结果；如果所有值都不为TRUE，则返回ELSE后的rn+1</p>
+<h2 id="系统信息函数"><a href="#系统信息函数" class="headerlink" title="系统信息函数"></a>系统信息函数</h2><h3 id="获取MySQL版本号、连接数和数据库名的函数"><a href="#获取MySQL版本号、连接数和数据库名的函数" class="headerlink" title="获取MySQL版本号、连接数和数据库名的函数"></a>获取MySQL版本号、连接数和数据库名的函数</h3><p>VERSION()返回指示MySQL服务器版本的字符串</p>
+<p>CONNECTION_ID()返回MySQL服务器当前连接的次数，每个连接都有各自唯一的ID。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> VERSION(),CONNECTION_ID();</span><br></pre></td></tr></table></figure>
+
+<h3 id="获取用户名的函数"><a href="#获取用户名的函数" class="headerlink" title="获取用户名的函数"></a>获取用户名的函数</h3><p>USER()、CURRENT_USER()、SYSTEM_USER()和SESSION_USER()这几个函数返回当前被MySQL服务器验证的用户名和主机名组合。这个值符合确定当前登录用户存取权限的MySQL账户。一般情况下，这几个函数的返回值是相同的。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">USER</span>(),<span class="built_in">CURRENT_USER</span>(),<span class="built_in">SYSTEM_USER</span>();</span><br></pre></td></tr></table></figure>
+
+<h3 id="获取字符串的字符集"><a href="#获取字符串的字符集" class="headerlink" title="获取字符串的字符集"></a>获取字符串的字符集</h3><p>CHARSET(str)返回字符串str自变量的字符集。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> CHARSET(<span class="string">&#x27;ABC&#x27;</span>),CHARSET(VERSION());</span><br></pre></td></tr></table></figure>
+
+<h3 id="获取最后一个自动生成的ID值的函数"><a href="#获取最后一个自动生成的ID值的函数" class="headerlink" title="获取最后一个自动生成的ID值的函数"></a>获取最后一个自动生成的ID值的函数</h3><p>LAST_INSERT_ID()函数返回最后生成的AUTO_INCREMENT值。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> STUDENT(</span><br><span class="line">	ID <span class="type">INT</span> <span class="keyword">PRIMARY</span> KEY AUTO_INCREMENT,</span><br><span class="line">  NAME <span class="type">VARCHAR</span>(<span class="number">20</span>)</span><br><span class="line">)</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> STUDENT (NAME) <span class="keyword">VALUES</span> (<span class="string">&#x27;张三&#x27;</span>);</span><br><span class="line"><span class="keyword">SELECT</span> LAST_INSERT_ID();</span><br></pre></td></tr></table></figure>
+
+<p>查看已经插入的数据可以发现，最后一条插入的记录的Id字段值为2，使用LAST_INSERT_ID()查看最后自动生成的Id值：</p>
+<h2 id="加密函数"><a href="#加密函数" class="headerlink" title="加密函数"></a>加密函数</h2><p>加密函数主要用来对数据进行加密和界面处理，以保证某些重要数据不被别人获取。这些函数在保证数据库安全时非常有用。本节将介绍各种加密函数的作用和使用方法。</p>
+<h3 id="加密函数MD5-str"><a href="#加密函数MD5-str" class="headerlink" title="加密函数MD5(str)"></a>加密函数MD5(str)</h3><p>MD5(str)为字符串算出一个MD5 128比特校验和。该值以32位十六进制数字的二进制字符串形式返回，若参数为NULL，则会返回NULL。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> MD5(<span class="string">&#x27;ADMIN&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="加密函数SHA-str"><a href="#加密函数SHA-str" class="headerlink" title="加密函数SHA(str)"></a>加密函数SHA(str)</h3><p>SHA(str)从原明文密码str计算并返回加密后的密码字符串，当参数为NULL时，返回NULL。SHA加密算法比MD5更加安全。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> SHA(<span class="string">&#x27;ADMIN&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+]]></content>
+  </entry>
+  <entry>
+    <title>Sql代码练习</title>
+    <url>/2022/09/09/Sql%E4%BB%A3%E7%A0%81%E7%BB%83%E4%B9%A0/</url>
+    <content><![CDATA[<p><img src="https://files.catbox.moe/vakrmb.png"></p>
+<span id="more"></span>
+
+<h1 id="SQL题一"><a href="#SQL题一" class="headerlink" title="SQL题一"></a>SQL题一</h1><h5 id="表字段"><a href="#表字段" class="headerlink" title="表字段"></a>表字段</h5><ol>
+<li><p>学生表<br>Student(SId,Sname,Sage,Ssex)</p>
+<p>SId 学生编号,<br>Sname 学生姓名,<br>Sage 出生年月,<br>Ssex 学生性别</p>
+</li>
+<li><p>课程表<br>Course(CId,Cname,TId)</p>
+<p>CId 课程编号,</p>
+<p>Cname 课程名称,</p>
+</li>
+<li><p>教师表<br>Teacher(TId,Tname)</p>
+<p>TId 教师编号,<br>Tname 教师姓名</p>
+</li>
+<li><p>成绩表<br>SC(SId,CId,score)</p>
+<p>SId 学生编号,CId 课程编号,<br>score 分数</p>
+</li>
+</ol>
+<h5 id="初始化数据"><a href="#初始化数据" class="headerlink" title="初始化数据"></a>初始化数据</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">create table Student(SId varchar2(10),Sname varchar2(10),Sage date,Ssex varchar2(10));</span><br><span class="line">insert into Student values(&#x27;01&#x27; , &#x27;赵雷&#x27; , to_date(&#x27;1990-01-01&#x27;,&#x27;YYYY-MM-DD&#x27;) , &#x27;男&#x27;);</span><br><span class="line">insert into Student values(&#x27;02&#x27; , &#x27;钱电&#x27; , to_date(&#x27;1990-12-21&#x27;,&#x27;YYYY-MM-DD&#x27;) , &#x27;男&#x27;);</span><br><span class="line">insert into Student values(&#x27;03&#x27; , &#x27;孙风&#x27; , to_date(&#x27;1990-12-20&#x27;,&#x27;YYYY-MM-DD&#x27;) , &#x27;男&#x27;);</span><br><span class="line">insert into Student values(&#x27;04&#x27; , &#x27;李云&#x27; , to_date(&#x27;1990-12-06&#x27;,&#x27;YYYY-MM-DD&#x27;) , &#x27;男&#x27;);</span><br><span class="line">insert into Student values(&#x27;05&#x27; , &#x27;周梅&#x27; , to_date(&#x27;1991-12-01&#x27;,&#x27;YYYY-MM-DD&#x27;) , &#x27;女&#x27;);</span><br><span class="line">insert into Student values(&#x27;06&#x27; , &#x27;吴兰&#x27; , to_date(&#x27;1992-01-01&#x27;,&#x27;YYYY-MM-DD&#x27;) , &#x27;女&#x27;);</span><br><span class="line">insert into Student values(&#x27;07&#x27; , &#x27;郑竹&#x27; , to_date(&#x27;1989-01-01&#x27;,&#x27;YYYY-MM-DD&#x27;) , &#x27;女&#x27;);</span><br><span class="line">insert into Student values(&#x27;09&#x27; , &#x27;张三&#x27; , to_date(&#x27;2017-12-20&#x27;,&#x27;YYYY-MM-DD&#x27;) , &#x27;女&#x27;);</span><br><span class="line">insert into Student values(&#x27;10&#x27; , &#x27;李四&#x27; , to_date(&#x27;2017-12-25&#x27;,&#x27;YYYY-MM-DD&#x27;) , &#x27;女&#x27;);</span><br><span class="line">insert into Student values(&#x27;11&#x27; , &#x27;李四&#x27; , to_date(&#x27;2012-06-06&#x27;,&#x27;YYYY-MM-DD&#x27;) , &#x27;女&#x27;);</span><br><span class="line">insert into Student values(&#x27;12&#x27; , &#x27;赵六&#x27; , to_date(&#x27;2013-06-13&#x27;,&#x27;YYYY-MM-DD&#x27;) , &#x27;女&#x27;);</span><br><span class="line">insert into Student values(&#x27;13&#x27; , &#x27;孙七&#x27; , to_date(&#x27;2014-06-01&#x27;,&#x27;YYYY-MM-DD&#x27;) , &#x27;女&#x27;);</span><br><span class="line"></span><br><span class="line">create table Course(CId varchar2(10),Cname varchar2(10),TId varchar2(10));</span><br><span class="line">insert into Course values(&#x27;01&#x27; , &#x27;语文&#x27; , &#x27;02&#x27;);</span><br><span class="line">insert into Course values(&#x27;02&#x27; , &#x27;数学&#x27; , &#x27;01&#x27;);</span><br><span class="line">insert into Course values(&#x27;03&#x27; , &#x27;英语&#x27; , &#x27;03&#x27;);</span><br><span class="line"></span><br><span class="line">create table Teacher(TId varchar2(10),Tname varchar2(10));</span><br><span class="line">insert into Teacher values(&#x27;01&#x27; , &#x27;张三&#x27;);</span><br><span class="line">insert into Teacher values(&#x27;02&#x27; , &#x27;李四&#x27;);</span><br><span class="line">insert into Teacher values(&#x27;03&#x27; , &#x27;王五&#x27;);</span><br><span class="line"></span><br><span class="line">create table SC(SId varchar2(10),CId varchar2(10),score NUMBER(18,1));</span><br><span class="line">insert into SC values(&#x27;01&#x27; , &#x27;01&#x27; , 80);</span><br><span class="line">insert into SC values(&#x27;01&#x27; , &#x27;02&#x27; , 90);</span><br><span class="line">insert into SC values(&#x27;01&#x27; , &#x27;03&#x27; , 99);</span><br><span class="line">insert into SC values(&#x27;02&#x27; , &#x27;01&#x27; , 70);</span><br><span class="line">insert into SC values(&#x27;02&#x27; , &#x27;02&#x27; , 60);</span><br><span class="line">insert into SC values(&#x27;02&#x27; , &#x27;03&#x27; , 80);</span><br><span class="line">insert into SC values(&#x27;03&#x27; , &#x27;01&#x27; , 80);</span><br><span class="line">insert into SC values(&#x27;03&#x27; , &#x27;02&#x27; , 80);</span><br><span class="line">insert into SC values(&#x27;03&#x27; , &#x27;03&#x27; , 80);</span><br><span class="line">insert into SC values(&#x27;04&#x27; , &#x27;01&#x27; , 50);</span><br><span class="line">insert into SC values(&#x27;04&#x27; , &#x27;02&#x27; , 30);</span><br><span class="line">insert into SC values(&#x27;04&#x27; , &#x27;03&#x27; , 20);</span><br><span class="line">insert into SC values(&#x27;05&#x27; , &#x27;01&#x27; , 76);</span><br><span class="line">insert into SC values(&#x27;05&#x27; , &#x27;02&#x27; , 87);</span><br><span class="line">insert into SC values(&#x27;06&#x27; , &#x27;01&#x27; , 31);</span><br><span class="line">insert into SC values(&#x27;06&#x27; , &#x27;03&#x27; , 34);</span><br><span class="line">insert into SC values(&#x27;07&#x27; , &#x27;02&#x27; , 89);</span><br><span class="line">insert into SC values(&#x27;07&#x27; , &#x27;03&#x27; , 98);</span><br></pre></td></tr></table></figure>
+
+<h5 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">--1查询&quot; 01 &quot;课程比&quot; 02 &quot;课程成绩高的学生的信息及课程分数</span><br><span class="line">--2.查询同时存在&quot; 01 &quot;课程和&quot; 02 &quot;课程的情况</span><br><span class="line">--3.查询存在&quot; 01 &quot;课程但可能不存在&quot; 02 &quot;课程的情况(不存在时显示为 </span><br><span class="line">--4.查询不存在&quot; 01 &quot;课程但存在&quot; 02 &quot;课程的情况(考了02但是没考01)</span><br><span class="line">--5.查询平均成绩大于等于 60 分的同学的学生编号和学生姓名和平均成绩</span><br><span class="line">--6.查询在 SC 表存在成绩的学生信息</span><br><span class="line">--7.查询所有同学的学生编号、学生姓名、选课总数、所有课程的总成绩(没成绩的显示为 null )</span><br><span class="line">--8.查有成绩的学生信息</span><br><span class="line">--9.查询「李」姓老师的数量</span><br><span class="line">--10.查询学过「张三」老师授课的同学的信息</span><br><span class="line">	--1.TEACHER表中查询出张三老师的TID    </span><br><span class="line">	--2.COURSE表中根据1中的TID查询出张老师的CID</span><br><span class="line">	--3.SC表中查询出有CID = 2的同学SID</span><br><span class="line">	--4.STUDENT表中查询学生信息</span><br><span class="line">--11.查询没有学全所有课程的同学的信息</span><br><span class="line">	--1.获取所有的课程数量</span><br><span class="line">	--2.根据SID分组，并统计每个学生学习的课程数</span><br><span class="line">	--3.分组后筛选，课程数小于总课程数的同学</span><br><span class="line">--12.查询至少有一门课与学号为&quot; 01 &quot;的同学所学相同的同学的信息</span><br><span class="line">	--1.先查询出01同学学了的课</span><br><span class="line">	--2.找出和01同学学相同课的同学</span><br><span class="line">--13.查询和&quot; 01 &quot;号的同学学习的课程完全相同的其他同学的信息</span><br><span class="line">    --1.查询01同学的所有的课程</span><br><span class="line">    --2.查询课程和01同学所有课程都一样的同学SID</span><br><span class="line">    --3.查询学生信息</span><br><span class="line">--13.查询和&quot; 05 &quot;号的同学学习的课程完全相同的其他同学的信息</span><br><span class="line">    --1查学生5的所学科目</span><br><span class="line">    --2查找和5所学科目不相等的SID</span><br><span class="line">    --3在2的基础上not in排除和5不是相同科目的学生</span><br><span class="line">--14.查询没学过&quot;张三&quot;老师讲授的任一门课程的学生姓名</span><br><span class="line">--15.查询两门及其以上不及格课程的同学的学号，姓名及其平均成绩</span><br><span class="line">--15.查询出同学所有成绩的平均值，然后筛选出有两门及以上不及格</span><br><span class="line">--16.检索&quot; 01 &quot;课程分数小于 60，按分数降序排列的学生信息</span><br><span class="line">--17.按平均成绩从高到低显示所有学生的所有课程的成绩以及平均成绩</span><br><span class="line">--18.查询各科成绩最高分、最低分和平均分</span><br><span class="line">--如下形式显示：课程 ID，课程 name，最高分，最低分，平均分，及格率，中等率，优良率</span><br><span class="line">--优秀率及格为&gt;=60，</span><br><span class="line">--中等为：70-80，</span><br><span class="line">--优良为：80-90，</span><br><span class="line">--优秀为：&gt;=90</span><br><span class="line">--要求输出课程号和选修人数，查询结果按人数降序排列，若人数相同，按课程号升序排列</span><br><span class="line"></span><br><span class="line">--及格率</span><br><span class="line"></span><br><span class="line">--中等率</span><br><span class="line"></span><br><span class="line">--优良率</span><br><span class="line"></span><br><span class="line">--优秀率</span><br><span class="line"></span><br><span class="line">--19.按各科成绩进行排序，并显示排名， Score 重复时保留名次空缺</span><br><span class="line">--语文成绩排序</span><br><span class="line"></span><br><span class="line">--数学</span><br><span class="line"></span><br><span class="line">--英语</span><br><span class="line"> </span><br><span class="line">--20.按各科成绩进行排序，并显示排名， Score 重复时合并名次</span><br><span class="line">--21.查询学生的总成绩，并进行排名，总分重复时保留名次空缺</span><br><span class="line">--22.查询学生的总成绩，并进行排名，总分重复时不保留名次空缺</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">--缓冲区</span><br><span class="line">SELECT MAX(SCORE),MIN(SCORE),AVG(SCORE) FROM SC GROUP BY CID;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>统计各科成绩各分数段人数：课程编号，课程名称，[100-85]，[85-70]，[70-60]，[60-0] 及所占百分比<ol>
+<li>查询各科成绩前三名的记录<br>.	查询每门课程被选修的学生数<br>.	查询出只选修两门课程的学生学号和姓名<br>.	查询男生、女生人数<br>.	查询名字中含有「风」字的学生信息<br>.	查询同名同性学生名单，并统计同名人数<br>.	查询 1990 年出生的学生名单<br>.	查询每门课程的平均成绩，结果按平均成绩降序排列，平均成绩相同时，按课程编号升序排列<br>.	查询平均成绩大于等于 85 的所有学生的学号、姓名和平均成绩<br>.	查询课程名称为「数学」，且分数低于 60 的学生姓名和分数<br>.	查询所有学生的课程及分数情况（存在学生没成绩，没选课的情况）<br>.	查询任何一门课程成绩在 70 分以上的姓名、课程名称和分数<br>.	查询不及格的课程<br>.	查询课程编号为 01 且课程成绩在 80 分以上的学生的学号和姓名<br>.	求每门课程的学生人数<br>.	成绩不重复，查询选修「张三」老师所授课程的学生中，成绩最高的学生信息及其成绩<br>.	成绩有重复的情况下，查询选修「张三」老师所授课程的学生中，成绩最高的学生信息及其成绩<br>.	查询不同课程成绩相同的学生的学生编号、课程编号、学生成绩<br>.	查询每门功成绩最好的前两名<br>.	统计每门课程的学生选修人数（超过 5 人的课程才统计）。<br>.	检索至少选修两门课程的学生学号<br>.	查询选修了全部课程的学生信息<br>.	查询各学生的年龄，只按年份来算<br>.	按照出生日期来算，当前月日 &lt; 出生年月的月日则，年龄减一<br>.	查询本周过生日的学生<br>.	查询下周过生日的学生<br>.	查询本月过生日的学生<br>.	查询下月过生日的学生</li>
+</ol>
+</li>
+</ol>
+<h1 id="SQL题二"><a href="#SQL题二" class="headerlink" title="SQL题二"></a>SQL题二</h1><h5 id="初始化数据-1"><a href="#初始化数据-1" class="headerlink" title="初始化数据"></a>初始化数据</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">--班级表</span><br><span class="line">--classid 班级id</span><br><span class="line">--classname 班级名称</span><br><span class="line">create table class          </span><br><span class="line">(</span><br><span class="line">	classid number(5),</span><br><span class="line">	classname varchar2(20)</span><br><span class="line">)</span><br><span class="line">insert into class values(1,&#x27;G1T01&#x27;);</span><br><span class="line">insert into class values(2,&#x27;G1T02&#x27;);</span><br><span class="line">insert into class values(3,&#x27;G1T03&#x27;);</span><br><span class="line">insert into class values(4,&#x27;G1T04&#x27;);</span><br><span class="line">insert into class values(5,&#x27;G1T05&#x27;);</span><br><span class="line">insert into class values(6,&#x27;G1T06&#x27;);</span><br><span class="line">insert into class values(7,&#x27;G1T07&#x27;);</span><br><span class="line">--学生表</span><br><span class="line">--studentid 学生ID</span><br><span class="line">--studentname 学生姓名</span><br><span class="line">--studentage 学生年龄</span><br><span class="line">--studentsex 学生性别</span><br><span class="line">--studentaddress 学生地址</span><br><span class="line">--classid 学生id</span><br><span class="line">create table student</span><br><span class="line">(</span><br><span class="line">	studentid varchar2(20) ,</span><br><span class="line">	studentname varchar2(20),</span><br><span class="line">	studentage number(5),</span><br><span class="line">	studentsex char(10),</span><br><span class="line">	studentaddress varchar2(50),</span><br><span class="line">	classid number(5)</span><br><span class="line">)</span><br><span class="line">insert into student values(&#x27;2010001&#x27;,&#x27;Jack&#x27;,21,&#x27;男&#x27;,&#x27;湖北襄樊&#x27;,1);  </span><br><span class="line">insert into student values(&#x27;2010002&#x27;,&#x27;Scott&#x27;,22,&#x27;男&#x27;,&#x27;湖北武汉&#x27;,2);  </span><br><span class="line">insert into student values(&#x27;2010003&#x27;,&#x27;Lucy&#x27;,23,&#x27;女&#x27;,&#x27;湖北武汉&#x27;,3);   </span><br><span class="line">insert into student values(&#x27;2010004&#x27;,&#x27;Alan&#x27;,19,&#x27;女&#x27;,&#x27;湖北襄樊&#x27;,4);   </span><br><span class="line">insert into student values(&#x27;2010005&#x27;,&#x27;Bill&#x27;,20,&#x27;男&#x27;,&#x27;湖北襄樊&#x27;,5);   </span><br><span class="line">insert into student values(&#x27;2010006&#x27;,&#x27;Bob&#x27;,21,&#x27;男&#x27;,&#x27;湖北宜昌&#x27;,6);    </span><br><span class="line">insert into student values(&#x27;2010007&#x27;,&#x27;Colin&#x27;,22,&#x27;女&#x27;,&#x27;湖北襄樊&#x27;,6);</span><br><span class="line">insert into student values(&#x27;2010008&#x27;,&#x27;Fred&#x27;,19,&#x27;男&#x27;,&#x27;湖北宜昌&#x27;,5);</span><br><span class="line">insert into student values(&#x27;2010009&#x27;,&#x27;Hunk&#x27;,19,&#x27;男&#x27;,&#x27;湖北武汉&#x27;,4);</span><br><span class="line">insert into student values(&#x27;2010010&#x27;,&#x27;Jim&#x27;,18,&#x27;男&#x27;,&#x27;湖北襄樊&#x27;,3);</span><br><span class="line">--计算机课成绩</span><br><span class="line">--studentid 学生id</span><br><span class="line">--score 学生成绩</span><br><span class="line">create table computer</span><br><span class="line">(</span><br><span class="line">	studentid varchar2(20),</span><br><span class="line">	score number(3,1)</span><br><span class="line">)</span><br><span class="line">insert into computer values(&#x27;2010001&#x27;,90);</span><br><span class="line">insert into computer values(&#x27;2010002&#x27;,80);</span><br><span class="line">insert into computer values(&#x27;2010003&#x27;,70);</span><br><span class="line">insert into computer values(&#x27;2010004&#x27;,60);</span><br><span class="line">insert into computer values(&#x27;2010005&#x27;,75);</span><br><span class="line">insert into computer values(&#x27;2010006&#x27;,85);</span><br><span class="line">insert into computer values(&#x27;2010007&#x27;,70);</span><br><span class="line">insert into computer values(&#x27;2010008&#x27;,60);</span><br><span class="line">insert into computer values(&#x27;2010009&#x27;,75);</span><br><span class="line">insert into computer values(&#x27;2010010&#x27;,85);</span><br><span class="line"></span><br><span class="line">select * from class;</span><br><span class="line">select * from computer;</span><br><span class="line">select * from student;</span><br></pre></td></tr></table></figure>
+
+<p>题目</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">--1查询出学生的编号，姓名，计算机成绩</span><br><span class="line"></span><br><span class="line">--2查询参加过考试的学生信息</span><br><span class="line"></span><br><span class="line">--3查询出学生的编号、姓名、所在班级名称、计算机成绩</span><br><span class="line"></span><br><span class="line">--4查询出年龄大于19岁的学生编号、姓名、计算机成绩</span><br><span class="line"></span><br><span class="line">--5查询出姓名中包含有c的学生编号、姓名、计算机成绩</span><br><span class="line"></span><br><span class="line">--6查询出计算机成绩大于80分的学生编号、姓名、班级名称</span><br><span class="line"></span><br><span class="line">--7查询出所有学生的信息和计算机成绩信息</span><br><span class="line"></span><br><span class="line">--8查询出每个班的学生的计算机成绩的平均分，最高分，最低分</span><br><span class="line"></span><br><span class="line">--9查询显示出班级的计算机平均分大于80的班级名称、平均分信息，并按照平均分降序显示</span><br><span class="line"></span><br><span class="line">--10查询出和Jim住在同一个地方的学生的基本信息</span><br><span class="line"></span><br><span class="line">--11查询出班级编号大于3的学生基本信息</span><br><span class="line"></span><br><span class="line">--12查询出班级编号大于3的学生的计算机平均分信息  </span><br><span class="line"></span><br><span class="line">--13查询出班级编号大于3的男生的学生信息</span><br><span class="line"></span><br><span class="line">--14查询男、女生的计算机平均成绩、最高分、最低分</span><br><span class="line"></span><br><span class="line">--15将参加过考试的学生的年龄更改为20</span><br><span class="line"></span><br><span class="line">--16查询出每个班级的学生的平均分（查询的结果中包含平均分和班级名称）</span><br><span class="line"></span><br><span class="line">--17删除姓名包含“c”字符的学生计算机成绩</span><br><span class="line"></span><br><span class="line">--18查询出G1T07班学生的编号、姓名、班级名称、计算机成绩</span><br><span class="line"></span><br><span class="line">--19查询出年龄在20-25之间的学生的编号、姓名、年龄、计算机成绩</span><br><span class="line"></span><br><span class="line">--20查询出成绩最高的学生的编号、姓名、计算机成绩、所在班级名称</span><br><span class="line">--先查询最大值</span><br><span class="line">--再查询最大值的学生ID</span><br><span class="line"></span><br><span class="line">--21查询统计出每个班的平均分、显示平均分超过70分的信息、并按照降序显示信息</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
 ]]></content>
   </entry>
 </search>
