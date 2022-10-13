@@ -23,19 +23,17 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"airui520.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":"true`","version":"8.12.1","exturl":false,"sidebar":{"position":"left","width":300,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="Spring事务管理数据库事务（Database Transaction）是指将一系列数据库操作当作一个逻辑处理单元的操作，这个单元中的数据库操作要么完全执行，要么完全不执行。通过将一组相关操作组合为一个逻辑处理单元，可以简化错误恢复，并使应用程序更加可靠。 事务的特性一个逻辑处理单元要成为事务，必须满足ACID（原子性、一致性、隔离性和持久性）属性。所谓的ACID含义如下。●原子性（Atomi">
-<meta property="og:type" content="blog">
+    <meta property="og:type" content="blog">
 <meta property="og:title" content="Spring事务管理">
 <meta property="og:url" content="https://airui520.github.io/2022/10/13/Spring%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86/index.html">
 <meta property="og:site_name" content="Fei的博客">
-<meta property="og:description" content="Spring事务管理数据库事务（Database Transaction）是指将一系列数据库操作当作一个逻辑处理单元的操作，这个单元中的数据库操作要么完全执行，要么完全不执行。通过将一组相关操作组合为一个逻辑处理单元，可以简化错误恢复，并使应用程序更加可靠。 事务的特性一个逻辑处理单元要成为事务，必须满足ACID（原子性、一致性、隔离性和持久性）属性。所谓的ACID含义如下。●原子性（Atomi">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://files.catbox.moe/vakrmb.png">
 <meta property="og:image" content="https://files.catbox.moe/01etxl.png">
 <meta property="og:image" content="https://files.catbox.moe/j9unq4.png">
 <meta property="og:image" content="https://files.catbox.moe/o7czf7.png">
 <meta property="article:published_time" content="2022-10-13T07:30:17.000Z">
-<meta property="article:modified_time" content="2022-10-13T07:40:09.843Z">
+<meta property="article:modified_time" content="2022-10-13T07:42:09.571Z">
 <meta property="article:author" content="Fei">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://files.catbox.moe/vakrmb.png">
@@ -97,7 +95,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">69</span></a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">70</span></a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -169,7 +167,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">69</span>
+          <span class="site-state-item-count">70</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -263,7 +261,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-10-13 15:30:17 / 修改时间：15:40:09" itemprop="dateCreated datePublished" datetime="2022-10-13T15:30:17+08:00">2022-10-13</time>
+      <time title="创建时间：2022-10-13 15:30:17 / 修改时间：15:42:09" itemprop="dateCreated datePublished" datetime="2022-10-13T15:30:17+08:00">2022-10-13</time>
     </span>
 
   
@@ -292,6 +290,8 @@
     
     <div class="post-body" itemprop="articleBody">
         <p><img src="https://files.catbox.moe/vakrmb.png"></p>
+<span id="more"></span>
+
 <h1 id="Spring事务管理"><a href="#Spring事务管理" class="headerlink" title="Spring事务管理"></a>Spring事务管理</h1><p>数据库事务（Database Transaction）是指将一系列数据库操作当作一个逻辑处理单元的操作，这个单元中的数据库操作要么完全执行，要么完全不执行。通过将一组相关操作组合为一个逻辑处理单元，可以简化错误恢复，并使应用程序更加可靠。</p>
 <h2 id="事务的特性"><a href="#事务的特性" class="headerlink" title="事务的特性"></a>事务的特性</h2><p>一个逻辑处理单元要成为事务，必须满足ACID（原子性、一致性、隔离性和持久性）属性。所谓的ACID含义如下。<br>●原子性（Atomicity）：一个事务内的操作，要么全部执行成功，要么全部不成功。<br>●一致性（Consistency）：事务执行后，数据库状态与其他业务规则保持一致。如转账业务，无论事务执行成功与否，参与转账的两个账号余额之和应该是不变的。<br>●隔离性（Isolation）：每个事务独立运行。在并发环境中，并发的事务是互相隔离的，互不影响。<br>●持久性（Durability）：事务一旦提交后，数据库中的数据必须被永久地保存下来。</p>
 <h2 id="JDBC事务"><a href="#JDBC事务" class="headerlink" title="JDBC事务"></a>JDBC事务</h2><p>在Java基础的学习中可以知道JDBC事务通常通过Connection接口的方法来控制事务开始，事务提交以及事务回滚，下面，先通过简单的实例回顾JDBC事务。</p>
@@ -446,6 +446,9 @@
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/2022/10/13/Spring-MVC/" rel="next" title="Spring MVC">
+                  Spring MVC <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
           </div>
     </footer>
@@ -485,7 +488,7 @@
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">19:53</span>
+    <span title="站点阅读时长">20:15</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动

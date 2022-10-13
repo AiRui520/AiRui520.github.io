@@ -23,12 +23,10 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"airui520.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":"true`","version":"8.12.1","exturl":false,"sidebar":{"position":"left","width":300,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="Spring概览spring概述Spring是一个于2003年兴起的轻量级的Java开源开发框架，由Rod Johnson在其著作Expert One-On-One J2EE Development and Design中阐述的部分理念和原型衍生而来。Spring让开发人员有更多的精力投入到业务逻辑开发中，而不需要将其应用程序绑定到特定的部署环境，是为了降低企业应用开发的复杂性而创建的。可以把S">
-<meta property="og:type" content="blog">
+    <meta property="og:type" content="blog">
 <meta property="og:title" content="Spring IOC容器和DI依赖注入">
 <meta property="og:url" content="https://airui520.github.io/2022/10/11/Spring-IOC%E5%AE%B9%E5%99%A8%E5%92%8CDI%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/index.html">
 <meta property="og:site_name" content="Fei的博客">
-<meta property="og:description" content="Spring概览spring概述Spring是一个于2003年兴起的轻量级的Java开源开发框架，由Rod Johnson在其著作Expert One-On-One J2EE Development and Design中阐述的部分理念和原型衍生而来。Spring让开发人员有更多的精力投入到业务逻辑开发中，而不需要将其应用程序绑定到特定的部署环境，是为了降低企业应用开发的复杂性而创建的。可以把S">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://files.catbox.moe/vakrmb.png">
 <meta property="og:image" content="https://files.catbox.moe/gxwwgg.png">
@@ -37,7 +35,7 @@
 <meta property="og:image" content="https://files.catbox.moe/j8pr49.png">
 <meta property="og:image" content="https://files.catbox.moe/50cnqq.png">
 <meta property="article:published_time" content="2022-10-11T08:53:07.000Z">
-<meta property="article:modified_time" content="2022-10-13T07:12:07.629Z">
+<meta property="article:modified_time" content="2022-10-13T07:42:31.375Z">
 <meta property="article:author" content="Fei">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://files.catbox.moe/vakrmb.png">
@@ -99,7 +97,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">69</span></a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">70</span></a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -171,7 +169,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">69</span>
+          <span class="site-state-item-count">70</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -271,7 +269,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-10-13 15:12:07" itemprop="dateModified" datetime="2022-10-13T15:12:07+08:00">2022-10-13</time>
+      <time title="修改时间：2022-10-13 15:42:31" itemprop="dateModified" datetime="2022-10-13T15:42:31+08:00">2022-10-13</time>
     </span>
 
   
@@ -300,6 +298,8 @@
     
     <div class="post-body" itemprop="articleBody">
         <p><img src="https://files.catbox.moe/vakrmb.png"></p>
+<span id="more"></span>
+
 <h1 id="Spring概览"><a href="#Spring概览" class="headerlink" title="Spring概览"></a>Spring概览</h1><h2 id="spring概述"><a href="#spring概述" class="headerlink" title="spring概述"></a>spring概述</h2><p>Spring是一个于2003年兴起的轻量级的Java开源开发框架，由Rod Johnson在其著作Expert One-On-One J2EE Development and Design中阐述的部分理念和原型衍生而来。Spring让开发人员有更多的精力投入到业务逻辑开发中，而不需要将其应用程序绑定到特定的部署环境，是为了降低企业应用开发的复杂性而创建的。可以把Spring理解成一个大容器，这个容器可以整合现有的各种技术框架。Spring框架的主要优势是方便各种框架集成，降低了Java EE开发的难度。</p>
 <h2 id="Spring体系结构"><a href="#Spring体系结构" class="headerlink" title="Spring体系结构"></a>Spring体系结构</h2><p>Spring是一个大容器，可以集成各种技术。如图所示是Spring支持的各种技术。</p>
 <p><img src="https://files.catbox.moe/gxwwgg.png"></p>
@@ -856,7 +856,7 @@
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">19:53</span>
+    <span title="站点阅读时长">20:15</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
